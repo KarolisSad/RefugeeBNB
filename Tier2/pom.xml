@@ -8,6 +8,7 @@
         <version>2.7.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>via.sep3.group11</groupId>
     <artifactId>Tier2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -27,7 +28,15 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+        </dependency>
     </dependencies>
+
+
 
     <build>
         <plugins>
