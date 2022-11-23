@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public class test {
     public static void main(String[] args) throws ValidationException {
-        Host host = new Host("null", "hello@hello.dk", "123456", 'M', "Danish", Optional.of("Hello"), "Pedersen", new Date(), null);
+        new Date(29,2,2020);
     }
 }
