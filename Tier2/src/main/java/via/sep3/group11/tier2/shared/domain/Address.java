@@ -15,16 +15,14 @@ public class Address {
     private String houseNumber;
     private String roomNumber;
     private String postCode;
-    private Host host;
 
-    public Address(String country, String city, String streetName, String houseNumber, String roomNumber, String postCode, Host host) throws ValidationException {
+    public Address(String country, String city, String streetName, String houseNumber, String roomNumber, String postCode) throws ValidationException {
         setCountry(country);
         setCity(city);
         setStreetName(streetName);
         setHouseNumber(houseNumber);
         setRoomNumber(roomNumber);
         setPostCode(postCode);
-        this.host = host;
     }
 
     public long getAddressId() {
@@ -92,16 +90,4 @@ public class Address {
         SimpleValidateString(postCode, "Postcode");
         this.postCode = postCode;
     }
-
-    public Host getHost() {
-        return host;
-    }
-
-    public void setHost(Host host) {
-        if (host == null) {
-            throw new NullPointerException("Host should not be null.");
-        }
-        this.host = host;
-    }
-
 }

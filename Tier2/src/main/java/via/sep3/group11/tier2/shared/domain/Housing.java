@@ -6,9 +6,12 @@ public class Housing {
     private int capacity;
     private Address address;
 
-    public Housing(int capacity, Address address) {
+    private Host host;
+
+    public Housing(int capacity, Address address, Host host) {
         setCapacity(capacity);
         setAddress(address);
+        setHost(host);
     }
 
     public long getHousingId() {
@@ -39,5 +42,16 @@ public class Housing {
             throw new NullPointerException("Address should not be null!");
         }
         this.address = address;
+    }
+
+    public Host getHost() {
+        return host;
+    }
+
+    public void setHost(Host host) {
+        if (host == null) {
+            throw new NullPointerException("Host should not be null");
+        }
+        this.host = host;
     }
 }
