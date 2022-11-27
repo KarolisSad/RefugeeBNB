@@ -4,17 +4,42 @@ import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import java.util.Optional;
 
+/**
+ * Helper class used to validate various values.
+ * @version 27/11-2022
+ * @author Christian Hougaard Pedersen
+ */
 public class ValidationHelper {
 
+    /**
+     * Method used for validating a string representing a first name.
+     * Validation is done by calling the SimpleValidateString-method with the parameter, and the parameter name.
+     * @param firstName: The value to be validated.
+     * @throws ValidationException if the SimpleValidateString-method throws an exception.
+     */
     protected static void ValidateFirstName(String firstName) throws ValidationException {
         SimpleValidateString(firstName, "First name");
     }
 
+    /**
+     * Method used for validating a string representing a last name.
+     * Validation is done by calling the SimpleValidateString-method with the parameter, and the parameter name.
+     * @param lastName: The value to be validated.
+     * @throws ValidationException if the SimpleValidateString-method throws an exception.
+     */
     protected static void ValidateLastName(String lastName) throws ValidationException {
         SimpleValidateString(lastName, "Last name");
 
     }
 
+    /**
+     * Method used for validating an optional string representing a middle name.
+     * If the parameter has content, a check is made to make sure that it is not an empty string.
+     * If the parameter is empty, the method returns an empty string.
+     * @param middleName: The optional value to set the middle name to.
+     * @return The string value to assign to the middlename of the calling object.
+     * @throws ValidationException if parameter contains an empty string.
+     */
     protected static String ValidateMiddleName(Optional<String> middleName) throws ValidationException {
         if (middleName.isPresent()) {
             if (middleName.get().isBlank()) {
@@ -26,6 +51,13 @@ public class ValidationHelper {
         }
     }
 
+    /**
+     * Method used for validating a string representing an email address.
+     * Validation is done by calling the SimpleValidateString-method with the parameter, and the parameter name.
+     * After this, it is verified that the email contains a dot(.) and an at(@).
+     * @param email: The value to be validated.
+     * @throws ValidationException if the SimpleValidateString-method throws an exception or if the email does not contain . or @.
+     */
     protected static void ValidateEmail(String email) throws ValidationException {
         SimpleValidateString(email, "Email");
 
@@ -35,16 +67,34 @@ public class ValidationHelper {
         }
     }
 
+    /**
+     * Method used for validating a string representing a password.
+     * Validation is done by calling the SimpleValidateString-method with the parameter, and the parameter name.
+     * @param password: The value to be validated.
+     * @throws ValidationException if the SimpleValidateString-method throws an exception.
+     */
     protected static void ValidatePassword(String password) throws ValidationException {
         SimpleValidateString(password, "Password");
 
     }
 
+    /**
+     * Method used for validating a string representing a nationality.
+     * Validation is done by calling the SimpleValidateString-method with the parameter, and the parameter name.
+     * @param nationality: The value to be validated.
+     * @throws ValidationException if the SimpleValidateString-method throws an exception.
+     */
     protected static void ValidateNationality(String nationality) throws ValidationException {
         SimpleValidateString(nationality, "Nationality");
 
     }
 
+    /**
+     * Method used for validating and returning a char representing a gender.
+     * @param gender The char to validate
+     * @return the char representation of the gender to be assigned to the calling object.
+     * @throws ValidationException if parameter is not M/m, F/f or O/o.
+     */
     protected static char ValidateGender(char gender) throws ValidationException {
         switch (Character.toUpperCase(gender)) {
             case 'M', 'O', 'F' -> {
@@ -55,6 +105,12 @@ public class ValidationHelper {
         }
     }
 
+    /**
+     * Simple validation method used to verify that a String has content.
+     * @param toValidate: The string to validate.
+     * @param paramName: The name of the parameter from the calling method.
+     * @throws ValidationException if the toValidate parameter is null or an empty string.
+     */
     protected static void SimpleValidateString(String toValidate, String paramName) throws ValidationException {
         if (toValidate == null || toValidate.isBlank()) {
             throw new ValidationException(paramName + " should not be null or empty.");
