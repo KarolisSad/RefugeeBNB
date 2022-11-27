@@ -27,6 +27,9 @@ public class Refugee {
         setDateOfBirth(dateOfBirth);
     }
 
+    public Refugee() {
+    }
+
     public String getEmail() {
         return email;
     }

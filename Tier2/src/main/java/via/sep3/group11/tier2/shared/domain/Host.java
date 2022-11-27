@@ -37,7 +37,6 @@ public class Host {
         this.housings = new ArrayList<>();
     }
 
-    // Not sure if needed - test!
     public Host() {
     }
 
