@@ -1,0 +1,190 @@
+﻿@page "/Register"
+@using HttpClients.ClientInterfaces
+@using global::Shared.Domain
+@inject HostInterface hostClient;
+@inject RefugeeInterface refugeeClient;
+
+
+<h3>Register</h3>
+
+<RadzenTemplateForm TItem="Person" Submit=@Create>
+  <p>
+    <RadzenLabel Component="FirstName" Text="First name" />
+    <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
+    <RadzenRequiredValidator Component="FirstName" Text="First name is required!" />
+  </p>
+  <p>
+    <RadzenLabel Component="LastName" Text="Last name" />
+    <RadzenTextBox Name="LastName" @bind-Value=@lastName />
+    <RadzenRequiredValidator Component="LastName" Text="Last name is required!" />
+  </p>
+  <RadzenButton ButtonType="ButtonType.Submit" Text="Create" />
+</RadzenTemplateForm>
+
+
+
+<!--
+<div class="card">
+    <div class="form-group field">
+    
+        <div>
+            <label>Email:</label>
+            <input type="text" @bind="email" @bind:event="oninput"/>
+            @if (!string.IsNullOrEmpty(resultMsg))
+            {
+                <label style="color: @color">@resultMsg</label>
+            }
+        </div>
+        
+        <div>
+            <label>Password:</label>
+            <input type="text" @bind="password" @bind:event="oninput"/>
+            @if (!string.IsNullOrEmpty(resultMsg))
+            {
+                <label style="color: @color">@resultMsg</label>
+            }
+        </div>    
+        
+        <div>
+            <label>Nationality:</label>
+            <input type="text" @bind="nationality" @bind:event="oninput"/>
+            @if (!string.IsNullOrEmpty(resultMsg))
+            {
+                <label style="color: @color">@resultMsg</label>
+            }
+        </div>
+        
+        <div>
+            <label>First Name:</label>
+            <input type="text" @bind="firstName" @bind:event="oninput"/>
+            @if (!string.IsNullOrEmpty(resultMsg))
+            {
+                <label style="color: @color">@resultMsg</label>
+            }
+        </div>
+        
+        <div>
+            <label>Middle Name:</label>
+            <input type="text" @bind="middleName" @bind:event="oninput"/>
+            @if (!string.IsNullOrEmpty(resultMsg))
+            {
+                <label style="color: @color">@resultMsg</label>
+            }
+        </div>
+        
+        <div>
+            <label>Last Name:</label>
+            <input type="text" @bind="lastName" @bind:event="oninput"/>
+            @if (!string.IsNullOrEmpty(resultMsg))
+            {
+                <label style="color: @color">@resultMsg</label>
+            }
+        </div>
+        
+        <div>
+            <label for="gender">Pick your gender:</label>
+            <select name="gender" id="gender" @bind="gender" @bind:event="oninput">
+                <option value="female">Male</option>
+                <option value="male">Female</option>
+            </select>
+        </div>
+        
+        
+        <div>
+            <label for="dateOfBirth">Select your date of birth:</label>
+            <RadzenDatePicker @bind-Value=@date DateFormat="d" />
+        </div>
+        
+        <div>
+            <label for="personType">Who are you?</label>
+            <select name="personType" id="personType" @bind="personType" @bind:event="oninput">
+                <option value="host">I am a Host.</option>
+                <option value="refugee">I am a Refugee.</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="button-row">
+        <RadzenButton Click="@Create" Text="@btnText"></RadzenButton>
+    </div>
+</div>
+-->
+
+@code {
+
+    class Person
+    {
+    }
+
+
+    private string email = "";
+        private string password = "";
+        private string nationality = "";
+        private string personType = "";
+        private string gender = "";
+        private string firstName = "";
+        private string middleName = "";
+        private string lastName = "";
+        private DateTime date = new DateTime();
+    
+
+    private string btnText = "Create";
+    private string resultMsg = "";
+    
+    private string color = "";
+    
+    private async Task Create()
+    {
+        resultMsg = "";
+
+        Date dateOfBirth = new Date(date.Day, date.Month, date.Year);
+
+        if (personType.Contains("Host"))
+        {
+            try
+            {
+                await hostClient.RegisterHostAsync(new Host(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth, new List<Housing>()));
+                Clear();
+                resultMsg = "User successfully created";
+                color = "green";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                resultMsg = e.Message;
+                color = "red";
+            }
+        }else if (personType.Contains("Refugee"))
+        {
+            try
+            {
+                await refugeeClient.RegisterRefugee(new Refugee(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                Clear();
+                resultMsg = "User successfully created";
+                color = "green";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                resultMsg = e.Message;
+                color = "red";
+            }
+        }
+
+        
+    }
+
+    private void Clear()
+    {
+      email = "";
+      password = "";
+      nationality = "";
+      personType = "";
+      gender = "";
+      firstName="";
+      middleName="";
+      lastName="";
+        date = new DateTime();
+    }
+
+}
