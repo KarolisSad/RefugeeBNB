@@ -51,7 +51,6 @@ public class Refugee {
 
     public void setGender(char gender) throws ValidationException {
         this.gender = ValidateGender(gender);
-        this.gender = gender;
     }
 
     public String getNationality() {

@@ -7,15 +7,12 @@ import java.util.Optional;
 public class ValidationHelper {
 
     protected static void ValidateFirstName(String firstName) throws ValidationException {
-        if (firstName == null || firstName.isBlank()) {
-            throw new ValidationException("First name should not be empty.");
-        }
+        SimpleValidateString(firstName, "First name");
     }
 
     protected static void ValidateLastName(String lastName) throws ValidationException {
-        if (lastName == null || lastName.isBlank()) {
-            throw new ValidationException("Last name should not be empty.");
-        }
+        SimpleValidateString(lastName, "Last name");
+
     }
 
     protected static String ValidateMiddleName(Optional<String> middleName) throws ValidationException {
@@ -30,9 +27,8 @@ public class ValidationHelper {
     }
 
     protected static void ValidateEmail(String email) throws ValidationException {
-        if (email.isBlank()) {
-            throw new ValidationException("Email should not be empty or null.");
-        }
+        SimpleValidateString(email, "Email");
+
 
         if (!email.contains(".") || !email.contains("@")) {
             throw new ValidationException("Email: <" + email + "> is not in current format: xxxx@xxx.xx");
@@ -40,15 +36,13 @@ public class ValidationHelper {
     }
 
     protected static void ValidatePassword(String password) throws ValidationException {
-        if (password == null || password.isBlank()) {
-            throw new ValidationException("Password should not be null or empty");
-        }
+        SimpleValidateString(password, "Password");
+
     }
 
     protected static void ValidateNationality(String nationality) throws ValidationException {
-        if (nationality == null || nationality.isBlank()) {
-            throw new ValidationException("Nationality should not be null or empty.");
-        }
+        SimpleValidateString(nationality, "Nationality");
+
     }
 
     protected static char ValidateGender(char gender) throws ValidationException {
@@ -58,6 +52,12 @@ public class ValidationHelper {
             }
             default ->
                     throw new ValidationException("Gender should be one of the following: M(ale), F(emale) or O(ther).");
+        }
+    }
+
+    protected static void SimpleValidateString(String toValidate, String paramName) throws ValidationException {
+        if (toValidate == null || toValidate.isBlank()) {
+            throw new ValidationException(paramName + " should not be null or empty.");
         }
     }
 }

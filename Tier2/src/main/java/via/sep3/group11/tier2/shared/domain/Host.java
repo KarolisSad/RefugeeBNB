@@ -22,7 +22,7 @@ public class Host {
 
     // TODO maybe play around with optional fields?? not everytime all arguments are going to be used.
 
-    public Host(String firstName, String email, String password, char gender, String nationality, Optional<String> middleName, String lastName, Date dateOfBirth, Collection<Housing> housings) throws ValidationException {
+    public Host(String firstName, String email, String password, char gender, String nationality, Optional<String> middleName, String lastName, Date dateOfBirth) throws ValidationException {
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
