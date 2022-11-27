@@ -2,12 +2,12 @@
 
 public class Address
 {
-    private string Country { set; get; }
-    private string City { get; set; }
-    private string StreetName { get; set; }
-    private string HouseNumber { get; set; }
-    private string RoomNumber { get; set; }
-    private string PostCode { get; set; }
+    public string Country { set; get; }
+    public string City { get; set; }
+    public string StreetName { get; set; }
+    public string HouseNumber { get; set; }
+    public string RoomNumber { get; set; }
+    public string PostCode { get; set; }
 
     public Address(string country, string city, string streetName, string houseNumber, string roomNumber, string postCode)
     {

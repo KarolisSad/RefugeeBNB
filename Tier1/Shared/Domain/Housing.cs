@@ -2,8 +2,8 @@
 
 public class Housing
 {
-    private int Capacity { get; set; }
-    private Address Address { get; set; }
+    public int Capacity { get; set; }
+    public Address Address { get; set; }
 
     public Housing(int capacity, Address address)
     {
