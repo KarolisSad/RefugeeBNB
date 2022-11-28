@@ -1,5 +1,6 @@
 ﻿namespace Shared.Domain;
 
+
 public class Address
 {
     public string Country { set; get; }

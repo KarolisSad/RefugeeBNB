@@ -19,7 +19,7 @@ public class HostImpl:HostInterface
 
     public async Task RegisterHostAsync(Host host)
     {
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/hosts", host);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/host", host);
         if (!responseMessage.IsSuccessStatusCode)
         {
             string content = await responseMessage.Content.ReadAsStringAsync();
@@ -42,11 +42,25 @@ public class HostImpl:HostInterface
 
     public async Task<Host> AddHousingAsync(Housing housing, string email)
     {
-        //I have no idea if this is gonna work
+        //We create housing in Database
+        HttpResponseMessage created = await client.PostAsJsonAsync("/housing", housing);
+        string result = await created.Content.ReadAsStringAsync();
+        
+        if (!created.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+        
+        Housing housingCreated = JsonSerializer.Deserialize<Housing>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+            
         
         //I am adding the housing to a host Housing collection
         Host existing = await getHostAsync(email);
-        existing.MyHousings.Add(housing);
+        existing.MyHousings.Add(housingCreated);
+        
         
         //sending a host with an added housing to a json serializer
         string dtoAsJson = JsonSerializer.Serialize(existing);
@@ -71,7 +85,7 @@ public class HostImpl:HostInterface
 
     public async Task<Host> getHostAsync(string email)
     {
-        HttpResponseMessage responseMessage = await client.GetAsync($"/hosts/{email}");
+        HttpResponseMessage responseMessage = await client.GetAsync($"/host/{email}");
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {

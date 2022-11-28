@@ -1,6 +1,7 @@
 ﻿@page "/Register"
 @using HttpClients.ClientInterfaces
 @using global::Shared.Domain
+@using System.Collections.ObjectModel
 @inject HostInterface hostClient;
 @inject RefugeeInterface refugeeClient;
 
@@ -8,17 +9,53 @@
 <h3>Register</h3>
 
 <RadzenTemplateForm TItem="Person" Submit=@Create>
-  <p>
-    <RadzenLabel Component="FirstName" Text="First name" />
-    <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
-    <RadzenRequiredValidator Component="FirstName" Text="First name is required!" />
+<p>
+    <RadzenLabel Component="Email" Text="Email" />
+    <RadzenTextBox Name="Email" @bind-Value=@email />
+    <RadzenRequiredValidator Component="Email" Text="Email is required!" />
+    
   </p>
-  <p>
-    <RadzenLabel Component="LastName" Text="Last name" />
-    <RadzenTextBox Name="LastName" @bind-Value=@lastName />
-    <RadzenRequiredValidator Component="LastName" Text="Last name is required!" />
-  </p>
-  <RadzenButton ButtonType="ButtonType.Submit" Text="Create" />
+    <p>
+        <RadzenLabel Component="Password" Text="Password" />
+        <RadzenPassword @bind-Value=@password />
+        <RadzenRequiredValidator Component="Password" Text="Password is required!" />
+    </p>
+    
+    <p>
+        <RadzenLabel Component="Nationality" Text="Nationality" />
+        <RadzenTextBox Name="Nationality" @bind-Value=@nationality />
+        <RadzenRequiredValidator Component="Nationality" Text="Nationality is required!" />
+    </p>
+    
+    <p>
+        <RadzenLabel Component="FirstName" Text="First name" />
+        <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
+        <RadzenRequiredValidator Component="FirstName" Text="First name is required!" />
+    </p>
+    
+    <p>
+        <RadzenLabel Component="MiddleName" Text="Middle name" />
+        <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
+    </p>
+    
+    <p>
+        <RadzenLabel Component="LastName" Text="Last name" />
+        <RadzenTextBox Name="LastName" @bind-Value=@lastName />
+        <RadzenRequiredValidator Component="LastName" Text="Last name is required!" />
+    </p>
+    
+    
+
+    <p>
+        <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange" />
+    </p>
+    
+    <p>
+        <RadzenLabel Component="DateOfBirth" Text="Date of birth" />
+        <RadzenDatePicker @bind-Value=@date />
+    </p>
+    
+    <RadzenButton ButtonType="ButtonType.Submit" Text="Create" />
 </RadzenTemplateForm>
 
 
@@ -126,7 +163,9 @@
         private string middleName = "";
         private string lastName = "";
         private DateTime date = new DateTime();
-    
+
+    public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
+
 
     private string btnText = "Create";
     private string resultMsg = "";
@@ -180,11 +219,26 @@
       password = "";
       nationality = "";
       personType = "";
-      gender = "";
-      firstName="";
+        gender = "";
+        firstName="";
       middleName="";
       lastName="";
         date = new DateTime();
+    }
+
+    private void OnChange(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        if (str.Equals("I am a Host."))
+        {
+            personType = "host";
+        }
+        else
+        {
+            personType = "refugee";
+        }
+        
+        Console.WriteLine($"Value changed to {str}");
     }
 
 }

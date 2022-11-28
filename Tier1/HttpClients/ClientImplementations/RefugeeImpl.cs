@@ -16,7 +16,7 @@ public class RefugeeImpl:RefugeeInterface
 
     public async Task RegisterRefugee(Refugee refugee)
     {
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/refugees", refugee);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/refugee", refugee);
         if (!responseMessage.IsSuccessStatusCode)
         {
             string content = await responseMessage.Content.ReadAsStringAsync();
@@ -40,7 +40,7 @@ public class RefugeeImpl:RefugeeInterface
 
     private async Task<Refugee> GetRefugeeAsync(string email)
     {
-        HttpResponseMessage responseMessage = await client.GetAsync($"/refugees/{email}");
+        HttpResponseMessage responseMessage = await client.GetAsync($"/refugee/{email}");
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {

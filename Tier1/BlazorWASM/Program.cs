@@ -4,6 +4,7 @@ using BlazorWASM;
 using HttpClients.ClientImplementations;
 using HttpClients.ClientInterfaces;
 using Radzen;
+using Radzen.Blazor;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -18,5 +19,6 @@ builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
+
 
 await builder.Build().RunAsync();
