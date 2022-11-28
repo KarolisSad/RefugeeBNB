@@ -1,14 +1,17 @@
 package via.sep3.group11.tier3.model;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ * A class responsible for creating an Address table.
+ * Contains an entity annotation that persists to the database
+ * and Data annotation in order to inject all the necessary constructors and methods
+ *
+ * @author Group 11
+ * @version 28/11/22
+ */
 @Data
 @Entity
 @Table(name = "host")

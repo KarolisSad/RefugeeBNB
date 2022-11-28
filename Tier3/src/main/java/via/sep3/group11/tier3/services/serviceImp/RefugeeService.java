@@ -16,6 +16,11 @@ public class RefugeeService implements RefugeeDaoInterface {
         this.repository = repository;
     }
 
+    /**
+     *
+     * @param refugee
+     * @return
+     */
     @Override
     public Refugee createRefugee(Refugee refugee) {
         return repository.save(refugee);
