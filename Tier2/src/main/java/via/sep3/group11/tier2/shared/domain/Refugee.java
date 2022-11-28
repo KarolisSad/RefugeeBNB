@@ -66,7 +66,7 @@ public class Refugee {
      * @throws ValidationException if validation throws an exception.
      */
     public void setEmail(String email) throws ValidationException {
-        ValidateEmail(email);
+        validateEmail(email);
         this.email = email;
     }
 
@@ -85,7 +85,7 @@ public class Refugee {
      * @throws ValidationException if validation throws an exception.
      */
     public void setPassword(String password) throws ValidationException {
-        ValidatePassword(password);
+        validatePassword(password);
         this.password = password;
     }
 
@@ -104,7 +104,7 @@ public class Refugee {
      * @throws ValidationException if validation throws an exception.
      */
     public void setGender(char gender) throws ValidationException {
-        this.gender = ValidateGender(gender);
+        this.gender = validateGender(gender);
     }
 
 
@@ -123,7 +123,7 @@ public class Refugee {
      * @throws ValidationException if validation throws an exception.
      */
     public void setNationality(String nationality) throws ValidationException {
-        ValidateNationality(nationality);
+        validateNationality(nationality);
         this.nationality = nationality;
     }
 
@@ -142,7 +142,7 @@ public class Refugee {
      * @throws ValidationException if validation throws an exception.
      */
     public void setFirstName(String firstName) throws ValidationException {
-        ValidateFirstName(firstName);
+        validateFirstName(firstName);
         this.firstName = firstName;
     }
 
@@ -161,7 +161,7 @@ public class Refugee {
      * @throws ValidationException if validation throws an exception.
      */
     public void setMiddleName(Optional<String> middleName) throws ValidationException {
-        this.middleName = ValidateMiddleName(middleName);
+        this.middleName = validateMiddleName(middleName);
     }
 
     /**
@@ -179,7 +179,7 @@ public class Refugee {
      * @throws ValidationException if validation throws an exception.
      */
     public void setLastName(String lastName) throws ValidationException {
-        ValidateLastName(lastName);
+        validateLastName(lastName);
         this.lastName = lastName;
     }
 

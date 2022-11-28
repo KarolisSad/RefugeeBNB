@@ -17,8 +17,8 @@ public class ValidationHelper {
      * @param firstName: The value to be validated.
      * @throws ValidationException if the SimpleValidateString-method throws an exception.
      */
-    protected static void ValidateFirstName(String firstName) throws ValidationException {
-        SimpleValidateString(firstName, "First name");
+    protected static void validateFirstName(String firstName) throws ValidationException {
+        simpleValidateString(firstName, "First name");
     }
 
     /**
@@ -27,8 +27,8 @@ public class ValidationHelper {
      * @param lastName: The value to be validated.
      * @throws ValidationException if the SimpleValidateString-method throws an exception.
      */
-    protected static void ValidateLastName(String lastName) throws ValidationException {
-        SimpleValidateString(lastName, "Last name");
+    protected static void validateLastName(String lastName) throws ValidationException {
+        simpleValidateString(lastName, "Last name");
 
     }
 
@@ -40,7 +40,7 @@ public class ValidationHelper {
      * @return The string value to assign to the middlename of the calling object.
      * @throws ValidationException if parameter contains an empty string.
      */
-    protected static String ValidateMiddleName(Optional<String> middleName) throws ValidationException {
+    protected static String validateMiddleName(Optional<String> middleName) throws ValidationException {
         if (middleName.isPresent()) {
             if (middleName.get().isBlank()) {
                 throw new ValidationException("Middle name should not be empty if specified");
@@ -58,8 +58,8 @@ public class ValidationHelper {
      * @param email: The value to be validated.
      * @throws ValidationException if the SimpleValidateString-method throws an exception or if the email does not contain . or @.
      */
-    protected static void ValidateEmail(String email) throws ValidationException {
-        SimpleValidateString(email, "Email");
+    protected static void validateEmail(String email) throws ValidationException {
+        simpleValidateString(email, "Email");
 
 
         if (!email.contains(".") || !email.contains("@")) {
@@ -73,8 +73,8 @@ public class ValidationHelper {
      * @param password: The value to be validated.
      * @throws ValidationException if the SimpleValidateString-method throws an exception.
      */
-    protected static void ValidatePassword(String password) throws ValidationException {
-        SimpleValidateString(password, "Password");
+    protected static void validatePassword(String password) throws ValidationException {
+        simpleValidateString(password, "Password");
 
     }
 
@@ -84,8 +84,8 @@ public class ValidationHelper {
      * @param nationality: The value to be validated.
      * @throws ValidationException if the SimpleValidateString-method throws an exception.
      */
-    protected static void ValidateNationality(String nationality) throws ValidationException {
-        SimpleValidateString(nationality, "Nationality");
+    protected static void validateNationality(String nationality) throws ValidationException {
+        simpleValidateString(nationality, "Nationality");
 
     }
 
@@ -95,7 +95,7 @@ public class ValidationHelper {
      * @return the char representation of the gender to be assigned to the calling object.
      * @throws ValidationException if parameter is not M/m, F/f or O/o.
      */
-    protected static char ValidateGender(char gender) throws ValidationException {
+    protected static char validateGender(char gender) throws ValidationException {
         switch (Character.toUpperCase(gender)) {
             case 'M', 'O', 'F' -> {
                 return Character.toUpperCase(gender);
@@ -111,7 +111,7 @@ public class ValidationHelper {
      * @param paramName: The name of the parameter from the calling method.
      * @throws ValidationException if the toValidate parameter is null or an empty string.
      */
-    protected static void SimpleValidateString(String toValidate, String paramName) throws ValidationException {
+    protected static void simpleValidateString(String toValidate, String paramName) throws ValidationException {
         if (toValidate == null || toValidate.isBlank()) {
             throw new ValidationException(paramName + " should not be null or empty.");
         }
