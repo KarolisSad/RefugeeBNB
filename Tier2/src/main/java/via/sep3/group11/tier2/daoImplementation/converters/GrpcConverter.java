@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class GrpcConverter {
 
-    public static Host HostFromGrpc(GHost grpcHost) throws ValidationException {
+    public static Host hostFromGrpc(GHost grpcHost) throws ValidationException {
         return new Host(grpcHost.getFirstName(),grpcHost.getEmail(), grpcHost.getPassword(),
                 grpcHost.getGender().charAt(0),grpcHost.getNationality(), Optional.of(grpcHost.getMiddleName()),
                 grpcHost.getLastName(), new Date(grpcHost.getDateOfBirth().getDay(),grpcHost.getDateOfBirth().getMonth(),
@@ -16,31 +16,31 @@ public class GrpcConverter {
                 //TODO ADD Housing
     }
 
-    public static GHost HostToGrpc(Host host) {
+    public static GHost hostToGrpc(Host host) {
             return GHost.newBuilder().setFirstName(host.getFirstName()).setEmail(host.getEmail())
                 .setPassword(host.getPassword()).setGender(String.valueOf(host.getGender()))
                 .setNationality(host.getNationality()).setMiddleName(host.getMiddleName())
-                .setLastName(host.getLastName()).setDateOfBirth(DateToGrpc(host.getDateOfBirth())).build();
+                .setLastName(host.getLastName()).setDateOfBirth(dateToGrpc(host.getDateOfBirth())).build();
                 //TODO ADD Housing
     }
 
 
-    public static Refugee RefugeeFromGrpc(GRefugee grpcRefugee) throws ValidationException {
+    public static Refugee refugeeFromGrpc(GRefugee grpcRefugee) throws ValidationException {
         return new Refugee(grpcRefugee.getEmail(), grpcRefugee.getPassword(), grpcRefugee.getGender()
                 .charAt(0),grpcRefugee.getNationality(),grpcRefugee.getFirstName()
                 ,Optional.of(grpcRefugee.getMiddleName()),grpcRefugee.getLastName()
-                ,DateFromGrpc(grpcRefugee.getDateOfBirth()));
+                , dateFromGrpc(grpcRefugee.getDateOfBirth()));
     }
 
-    public static GRefugee RefugeeToGrpc(Refugee refugee)
+    public static GRefugee refugeeToGrpc(Refugee refugee)
     {
         return GRefugee.newBuilder().setEmail(refugee.getEmail()).setPassword(refugee.getPassword())
                 .setGender(String.valueOf(refugee.getGender())).setNationality(refugee.getNationality())
                 .setFirstName(refugee.getFirstName()).setMiddleName(refugee.getMiddleName())
-                .setLastName(refugee.getLastName()).setDateOfBirth(DateToGrpc(refugee.getDateOfBirth())).build();
+                .setLastName(refugee.getLastName()).setDateOfBirth(dateToGrpc(refugee.getDateOfBirth())).build();
     }
 
-    public static GAddress AddressToGrpc(Address address)
+    public static GAddress addressToGrpc(Address address)
     {
         return GAddress.newBuilder().setCountry(address.getCountry())
                 .setCity(address.getCity()).setStreetName(address.getStreetName())
@@ -48,39 +48,39 @@ public class GrpcConverter {
                 .setPostCode(address.getPostCode()).setId(address.getAddressId()).build();
     }
 
-    public static Address AddressFromGrpc(GAddress address) throws ValidationException {
+    public static Address addressFromGrpc(GAddress address) throws ValidationException {
         return new Address(address.getId(), address.getCountry(), address.getCity(),
                 address.getStreetName(), address.getHouseNumber(), address.getRoomNumber(),
                 address.getPostCode());
     }
 
-    public static Housing HousingFromGrpc(GHousing returnedHousing) throws ValidationException {
+    public static Housing housingFromGrpc(GHousing returnedHousing) throws ValidationException {
         return new Housing(returnedHousing.getCapacity(),
-                AddressFromGrpc(returnedHousing.getAddress()));
+                addressFromGrpc(returnedHousing.getAddress()));
     }
 
-    public static GHousing HousingToGrpc(Housing housing)
+    public static GHousing housingToGrpc(Housing housing)
     {
         return  GHousing.newBuilder().setCapacity(housing.getCapacity())
-                .setAddress(AddressToGrpc(housing.getAddress())).build();
+                .setAddress(addressToGrpc(housing.getAddress())).build();
     }
 
 
-    public static GDateOfBirth DateToGrpc(Date date)
+    public static GDateOfBirth dateToGrpc(Date date)
     {
         return GDateOfBirth.newBuilder().setDay(date.getDay())
                 .setMonth(date.getMonth()).setYear(date.getYear()).build();
     }
 
-    public static Date DateFromGrpc(GDateOfBirth date) throws ValidationException {
+    public static Date dateFromGrpc(GDateOfBirth date) throws ValidationException {
         return new Date(date.getDay(), date.getMonth(), date.getYear());
     }
 
 
 
 
-    public static GAddHousingRequest AddHousingRequest(Housing housing, String email)
+    public static GAddHousingRequest addHousingRequest(Housing housing, String email)
     {
-        return GAddHousingRequest.newBuilder().setHousing(HousingToGrpc(housing)).setEmail(email).build();
+        return GAddHousingRequest.newBuilder().setHousing(housingToGrpc(housing)).setEmail(email).build();
     }
 }

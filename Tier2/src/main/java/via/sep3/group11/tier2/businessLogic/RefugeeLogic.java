@@ -41,7 +41,7 @@ public class RefugeeLogic implements RefugeeInterface {
      * @throws ValidationException: If any of the validation checks on the values ion the DTO fails.
      */
     @Override
-    public Refugee RegisterRefugee(RefugeeRegisterDTO dto) throws NotUniqueException, ValidationException {
+    public Refugee registerRefugee(RefugeeRegisterDTO dto) throws NotUniqueException, ValidationException {
         try {
             Refugee toRegister = new Refugee();
 
@@ -54,13 +54,13 @@ public class RefugeeLogic implements RefugeeInterface {
             toRegister.setLastName(dto.getLastName());
             toRegister.setDateOfBirth(dto.getDateOfBirth());
 
-            Optional<Refugee> existing = refugeeDAO.GetRefugeeByEmail(toRegister.getEmail());
+            Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
 
             if (existing.isPresent()) {
                 throw new NotUniqueException("Refugee with email " + existing.get().getEmail() + " already exists.");
             }
 
-            return refugeeDAO.CreateRefugee(toRegister);
+            return refugeeDAO.createRefugee(toRegister);
 
         } catch (ValidationException e) {
             throw new ValidationException("Problem with provided information: " + e.getMessage());
@@ -77,14 +77,14 @@ public class RefugeeLogic implements RefugeeInterface {
      * @throws ValidationException if any of the validation specified above fails.
      */
     @Override
-    public Refugee LoginRefugee(LoginDTO dto) throws ValidationException {
+    public Refugee loginRefugee(LoginDTO dto) throws ValidationException {
         try {
             Refugee toLogin = new Refugee();
 
             toLogin.setEmail(dto.getEmail());
             toLogin.setPassword(dto.getPassword());
 
-            Optional<Refugee> loggedIn = refugeeDAO.GetRefugeeByEmail(toLogin.getEmail());
+            Optional<Refugee> loggedIn = refugeeDAO.getRefugeeByEmail(toLogin.getEmail());
 
             if (loggedIn.isEmpty()) {
                 throw new NullPointerException("Refugee with email " + toLogin.getEmail() + " not found.");
