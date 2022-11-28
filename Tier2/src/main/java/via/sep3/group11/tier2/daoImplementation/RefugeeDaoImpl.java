@@ -7,8 +7,6 @@ import via.sep3.group11.tier2.daoImplementation.converters.GrpcConverter;
 import via.sep3.group11.tier2.daoInterfaces.RefugeeDaoInterface;
 import via.sep3.group11.tier2.protobuf.GEmail;
 import via.sep3.group11.tier2.protobuf.GRefugee;
-import via.sep3.group11.tier2.shared.domain.Refugee;
-import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 import javax.annotation.Resource;
 
 @Configuration
@@ -22,6 +20,10 @@ public class RefugeeDaoImpl implements RefugeeDaoInterface {
         try {
             GRefugee request = GrpcConverter.RefugeeToGrpc(refugee);
             GRefugee response = channel.getRefugeeStub().createRefugee(request);
+            if (response.getEmail().isEmpty())
+            {
+                return null;
+            }
             return GrpcConverter.RefugeeFromGrpc(response);
         }
         catch (StatusRuntimeException e)
@@ -36,6 +38,10 @@ public class RefugeeDaoImpl implements RefugeeDaoInterface {
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GRefugee response = channel.getRefugeeStub().getRefugeeByEmail(request);
+            if (response.getEmail().isEmpty())
+            {
+                return null;
+            }
             return GrpcConverter.RefugeeFromGrpc(response);
         }
         catch (StatusRuntimeException e)

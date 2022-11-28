@@ -7,10 +7,7 @@ import via.sep3.group11.tier2.daoImplementation.converters.GrpcConverter;
 import via.sep3.group11.tier2.daoInterfaces.HostDaoInterface;
 import via.sep3.group11.tier2.protobuf.GEmail;
 import via.sep3.group11.tier2.protobuf.GHost;
-import via.sep3.group11.tier2.shared.domain.Host;
-import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class HostDaoImpl implements HostDaoInterface{
@@ -24,6 +21,10 @@ public class HostDaoImpl implements HostDaoInterface{
         try {
             GHost request = GrpcConverter.HostToGrpc(host);
             GHost response = channel.getHostStub().createHost(request);
+            if (response.getEmail().isEmpty())
+            {
+                return null;
+            }
             return GrpcConverter.HostFromGrpc(response);
         }
         catch (StatusRuntimeException e)
@@ -40,6 +41,10 @@ public class HostDaoImpl implements HostDaoInterface{
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GHost response = channel.getHostStub().getHostByEmail(request);
+            if (response.getEmail().isEmpty())
+            {
+                return null;
+            }
             return GrpcConverter.HostFromGrpc(response);
         }
         catch (StatusRuntimeException e)

@@ -1,16 +1,13 @@
 package via.sep3.group11.tier2.daoImplementation.converters;
 
 import via.sep3.group11.tier2.protobuf.*;
-import via.sep3.group11.tier2.shared.domain.*;
-import via.sep3.group11.tier2.shared.exceptions.ValidationException;
-
 import java.util.Optional;
 
 public class GrpcConverter {
 
     public static Host HostFromGrpc(GHost grpcHost) throws ValidationException {
         return new Host(grpcHost.getFirstName(),grpcHost.getEmail(), grpcHost.getPassword(),
-                grpcHost.getGender().charAt(0),grpcHost.getNationality(), grpcHost.getMiddleName(),
+                grpcHost.getGender().charAt(0),grpcHost.getNationality(), Optional.of(grpcHost.getMiddleName()),
                 grpcHost.getLastName(), new Date(grpcHost.getDateOfBirth().getDay(),grpcHost.getDateOfBirth().getMonth(),
                 grpcHost.getDateOfBirth().getYear()));
                 //TODO ADD Housing

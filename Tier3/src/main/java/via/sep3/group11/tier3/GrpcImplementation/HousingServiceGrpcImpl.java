@@ -3,11 +3,9 @@ package via.sep3.group11.tier3.GrpcImplementation;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter;
-import via.sep3.group11.tier3.model.Housing;
 import via.sep3.group11.tier3.protobuf.GAddHousingRequest;
 import via.sep3.group11.tier3.protobuf.GHousing;
 import via.sep3.group11.tier3.protobuf.HousingGrpc;
-import via.sep3.group11.tier3.services.servicesInterfaces.HousingDaoInterface;
 import javax.annotation.Resource;
 
 @GRpcService

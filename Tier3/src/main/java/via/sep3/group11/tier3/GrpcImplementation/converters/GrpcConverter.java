@@ -1,10 +1,6 @@
 package via.sep3.group11.tier3.GrpcImplementation.converters;
 
-
-
-import via.sep3.group11.tier3.model.*;
 import via.sep3.group11.tier3.protobuf.*;
-
 import java.util.Optional;
 
 public class GrpcConverter {

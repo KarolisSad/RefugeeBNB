@@ -3,12 +3,9 @@ package via.sep3.group11.tier3.GrpcImplementation;
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter;
-import via.sep3.group11.tier3.model.Refugee;
-import via.sep3.group11.tier3.model.ValidationException;
 import via.sep3.group11.tier3.protobuf.GEmail;
 import via.sep3.group11.tier3.protobuf.GRefugee;
 import via.sep3.group11.tier3.protobuf.RefugeeGrpc;
-import via.sep3.group11.tier3.services.servicesInterfaces.RefugeeDaoInterface;
 import javax.annotation.Resource;
 import java.util.Optional;
 
