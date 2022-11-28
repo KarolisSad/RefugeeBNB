@@ -25,7 +25,7 @@ public interface HostInterface {
      * @throws NotUniqueException: If the host specified by the DTO is already present in the Data tier.
      * @throws ValidationException: If any of the information in the DTO fails validation.
      */
-    Host RegisterHost(HostRegisterDTO dto) throws NotUniqueException, ValidationException;
+    Host registerHost(HostRegisterDTO dto) throws NotUniqueException, ValidationException;
     /**
      * Method used to login an already existing host.
      * The implementation of this should validate the information in the DTO, and return an object representation of the Host logging in.
@@ -33,7 +33,7 @@ public interface HostInterface {
      * @return An object representation of the host logged in.
      * @throws ValidationException if no Host corresponding to the email in the dto is found, or if the password and email given does not match.
      */
-    Host LoginHost(LoginDTO dto) throws ValidationException;
+    Host loginHost(LoginDTO dto) throws ValidationException;
 
     /**
      * Method used to add a housing object to the system.
@@ -41,6 +41,6 @@ public interface HostInterface {
      * @return An object representation of the Housing created.
      * @throws ValidationException if any validation of the domain transfer object fails.
      */
-    Housing AddHousing(HousingCreationDTO dto) throws ValidationException;
+    Housing addHousing(HousingCreationDTO dto) throws ValidationException;
 }
 

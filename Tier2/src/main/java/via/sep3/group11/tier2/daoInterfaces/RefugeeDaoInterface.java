@@ -7,6 +7,6 @@ import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 import java.util.Optional;
 
 public interface RefugeeDaoInterface {
-    Refugee CreateRefugee(Refugee refugee) throws ValidationException;
-    Optional<Refugee> GetRefugeeByEmail(String email) throws ValidationException;
+    Refugee createRefugee(Refugee refugee) throws ValidationException;
+    Optional<Refugee> getRefugeeByEmail(String email) throws ValidationException;
 }

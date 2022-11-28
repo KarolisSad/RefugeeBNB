@@ -21,15 +21,15 @@ public class RefugeeDaoImpl implements RefugeeDaoInterface {
     Channel channel;
 
     @Override
-    public Refugee CreateRefugee(Refugee refugee) throws ValidationException {
+    public Refugee createRefugee(Refugee refugee) throws ValidationException {
         try {
-            GRefugee request = GrpcConverter.RefugeeToGrpc(refugee);
+            GRefugee request = GrpcConverter.refugeeToGrpc(refugee);
             GRefugee response = channel.getRefugeeStub().withDeadlineAfter(1, TimeUnit.SECONDS).createRefugee(request);
             if (response.getEmail().isEmpty())
             {
                 return null;
             }
-            return GrpcConverter.RefugeeFromGrpc(response);
+            return GrpcConverter.refugeeFromGrpc(response);
         }
         catch (StatusRuntimeException e)
         {
@@ -39,11 +39,11 @@ public class RefugeeDaoImpl implements RefugeeDaoInterface {
     }
 
     @Override
-    public Optional<Refugee> GetRefugeeByEmail(String email) throws ValidationException {
+    public Optional<Refugee> getRefugeeByEmail(String email) throws ValidationException {
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GRefugee response = channel.getRefugeeStub().withDeadlineAfter(1, TimeUnit.SECONDS).getRefugeeByEmail(request);
-            return Optional.of(GrpcConverter.RefugeeFromGrpc(response));
+            return Optional.of(GrpcConverter.refugeeFromGrpc(response));
         }
         catch (StatusRuntimeException e)
         {
@@ -53,6 +53,6 @@ public class RefugeeDaoImpl implements RefugeeDaoInterface {
     }
 
     private void reestablishConnection() {
-        channel.CreateChannel();
+        channel.createChannel();
     }
 }

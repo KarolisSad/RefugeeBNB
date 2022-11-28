@@ -19,10 +19,10 @@ public class Channel {
     private HousingGrpc.HousingBlockingStub housingStub;
 
     public Channel() {
-        CreateChannel();
+        createChannel();
     }
 
-    public void CreateChannel() {
+    public void createChannel() {
         this.managedChannel = ManagedChannelBuilder
                 .forAddress("localhost", 8084)
                 .usePlaintext()

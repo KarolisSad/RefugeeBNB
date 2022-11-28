@@ -21,16 +21,16 @@ public class HostDaoImpl implements HostDaoInterface{
     Channel channel;
 
     @Override
-    public Host CreateHost(Host host) throws ValidationException {
+    public Host createHost(Host host) throws ValidationException {
 
         try {
-            GHost request = GrpcConverter.HostToGrpc(host);
+            GHost request = GrpcConverter.hostToGrpc(host);
             GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).createHost(request);
             if (response.getEmail().isEmpty())
             {
                 return null;
             }
-            return GrpcConverter.HostFromGrpc(response);
+            return GrpcConverter.hostFromGrpc(response);
         }
         catch (StatusRuntimeException e)
         {
@@ -41,12 +41,12 @@ public class HostDaoImpl implements HostDaoInterface{
 
 
     @Override
-    public Optional<Host> GetHostByEmail(String email) throws ValidationException {
+    public Optional<Host> getHostByEmail(String email) throws ValidationException {
 
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHostByEmail(request);
-            return Optional.of(GrpcConverter.HostFromGrpc(response));
+            return Optional.of(GrpcConverter.hostFromGrpc(response));
         }
         catch (StatusRuntimeException e)
         {
@@ -56,6 +56,6 @@ public class HostDaoImpl implements HostDaoInterface{
     }
 
     public void reestablishConnection() {
-        channel.CreateChannel();
+        channel.createChannel();
     }
 }

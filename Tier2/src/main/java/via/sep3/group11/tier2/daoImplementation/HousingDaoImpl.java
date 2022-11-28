@@ -20,11 +20,11 @@ public class HousingDaoImpl implements HousingDaoInterface {
     Channel channel;
 
     @Override
-    public Housing AddHousing(Housing housing, String email) throws ValidationException {
+    public Housing addHousing(Housing housing, String email) throws ValidationException {
         try {
-            GAddHousingRequest request = GrpcConverter.AddHousingRequest(housing, email);
+            GAddHousingRequest request = GrpcConverter.addHousingRequest(housing, email);
             GHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).addHousing(request);
-            return GrpcConverter.HousingFromGrpc(response);
+            return GrpcConverter.housingFromGrpc(response);
         }
         catch (StatusRuntimeException e)
         {
@@ -34,7 +34,7 @@ public class HousingDaoImpl implements HousingDaoInterface {
     }
 
     public void reestablishConnection() {
-        channel.CreateChannel();
+        channel.createChannel();
     }
 
 }

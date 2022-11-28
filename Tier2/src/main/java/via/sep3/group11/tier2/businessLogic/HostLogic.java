@@ -48,7 +48,7 @@ public class HostLogic implements HostInterface {
      * @throws ValidationException: If any of the validation checks on the values ion the DTO fails.
      */
     @Override
-    public Host RegisterHost(HostRegisterDTO dto) throws NotUniqueException, ValidationException {
+    public Host registerHost(HostRegisterDTO dto) throws NotUniqueException, ValidationException {
         try {
             Host toRegister = new Host();
 
@@ -61,13 +61,13 @@ public class HostLogic implements HostInterface {
             toRegister.setLastName(dto.getLastName());
             toRegister.setDateOfBirth(dto.getDateOfBirth());
 
-            Optional<Host> existing = hostDAO.GetHostByEmail(toRegister.getEmail());
+            Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
 
             if (existing.isPresent()) {
                 throw new NotUniqueException("Host with email " + existing.get().getEmail() + " already exists.");
             }
 
-            return hostDAO.CreateHost(toRegister);
+            return hostDAO.createHost(toRegister);
         } catch (ValidationException e) {
             throw new ValidationException("Problem with provided information: " + e.getMessage());
         }
@@ -83,13 +83,13 @@ public class HostLogic implements HostInterface {
      * @throws ValidationException if any of the validation specified above fails.
      */
     @Override
-    public Host LoginHost(LoginDTO dto) throws ValidationException {
+    public Host loginHost(LoginDTO dto) throws ValidationException {
         try {
             Host toLogin = new Host();
             toLogin.setEmail(dto.getEmail());
             toLogin.setPassword(dto.getPassword());
 
-            Optional<Host> loggedIn = hostDAO.GetHostByEmail(toLogin.getEmail());
+            Optional<Host> loggedIn = hostDAO.getHostByEmail(toLogin.getEmail());
 
             if (loggedIn.isEmpty()) {
                 throw new NullPointerException("Host with email " + toLogin.getEmail() + " not found.");
@@ -117,9 +117,9 @@ public class HostLogic implements HostInterface {
      * @throws IllegalArgumentException if the host specified in the DTO does not exist.
      */
     @Override
-    public Housing AddHousing(HousingCreationDTO dto) throws ValidationException {
+    public Housing addHousing(HousingCreationDTO dto) throws ValidationException {
         try {
-            Optional<Host> owner = hostDAO.GetHostByEmail(dto.getHostEmail());
+            Optional<Host> owner = hostDAO.getHostByEmail(dto.getHostEmail());
 
             if (owner.isEmpty()) {
                 throw new IllegalArgumentException("Host with email: " + dto.getHostEmail() + " not found.");
@@ -130,7 +130,7 @@ public class HostLogic implements HostInterface {
 
             Housing toCreate = new Housing(dto.getCapacity(), address);
 
-            return housingDAO.AddHousing(toCreate, owner.get().getEmail());
+            return housingDAO.addHousing(toCreate, owner.get().getEmail());
         }
 
         catch (ValidationException e) {
