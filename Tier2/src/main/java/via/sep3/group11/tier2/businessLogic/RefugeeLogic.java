@@ -15,7 +15,7 @@ import java.util.Optional;
  * Class is implented with @Service-annotation to mark it as a Spring-component.
  * @see via.sep3.group11.tier2.logicInterfaces.RefugeeInterface
  * @version 27/11-2022
- * @author Christian Hougaard Pedersen
+ * @author Group 11
  */
 @Service
 public class RefugeeLogic implements RefugeeInterface {

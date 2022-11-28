@@ -5,7 +5,7 @@ import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 /**
  * Class representing a specific date.
  * @version 27/11-2022
- * @author Christian Hougaard Pedersen
+ * @author Group 11
  */
 public class Date {
     private int day;

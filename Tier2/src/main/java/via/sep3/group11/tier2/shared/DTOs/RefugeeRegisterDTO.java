@@ -3,7 +3,7 @@ package via.sep3.group11.tier2.shared.DTOs;
 /**
  * Domain Transfer Object used to register Refugees in the system.
  * @version 27/11-2022
- * @author Christian Hougaard Pedersen
+ * @author Group 11
  */
 public class RefugeeRegisterDTO {
 

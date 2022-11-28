@@ -8,7 +8,7 @@ import static via.sep3.group11.tier2.shared.domain.ValidationHelper.SimpleValida
 /**
  * Class representing an address belonging to a Housing-object.
  * @version 27/11-2022
- * @author Christian Hougaard Pedersen
+ * @author Group 11
  */
 public class Address {
 

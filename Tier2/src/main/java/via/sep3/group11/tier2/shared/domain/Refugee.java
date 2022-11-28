@@ -9,7 +9,7 @@ import static via.sep3.group11.tier2.shared.domain.ValidationHelper.*;
 /**
  * Class representing a Refugee.
  * @version 27/11-2022
- * @author Christian Hougaard Pedersen
+ * @author Group 11
  */
 public class Refugee {
     private String email;

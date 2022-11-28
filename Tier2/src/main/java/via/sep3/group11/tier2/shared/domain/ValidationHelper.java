@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Helper class used to validate various values.
  * @version 27/11-2022
- * @author Christian Hougaard Pedersen
+ * @author Group 11
  */
 public class ValidationHelper {
 
