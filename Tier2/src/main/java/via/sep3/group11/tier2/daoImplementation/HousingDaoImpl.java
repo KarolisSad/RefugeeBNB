@@ -8,6 +8,7 @@ import via.sep3.group11.tier2.daoInterfaces.HousingDaoInterface;
 import via.sep3.group11.tier2.protobuf.GAddHousingRequest;
 import via.sep3.group11.tier2.protobuf.GHousing;
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class HousingDaoImpl implements HousingDaoInterface {
@@ -19,7 +20,7 @@ public class HousingDaoImpl implements HousingDaoInterface {
     public Housing AddHousing(Housing housing, String email) {
         try {
             GAddHousingRequest request = GrpcConverter.AddHousingRequest(housing, email);
-            GHousing response = channel.getHousingStub().addHousing(request);
+            GHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).addHousing(request);
             return GrpcConverter.HousingFromGrpc(response);
         }
         catch (StatusRuntimeException e)

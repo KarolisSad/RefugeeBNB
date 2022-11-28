@@ -8,6 +8,7 @@ import via.sep3.group11.tier2.daoInterfaces.RefugeeDaoInterface;
 import via.sep3.group11.tier2.protobuf.GEmail;
 import via.sep3.group11.tier2.protobuf.GRefugee;
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class RefugeeDaoImpl implements RefugeeDaoInterface {
@@ -19,7 +20,7 @@ public class RefugeeDaoImpl implements RefugeeDaoInterface {
     public Refugee CreateRefugee(Refugee refugee) throws ValidationException {
         try {
             GRefugee request = GrpcConverter.RefugeeToGrpc(refugee);
-            GRefugee response = channel.getRefugeeStub().createRefugee(request);
+            GRefugee response = channel.getRefugeeStub().withDeadlineAfter(1, TimeUnit.SECONDS).createRefugee(request);
             if (response.getEmail().isEmpty())
             {
                 return null;
@@ -37,7 +38,7 @@ public class RefugeeDaoImpl implements RefugeeDaoInterface {
     public Refugee GetRefugeeByEmail(String email) throws ValidationException {
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
-            GRefugee response = channel.getRefugeeStub().getRefugeeByEmail(request);
+            GRefugee response = channel.getRefugeeStub().withDeadlineAfter(1, TimeUnit.SECONDS).getRefugeeByEmail(request);
             if (response.getEmail().isEmpty())
             {
                 return null;
