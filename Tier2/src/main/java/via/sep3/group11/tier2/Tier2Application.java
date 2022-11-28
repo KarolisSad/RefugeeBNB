@@ -10,4 +10,5 @@ public class Tier2Application {
         SpringApplication.run(Tier2Application.class, args);
     }
 
+
 }
