@@ -11,7 +11,6 @@ import javax.persistence.*;
  * @author Group 11
  * @version 28/11/22
  */
-@Data
 @Entity
 @Table(name = "housing")
 public class Housing {
@@ -21,13 +20,32 @@ public class Housing {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "housing_sequence")
     private long housingId;
 
-    @Column(name = "address_id")
-    private long addressId;
-
     @Column(name = "capacity")
     private int capacity;
 
+    @OneToOne
+    private Address address;
+
     @ManyToOne
     @JoinColumn(name = "host_email")
-    private Host hEmail;
+    private Host hostEmail;
+
+    public Housing() {}
+
+    public Housing(int capacity, Address address) {
+        this.capacity = capacity;
+        this.address = address;
+    }
+
+    public long getHousingId() {
+        return housingId;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
 }

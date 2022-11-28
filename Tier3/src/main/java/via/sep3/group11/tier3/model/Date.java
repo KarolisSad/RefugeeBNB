@@ -1,6 +1,5 @@
 package via.sep3.group11.tier3.model;
 
-public class Date {
     /**
      * Class representing a specific date.
      * @version 27/11-2022
@@ -48,4 +47,4 @@ public class Date {
             return year;
         }
     }
-}
+
