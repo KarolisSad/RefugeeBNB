@@ -1,7 +1,6 @@
 package via.sep3.group11.tier2.businessLogic;
 
 import org.springframework.stereotype.Service;
-import via.sep3.group11.tier2.daoInterfaces.RefugeeDaoInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;

@@ -1,8 +1,6 @@
 package via.sep3.group11.tier2.businessLogic;
 
 import org.springframework.stereotype.Service;
-import via.sep3.group11.tier2.daoInterfaces.HostDaoInterface;
-import via.sep3.group11.tier2.daoInterfaces.HousingDaoInterface;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
