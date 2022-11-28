@@ -1,5 +1,7 @@
 package via.sep3.group11.tier2.shared.DTOs;
 
+import via.sep3.group11.tier2.shared.domain.Date;
+
 /**
  * Domain Transfer Object used to register Refugees in the system.
  * @version 27/11-2022
@@ -14,6 +16,7 @@ public class RefugeeRegisterDTO {
     private String firstName;
     private String middleName;
     private String lastName;
+    private Date dateOfBirth;
 
     /**
      * All-argument constructor used to create an instance of the DTO with all variables set.
@@ -25,8 +28,9 @@ public class RefugeeRegisterDTO {
      * @param firstName: Represents the first name of the Refugee.
      * @param middleName: Represents the middle name of the Refugee.
      * @param lastName: Represents the last name of the Refugee.
+     * @param dateOfBirth: Represents the date of birth of the Refugee.
      */
-    public RefugeeRegisterDTO(String email, String password, char gender, String nationality, String firstName, String middleName, String lastName) {
+    public RefugeeRegisterDTO(String email, String password, char gender, String nationality, String firstName, String middleName, String lastName, Date dateOfBirth) {
         this.email = email;
         this.password = password;
         this.gender = gender;
@@ -34,6 +38,7 @@ public class RefugeeRegisterDTO {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
     }
 
     /**
@@ -90,5 +95,13 @@ public class RefugeeRegisterDTO {
      */
     public String getLastName() {
         return lastName;
+    }
+
+    /**
+     * Simple getter method for date.
+     * @return the date of the DTO.
+     */
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 }

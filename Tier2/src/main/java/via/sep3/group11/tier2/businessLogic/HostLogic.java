@@ -59,6 +59,7 @@ public class HostLogic implements HostInterface {
             toRegister.setFirstName(dto.getFirstName());
             toRegister.setMiddleName(Optional.ofNullable(dto.getMiddleName()));
             toRegister.setLastName(dto.getLastName());
+            toRegister.setDateOfBirth(dto.getDateOfBirth());
 
             Optional<Host> existing = hostDAO.GetHostByEmail(toRegister.getEmail());
 
