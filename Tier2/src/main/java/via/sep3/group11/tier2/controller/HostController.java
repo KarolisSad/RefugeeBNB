@@ -4,11 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import via.sep3.group11.tier2.logicInterfaces.HostInterface;
+import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
+import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
+import via.sep3.group11.tier2.shared.domain.Host;
+import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
+import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api")
 public class HostController {
     /**
      *
@@ -17,7 +26,12 @@ public class HostController {
      * @version 28/11/22
      */
 
-    @Autowired hostDAO;
+    HostInterface hostLogic;
+
+    public HostController(HostInterface hostLogic)
+    {
+        this.hostLogic = hostLogic;
+    }
 
     /**
      *  Creates a host!
@@ -25,33 +39,49 @@ public class HostController {
      * @return
      */
     @PostMapping(value ="/host",produces ={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Host> createHost(@RequestBody Host host){
+    public ResponseEntity<Host> createHost(@RequestBody HostRegisterDTO host) {
 
         try{
-            Host created = hostDAO.save(new Host(host.createHost);
+            Host created = hostLogic.RegisterHost(host);
             return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        catch (NotUniqueException e)
+        {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+        catch (ValidationException e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * Gets host by email!!!!
-     * @param email
+     * @param
      * @return
      */
-    @GetMapping("/host/{email}")
-    public ResponseEntity<Optional<Host>> getHostByEmail(@PathVariable("email") long email){
+    @GetMapping("/host/")
+    public ResponseEntity<Host> getHostByEmail(@RequestBody LoginDTO loginDTO){
         try {
-            Optional<Host> host = hostDAO.findByEmail(email);
-
-            if (animal.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
+            Host host = hostLogic.LoginHost(loginDTO);
             return new ResponseEntity<>(host, HttpStatus.OK);
-        } catch (Exception e) {
+            }
+        catch (NullPointerException e)
+        {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+        }
+        catch (ValidationException e)
+        {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+        catch (Exception e)
+        {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
+
 }

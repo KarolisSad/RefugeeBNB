@@ -1,6 +1,8 @@
 package via.sep3.group11.tier2.businessLogic;
 
 import org.springframework.stereotype.Service;
+import via.sep3.group11.tier2.daoInterfaces.HostDaoInterface;
+import via.sep3.group11.tier2.daoInterfaces.HousingDaoInterface;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
@@ -58,13 +60,13 @@ public class HostLogic implements HostInterface {
             toRegister.setMiddleName(Optional.ofNullable(dto.getMiddleName()));
             toRegister.setLastName(dto.getLastName());
 
-            Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
+            Optional<Host> existing = hostDAO.GetHostByEmail(toRegister.getEmail());
 
             if (existing.isPresent()) {
                 throw new NotUniqueException("Host with email " + existing.get().getEmail() + " already exists.");
             }
 
-            return hostDAO.createHost(toRegister);
+            return hostDAO.CreateHost(toRegister);
         } catch (ValidationException e) {
             throw new ValidationException("Problem with provided information: " + e.getMessage());
         }
@@ -86,7 +88,7 @@ public class HostLogic implements HostInterface {
             toLogin.setEmail(dto.getEmail());
             toLogin.setPassword(dto.getPassword());
 
-            Optional<Host> loggedIn = hostDAO.getHostByEmail(toLogin.getEmail());
+            Optional<Host> loggedIn = hostDAO.GetHostByEmail(toLogin.getEmail());
 
             if (loggedIn.isEmpty()) {
                 throw new NullPointerException("Host with email " + toLogin.getEmail() + " not found.");
@@ -116,7 +118,7 @@ public class HostLogic implements HostInterface {
     @Override
     public Housing AddHousing(HousingCreationDTO dto) throws ValidationException {
         try {
-            Optional<Host> owner = hostDAO.getHostByEmail(dto.getHostEmail());
+            Optional<Host> owner = hostDAO.GetHostByEmail(dto.getHostEmail());
 
             if (owner.isEmpty()) {
                 throw new IllegalArgumentException("Host with email: " + dto.getHostEmail() + " not found.");
@@ -127,7 +129,7 @@ public class HostLogic implements HostInterface {
 
             Housing toCreate = new Housing(dto.getCapacity(), address);
 
-            return housingDAO.addHousing(toCreate, owner.get().getEmail());
+            return housingDAO.AddHousing(toCreate, owner.get().getEmail());
         }
 
         catch (ValidationException e) {

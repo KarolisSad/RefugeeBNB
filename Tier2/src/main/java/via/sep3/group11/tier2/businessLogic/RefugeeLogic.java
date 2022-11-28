@@ -1,6 +1,7 @@
 package via.sep3.group11.tier2.businessLogic;
 
 import org.springframework.stereotype.Service;
+import via.sep3.group11.tier2.daoInterfaces.RefugeeDaoInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
@@ -52,13 +53,13 @@ public class RefugeeLogic implements RefugeeInterface {
             toRegister.setMiddleName(Optional.ofNullable(dto.getMiddleName()));
             toRegister.setLastName(dto.getLastName());
 
-            Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
+            Optional<Refugee> existing = refugeeDAO.GetRefugeeByEmail(toRegister.getEmail());
 
             if (existing.isPresent()) {
                 throw new NotUniqueException("Refugee with email " + existing.get().getEmail() + " already exists.");
             }
 
-            return refugeeDAO.createRefugee(toRegister);
+            return refugeeDAO.CreateRefugee(toRegister);
 
         } catch (ValidationException e) {
             throw new ValidationException("Problem with provided information: " + e.getMessage());
@@ -82,7 +83,7 @@ public class RefugeeLogic implements RefugeeInterface {
             toLogin.setEmail(dto.getEmail());
             toLogin.setPassword(dto.getPassword());
 
-            Optional<Refugee> loggedIn = refugeeDAO.getRefugeeByEmail(toLogin.getEmail());
+            Optional<Refugee> loggedIn = refugeeDAO.GetRefugeeByEmail(toLogin.getEmail());
 
             if (loggedIn.isEmpty()) {
                 throw new NullPointerException("Refugee with email " + toLogin.getEmail() + " not found.");

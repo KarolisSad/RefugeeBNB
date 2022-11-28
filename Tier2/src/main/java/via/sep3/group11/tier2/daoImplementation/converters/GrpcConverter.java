@@ -1,6 +1,9 @@
 package via.sep3.group11.tier2.daoImplementation.converters;
 
 import via.sep3.group11.tier2.protobuf.*;
+import via.sep3.group11.tier2.shared.domain.*;
+import via.sep3.group11.tier2.shared.exceptions.ValidationException;
+
 import java.util.Optional;
 
 public class GrpcConverter {
@@ -45,14 +48,13 @@ public class GrpcConverter {
                 .setPostCode(address.getPostCode()).setId(address.getAddressId()).build();
     }
 
-    public static Address AddressFromGrpc(GAddress address)
-    {
+    public static Address AddressFromGrpc(GAddress address) throws ValidationException {
         return new Address(address.getId(), address.getCountry(), address.getCity(),
                 address.getStreetName(), address.getHouseNumber(), address.getRoomNumber(),
                 address.getPostCode());
     }
 
-    public static Housing HousingFromGrpc(GHousing returnedHousing) {
+    public static Housing HousingFromGrpc(GHousing returnedHousing) throws ValidationException {
         return new Housing(returnedHousing.getCapacity(),
                 AddressFromGrpc(returnedHousing.getAddress()));
     }

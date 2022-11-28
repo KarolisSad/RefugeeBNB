@@ -41,6 +41,16 @@ public class Address {
         setPostCode(postCode);
     }
 
+    public Address(Long id,String country, String city, String streetName, String houseNumber, String roomNumber, String postCode) throws ValidationException {
+        setCountry(country);
+        setCity(city);
+        setStreetName(streetName);
+        setHouseNumber(houseNumber);
+        setRoomNumber(roomNumber);
+        setPostCode(postCode);
+        setAddressId(id);
+    }
+
     /**
      * Getter-method for getting the id of the address.
      * @return the id of the address.
