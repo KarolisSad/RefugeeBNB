@@ -64,7 +64,7 @@ public class RefugeeController {
      * @param
      * @return
      */
-    @GetMapping("/refugee")
+    @GetMapping("/refugee/login")
     public ResponseEntity<Refugee> getRefugeeByEmail(@RequestBody LoginDTO loginDTO) {
         try {
             Refugee refugee = refugeeInterface.LoginRefugee(loginDTO);
