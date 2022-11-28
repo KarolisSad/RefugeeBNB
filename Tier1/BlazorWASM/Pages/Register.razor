@@ -8,57 +8,61 @@
 
 <h3>Register</h3>
 
-<RadzenTemplateForm TItem="Person" Submit=@Create>
-<p>
-    <RadzenLabel Component="Email" Text="Email" />
-    <RadzenTextBox Name="Email" @bind-Value=@email />
-    <RadzenRequiredValidator Component="Email" Text="Email is required!" />
-    
-  </p>
-    <p>
-        <RadzenLabel Component="Password" Text="Password" />
-        <RadzenPassword @bind-Value=@password />
-        <RadzenRequiredValidator Component="Password" Text="Password is required!" />
-    </p>
-    
-    <p>
-        <RadzenLabel Component="Nationality" Text="Nationality" />
-        <RadzenTextBox Name="Nationality" @bind-Value=@nationality />
-        <RadzenRequiredValidator Component="Nationality" Text="Nationality is required!" />
-    </p>
-    
-    <p>
-        <RadzenLabel Component="FirstName" Text="First name" />
-        <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
-        <RadzenRequiredValidator Component="FirstName" Text="First name is required!" />
-    </p>
-    
-    <p>
-        <RadzenLabel Component="MiddleName" Text="Middle name" />
-        <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
-    </p>
-    
-    <p>
-        <RadzenLabel Component="LastName" Text="Last name" />
-        <RadzenTextBox Name="LastName" @bind-Value=@lastName />
-        <RadzenRequiredValidator Component="LastName" Text="Last name is required!" />
-    </p>
-    
-    
+<div class="card">
+    <div class="form-group field">
+        
+        <RadzenTemplateForm TItem="Person" Submit=@Create>
+            <p>
+                <RadzenLabel Component="Email" Text="Email"/>
+                <RadzenTextBox Name="Email" @bind-Value=@email />
+                <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
 
-    <p>
-        <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange" />
-    </p>
-    
-    <p>
-        <RadzenLabel Component="DateOfBirth" Text="Date of birth" />
-        <RadzenDatePicker @bind-Value=@date />
-    </p>
-    
-    <RadzenButton ButtonType="ButtonType.Submit" Text="Create" />
-</RadzenTemplateForm>
+            </p>
+            <p>
+                <RadzenLabel Component="Password" Text="Password"/>
+                <RadzenPassword @bind-Value=@password />
+                <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
+            </p>
+
+            <p>
+                <RadzenLabel Component="Nationality" Text="Nationality"/>
+                <RadzenTextBox Name="Nationality" @bind-Value=@nationality />
+                <RadzenRequiredValidator Component="Nationality" Text="Nationality is required!"/>
+            </p>
+
+            <p>
+                <RadzenLabel Component="FirstName" Text="First name"/>
+                <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
+                <RadzenRequiredValidator Component="FirstName" Text="First name is required!"/>
+            </p>
+
+            <p>
+                <RadzenLabel Component="MiddleName" Text="Middle name"/>
+                <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
+            </p>
+
+            <p>
+                <RadzenLabel Component="LastName" Text="Last name"/>
+                <RadzenTextBox Name="LastName" @bind-Value=@lastName />
+                <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
+            </p>
 
 
+
+            <p>
+                <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange"/>
+            </p>
+
+            <p>
+                <RadzenLabel Component="DateOfBirth" Text="Date of birth"/>
+                <RadzenDatePicker @bind-Value=@date />
+            </p>
+
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Create"/>
+        </RadzenTemplateForm>
+
+    </div>
+</div>
 
 <!--
 <div class="card">
