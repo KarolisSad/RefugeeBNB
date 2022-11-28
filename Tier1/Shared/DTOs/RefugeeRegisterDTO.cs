@@ -4,14 +4,14 @@ namespace Shared.DTOs;
 
 public class RefugeeRegisterDTO
 {
-    private string Email{ get; }
-    private string Password{ get; }
-    private char Gender{ get; }
-    private string Nationality{ get; }
-    private string FirstName{ get; }
-    private string MiddleName{ get; }
-    private string LastName{ get; }
-    private Date DateOfBirth { get; }
+    public string Email{ get; }
+    public string Password{ get; }
+    public char Gender{ get; }
+    public string Nationality{ get; }
+    public string FirstName{ get; }
+    public string MiddleName{ get; }
+    public string LastName{ get; }
+    public Date DateOfBirth { get; }
 
     public RefugeeRegisterDTO(string email, string password, char gender, string nationality, string firstName, string middleName, string lastName, Date dateOfBirth)
     {

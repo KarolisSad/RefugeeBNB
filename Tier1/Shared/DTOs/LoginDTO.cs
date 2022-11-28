@@ -2,8 +2,8 @@
 
 public class LoginDTO
 {
-    private string Email { get; }
-    private string Password { get; }
+    public string Email { get; }
+    public string Password { get; }
 
     public LoginDTO(string email, string password)
     {

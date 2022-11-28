@@ -1,10 +1,11 @@
 ﻿using Shared.Domain;
+using Shared.DTOs;
 
 namespace HttpClients.ClientInterfaces;
 
 public interface HostInterface
 {
-    Task RegisterHostAsync(Host host);
-    Task<Host> LoginHostAsync(string username, string password);
-    Task<Host> AddHousingAsync(Housing housing, string email);
+    Task RegisterHostAsync(HostRegisterDTO dto);
+    Task<Host> LoginHostAsync(LoginDTO dto);
+    Task<Housing> AddHousingAsync(HousingCreationDTO dto);
 }

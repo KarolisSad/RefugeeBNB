@@ -1,9 +1,10 @@
 ﻿using Shared.Domain;
+using Shared.DTOs;
 
 namespace HttpClients.ClientInterfaces;
 
 public interface RefugeeInterface
 {
-    Task RegisterRefugee(Refugee refugee);
-    Task<Refugee> LoginRefugee(string email, string password);
+    Task RegisterRefugee(RefugeeRegisterDTO dto);
+    Task<Refugee> LoginRefugee(LoginDTO dto);
 }

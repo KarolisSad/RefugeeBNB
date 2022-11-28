@@ -2,6 +2,7 @@
 @using HttpClients.ClientInterfaces
 @using global::Shared.Domain
 @using System.Collections.ObjectModel
+@using global::Shared.DTOs
 @inject HostInterface hostClient;
 @inject RefugeeInterface refugeeClient;
 
@@ -186,7 +187,7 @@
         {
             try
             {
-                await hostClient.RegisterHostAsync(new Host(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth, new List<Housing>()));
+                await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
                 Clear();
                 resultMsg = "User successfully created";
                 color = "green";
@@ -201,7 +202,7 @@
         {
             try
             {
-                await refugeeClient.RegisterRefugee(new Refugee(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
                 Clear();
                 resultMsg = "User successfully created";
                 color = "green";

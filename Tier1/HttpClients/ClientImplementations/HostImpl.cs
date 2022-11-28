@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using HttpClients.ClientInterfaces;
 using Shared.Domain;
+using Shared.DTOs;
 
 namespace HttpClients.ClientImplementations;
 
@@ -17,7 +18,7 @@ public class HostImpl:HostInterface
         this.client = client;
     }
 
-    public async Task RegisterHostAsync(Host host)
+    public async Task RegisterHostAsync(HostRegisterDTO host)
     {
         HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/host", host);
         if (!responseMessage.IsSuccessStatusCode)
@@ -27,20 +28,25 @@ public class HostImpl:HostInterface
         }
     }
 
-    public async Task<Host> LoginHostAsync(string email, string password)
+    public async Task<Host> LoginHostAsync(LoginDTO dto)
     {
-        Host existing = await getHostAsync(email);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/host/login", dto);
         
-        //password check
-        if (existing.Password.Equals(password))
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
         {
-            throw new Exception("Your password does not match");
+            throw new Exception(content);
         }
 
-        return existing;
+        Host host = JsonSerializer.Deserialize<Host>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return host;
     }
 
-    public async Task<Host> AddHousingAsync(Housing housing, string email)
+    public async Task<Housing> AddHousingAsync(HousingCreationDTO housing)
     {
         //We create housing in Database
         HttpResponseMessage created = await client.PostAsJsonAsync("/housing", housing);
@@ -55,34 +61,11 @@ public class HostImpl:HostInterface
         {
             PropertyNameCaseInsensitive = true
         })!;
-            
-        
-        //I am adding the housing to a host Housing collection
-        Host existing = await getHostAsync(email);
-        existing.MyHousings.Add(housingCreated);
-        
-        
-        //sending a host with an added housing to a json serializer
-        string dtoAsJson = JsonSerializer.Serialize(existing);
-        StringContent body = new StringContent(dtoAsJson, Encoding.UTF8, "application/json");
 
-        //requesting an update of a host
-        HttpResponseMessage responseMessage = await client.PatchAsync($"/hosts/{email}", body);
-        
-        string content = await responseMessage.Content.ReadAsStringAsync();
-        if (!responseMessage.IsSuccessStatusCode)
-        {
-            throw new Exception(content);
-        }
-        
-        Host host = JsonSerializer.Deserialize<Host>(content, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-
-        return host;
+        return housingCreated;
     }
 
+    /**
     public async Task<Host> getHostAsync(string email)
     {
         HttpResponseMessage responseMessage = await client.GetAsync($"/host/{email}");
@@ -99,6 +82,6 @@ public class HostImpl:HostInterface
         
         return host;
     }
-
+*/
 
 }

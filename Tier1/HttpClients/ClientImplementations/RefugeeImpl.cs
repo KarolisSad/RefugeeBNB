@@ -2,6 +2,7 @@
 using System.Text.Json;
 using HttpClients.ClientInterfaces;
 using Shared.Domain;
+using Shared.DTOs;
 
 namespace HttpClients.ClientImplementations;
 
@@ -14,30 +15,35 @@ public class RefugeeImpl:RefugeeInterface
         this.client = client;
     }
 
-    public async Task RegisterRefugee(Refugee refugee)
+    public async Task RegisterRefugee(RefugeeRegisterDTO dto)
     {
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/refugee", refugee);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/refugee", dto);
         if (!responseMessage.IsSuccessStatusCode)
         {
             string content = await responseMessage.Content.ReadAsStringAsync();
             throw new Exception(content);
         }
-        
     }
 
-    public async Task<Refugee> LoginRefugee(string email, string password)
+    public async Task<Refugee> LoginRefugee(LoginDTO dto)
     {
-        Refugee existing = await GetRefugeeAsync(email);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/refugee/login", dto);
         
-        //password check
-        if (existing.Password.Equals(password))
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
         {
-            throw new Exception("Your password does not match");
+            throw new Exception(content);
         }
 
-        return existing;
+        Refugee refugee = JsonSerializer.Deserialize<Refugee>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return refugee;
     }
 
+    /**
     private async Task<Refugee> GetRefugeeAsync(string email)
     {
         HttpResponseMessage responseMessage = await client.GetAsync($"/refugee/{email}");
@@ -54,4 +60,5 @@ public class RefugeeImpl:RefugeeInterface
         
         return refugee;
     }
+    */
 }

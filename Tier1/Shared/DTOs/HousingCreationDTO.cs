@@ -2,14 +2,14 @@
 
 public class HousingCreationDTO
 {
-    private string Country { get; }
-    private string City{ get; }
-    private string StreetName{ get; }
-    private string HouseNumber{ get; }
-    private string RoomNumber{ get; }
-    private string PostCode{ get; }
-    private int Capacity{ get; }
-    private string HostEmail{ get; }
+    public string Country { get; }
+    public string City{ get; }
+    public string StreetName{ get; }
+    public string HouseNumber{ get; }
+    public string RoomNumber{ get; }
+    public string PostCode{ get; }
+    public int Capacity{ get; }
+    public string HostEmail{ get; }
 
 
     public HousingCreationDTO(string country, string city, string streetName, string houseNumber, string roomNumber, string postCode, int capacity, string hostEmail)
