@@ -21,6 +21,10 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_sequence")
     private long addressId;
 
+    @OneToOne
+    @JoinColumn (name = "housingId")
+    private Housing housing;
+
     @Column(name = "country")
     private String country;
 

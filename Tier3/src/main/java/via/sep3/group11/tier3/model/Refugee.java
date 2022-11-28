@@ -32,8 +32,9 @@ public class Refugee {
     @Column(name = "password")
     private String password;
 
+    //todo
     @Column(name = "dob")
-    private LocalDate dob;
+    private Date dob;
 
     @Column(name = "nationality")
     private String nationality;

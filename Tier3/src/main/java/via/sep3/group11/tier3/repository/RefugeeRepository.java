@@ -4,14 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import via.sep3.group11.tier3.model.Refugee;
 
 /**
- * An interface that extends JpaRepository
+ * Class extends JPA Repository, provides functionality for managing and structuring the database
  *
- * @author Group 11
  * @version 28/11/22
- */
-
-/**
- *
+ * @author Group 11
  */
 public interface RefugeeRepository extends JpaRepository<Refugee, String> {
 }
