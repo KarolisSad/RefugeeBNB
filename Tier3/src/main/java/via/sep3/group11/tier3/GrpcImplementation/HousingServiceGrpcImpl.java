@@ -17,9 +17,9 @@ public class HousingServiceGrpcImpl extends HousingGrpc.HousingImplBase {
     @Override
     public void addHousing(GAddHousingRequest request, StreamObserver<GHousing> responseObserver) {
     {
-        Housing housingRequest = GrpcConverter.HousingFromGrpc(request.getHousing());
+        Housing housingRequest = GrpcConverter.housingFromGrpc(request.getHousing());
         Housing toSend = housingDaoInterface.addHousing(housingRequest,request.getEmail());
-        GHousing response = GrpcConverter.HousingToGrpc(toSend);
+        GHousing response = GrpcConverter.housingToGrpc(toSend);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
