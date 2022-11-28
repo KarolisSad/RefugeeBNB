@@ -1,5 +1,7 @@
 package via.sep3.group11.tier2.shared.DTOs;
 
+import via.sep3.group11.tier2.shared.domain.Date;
+
 /**
  * Domain Transfer Object used to register Hosts in the system.
  * @version 27/11-2022
@@ -14,6 +16,7 @@ public class HostRegisterDTO {
     private String firstName;
     private String middleName;
     private String lastName;
+    private Date dateOfBirth;
 
 
     /**
@@ -26,8 +29,9 @@ public class HostRegisterDTO {
      * @param firstName: Represents the first name of the host.
      * @param middleName: Represents the middle name of the host.
      * @param lastName: Represents the last name of the host.
+     * @param dob: Represents the date of birth of the host.
      */
-    public HostRegisterDTO(String email, String password, char gender, String nationality, String firstName, String middleName, String lastName) {
+    public HostRegisterDTO(String email, String password, char gender, String nationality, String firstName, String middleName, String lastName, Date dob) {
         this.email = email;
         this.password = password;
         this.gender = gender;
@@ -35,6 +39,7 @@ public class HostRegisterDTO {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.dateOfBirth = dob;
     }
 
     /**
@@ -91,5 +96,13 @@ public class HostRegisterDTO {
      */
     public String getLastName() {
         return lastName;
+    }
+
+    /**
+     * Simple getter method for date.
+     * @return the date of the DTO.
+     */
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 }

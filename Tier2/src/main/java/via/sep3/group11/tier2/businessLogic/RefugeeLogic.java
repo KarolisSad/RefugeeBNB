@@ -52,6 +52,7 @@ public class RefugeeLogic implements RefugeeInterface {
             toRegister.setFirstName(dto.getFirstName());
             toRegister.setMiddleName(Optional.ofNullable(dto.getMiddleName()));
             toRegister.setLastName(dto.getLastName());
+            toRegister.setDateOfBirth(dto.getDateOfBirth());
 
             Optional<Refugee> existing = refugeeDAO.GetRefugeeByEmail(toRegister.getEmail());
 
