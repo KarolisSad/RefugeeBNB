@@ -1,6 +1,7 @@
 package via.sep3.group11.tier2.daoImplementation;
 
 import io.grpc.StatusRuntimeException;
+import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.context.annotation.Configuration;
 import via.sep3.group11.tier2.daoImplementation.connections.Channel;
 import via.sep3.group11.tier2.daoImplementation.converters.GrpcConverter;
@@ -13,7 +14,7 @@ import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
-@Configuration
+@GRpcService
 public class HousingDaoImpl implements HousingDaoInterface {
 
     @Resource
