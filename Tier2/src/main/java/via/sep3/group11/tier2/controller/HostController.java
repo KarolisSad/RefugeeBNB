@@ -63,7 +63,7 @@ public class HostController {
      * @param
      * @return
      */
-    @GetMapping("/host/")
+    @GetMapping("/host/login")
     public ResponseEntity<Host> getHostByEmail(@RequestBody LoginDTO loginDTO){
         try {
             Host host = hostLogic.LoginHost(loginDTO);
