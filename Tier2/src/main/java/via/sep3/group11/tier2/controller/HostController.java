@@ -13,6 +13,7 @@ import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class HostController {
     /**

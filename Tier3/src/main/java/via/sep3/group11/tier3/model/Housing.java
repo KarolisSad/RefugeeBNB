@@ -27,9 +27,19 @@ public class Housing {
     @JoinColumn(name = "address")
     private Address address;
 
+    @ManyToOne
+    @JoinTable(name = "housing_id")
+    public Host host;
+
     public Housing() {}
 
     public Housing(int capacity, Address address) {
+        this.capacity = capacity;
+        this.address = address;
+    }
+
+    public Housing(long housingId, int capacity, Address address) {
+        this.housingId = housingId;
         this.capacity = capacity;
         this.address = address;
     }

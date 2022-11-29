@@ -49,7 +49,7 @@ public class HostImpl:HostInterface
     public async Task<Housing> AddHousingAsync(HousingCreationDTO housing)
     {
         //We create housing in Database
-        HttpResponseMessage created = await client.PostAsJsonAsync("/housing", housing);
+        HttpResponseMessage created = await client.PostAsJsonAsync("/api/housing", housing);
         string result = await created.Content.ReadAsStringAsync();
         
         if (!created.IsSuccessStatusCode)

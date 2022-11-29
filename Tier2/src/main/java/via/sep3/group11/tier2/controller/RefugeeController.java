@@ -34,9 +34,9 @@ public class RefugeeController {
      * @param refugee
      * @return
      */
+    @CrossOrigin
     @PostMapping(value ="/refugee",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Refugee> createRefugee(@RequestBody RefugeeRegisterDTO refugee){
-
         try{
             Refugee created = refugeeInterface.registerRefugee(refugee);
             return new ResponseEntity<>(created,HttpStatus.CREATED);
@@ -50,6 +50,7 @@ public class RefugeeController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
         catch (Exception e) {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
