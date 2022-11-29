@@ -5,7 +5,7 @@ import via.sep3.group11.tier3.protobuf.*;
 
 public class GrpcConverter {
 
-    public static Host HostFromGrpc(GHost grpcHost) {
+public static Host HostFromGrpc(GHost grpcHost) {
         return new Host(
                 grpcHost.getEmail(),
                 grpcHost.getFirstName(),
@@ -33,7 +33,7 @@ public class GrpcConverter {
     }
 
 
-    public static Refugee RefugeeFromGrpc(GRefugee grpcRefugee) {
+public static Refugee RefugeeFromGrpc(GRefugee grpcRefugee) {
         return new Refugee(
                 grpcRefugee.getEmail(),
                 grpcRefugee.getFirstName(),
@@ -45,7 +45,7 @@ public class GrpcConverter {
                 DateFromGrpc(grpcRefugee.getDateOfBirth()));
     }
 
-    public static GRefugee RefugeeToGrpc(Refugee refugee)
+    public static GRefugee refugeeToGrpc(Refugee refugee)
     {
         return GRefugee.newBuilder()
                 .setEmail(refugee.getEmail())
@@ -59,7 +59,7 @@ public class GrpcConverter {
                    .build();
     }
 
-    public static GAddress AddressToGrpc(Address address)
+    public static GAddress addressToGrpc(Address address)
     {
         return GAddress.newBuilder()
                 .setCountry(address.getCountry())
@@ -71,7 +71,7 @@ public class GrpcConverter {
                 .setId(address.getAddressId()).build();
     }
 
-    public static Address AddressFromGrpc(GAddress address)
+    public static Address addressFromGrpc(GAddress address)
     {
         return new Address(
                 address.getId(),
@@ -89,7 +89,7 @@ public class GrpcConverter {
                 AddressFromGrpc(returnedHousing.getAddress()));
     }
 
-    public static GHousing HousingToGrpc(Housing housing)
+    public static GHousing housingToGrpc(Housing housing)
     {
         return GHousing.newBuilder()
                 .setCapacity(housing.getCapacity())
@@ -97,7 +97,7 @@ public class GrpcConverter {
     }
 
 
-    public static GDateOfBirth DateToGrpc(Date date)
+    public static GDateOfBirth dateToGrpc(Date date)
     {
         return GDateOfBirth.newBuilder()
                 .setDay(date.getDay())

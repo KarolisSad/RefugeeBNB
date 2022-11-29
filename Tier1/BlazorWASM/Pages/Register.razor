@@ -12,7 +12,7 @@
 <div class="card">
     <div class="form-group field">
         
-        <RadzenTemplateForm TItem="Person" Submit=@Create>
+        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@Create>
             <p>
                 <RadzenLabel Component="Email" Text="Email"/>
                 <RadzenTextBox Name="Email" @bind-Value=@email />
@@ -51,106 +51,23 @@
 
 
             <p>
+                <RadzenLabel Component="PersonType" Text="Who are you?"/>
                 <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange"/>
             </p>
 
             <p>
-                <RadzenLabel Component="DateOfBirth" Text="Date of birth"/>
-                <RadzenDatePicker @bind-Value=@date />
+                <label for="dateOfBirth">Date of birth:</label>
+                <input type="date" id="dateOfBirth" name="dateofBirth" @bind="date">
             </p>
 
-            <RadzenButton ButtonType="ButtonType.Submit" Text="Create"/>
+            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@Create"/>
+            
         </RadzenTemplateForm>
 
+        <label style="color: @color">@resultMsg</label>
     </div>
 </div>
 
-<!--
-<div class="card">
-    <div class="form-group field">
-    
-        <div>
-            <label>Email:</label>
-            <input type="text" @bind="email" @bind:event="oninput"/>
-            @if (!string.IsNullOrEmpty(resultMsg))
-            {
-                <label style="color: @color">@resultMsg</label>
-            }
-        </div>
-        
-        <div>
-            <label>Password:</label>
-            <input type="text" @bind="password" @bind:event="oninput"/>
-            @if (!string.IsNullOrEmpty(resultMsg))
-            {
-                <label style="color: @color">@resultMsg</label>
-            }
-        </div>    
-        
-        <div>
-            <label>Nationality:</label>
-            <input type="text" @bind="nationality" @bind:event="oninput"/>
-            @if (!string.IsNullOrEmpty(resultMsg))
-            {
-                <label style="color: @color">@resultMsg</label>
-            }
-        </div>
-        
-        <div>
-            <label>First Name:</label>
-            <input type="text" @bind="firstName" @bind:event="oninput"/>
-            @if (!string.IsNullOrEmpty(resultMsg))
-            {
-                <label style="color: @color">@resultMsg</label>
-            }
-        </div>
-        
-        <div>
-            <label>Middle Name:</label>
-            <input type="text" @bind="middleName" @bind:event="oninput"/>
-            @if (!string.IsNullOrEmpty(resultMsg))
-            {
-                <label style="color: @color">@resultMsg</label>
-            }
-        </div>
-        
-        <div>
-            <label>Last Name:</label>
-            <input type="text" @bind="lastName" @bind:event="oninput"/>
-            @if (!string.IsNullOrEmpty(resultMsg))
-            {
-                <label style="color: @color">@resultMsg</label>
-            }
-        </div>
-        
-        <div>
-            <label for="gender">Pick your gender:</label>
-            <select name="gender" id="gender" @bind="gender" @bind:event="oninput">
-                <option value="female">Male</option>
-                <option value="male">Female</option>
-            </select>
-        </div>
-        
-        
-        <div>
-            <label for="dateOfBirth">Select your date of birth:</label>
-            <RadzenDatePicker @bind-Value=@date DateFormat="d" />
-        </div>
-        
-        <div>
-            <label for="personType">Who are you?</label>
-            <select name="personType" id="personType" @bind="personType" @bind:event="oninput">
-                <option value="host">I am a Host.</option>
-                <option value="refugee">I am a Refugee.</option>
-            </select>
-        </div>
-    </div>
-    
-    <div class="button-row">
-        <RadzenButton Click="@Create" Text="@btnText"></RadzenButton>
-    </div>
-</div>
--->
 
 @code {
 
@@ -167,12 +84,10 @@
         private string firstName = "";
         private string middleName = "";
         private string lastName = "";
-        private DateTime date = new DateTime();
+        DateOnly date = new DateOnly(2011,11,11);
 
     public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
-
-
-    private string btnText = "Create";
+    
     private string resultMsg = "";
     
     private string color = "";
@@ -180,17 +95,18 @@
     private async Task Create()
     {
         resultMsg = "";
-
         Date dateOfBirth = new Date(date.Day, date.Month, date.Year);
 
-        if (personType.Contains("Host"))
+        if (personType.Contains("host"))
         {
             try
             {
                 await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                Console.WriteLine("We created a host.");
                 Clear();
                 resultMsg = "User successfully created";
                 color = "green";
+                
             }
             catch (Exception e)
             {
@@ -198,7 +114,7 @@
                 resultMsg = e.Message;
                 color = "red";
             }
-        }else if (personType.Contains("Refugee"))
+        }else if (personType.Contains("refugee"))
         {
             try
             {
@@ -206,6 +122,7 @@
                 Clear();
                 resultMsg = "User successfully created";
                 color = "green";
+                Console.WriteLine("We created a refugee.");
             }
             catch (Exception e)
             {
@@ -228,7 +145,7 @@
         firstName="";
       middleName="";
       lastName="";
-        date = new DateTime();
+        date = new DateOnly(2011,11,11);
     }
 
     private void OnChange(object value)

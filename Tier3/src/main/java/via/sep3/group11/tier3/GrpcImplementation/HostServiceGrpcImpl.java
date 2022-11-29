@@ -20,6 +20,7 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
     public void createHost(GHost request, StreamObserver<GHost> responseObserver) {
         responseObserver.onNext(GrpcConverter.HostToGrpc(
                 hostDaoInterface.createHost(GrpcConverter.HostFromGrpc(request))));
+
         responseObserver.onCompleted();
 
         //                Host convertedRequest = GrpcConverter.HostFromGrpc(request);
@@ -39,7 +40,7 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
             responseObserver.onCompleted();
         }
         else {
-            GHost response = GrpcConverter.HostToGrpc(dataResponse.get());
+            GHost response = GrpcConverter.hostToGrpc(dataResponse.get());
             responseObserver.onNext(response);
             responseObserver.onCompleted();
 

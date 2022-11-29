@@ -47,4 +47,3 @@ package via.sep3.group11.tier3.model;
             return year;
         }
     }
-
