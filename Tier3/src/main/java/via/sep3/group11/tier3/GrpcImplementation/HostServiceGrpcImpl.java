@@ -4,6 +4,8 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter;
 import via.sep3.group11.tier3.protobuf.*;
+import via.sep3.group11.tier3.services.servicesInterfaces.HostDaoInterface;
+
 import javax.annotation.Resource;
 import java.util.Optional;
 
@@ -15,8 +17,8 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
 
     @Override
     public void createHost(GHost request, StreamObserver<GHost> responseObserver) throws ValidationException {
-        responseObserver.onNext(GrpcConverter.HostToGrpc(
-                hostDaoInterface.createHost(GrpcConverter.HostFromGrpc(request))));
+        responseObserver.onNext(GrpcConverter.hostToGrpc(
+                hostDaoInterface.createHost(GrpcConverter.hostFromGrpc(request))));
         responseObserver.onCompleted();
 
         //                Host convertedRequest = GrpcConverter.HostFromGrpc(request);
@@ -36,7 +38,7 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
             responseObserver.onCompleted();
         }
         else {
-            GHost response = GrpcConverter.HostToGrpc(dataResponse.get());
+            GHost response = GrpcConverter.hostToGrpc(dataResponse.get());
             responseObserver.onNext(response);
             responseObserver.onCompleted();
 

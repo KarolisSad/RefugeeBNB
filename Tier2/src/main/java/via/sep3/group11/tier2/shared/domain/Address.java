@@ -3,7 +3,7 @@ package via.sep3.group11.tier2.shared.domain;
 
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
-import static via.sep3.group11.tier2.shared.domain.ValidationHelper.SimpleValidateString;
+import static via.sep3.group11.tier2.shared.domain.ValidationHelper.simpleValidateString;
 
 /**
  * Class representing an address belonging to a Housing-object.
@@ -79,7 +79,7 @@ public class Address {
      * @throws ValidationException if the parameter is either null or an empty string.
      */
     public void setCountry(String country) throws ValidationException {
-        SimpleValidateString(country, "Country");
+        simpleValidateString(country, "Country");
         this.country = country;
     }
 
@@ -98,7 +98,7 @@ public class Address {
      * @throws ValidationException if the parameter is either null or an empty string.
      */
     public void setCity(String city) throws ValidationException {
-        SimpleValidateString(city, "City");
+        simpleValidateString(city, "City");
         this.city = city;
     }
 
@@ -117,7 +117,7 @@ public class Address {
      * @throws ValidationException if the parameter is either null or an empty string.
      */
     public void setStreetName(String streetName) throws ValidationException {
-        SimpleValidateString(streetName, "Street name");
+        simpleValidateString(streetName, "Street name");
         this.streetName = streetName;
     }
 
@@ -136,7 +136,7 @@ public class Address {
      * @throws ValidationException if the parameter is either null or an empty string.
      */
     public void setHouseNumber(String houseNumber) throws ValidationException {
-        SimpleValidateString(houseNumber, "House Number");
+        simpleValidateString(houseNumber, "House Number");
         this.houseNumber = houseNumber;
     }
 
@@ -156,7 +156,7 @@ public class Address {
      */
     public void setRoomNumber(String roomNumber) {
         try {
-            SimpleValidateString(roomNumber, "Room Number");
+            simpleValidateString(roomNumber, "Room Number");
             this.roomNumber = roomNumber;
         } catch (ValidationException ve) {
             this.roomNumber = "";
@@ -178,7 +178,7 @@ public class Address {
      * @throws ValidationException if the parameter is either null or an empty string.
      */
     public void setPostCode(String postCode) throws ValidationException {
-        SimpleValidateString(postCode, "Postcode");
+        simpleValidateString(postCode, "Postcode");
         this.postCode = postCode;
     }
 }

@@ -18,9 +18,9 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
     @Override
     public void createRefugee(GRefugee request, StreamObserver<GRefugee> responseObserver) throws ValidationException {
 
-        Refugee convertedRequest = GrpcConverter.RefugeeFromGrpc(request);
+        Refugee convertedRequest = GrpcConverter.refugeeFromGrpc(request);
         Refugee dataResponse = refugeeDao.createRefugee(convertedRequest);
-        GRefugee response = GrpcConverter.RefugeeToGrpc(dataResponse);
+        GRefugee response = GrpcConverter.refugeeToGrpc(dataResponse);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
@@ -35,7 +35,7 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
             responseObserver.onCompleted();
         }
         else {
-            GRefugee response = GrpcConverter.RefugeeToGrpc(dataResponse.get());
+            GRefugee response = GrpcConverter.refugeeToGrpc(dataResponse.get());
             responseObserver.onNext(response);
             responseObserver.onCompleted();
 
