@@ -1,9 +1,15 @@
 package via.sep3.group11.tier3.services.serviceImp;
 
 import org.springframework.stereotype.Service;
+import via.sep3.group11.tier3.model.Address;
+import via.sep3.group11.tier3.model.Host;
 import via.sep3.group11.tier3.model.Housing;
+import via.sep3.group11.tier3.repository.AddressRepository;
+import via.sep3.group11.tier3.repository.HostRepository;
 import via.sep3.group11.tier3.repository.HousingRepository;
 import via.sep3.group11.tier3.services.servicesInterfaces.HousingDaoInterface;
+
+import java.util.Optional;
 
 /**
  * A class that implements housingDaoInterface
@@ -19,13 +25,15 @@ import via.sep3.group11.tier3.services.servicesInterfaces.HousingDaoInterface;
 public class HousingService implements HousingDaoInterface {
 
     private HousingRepository repository;
+    private AddressRepository addressRepository;
 
     /**
      * Constructor to initialize repository class
      * @param repository housing repository
      */
-    public HousingService(HousingRepository repository) {
+    public HousingService(HousingRepository repository, AddressRepository addressRepository, HostRepository hostRepository) {
         this.repository = repository;
+        this.addressRepository = addressRepository;
     }
 
     /**
@@ -37,6 +45,9 @@ public class HousingService implements HousingDaoInterface {
      */
     @Override
     public Housing addHousing(Housing housing, String email) {
+        Address a = housing.getAddress();
+        addressRepository.save(a);
+
         return repository.save(housing);
     }
 }

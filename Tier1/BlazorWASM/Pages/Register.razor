@@ -127,7 +127,10 @@
         {
             try
             {
-                await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, 'm', nationality, firstName, lastName, middleName, dateOfBirth));
+                Console.Write("BUTTON CLICKED");
+                await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                Console.Write("AFTER CALL");
+                
                 Clear();
                 resultMsg = "User successfully created";
                 color = "green";

@@ -44,6 +44,10 @@ public class RefugeeDaoImpl implements RefugeeDaoInterface {
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GRefugee response = channel.getRefugeeStub().withDeadlineAfter(1, TimeUnit.SECONDS).getRefugeeByEmail(request);
+            if (response.getEmail().isEmpty()) {
+                return Optional.empty();
+            }
+
             return Optional.of(GrpcConverter.refugeeFromGrpc(response));
         }
         catch (StatusRuntimeException e)

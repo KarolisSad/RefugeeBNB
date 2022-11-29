@@ -2,6 +2,7 @@ package via.sep3.group11.tier3.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class Host {
     @Column(name = "dob")
     private Date dateOfBirth;
 
-    @OneToMany
+    @OneToMany(mappedBy = "host")
     private List<Housing> housing;
 
     @OneToOne
