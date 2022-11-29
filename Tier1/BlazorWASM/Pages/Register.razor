@@ -101,7 +101,7 @@
         {
             try
             {
-                await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, 'm', nationality, firstName, lastName, middleName, dateOfBirth));
                 Console.WriteLine("We created a host.");
                 Clear();
                 resultMsg = "User successfully created";
@@ -118,7 +118,7 @@
         {
             try
             {
-                await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, 'm', nationality, firstName, lastName, middleName, dateOfBirth));
                 Clear();
                 resultMsg = "User successfully created";
                 color = "green";

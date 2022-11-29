@@ -40,7 +40,7 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
             responseObserver.onCompleted();
         }
         else {
-            GHost response = GrpcConverter.hostToGrpc(dataResponse.get());
+            GHost response = GrpcConverter.HostToGrpc(dataResponse.get());
             responseObserver.onNext(response);
             responseObserver.onCompleted();
 

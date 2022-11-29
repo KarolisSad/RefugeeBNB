@@ -17,7 +17,7 @@ public class RefugeeImpl:RefugeeInterface
 
     public async Task RegisterRefugee(RefugeeRegisterDTO dto)
     {
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/refugee", dto);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/refugee", dto);
         if (!responseMessage.IsSuccessStatusCode)
         {
             string content = await responseMessage.Content.ReadAsStringAsync();

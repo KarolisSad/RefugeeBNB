@@ -20,7 +20,7 @@ public class HostImpl:HostInterface
 
     public async Task RegisterHostAsync(HostRegisterDTO host)
     {
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/host", host);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/host", host);
         if (!responseMessage.IsSuccessStatusCode)
         {
             string content = await responseMessage.Content.ReadAsStringAsync();

@@ -33,7 +33,7 @@ public static Host HostFromGrpc(GHost grpcHost) {
     }
 
 
-public static Refugee RefugeeFromGrpc(GRefugee grpcRefugee) {
+public static Refugee refugeeFromGrpc(GRefugee grpcRefugee) {
         return new Refugee(
                 grpcRefugee.getEmail(),
                 grpcRefugee.getFirstName(),
@@ -59,7 +59,7 @@ public static Refugee RefugeeFromGrpc(GRefugee grpcRefugee) {
                    .build();
     }
 
-    public static GAddress addressToGrpc(Address address)
+    public static GAddress AddressToGrpc(Address address)
     {
         return GAddress.newBuilder()
                 .setCountry(address.getCountry())
@@ -71,7 +71,7 @@ public static Refugee RefugeeFromGrpc(GRefugee grpcRefugee) {
                 .setId(address.getAddressId()).build();
     }
 
-    public static Address addressFromGrpc(GAddress address)
+    public static Address AddressFromGrpc(GAddress address)
     {
         return new Address(
                 address.getId(),
@@ -83,7 +83,7 @@ public static Refugee RefugeeFromGrpc(GRefugee grpcRefugee) {
                 address.getPostCode());
     }
 
-    public static Housing HousingFromGrpc(GHousing returnedHousing) {
+    public static Housing housingFromGrpc(GHousing returnedHousing) {
         return new Housing(
                 returnedHousing.getCapacity(),
                 AddressFromGrpc(returnedHousing.getAddress()));
@@ -97,7 +97,7 @@ public static Refugee RefugeeFromGrpc(GRefugee grpcRefugee) {
     }
 
 
-    public static GDateOfBirth dateToGrpc(Date date)
+    public static GDateOfBirth DateToGrpc(Date date)
     {
         return GDateOfBirth.newBuilder()
                 .setDay(date.getDay())

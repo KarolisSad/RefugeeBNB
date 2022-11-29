@@ -47,6 +47,9 @@ public class HostDaoImpl implements HostDaoInterface{
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHostByEmail(request);
+            if (response.getEmail().isEmpty()) {
+                return Optional.empty();
+            }
             return Optional.of(GrpcConverter.hostFromGrpc(response));
         }
         catch (StatusRuntimeException e)

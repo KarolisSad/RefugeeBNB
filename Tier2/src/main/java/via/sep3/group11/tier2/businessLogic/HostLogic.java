@@ -61,11 +61,16 @@ public class HostLogic implements HostInterface {
             toRegister.setLastName(dto.getLastName());
             toRegister.setDateOfBirth(dto.getDateOfBirth());
 
+
+
             Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
+
+
 
             if (existing.isPresent()) {
                 throw new NotUniqueException("Host with email " + existing.get().getEmail() + " already exists.");
             }
+
 
             return hostDAO.createHost(toRegister);
         } catch (ValidationException e) {
