@@ -2,6 +2,7 @@
 @using HttpClients.ClientInterfaces
 @using global::Shared.Domain
 @using System.Collections.ObjectModel
+@using System.Text.Json
 @using global::Shared.DTOs
 @inject HostInterface hostClient;
 @inject RefugeeInterface refugeeClient;
@@ -11,7 +12,7 @@
 
 <div class="card">
     <div class="form-group field">
-        
+
         <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@Create>
             <p>
                 <RadzenLabel Component="Email" Text="Email"/>
@@ -48,7 +49,11 @@
                 <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
             </p>
 
-
+            <p>
+                <RadzenLabel Component="Gender" Text="Gender"/>
+                <RadzenTextBox Name="Gender" @bind-Value=@gender />
+                <RadzenRequiredValidator Component="Gender" Text="Gender is required!"/>
+            </p>
 
             <p>
                 <RadzenLabel Component="PersonType" Text="Who are you?"/>
@@ -61,7 +66,7 @@
             </p>
 
             <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@Create"/>
-            
+
         </RadzenTemplateForm>
 
         <label style="color: @color">@resultMsg</label>
@@ -77,25 +82,29 @@
 
 
     private string email = "";
-        private string password = "";
-        private string nationality = "";
-        private string personType = "";
-        private string gender = "";
-        private string firstName = "";
-        private string middleName = "";
-        private string lastName = "";
-        DateOnly date = new DateOnly(2011,11,11);
+    private string password = "";
+    private string nationality = "";
+    private string personType = "";
+    private string gender = "";
+    private string firstName = "";
+    private string middleName = "";
+    private string lastName = "";
+    DateOnly date = new DateOnly(2011, 11, 11);
 
     public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
-    
+
     private string resultMsg = "";
-    
+
     private string color = "";
-    
+
     private async Task Create()
     {
         resultMsg = "";
         Date dateOfBirth = new Date(date.Day, date.Month, date.Year);
+        
+        resultMsg = "";
+        string host = JsonSerializer.Serialize(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+        Console.WriteLine("Serialized: " + host);
 
         if (personType.Contains("host"))
         {
@@ -106,7 +115,6 @@
                 Clear();
                 resultMsg = "User successfully created";
                 color = "green";
-                
             }
             catch (Exception e)
             {
@@ -114,7 +122,8 @@
                 resultMsg = e.Message;
                 color = "red";
             }
-        }else if (personType.Contains("refugee"))
+        }
+        else if (personType.Contains("refugee"))
         {
             try
             {
@@ -131,21 +140,19 @@
                 color = "red";
             }
         }
-
-        
     }
 
     private void Clear()
     {
-      email = "";
-      password = "";
-      nationality = "";
-      personType = "";
+        email = "";
+        password = "";
+        nationality = "";
+        personType = "";
         gender = "";
-        firstName="";
-      middleName="";
-      lastName="";
-        date = new DateOnly(2011,11,11);
+        firstName = "";
+        middleName = "";
+        lastName = "";
+        date = new DateOnly(2011, 11, 11);
     }
 
     private void OnChange(object value)
@@ -159,7 +166,7 @@
         {
             personType = "refugee";
         }
-        
+
         Console.WriteLine($"Value changed to {str}");
     }
 
