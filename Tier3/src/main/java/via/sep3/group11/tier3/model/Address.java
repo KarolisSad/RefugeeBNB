@@ -1,6 +1,5 @@
 package via.sep3.group11.tier3.model;
 
-import lombok.Data;
 import javax.persistence.*;
 
 /**
@@ -11,7 +10,6 @@ import javax.persistence.*;
  * @author Group 11
  * @version 28/11/22
  */
-@Data
 @Entity
 @Table(name = "address")
 public class Address {
@@ -21,10 +19,6 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_sequence")
     private long addressId;
 
-    @OneToOne
-    @JoinColumn (name = "housingId")
-    private Housing housing;
-
     @Column(name = "country")
     private String country;
 
@@ -32,14 +26,61 @@ public class Address {
     private String city;
 
     @Column(name = "street_name")
-    private String strName;
+    private String streetName;
 
     @Column(name = "house_number")
-    private int houseNr;
+    private String houseNumber;
 
     @Column(name = "room_number")
-    private int roomNr;
+    private String roomNumber;
 
     @Column(name = "postal_code")
     private String postalCode;
+
+    @OneToOne(mappedBy = "address")
+    private Housing housing;
+
+    public Address() {}
+
+    public Address(long addressId, String country, String city, String streetName, String houseNumber, String roomNumber, String postalCode) {
+        this.addressId = addressId;
+        this.country = country;
+        this.city = city;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.roomNumber = roomNumber;
+        this.postalCode = postalCode;
+    }
+
+    public long getAddressId() {
+        return addressId;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public Housing getHousing() {
+        return housing;
+    }
 }

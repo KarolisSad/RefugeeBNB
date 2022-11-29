@@ -1,6 +1,5 @@
 package via.sep3.group11.tier3.model;
 
-
     /**
      * Class representing a specific date.
      * @version 27/11-2022

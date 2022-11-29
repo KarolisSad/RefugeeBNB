@@ -1,7 +1,5 @@
 package via.sep3.group11.tier3.protobuf;
 
-import via.sep3.group11.tier3.model.ValidationException;
-
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
@@ -129,7 +127,7 @@ public final class RefugeeGrpc {
     /**
      */
     public void createRefugee(via.sep3.group11.tier3.protobuf.GRefugee request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GRefugee> responseObserver) throws ValidationException {
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GRefugee> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateRefugeeMethod(), responseObserver);
     }
 
@@ -272,12 +270,8 @@ public final class RefugeeGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_CREATE_REFUGEE:
-          try {
-            serviceImpl.createRefugee((GRefugee) request,
-                (io.grpc.stub.StreamObserver<GRefugee>) responseObserver);
-          } catch (ValidationException e) {
-            throw new RuntimeException(e);
-          }
+          serviceImpl.createRefugee((via.sep3.group11.tier3.protobuf.GRefugee) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GRefugee>) responseObserver);
           break;
         case METHODID_GET_REFUGEE_BY_EMAIL:
           serviceImpl.getRefugeeByEmail((via.sep3.group11.tier3.protobuf.GEmail) request,
