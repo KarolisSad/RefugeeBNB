@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Housing {
 
     @Id
-    @SequenceGenerator(name = "housing_sequence", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "housing_sequence", sequenceName = "housing_seq", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "housing_sequence")
     private long housingId;
 
