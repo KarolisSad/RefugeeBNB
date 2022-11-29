@@ -2,6 +2,7 @@ package via.sep3.group11.tier3.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 /**
  * A class responsible for creating an Address table.
@@ -38,6 +39,13 @@ public class Host {
 
     @Column(name = "dob")
     private Date dateOfBirth;
+
+    @OneToMany
+    private List<Housing> housing;
+
+    @OneToOne
+    @JoinColumn(name = "address")
+    private Address address;
 
     public Host() {}
 
@@ -87,6 +95,14 @@ public class Host {
 
     public char getGender() {
         return gender;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public List<Housing> getHousing() {
+        return housing;
     }
 
     public via.sep3.group11.tier3.model.Date getDateOfBirth() {

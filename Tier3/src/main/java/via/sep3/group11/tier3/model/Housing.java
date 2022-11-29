@@ -1,6 +1,5 @@
 package via.sep3.group11.tier3.model;
 
-import lombok.Data;
 import javax.persistence.*;
 
 /**
@@ -23,12 +22,10 @@ public class Housing {
     @Column(name = "capacity")
     private int capacity;
 
-    @OneToOne
-    private Address address;
 
-    @ManyToOne
-    @JoinColumn(name = "host_email")
-    private Host hostEmail;
+    @OneToOne
+    @JoinColumn(name = "address")
+    private Address address;
 
     public Housing() {}
 
@@ -48,4 +45,6 @@ public class Housing {
     public Address getAddress() {
         return address;
     }
+
+
 }

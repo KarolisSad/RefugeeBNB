@@ -1,7 +1,5 @@
 package via.sep3.group11.tier3.protobuf;
 
-import via.sep3.group11.tier3.model.ValidationException;
-
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
@@ -129,7 +127,7 @@ public final class HostGrpc {
     /**
      */
     public void createHost(via.sep3.group11.tier3.protobuf.GHost request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHost> responseObserver) throws ValidationException {
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHost> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateHostMethod(), responseObserver);
     }
 
@@ -272,12 +270,8 @@ public final class HostGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_CREATE_HOST:
-          try {
-            serviceImpl.createHost((GHost) request,
-                (io.grpc.stub.StreamObserver<GHost>) responseObserver);
-          } catch (ValidationException e) {
-            throw new RuntimeException(e);
-          }
+          serviceImpl.createHost((via.sep3.group11.tier3.protobuf.GHost) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHost>) responseObserver);
           break;
         case METHODID_GET_HOST_BY_EMAIL:
           serviceImpl.getHostByEmail((via.sep3.group11.tier3.protobuf.GEmail) request,

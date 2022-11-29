@@ -1,6 +1,5 @@
 package via.sep3.group11.tier3.model;
 
-import lombok.Data;
 import javax.persistence.*;
 
 /**
@@ -38,8 +37,7 @@ public class Address {
     @Column(name = "postal_code")
     private String postalCode;
 
-    @OneToOne
-    @JoinColumn (name = "housingId")
+    @OneToOne(mappedBy = "address")
     private Housing housing;
 
     public Address() {}
@@ -80,5 +78,9 @@ public class Address {
 
     public String getPostalCode() {
         return postalCode;
+    }
+
+    public Housing getHousing() {
+        return housing;
     }
 }

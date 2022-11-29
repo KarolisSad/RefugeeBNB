@@ -2,7 +2,6 @@ package via.sep3.group11.tier3.model;
 
 import lombok.Data;
 import javax.persistence.*;
-import java.time.LocalDate;
 
 /**
  * A class responsible for creating an Address table.
@@ -41,6 +40,10 @@ public class Refugee {
     @Column(name = "dob")
     private java.sql.Date dateOfBirth;
 
+    @OneToOne
+    @JoinColumn(name = "address")
+    private Address address;
+
     public Refugee() {}
 
     public Refugee(String email, String firstName, String middleName, String lastName, String password, String nationality, char gender, via.sep3.group11.tier3.model.Date dateOfBirth) {
@@ -65,6 +68,10 @@ public class Refugee {
 
     public String getEmail() {
         return email;
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     public String getFirstName() {
