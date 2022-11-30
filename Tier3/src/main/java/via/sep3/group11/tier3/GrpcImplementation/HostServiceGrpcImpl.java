@@ -5,6 +5,9 @@ import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter;
 import via.sep3.group11.tier3.model.Host;
 import via.sep3.group11.tier3.DAO.DAOInterfaces.HostDaoInterface;
+import via.sep3.group11.tier3.protobuf.GEmail;
+import via.sep3.group11.tier3.protobuf.GHost;
+import via.sep3.group11.tier3.protobuf.HostGrpc;
 
 import javax.annotation.Resource;
 import java.util.Optional;

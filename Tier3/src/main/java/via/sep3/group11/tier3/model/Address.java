@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Address {
 
     @Id
-    @SequenceGenerator(name = "address_sequence", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "address_sequence", sequenceName = "address_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_sequence")
     private long addressId;
 
@@ -37,13 +37,27 @@ public class Address {
     @Column(name = "postal_code")
     private String postalCode;
 
+
+    //TODO Check if it would still work if removing this??
+    /*
     @OneToOne(mappedBy = "address")
     private Housing housing;
+     */
 
     public Address() {}
 
     public Address(long addressId, String country, String city, String streetName, String houseNumber, String roomNumber, String postalCode) {
         this.addressId = addressId;
+        this.country = country;
+        this.city = city;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.roomNumber = roomNumber;
+        this.postalCode = postalCode;
+    }
+
+    //todo maybe delete again
+    public Address(String country, String city, String streetName, String houseNumber, String roomNumber, String postalCode) {
         this.country = country;
         this.city = city;
         this.streetName = streetName;
@@ -80,7 +94,11 @@ public class Address {
         return postalCode;
     }
 
+    //TODO delete or keep??
+    /*
     public Housing getHousing() {
         return housing;
     }
+
+     */
 }
