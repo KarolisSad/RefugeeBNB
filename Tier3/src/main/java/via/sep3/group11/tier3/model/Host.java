@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static via.sep3.group11.tier3.model.Date.convertDateObjectToLocalDate;
+
 /**
  * A class responsible for creating an Address table.
  * Contains an entity annotation that persists to the database
@@ -59,11 +61,6 @@ public class Host {
         this.nationality = nationality;
         this.gender = gender;
         this.dateOfBirth = convertDateObjectToLocalDate(dateOfBirth);
-    }
-
-    //TODO Update Class Diagram
-    public LocalDate convertDateObjectToLocalDate(Date date) {
-        return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }
 
     public String getEmail() {

@@ -62,6 +62,22 @@ public class HousingDAOImplementation implements HousingDaoInterface {
         return null;
     }
 
+
+    //Todo add class diagram
+    @Override
+    public Optional<Housing> getHousingById(long housingId) {
+        return repository.findById(housingId);
+    }
+
+    @Override
+    public Housing updateHousing(Housing housing) {
+
+     //todo probably not needed!
+
+        return null;
+    }
+
+
     //TODO seems to work - but test when changing status!!
     @Override
     public List<Housing> getAvailableHousing() {

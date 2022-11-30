@@ -38,12 +38,6 @@ public class Address {
     private String postalCode;
 
 
-    //TODO Check if it would still work if removing this??
-    /*
-    @OneToOne(mappedBy = "address")
-    private Housing housing;
-     */
-
     public Address() {}
 
     public Address(long addressId, String country, String city, String streetName, String houseNumber, String roomNumber, String postalCode) {
@@ -93,12 +87,4 @@ public class Address {
     public String getPostalCode() {
         return postalCode;
     }
-
-    //TODO delete or keep??
-    /*
-    public Housing getHousing() {
-        return housing;
-    }
-
-     */
 }

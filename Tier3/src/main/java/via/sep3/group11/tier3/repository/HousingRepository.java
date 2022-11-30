@@ -14,4 +14,5 @@ import java.util.List;
 public interface HousingRepository extends JpaRepository<Housing, Long> {
     List<Housing> findAllByAvailableTrue();
 
+
 }

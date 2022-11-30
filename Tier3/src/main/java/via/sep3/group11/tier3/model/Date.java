@@ -1,6 +1,8 @@
 package via.sep3.group11.tier3.model;
 
-    /**
+import java.time.LocalDate;
+
+/**
      * Class representing a specific date.
      * @version 27/11-2022
      * @author Group 11
@@ -46,4 +48,10 @@ package via.sep3.group11.tier3.model;
         public int getYear() {
             return year;
         }
+
+
+    //TODO Update Class Diagram
+    public static LocalDate convertDateObjectToLocalDate(Date date) {
+        return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+    }
     }
