@@ -1,7 +1,7 @@
 package via.sep3.group11.tier2.businessLogic;
 
 import org.springframework.stereotype.Service;
-import via.sep3.group11.tier2.daoInterfaces.RefugeeDaoInterface;
+import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
@@ -21,13 +21,13 @@ import java.util.Optional;
 @Service
 public class RefugeeLogic implements RefugeeInterface {
 
-    private RefugeeDaoInterface refugeeDAO;
+    private RefugeeCommunicationInterface refugeeDAO;
 
     /**
      * Constructor used to inject the DAO needed for communicating with the data-tier.
      * @param refugeeDAO: Data Access Object used access Refugee information from the Data-tier.
      */
-    public RefugeeLogic(RefugeeDaoInterface refugeeDAO) {
+    public RefugeeLogic(RefugeeCommunicationInterface refugeeDAO) {
         this.refugeeDAO = refugeeDAO;
     }
 

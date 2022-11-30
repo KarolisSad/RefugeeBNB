@@ -1,11 +1,10 @@
-package via.sep3.group11.tier2.daoImplementation;
+package via.sep3.group11.tier2.GrpcClients;
 
 import io.grpc.StatusRuntimeException;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.context.annotation.Configuration;
-import via.sep3.group11.tier2.daoImplementation.connections.Channel;
-import via.sep3.group11.tier2.daoImplementation.converters.GrpcConverter;
-import via.sep3.group11.tier2.daoInterfaces.HousingDaoInterface;
+import via.sep3.group11.tier2.GrpcClients.connections.Channel;
+import via.sep3.group11.tier2.GrpcClients.converters.GrpcConverter;
+import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.protobuf.GAddHousingRequest;
 import via.sep3.group11.tier2.protobuf.GHousing;
 import via.sep3.group11.tier2.shared.domain.Housing;
@@ -15,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 @GRpcService
-public class HousingDaoImpl implements HousingDaoInterface {
+public class HousingGrpcClient implements HousingCommunicationInterface {
 
     @Resource
     Channel channel;

@@ -1,11 +1,10 @@
-package via.sep3.group11.tier2.daoImplementation;
+package via.sep3.group11.tier2.GrpcClients;
 
 import io.grpc.StatusRuntimeException;
 import org.lognet.springboot.grpc.GRpcService;
-import org.springframework.context.annotation.Configuration;
-import via.sep3.group11.tier2.daoImplementation.connections.Channel;
-import via.sep3.group11.tier2.daoImplementation.converters.GrpcConverter;
-import via.sep3.group11.tier2.daoInterfaces.RefugeeDaoInterface;
+import via.sep3.group11.tier2.GrpcClients.connections.Channel;
+import via.sep3.group11.tier2.GrpcClients.converters.GrpcConverter;
+import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.protobuf.GEmail;
 import via.sep3.group11.tier2.protobuf.GRefugee;
 import via.sep3.group11.tier2.shared.domain.Refugee;
@@ -16,7 +15,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @GRpcService
-public class RefugeeDaoImpl implements RefugeeDaoInterface {
+public class RefugeeGrpcClient implements RefugeeCommunicationInterface {
 
     @Resource
     Channel channel;
