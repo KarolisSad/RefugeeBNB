@@ -1,4 +1,4 @@
-package via.sep3.group11.tier3.services.servicesInterfaces;
+package via.sep3.group11.tier3.DAO.DAOInterfaces;
 
 import via.sep3.group11.tier3.model.Housing;
 

@@ -11,7 +11,21 @@ public class HousingCreationDTO
     public int Capacity{ get; }
     public string HostEmail{ get; }
 
+    public string ErrorMessage { get; }
 
+    public HousingCreationDTO(string country, string city, string streetName, string houseNumber, string roomNumber, string postCode, int capacity, string hostEmail, string errorMessage)
+    {
+        Country = country;
+        City = city;
+        StreetName = streetName;
+        HouseNumber = houseNumber;
+        RoomNumber = roomNumber;
+        PostCode = postCode;
+        Capacity = capacity;
+        HostEmail = hostEmail;
+        ErrorMessage = errorMessage;
+    }
+    
     public HousingCreationDTO(string country, string city, string streetName, string houseNumber, string roomNumber, string postCode, int capacity, string hostEmail)
     {
         Country = country;
@@ -22,5 +36,6 @@ public class HousingCreationDTO
         PostCode = postCode;
         Capacity = capacity;
         HostEmail = hostEmail;
+        ErrorMessage = "";
     }
 }

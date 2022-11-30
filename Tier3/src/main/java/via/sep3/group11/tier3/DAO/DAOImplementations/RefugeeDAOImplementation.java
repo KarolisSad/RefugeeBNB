@@ -1,9 +1,9 @@
-package via.sep3.group11.tier3.services.serviceImp;
+package via.sep3.group11.tier3.DAO.DAOImplementations;
 
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier3.model.Refugee;
 import via.sep3.group11.tier3.repository.RefugeeRepository;
-import via.sep3.group11.tier3.services.servicesInterfaces.RefugeeDaoInterface;
+import via.sep3.group11.tier3.DAO.DAOInterfaces.RefugeeDaoInterface;
 import java.util.Optional;
 
 /**
@@ -17,7 +17,7 @@ import java.util.Optional;
  * @author Group 11
  */
 @Service
-public class RefugeeService implements RefugeeDaoInterface {
+public class RefugeeDAOImplementation implements RefugeeDaoInterface {
 
     private RefugeeRepository repository;
 
@@ -25,7 +25,7 @@ public class RefugeeService implements RefugeeDaoInterface {
      * Constructor to initialize repository class
      * @param repository refugee repository
      */
-    public RefugeeService(RefugeeRepository repository) {
+    public RefugeeDAOImplementation(RefugeeRepository repository) {
         this.repository = repository;
     }
 

@@ -7,7 +7,7 @@ import via.sep3.group11.tier3.model.Refugee;
 import via.sep3.group11.tier3.protobuf.GEmail;
 import via.sep3.group11.tier3.protobuf.GRefugee;
 import via.sep3.group11.tier3.protobuf.RefugeeGrpc;
-import via.sep3.group11.tier3.services.servicesInterfaces.RefugeeDaoInterface;
+import via.sep3.group11.tier3.DAO.DAOInterfaces.RefugeeDaoInterface;
 
 import javax.annotation.Resource;
 import java.util.Optional;

@@ -1,9 +1,9 @@
-package via.sep3.group11.tier3.services.serviceImp;
+package via.sep3.group11.tier3.DAO.DAOImplementations;
 
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier3.model.Host;
 import via.sep3.group11.tier3.repository.HostRepository;
-import via.sep3.group11.tier3.services.servicesInterfaces.HostDaoInterface;
+import via.sep3.group11.tier3.DAO.DAOInterfaces.HostDaoInterface;
 import java.util.Optional;
 
 /**
@@ -17,7 +17,7 @@ import java.util.Optional;
  * @author Group 11
  */
 @Service
-public class HostService implements HostDaoInterface {
+public class HostDAOImplementation implements HostDaoInterface {
 
     private HostRepository repository;
 
@@ -25,7 +25,7 @@ public class HostService implements HostDaoInterface {
      * Constructor to initialize repository class
      * @param repository host repository
      */
-    public HostService(HostRepository repository) {
+    public HostDAOImplementation(HostRepository repository) {
         this.repository = repository;
     }
 

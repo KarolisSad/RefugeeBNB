@@ -1,8 +1,8 @@
 package via.sep3.group11.tier2.businessLogic;
 
 import org.springframework.stereotype.Service;
-import via.sep3.group11.tier2.daoInterfaces.HostDaoInterface;
-import via.sep3.group11.tier2.daoInterfaces.HousingDaoInterface;
+import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
+import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
@@ -25,15 +25,15 @@ import java.util.Optional;
 @Service
 public class HostLogic implements HostInterface {
 
-    private HostDaoInterface hostDAO;
-    private HousingDaoInterface housingDAO;
+    private HostCommunicationInterface hostDAO;
+    private HousingCommunicationInterface housingDAO;
 
     /**
      * Simple constructor used to inject the two DAO's needed for communicating with the data-tier.
      * @param hostDAO: Data Access Object used for accessing Host-information in the data-tier.
      * @param housingDAO: Data Access Object used for accessing Housing-information in the data-tier.
      */
-    public HostLogic(HostDaoInterface hostDAO, HousingDaoInterface housingDAO) {
+    public HostLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO) {
         this.hostDAO = hostDAO;
         this.housingDAO = housingDAO;
     }
