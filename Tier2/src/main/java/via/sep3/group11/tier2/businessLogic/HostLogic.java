@@ -4,10 +4,12 @@ import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.domain.Address;
+import via.sep3.group11.tier2.shared.domain.Date;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
@@ -48,34 +50,21 @@ public class HostLogic implements HostInterface {
      * @throws ValidationException: If any of the validation checks on the values ion the DTO fails.
      */
     @Override
-    public Host registerHost(HostRegisterDTO dto) throws NotUniqueException, ValidationException {
-        try {
-            Host toRegister = new Host();
+    public HostDTO registerHost(HostRegisterDTO dto) {
 
-            toRegister.setEmail(dto.getEmail());
-            toRegister.setPassword(dto.getPassword());
-            toRegister.setGender(dto.getGender());
-            toRegister.setNationality(dto.getNationality());
-            toRegister.setFirstName(dto.getFirstName());
-            toRegister.setMiddleName(Optional.ofNullable(dto.getMiddleName()));
-            toRegister.setLastName(dto.getLastName());
-            toRegister.setDateOfBirth(dto.getDateOfBirth());
+            // Creating host object from dto
+            // Don't really know what value it does, but sure
+            Host toRegister = new Host(dto.getFirstName(), dto.getEmail(),
+                    dto.getPassword(), dto.getGender(), dto.getNationality(),
+                    dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
 
-
-
+            // Check if there's host by same email
             Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
 
-
-
-            if (existing.isPresent()) {
-                throw new NotUniqueException("Host with email " + existing.get().getEmail() + " already exists.");
-            }
-
-
-            return hostDAO.createHost(toRegister);
-        } catch (ValidationException e) {
-            throw new ValidationException("Problem with provided information: " + e.getMessage());
-        }
+            // Return HostDTO with error message OR existing Host without errorMessage
+        return existing.map
+                (host -> new HostDTO(toRegister, "Host with email " + host.getEmail() + " already exists."))
+                .orElseGet(() -> new HostDTO(existing.get(), ""));
     }
 
     /**
@@ -88,27 +77,24 @@ public class HostLogic implements HostInterface {
      * @throws ValidationException if any of the validation specified above fails.
      */
     @Override
-    public Host loginHost(LoginDTO dto) throws ValidationException {
-        try {
-            Host toLogin = new Host();
-            toLogin.setEmail(dto.getEmail());
-            toLogin.setPassword(dto.getPassword());
+    public HostDTO loginHost(LoginDTO dto) {
+        // Creating dummy host, because now it's required to return some kind of Host
+            Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
 
-            Optional<Host> loggedIn = hostDAO.getHostByEmail(toLogin.getEmail());
-
-            if (loggedIn.isEmpty()) {
-                throw new NullPointerException("Host with email " + toLogin.getEmail() + " not found.");
-            }
-
-            if (!(toLogin.getPassword().equals(loggedIn.get().getPassword()))) {
-                throw new ValidationException("Password incorrect.");
-            }
-
-            return loggedIn.get();
-
-        } catch (ValidationException e) {
-            throw new ValidationException("Problem with provided information: " + e.getMessage());
+        // Getting host from DataBase
+        Optional<Host> host = hostDAO.getHostByEmail(dto.getEmail());
+        // If no host found
+        if (host.isEmpty())
+        {
+            return new HostDTO(dummyHost, "Host with email " + host.get().getEmail() + " doesn't exist.");
         }
+
+        // We check if password matches
+        if (dto.getPassword().equals(host.get().getPassword()))
+        {
+            return new HostDTO(host.get(),"");
+        }
+            return new HostDTO(dummyHost,"Password is incorrect");
     }
 
     /**

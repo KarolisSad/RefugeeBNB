@@ -20,12 +20,11 @@ public class Date {
      * @param year: The integer representation of the year.
      * @throws ValidationException if the ValidateDate-method throws an exception.
      */
-    public Date(int day, int month, int year) throws ValidationException {
+    public Date(int day, int month, int year) {
 
         this.day = day;
         this.month = month;
         this.year = year;
-        validateDate(day, month, year);
     }
 
     /**

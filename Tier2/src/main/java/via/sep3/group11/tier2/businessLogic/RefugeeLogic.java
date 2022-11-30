@@ -3,12 +3,17 @@ package via.sep3.group11.tier2.businessLogic;
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
+import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
+import via.sep3.group11.tier2.shared.domain.Date;
+import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Refugee;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
+import java.sql.Ref;
 import java.util.Optional;
 
 /**
@@ -41,30 +46,21 @@ public class RefugeeLogic implements RefugeeInterface {
      * @throws ValidationException: If any of the validation checks on the values ion the DTO fails.
      */
     @Override
-    public Refugee registerRefugee(RefugeeRegisterDTO dto) throws NotUniqueException, ValidationException {
-        try {
-            Refugee toRegister = new Refugee();
+    public RefugeeDTO registerRefugee(RefugeeRegisterDTO dto) {
 
-            toRegister.setEmail(dto.getEmail());
-            toRegister.setPassword(dto.getPassword());
-            toRegister.setGender(dto.getGender());
-            toRegister.setNationality(dto.getNationality());
-            toRegister.setFirstName(dto.getFirstName());
-            toRegister.setMiddleName(Optional.ofNullable(dto.getMiddleName()));
-            toRegister.setLastName(dto.getLastName());
-            toRegister.setDateOfBirth(dto.getDateOfBirth());
+        // Creating refugee object from dto
+        // Don't really know what value it does, but sure
+        Refugee toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(),
+        dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
 
-            Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
+        // Check if there's refugee by same email
+        Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
 
-            if (existing.isPresent()) {
-                throw new NotUniqueException("Refugee with email " + existing.get().getEmail() + " already exists.");
-            }
+        // Return RefugeeDTO with error message OR existing Refugee without errorMessage
+        return existing.map
+                        (refugee -> new RefugeeDTO(toRegister, "Host with email " + refugee.getEmail() + " already exists."))
+                .orElseGet(() -> new RefugeeDTO(existing.get(), ""));
 
-            return refugeeDAO.createRefugee(toRegister);
-
-        } catch (ValidationException e) {
-            throw new ValidationException("Problem with provided information: " + e.getMessage());
-        }
     }
 
     /**
@@ -77,28 +73,24 @@ public class RefugeeLogic implements RefugeeInterface {
      * @throws ValidationException if any of the validation specified above fails.
      */
     @Override
-    public Refugee loginRefugee(LoginDTO dto) throws ValidationException {
-        try {
-            Refugee toLogin = new Refugee();
+    public RefugeeDTO loginRefugee(LoginDTO dto) {
+        // Creating dummy refugee, because now it's required to return some kind of Refugee
+        Refugee dummyRefugee = new Refugee("DummyRefugee@gmail.com","DummyRefugee",'O',"DummyRefugee","DummyRefugee","DummyRefugee","DummyRefugee",new Date(01,01,2021));
 
-            toLogin.setEmail(dto.getEmail());
-            toLogin.setPassword(dto.getPassword());
-
-            Optional<Refugee> loggedIn = refugeeDAO.getRefugeeByEmail(toLogin.getEmail());
-
-            if (loggedIn.isEmpty()) {
-                throw new NullPointerException("Refugee with email " + toLogin.getEmail() + " not found.");
-            }
-
-            if (!(toLogin.getPassword().equals(loggedIn.get().getPassword()))) {
-                throw new ValidationException("Password incorrect.");
-            }
-
-            return loggedIn.get();
-
-        } catch (ValidationException e) {
-            throw new ValidationException("Problem with provided information: " + e.getMessage());
+        // Getting refugee from DataBase
+        Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(dto.getEmail());
+        // If no host found
+        if (refugee.isEmpty())
+        {
+            return new RefugeeDTO(dummyRefugee, "Refugee with email " + refugee.get().getEmail() + " doesn't exist.");
         }
+
+        // We check if password matches
+        if (dto.getPassword().equals(refugee.get().getPassword()))
+        {
+            return new RefugeeDTO(refugee.get(),"");
+        }
+        return new RefugeeDTO(dummyRefugee,"Password is incorrect");
     }
 
 }
