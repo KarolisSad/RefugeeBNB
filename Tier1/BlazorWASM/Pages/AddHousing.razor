@@ -3,6 +3,7 @@
 @using System.Collections.ObjectModel
 @using HttpClients.ClientInterfaces
 @inject HousingInterface HousingInterface;
+
 <h3>AddHousing</h3>
 
 <div class="card">
@@ -15,14 +16,9 @@
                 <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
 
             </p>
+
             <p>
                 <RadzenLabel Component="country" Text="Country"/>
-                <RadzenTextBox Name="country" @bind-Value=@country />
-                <RadzenRequiredValidator Component="country" Text="country is required!"/>
-            </p>
-            
-            <p>
-                <RadzenLabel Component="country" Text="country"/>
                 <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Countries) Change="@ChangeCountry"/>
             </p>
 
