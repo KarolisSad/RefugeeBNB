@@ -101,16 +101,12 @@
     {
         resultMsg = "";
         Date dateOfBirth = new Date(date.Day, date.Month, date.Year);
-        
-        resultMsg = "";
-        string host = JsonSerializer.Serialize(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
-        Console.WriteLine("Serialized: " + host);
 
         if (personType.Contains("host"))
         {
             try
             {
-                await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, 'm', nationality, firstName, lastName, middleName, dateOfBirth));
+                await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
                 Console.WriteLine("We created a host.");
                 Clear();
                 resultMsg = "User successfully created";
