@@ -7,5 +7,5 @@ public interface HostInterface
 {
     Task<HostDTO> RegisterHostAsync(HostRegisterDTO dto);
     Task<HostDTO> LoginHostAsync(LoginDTO dto);
-    Task<HousingDTO> AddHousingAsync(HousingCreationDTO dto);
+    
 }
