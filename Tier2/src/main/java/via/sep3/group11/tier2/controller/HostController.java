@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.domain.Host;
@@ -36,20 +37,15 @@ public class HostController {
      * @return
      */
     @PostMapping(value ="/host",produces ={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Host> createHost(@RequestBody HostRegisterDTO host) {
+    public ResponseEntity<HostDTO> createHost(@RequestBody HostRegisterDTO host) {
+
+        //Todo should'nt we check for errormessage here already, and then send a different response status code?
 
         try{
-            Host created = hostLogic.registerHost(host);
+            HostDTO created = hostLogic.registerHost(host);
             return new ResponseEntity<>(created, HttpStatus.CREATED);
         }
-        catch (NotUniqueException e)
-        {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-        }
-        catch (ValidationException e)
-        {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+
         catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -62,19 +58,12 @@ public class HostController {
      */
 
     @PostMapping("/host/login")
-    public ResponseEntity<Host> loginHost(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity<HostDTO> loginHost(@RequestBody LoginDTO loginDTO){
         try {
-            Host host = hostLogic.loginHost(loginDTO);
+            HostDTO host = hostLogic.loginHost(loginDTO);
             return new ResponseEntity<>(host, HttpStatus.OK);
             }
-        catch (NullPointerException e)
-        {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
-        }
-        catch (ValidationException e)
-        {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+
         catch (Exception e)
         {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

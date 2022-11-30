@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
@@ -38,6 +39,63 @@ public class HostLogic implements HostInterface {
         this.housingDAO = housingDAO;
     }
 
+    @Override
+    public HostDTO registerHost(HostRegisterDTO dto) {
+        try {
+            Host toRegister = new Host();
+
+            toRegister.setEmail(dto.getEmail());
+            toRegister.setPassword(dto.getPassword());
+            toRegister.setGender(dto.getGender());
+            toRegister.setNationality(dto.getNationality());
+            toRegister.setFirstName(dto.getFirstName());
+            toRegister.setMiddleName(Optional.ofNullable(dto.getMiddleName()));
+            toRegister.setLastName(dto.getLastName());
+            toRegister.setDateOfBirth(dto.getDateOfBirth());
+
+
+
+            Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
+
+
+
+            if (existing.isPresent()) {
+                return new HostDTO(null, "Host with email " + existing.get().getEmail() + " already exists.");
+            }
+
+            Host toReturn = hostDAO.createHost(toRegister);
+            return new HostDTO(toReturn, "");
+
+        } catch (ValidationException e) {
+            return new HostDTO(null,"Problem with provided information: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public HostDTO loginHost(LoginDTO dto) {
+        try {
+            Host toLogin = new Host();
+            toLogin.setEmail(dto.getEmail());
+            toLogin.setPassword(dto.getPassword());
+
+            Optional<Host> loggedIn = hostDAO.getHostByEmail(toLogin.getEmail());
+
+            if (loggedIn.isEmpty()) {
+                return new HostDTO(null, "Host with email " + toLogin.getEmail() + " not found.");
+            }
+
+            if (!(toLogin.getPassword().equals(loggedIn.get().getPassword()))) {
+                return new HostDTO(null, "Password incorrect.");
+            }
+
+
+            return new HostDTO(loggedIn.get(), "");
+
+        } catch (ValidationException e) {
+            return new HostDTO(null, "Problem with provided information: " + e.getMessage());
+        }
+    }
+
     /**
      * Implementation of method used to create a new host in the data-tier.
      * This is implemented by creating an empty Host-object, and adding all information stored in the DTO to this, by using the set methods specified.
@@ -47,6 +105,7 @@ public class HostLogic implements HostInterface {
      * @throws NotUniqueException: If a host-entry with an identical email is already present in the data-tier.
      * @throws ValidationException: If any of the validation checks on the values ion the DTO fails.
      */
+    /*
     @Override
     public Host registerHost(HostRegisterDTO dto) throws NotUniqueException, ValidationException {
         try {
@@ -78,6 +137,8 @@ public class HostLogic implements HostInterface {
         }
     }
 
+     */
+
     /**
      * Implementation of method used to log in an already existing host.
      * This is implemented by creating an empty Host-object, and adding the email and password information from the DTO to it.
@@ -87,6 +148,7 @@ public class HostLogic implements HostInterface {
      * @return An object representation of the logged in host gotten from the Data-tier.
      * @throws ValidationException if any of the validation specified above fails.
      */
+    /*
     @Override
     public Host loginHost(LoginDTO dto) throws ValidationException {
         try {
@@ -111,6 +173,8 @@ public class HostLogic implements HostInterface {
         }
     }
 
+     */
+
     /**
      * Implementation of method used to add a new housing to a host.
      * This is implemented by getting the Host specified in the DTO from the data-tier.
@@ -121,6 +185,8 @@ public class HostLogic implements HostInterface {
      * @throws ValidationException if any validation of the housing throws an exception.
      * @throws IllegalArgumentException if the host specified in the DTO does not exist.
      */
+
+
     @Override
     public Housing addHousing(HousingCreationDTO dto) throws ValidationException {
         try {
@@ -142,4 +208,6 @@ public class HostLogic implements HostInterface {
             throw new ValidationException("Problem with provided information: " + e.getMessage());
         }
     }
+
+
 }

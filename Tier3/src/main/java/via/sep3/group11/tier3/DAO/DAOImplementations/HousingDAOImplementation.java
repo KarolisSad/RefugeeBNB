@@ -2,11 +2,14 @@ package via.sep3.group11.tier3.DAO.DAOImplementations;
 
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier3.model.Address;
+import via.sep3.group11.tier3.model.Host;
 import via.sep3.group11.tier3.model.Housing;
 import via.sep3.group11.tier3.repository.AddressRepository;
 import via.sep3.group11.tier3.repository.HostRepository;
 import via.sep3.group11.tier3.repository.HousingRepository;
 import via.sep3.group11.tier3.DAO.DAOInterfaces.HousingDaoInterface;
+
+import java.util.Optional;
 
 /**
  * A class that implements housingDaoInterface
