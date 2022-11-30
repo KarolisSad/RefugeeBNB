@@ -3,6 +3,8 @@ package via.sep3.group11.tier3.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import via.sep3.group11.tier3.model.Housing;
 
+import java.util.List;
+
 /**
  * Class extends JPA Repository, provides functionality for managing and structuring the database
  *
@@ -10,5 +12,6 @@ import via.sep3.group11.tier3.model.Housing;
  * @author Group 11
  */
 public interface HousingRepository extends JpaRepository<Housing, Long> {
+    List<Housing> findAllByAvailableTrue();
 
 }

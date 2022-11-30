@@ -9,6 +9,7 @@ import via.sep3.group11.tier3.repository.HostRepository;
 import via.sep3.group11.tier3.repository.HousingRepository;
 import via.sep3.group11.tier3.DAO.DAOInterfaces.HousingDaoInterface;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -59,5 +60,19 @@ public class HousingDAOImplementation implements HousingDaoInterface {
         }
 
         return null;
+    }
+
+    //TODO seems to work - but test when changing status!!
+    @Override
+    public List<Housing> getAvailableHousing() {
+        List<Housing> availableHousing = repository.findAllByAvailableTrue();
+
+        return availableHousing;
+    }
+
+    //TODO also seems to work
+    @Override
+    public void removeHousing(long housingId) {
+        repository.deleteById(housingId);
     }
 }
