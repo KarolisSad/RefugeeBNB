@@ -28,7 +28,7 @@ public class Housing {
     private Address address;
 
     @ManyToOne
-    @JoinTable(name = "housing_id")
+    @JoinTable(name = "housingId_hostId")
     public Host host;
 
     public Housing() {}

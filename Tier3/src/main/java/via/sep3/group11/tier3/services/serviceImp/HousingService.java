@@ -26,6 +26,7 @@ public class HousingService implements HousingDaoInterface {
 
     private HousingRepository repository;
     private AddressRepository addressRepository;
+    private HostRepository hostRepository;
 
     /**
      * Constructor to initialize repository class
@@ -34,6 +35,7 @@ public class HousingService implements HousingDaoInterface {
     public HousingService(HousingRepository repository, AddressRepository addressRepository, HostRepository hostRepository) {
         this.repository = repository;
         this.addressRepository = addressRepository;
+        this.hostRepository = hostRepository;
     }
 
     /**
@@ -48,6 +50,14 @@ public class HousingService implements HousingDaoInterface {
         Address a = housing.getAddress();
         addressRepository.save(a);
 
-        return repository.save(housing);
+        Housing toAdd = housing;
+        Optional<Host> host = hostRepository.findById(email);
+
+        if (host.isPresent()) {
+            toAdd.host = host.get();
+            return repository.save(toAdd);
+        }
+
+        return null;
     }
 }
