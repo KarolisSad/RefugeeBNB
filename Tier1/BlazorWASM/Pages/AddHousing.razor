@@ -2,6 +2,8 @@
 @using HttpClients.ClientInterfaces
 @using global::Shared.DTOs
 @using global::Shared.Domain
+@using System.Collections
+@using System.Collections.ObjectModel
 @inject HostInterface HostInterface;
 <h3>AddHousing</h3>
 
@@ -17,8 +19,13 @@
             </p>
             <p>
                 <RadzenLabel Component="country" Text="Country"/>
-                <RadzenPassword @bind-Value=@country />
+                <RadzenTextBox Name="country" @bind-Value=@country />
                 <RadzenRequiredValidator Component="country" Text="country is required!"/>
+            </p>
+            
+            <p>
+                <RadzenLabel Component="country" Text="country"/>
+                <RadzenDropDown TValue="string" AllowFiltering="true" Data=@(Countries) Change="@ChangeCountry"/>
             </p>
 
             <p>
@@ -82,6 +89,8 @@
     private string resultMsg = "";
     private string color = "";
 
+    public Collection<string> Countries = new Collection<string>() { "Denmark", "Lithuania", "Poland", "France", "Germany", "Ukraine", "Other" };
+
 
     private async Task Create()
     {
@@ -113,6 +122,14 @@
         postCode = "";
         capacity = 0;
         hostEmail = "";
+    }
+
+
+    private void ChangeCountry(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        country = (string)str;
+        Console.WriteLine($"Value changed to {str}");
     }
 
 }
