@@ -2,6 +2,7 @@ package via.sep3.group11.tier2.shared.domain;
 
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
+import java.util.List;
 import java.util.Optional;
 
 import static via.sep3.group11.tier2.shared.domain.ValidationHelper.*;
@@ -20,6 +21,8 @@ public class Host {
     private String middleName;
     private String lastName;
     private Date dateOfBirth;
+
+    private List<Housing> housingList;
 
     /**
      * All-argument constructor used to create an instance of the object.
@@ -44,7 +47,6 @@ public class Host {
 
         setNationality(nationality);
         setDateOfBirth(dateOfBirth);
-
     }
 
     /**

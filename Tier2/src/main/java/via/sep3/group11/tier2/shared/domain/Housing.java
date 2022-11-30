@@ -10,6 +10,8 @@ public class Housing {
     private int capacity;
     private Address address;
 
+    private boolean available;
+
     /**
      * 2-argument constructor used to create an instance of the object.
      * All arguments are initialized by calling their corresponding set-method.
