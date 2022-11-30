@@ -11,6 +11,7 @@ import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @GRpcService
@@ -31,6 +32,16 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
             reestablishConnection();
             return null;
         }
+    }
+
+    @Override
+    public List<Housing> getAvailableHousing() {
+        return null;
+    }
+
+    @Override
+    public void removeHousing(Long housingId) {
+
     }
 
     public void reestablishConnection() {
