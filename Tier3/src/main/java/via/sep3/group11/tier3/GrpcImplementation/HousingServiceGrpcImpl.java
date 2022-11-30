@@ -7,7 +7,7 @@ import via.sep3.group11.tier3.model.Housing;
 import via.sep3.group11.tier3.protobuf.GAddHousingRequest;
 import via.sep3.group11.tier3.protobuf.GHousing;
 import via.sep3.group11.tier3.protobuf.HousingGrpc;
-import via.sep3.group11.tier3.services.servicesInterfaces.HousingDaoInterface;
+import via.sep3.group11.tier3.DAO.DAOInterfaces.HousingDaoInterface;
 
 import javax.annotation.Resource;
 

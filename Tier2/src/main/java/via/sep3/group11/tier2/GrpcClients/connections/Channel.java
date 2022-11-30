@@ -1,4 +1,4 @@
-package via.sep3.group11.tier2.daoImplementation.connections;
+package via.sep3.group11.tier2.GrpcClients.connections;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;

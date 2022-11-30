@@ -1,15 +1,12 @@
-package via.sep3.group11.tier3.services.serviceImp;
+package via.sep3.group11.tier3.DAO.DAOImplementations;
 
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier3.model.Address;
-import via.sep3.group11.tier3.model.Host;
 import via.sep3.group11.tier3.model.Housing;
 import via.sep3.group11.tier3.repository.AddressRepository;
 import via.sep3.group11.tier3.repository.HostRepository;
 import via.sep3.group11.tier3.repository.HousingRepository;
-import via.sep3.group11.tier3.services.servicesInterfaces.HousingDaoInterface;
-
-import java.util.Optional;
+import via.sep3.group11.tier3.DAO.DAOInterfaces.HousingDaoInterface;
 
 /**
  * A class that implements housingDaoInterface
@@ -22,7 +19,7 @@ import java.util.Optional;
  * @author Group 11
  */
 @Service
-public class HousingService implements HousingDaoInterface {
+public class HousingDAOImplementation implements HousingDaoInterface {
 
     private HousingRepository repository;
     private AddressRepository addressRepository;
@@ -31,7 +28,7 @@ public class HousingService implements HousingDaoInterface {
      * Constructor to initialize repository class
      * @param repository housing repository
      */
-    public HousingService(HousingRepository repository, AddressRepository addressRepository, HostRepository hostRepository) {
+    public HousingDAOImplementation(HousingRepository repository, AddressRepository addressRepository, HostRepository hostRepository) {
         this.repository = repository;
         this.addressRepository = addressRepository;
     }

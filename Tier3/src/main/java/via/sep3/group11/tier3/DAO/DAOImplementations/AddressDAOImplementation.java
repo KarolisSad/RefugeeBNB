@@ -1,9 +1,9 @@
-package via.sep3.group11.tier3.services.serviceImp;
+package via.sep3.group11.tier3.DAO.DAOImplementations;
 
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier3.model.Address;
 import via.sep3.group11.tier3.repository.AddressRepository;
-import via.sep3.group11.tier3.services.servicesInterfaces.AddressDaoInterface;
+import via.sep3.group11.tier3.DAO.DAOInterfaces.AddressDaoInterface;
 
 /**
  * A class that implements AddressDaoInterface
@@ -16,7 +16,7 @@ import via.sep3.group11.tier3.services.servicesInterfaces.AddressDaoInterface;
  * @author Group 11
  */
 @Service
-public class AddressService implements AddressDaoInterface {
+public class AddressDAOImplementation implements AddressDaoInterface {
 
     private AddressRepository repository;
 
@@ -24,7 +24,7 @@ public class AddressService implements AddressDaoInterface {
      * Constructor to initialize repository class
      * @param repository address repository
      */
-    public AddressService(AddressRepository repository) {
+    public AddressDAOImplementation(AddressRepository repository) {
         this.repository = repository;
     }
 
