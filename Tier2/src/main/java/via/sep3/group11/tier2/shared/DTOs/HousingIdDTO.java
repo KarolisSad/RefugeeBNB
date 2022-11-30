@@ -10,4 +10,16 @@ public class HousingIdDTO {
         this.hostEmail = hostEmail;
         this.errorMessage = errorMessage;
     }
+
+    public Long getHousingId() {
+        return housingId;
+    }
+
+    public String getHostEmail() {
+        return hostEmail;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

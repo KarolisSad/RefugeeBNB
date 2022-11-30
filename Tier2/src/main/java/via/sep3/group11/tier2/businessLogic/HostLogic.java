@@ -107,25 +107,4 @@ public class HostLogic implements HostInterface {
      * @throws ValidationException if any validation of the housing throws an exception.
      * @throws IllegalArgumentException if the host specified in the DTO does not exist.
      */
-    @Override
-    public Housing addHousing(HousingCreationDTO dto) throws ValidationException {
-        try {
-            Optional<Host> owner = hostDAO.getHostByEmail(dto.getHostEmail());
-
-            if (owner.isEmpty()) {
-                throw new IllegalArgumentException("Host with email: " + dto.getHostEmail() + " not found.");
-            }
-
-            Address address = new Address(dto.getCountry(), dto.getCity(), dto.getStreetName(),
-                    dto.getHouseNumber(), dto.getRoomNumber(), dto.getPostCode());
-
-            Housing toCreate = new Housing(dto.getCapacity(), address);
-
-            return housingDAO.addHousing(toCreate, owner.get().getEmail());
-        }
-
-        catch (ValidationException e) {
-            throw new ValidationException("Problem with provided information: " + e.getMessage());
-        }
-    }
 }

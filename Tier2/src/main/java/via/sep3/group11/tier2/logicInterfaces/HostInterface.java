@@ -35,13 +35,5 @@ public interface HostInterface {
      * @throws ValidationException if no Host corresponding to the email in the dto is found, or if the password and email given does not match.
      */
     HostDTO loginHost(LoginDTO dto) throws ValidationException;
-
-    /**
-     * Method used to add a housing object to the system.
-     * @param dto: a domain transfer object containing all relevant attributes about the housing to add (including address), and the email of the owner of the housing.
-     * @return An object representation of the Housing created.
-     * @throws ValidationException if any validation of the domain transfer object fails.
-     */
-    Housing addHousing(HousingCreationDTO dto) throws ValidationException;
 }
 

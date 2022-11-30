@@ -10,4 +10,6 @@ public interface AgreementCommunicationInterface {
     Agreement updateAgreement(Agreement agreement);
     Optional<Agreement> getAgreementById(Long agreementId);
     List<Agreement> getAgreementsByHostId(String hostId);
+    void deleteAgreement(Long agreementId);
+    List<Agreement> getAllPendingAgreements(String hostEmail);
 }

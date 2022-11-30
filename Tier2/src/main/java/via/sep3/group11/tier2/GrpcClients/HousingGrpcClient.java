@@ -44,6 +44,16 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
 
     }
 
+    @Override
+    public Housing getHousingById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void changeHousingStatus(Long id, boolean isAvailable) {
+
+    }
+
     public void reestablishConnection() {
         channel.createChannel();
     }
