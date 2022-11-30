@@ -95,21 +95,22 @@
     private async Task Create()
     {
         resultMsg = "";
-
-        try
-        {
-            Housing housing = await HostInterface.AddHousingAsync(new HousingCreationDTO(country, city, streetName, houseNumber, roomNumber, postCode, capacity, hostEmail));
-            Console.WriteLine("We added a housing to: " + hostEmail);
-            Clear();
-            resultMsg = "User successfully created";
-            color = "green";
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            resultMsg = e.Message;
-            color = "red";
-        }
+        
+            HousingDTO housing = await HostInterface.AddHousingAsync(new HousingCreationDTO(country, city, streetName, houseNumber, roomNumber, postCode, capacity, hostEmail));
+            if (housing.ErrorMessage.Equals(""))
+            {
+                Console.WriteLine("We added a housing to: " + hostEmail);
+                Clear();
+                resultMsg = "User successfully created";
+                color = "green";
+            }
+            else
+            {
+                Console.WriteLine(housing.ErrorMessage);
+                resultMsg = housing.ErrorMessage;
+                color = "red";
+            }
+        
     }
 
     private void Clear()

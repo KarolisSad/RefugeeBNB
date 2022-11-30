@@ -105,40 +105,38 @@
 
         if (personType.Contains("host"))
         {
-            try
-            {
-                await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
-                Console.WriteLine("We created a host.");
-                Clear();
-                resultMsg = "User successfully created";
-                color = "green";
+            HostDTO host = await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                if (host.ErrorMessage.Equals(""))
+                {
+                    Console.WriteLine("We created a host.");
+                    Clear();
+                    resultMsg = "User successfully created";
+                    color = "green";
+                }
+                else
+                {
+                    Console.WriteLine(host.ErrorMessage);
+                    resultMsg = host.ErrorMessage;
+                    color = "red";
+                }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                resultMsg = e.Message;
-                color = "red";
-            }
-        }
         else if (personType.Contains("refugee"))
         {
-            try
-            {
-                Console.Write("BUTTON CLICKED");
-                await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
-                Console.Write("AFTER CALL");
-
-                Clear();
-                resultMsg = "User successfully created";
-                color = "green";
-                Console.WriteLine("We created a refugee.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                resultMsg = e.Message;
-                color = "red";
-            }
+            RefugeeDTO refugee = await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                if (refugee.ErrorMessage.Equals(""))
+                {
+                    Clear();
+                    resultMsg = "User successfully created";
+                    color = "green";
+                    Console.WriteLine("We created a refugee.");
+                }
+                else
+                {
+                    Console.WriteLine(refugee.ErrorMessage);
+                    resultMsg = refugee.ErrorMessage;
+                    color = "red";
+                }
+                
         }
     }
 

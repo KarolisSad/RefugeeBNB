@@ -50,21 +50,41 @@
     private string color = "";
 
 
-    private void OnLogin()
+    private async void OnLogin()
     {
         if (personType.Contains("host"))
         {
-            HostInterface.LoginHostAsync(new LoginDTO(email, password));
-            Console.WriteLine("Host has logged in: " + email + ", " + password);
-            color = "green";
-            resultMsg = "You have logged in";
+            HostDTO hostDto = await HostInterface.LoginHostAsync(new LoginDTO(email, password));
+            if (hostDto.ErrorMessage.Equals(""))
+            {
+                Console.WriteLine("Host has logged in: " + email + ", " + password);
+                color = "green";
+                resultMsg = "You have logged in";
+            }
+            else
+            {
+                Console.WriteLine(hostDto.ErrorMessage);
+                resultMsg = hostDto.ErrorMessage;
+                color = "red";
+            }
+            
         }
         else if (personType.Contains("refugee"))
         {
-            RefugeeInterface.LoginRefugee(new LoginDTO(email, password));
-            Console.WriteLine("Refugee has logged in: " + email);
-            color = "green";
-            resultMsg = "you have logged in";
+            RefugeeDTO refugee = await RefugeeInterface.LoginRefugee(new LoginDTO(email, password));
+            if (refugee.ErrorMessage.Equals(""))
+            {
+                Console.WriteLine("Refugee has logged in: " + email);
+                color = "green";
+                resultMsg = "you have logged in";
+            }
+            else
+            {
+                Console.WriteLine(refugee.ErrorMessage);
+                resultMsg = refugee.ErrorMessage;
+                color = "red";
+            }
+            
         }
         else
         {
