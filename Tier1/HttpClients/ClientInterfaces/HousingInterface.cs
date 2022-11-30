@@ -1,6 +1,6 @@
 ﻿using Shared.DTOs;
 
-namespace HttpClients.ClientImplementations;
+namespace HttpClients.ClientInterfaces;
 
 public interface HousingInterface
 {

@@ -1,10 +1,11 @@
-﻿using Shared.DTOs;
+﻿using Shared.Domain;
+using Shared.DTOs;
 
-namespace HttpClients.ClientImplementations;
+namespace HttpClients.ClientInterfaces;
 
 public interface AgreementInterface
 {
     Task<RequestAgreementDTO> RequestAgreement(RequestAgreementDTO dto);
     Task<RespondAgreementDTO> RespondToAgreement(RespondAgreementDTO dto);
-    Task<AgreementsByHostDTO> GetAllRequestsByHostDTO(AgreementsByHostDTO dto);
+    Task<List<Agreement>> GetAllRequestsByHostDTO(AgreementsByHostDTO dto);
 }

@@ -53,23 +53,4 @@ public class HostImpl:HostInterface
         return host;
     }
 
-    public async Task<HousingDTO> AddHousingAsync(HousingCreationDTO housing)
-    {
-        //We create housing in Database
-        HttpResponseMessage created = await client.PostAsJsonAsync("/api/housing", housing);
-        string result = await created.Content.ReadAsStringAsync();
-        
-        if (!created.IsSuccessStatusCode)
-        {
-            throw new Exception(result);
-        }
-        
-        HousingDTO housingCreated = JsonSerializer.Deserialize<HousingDTO>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-
-        return housingCreated;
-    }
-
 }

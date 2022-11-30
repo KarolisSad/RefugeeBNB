@@ -1,7 +1,86 @@
 ﻿@page "/DisplayHousing"
+@using System.Collections.ObjectModel
+@using global::Shared.Domain
+
+
 
 <h3>DisplayHousing</h3>
 
+        <RadzenDataList WrapItems="true" AllowPaging="true" Data="@allHousing" TItem="Housing">
+            <Template Context="selectedHousing">
+                <RadzenCard Style="width: 100%; margin: 3px; overflow: hidden;">
+                    <div class="container">
+                        
+                            <div class="col-lg-12 product-title">
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">House</RadzenText>
+                            </div>
+                            <div>
+                                <div class="row d-flex">
+                                    <div class="col-lg-2 col-lg-">
+                                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
+                                        <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(selectedHousing.Address.Country)</RadzenText>
+                                    </div>
+                                    <div class="col-lg-2 ">
+                                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
+                                        <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(selectedHousing.Address.City)</RadzenText>
+                                    </div>
+                                    <div class="col-lg-2 ">
+                                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
+                                        <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(selectedHousing.Address.StreetName)</RadzenText>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
+                                        <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(selectedHousing.Address.HouseNumber)</RadzenText>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
+                                        <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(selectedHousing.Address?.RoomNumber)</RadzenText>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
+                                        <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(selectedHousing.Address.PostCode)</RadzenText>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 p-3 position-absolute bottom-0 end-0">
+                                <RadzenButton Text="Apply for" Class="w-100"/>
+                            </div>
+                        </div>
+                </RadzenCard>
+            </Template>
+        </RadzenDataList>
+
+
+<label style="color: @color">@resultMsg</label>
+
+
+
 @code {
-    
+    private Collection<Housing> allHousing;
+    private string resultMsg = "";
+    private string color = "";
+    private Housing selectedHousing = new Housing();
+
+    protected override async void OnInitialized()
+    {
+    /*
+        HousingListDTO dto = await HousingInterface.GetAvailableHousing();
+        if (dto.ErrorMessage.Equals(""))
+        {
+            allHousing = dto.HousingList;
+            resultMsg = "";
+        }
+        else
+        {
+            resultMsg = dto.ErrorMessage;
+            color = "red";
+        }
+        
+    */
+        allHousing = new Collection<Housing>()
+        {
+            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"))
+        };
+    }
+
 }
