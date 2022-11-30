@@ -29,7 +29,7 @@
             
             <p>
                 <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" Data=@(Nationalities) Change="@ChangeNationality"/>
+                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
             </p>
 
             <p>
