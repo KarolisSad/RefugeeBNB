@@ -1,7 +1,7 @@
 package via.sep3.group11.tier3.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class Host {
     private char gender;
 
     @Column(name = "dob")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @OneToMany(mappedBy = "host")
     private List<Housing> housing;
@@ -58,16 +58,12 @@ public class Host {
         this.password = password;
         this.nationality = nationality;
         this.gender = gender;
-        this.dateOfBirth = dateToSqlDate(dateOfBirth);
+        this.dateOfBirth = convertDateObjectToLocalDate(dateOfBirth);
     }
 
-    public Date dateToSqlDate(via.sep3.group11.tier3.model.Date date){
-        return new Date(date.getYear(),date.getMonth(),date.getDay());
-    }
-
-    public via.sep3.group11.tier3.model.Date dateFromSqlDate(Date date)
-    {
-        return new via.sep3.group11.tier3.model.Date(date.getDay(),date.getMonth(),date.getYear());
+    //TODO Update Class Diagram
+    public LocalDate convertDateObjectToLocalDate(Date date) {
+        return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }
 
     public String getEmail() {
@@ -106,7 +102,7 @@ public class Host {
         return housing;
     }
 
-    public via.sep3.group11.tier3.model.Date getDateOfBirth() {
-        return dateFromSqlDate(dateOfBirth);
+    public Date getDateOfBirth() {
+        return new Date(dateOfBirth.getDayOfMonth(), dateOfBirth.getMonthValue(), dateOfBirth.getYear());
     }
 }
