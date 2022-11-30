@@ -53,13 +53,13 @@ public class RefugeeLogic implements RefugeeInterface {
         Refugee toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(),
         dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
 
-        // Check if there's refugee by same email
+        // Check if there's a refugee with same email
         Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
 
-        // Return RefugeeDTO with error message OR existing Refugee without errorMessage
+        // If refugee doesn't exist - create new one & return
         return existing.map
                         (refugee -> new RefugeeDTO(toRegister, "Host with email " + refugee.getEmail() + " already exists."))
-                .orElseGet(() -> new RefugeeDTO(existing.get(), ""));
+                .orElseGet(() -> new RefugeeDTO(refugeeDAO.createRefugee(existing.get()), ""));
 
     }
 
@@ -79,7 +79,6 @@ public class RefugeeLogic implements RefugeeInterface {
 
         // Getting refugee from DataBase
         Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(dto.getEmail());
-        // If no host found
         if (refugee.isEmpty())
         {
             return new RefugeeDTO(dummyRefugee, "Refugee with email " + refugee.get().getEmail() + " doesn't exist.");

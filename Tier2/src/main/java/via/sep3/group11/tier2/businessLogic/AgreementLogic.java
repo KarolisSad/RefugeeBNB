@@ -11,13 +11,11 @@ import via.sep3.group11.tier2.shared.DTOs.AgreementsByHostDTO;
 import via.sep3.group11.tier2.shared.DTOs.RequestAgreementDTO;
 import via.sep3.group11.tier2.shared.DTOs.RespondAgreementDTO;
 import via.sep3.group11.tier2.shared.domain.*;
-
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AgreementLogic implements AgreementInterface {
-
 
     private HostCommunicationInterface hostDAO;
     private HousingCommunicationInterface housingDAO;
@@ -31,13 +29,11 @@ public class AgreementLogic implements AgreementInterface {
         this.refugeeDTO = refugeeDTO;
     }
 
-
     @Override
     public AgreementDTO requestAgreement(RequestAgreementDTO dto) {
         // Creating dummy agreement, because now it's required to return some kind of Agreement TODO change DTOs
         Agreement dummyAgreement = dummyAgreement();
 
-        // Checking if host is available
         Optional<Host> host = hostDAO.getHostByEmail(dto.getHostEmail());
         if (host.isEmpty())
         {
@@ -74,12 +70,13 @@ public class AgreementLogic implements AgreementInterface {
 
         if (dto.isAccepted())
         {
-            //Updated housing to not available
+            //Update housing to not available
             Optional<Housing> updatedHousing = housingDAO.getHousingById(agreement.get().getHousing().getHousingId());
             updatedHousing.get().setAvailable(false);
             housingDAO.updateHousing(updatedHousing.get());
 
             //Todo Delete all requests for this housing
+            // Deleting all requests for this housing
 
             // Update agreement & return
             agreement.get().setAccepted(true);

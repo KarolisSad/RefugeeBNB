@@ -6,15 +6,11 @@ import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterf
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
-import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
-import via.sep3.group11.tier2.shared.domain.Address;
 import via.sep3.group11.tier2.shared.domain.Date;
 import via.sep3.group11.tier2.shared.domain.Host;
-import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
-
 import java.util.Optional;
 
 /**
@@ -58,13 +54,13 @@ public class HostLogic implements HostInterface {
                     dto.getPassword(), dto.getGender(), dto.getNationality(),
                     dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
 
-            // Check if there's host by same email
+            // Check if there's a host with same email
             Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
 
-            // Return HostDTO with error message OR existing Host without errorMessage
+            // If host doesn't exist - create new one & return
         return existing.map
                 (host -> new HostDTO(toRegister, "Host with email " + host.getEmail() + " already exists."))
-                .orElseGet(() -> new HostDTO(existing.get(), ""));
+                .orElseGet(() -> new HostDTO(hostDAO.createHost(toRegister), ""));
     }
 
     /**
@@ -83,7 +79,6 @@ public class HostLogic implements HostInterface {
 
         // Getting host from DataBase
         Optional<Host> host = hostDAO.getHostByEmail(dto.getEmail());
-        // If no host found
         if (host.isEmpty())
         {
             return new HostDTO(dummyHost, "Host with email " + host.get().getEmail() + " doesn't exist.");
