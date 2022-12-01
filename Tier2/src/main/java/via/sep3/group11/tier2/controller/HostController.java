@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.domain.Host;
@@ -62,24 +63,29 @@ public class HostController {
      */
 
     @PostMapping("/host/login")
-    public ResponseEntity<Host> loginHost(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity<Host> loginHost(@RequestBody LoginDTO loginDTO) {
         try {
             Host host = hostLogic.loginHost(loginDTO);
             return new ResponseEntity<>(host, HttpStatus.OK);
-            }
-        catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
-        }
-        catch (ValidationException e)
-        {
+        } catch (ValidationException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
-
+    @GetMapping("/host/{housingId}")
+        public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable ("housingId") long housingId) {
+        try {
+            ResponseEntity<HostDTO> hostById = hostLogic.getHostByHousingId(housingId);
+        } catch (NullPointerException e){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+        } catch (ValidationException e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+             // IT SHOULD WORk? right?
+    }
 }
