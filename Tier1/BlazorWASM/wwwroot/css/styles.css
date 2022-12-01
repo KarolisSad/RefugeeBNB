@@ -8,3 +8,9 @@
     margin-top: 50px;
     border-radius: 15px;
 }
+
+.applyBtn{
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}

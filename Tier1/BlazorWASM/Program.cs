@@ -14,6 +14,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:8081") });
 builder.Services.AddScoped<HostInterface, HostImpl>();
 builder.Services.AddScoped<RefugeeInterface, RefugeeImpl>();
+builder.Services.AddScoped<HousingInterface, HousingImpl>();
+builder.Services.AddScoped<AgreementInterface, AgreementImpl>();
 
 //RADZEN stuff
 builder.Services.AddScoped<DialogService>();

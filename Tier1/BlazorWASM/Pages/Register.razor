@@ -4,6 +4,7 @@
 @using System.Collections.ObjectModel
 @using System.Text.Json
 @using global::Shared.DTOs
+@using System.Collections
 @inject HostInterface hostClient;
 @inject RefugeeInterface refugeeClient;
 
@@ -17,6 +18,7 @@
             <p>
                 <RadzenLabel Component="Email" Text="Email"/>
                 <RadzenTextBox Name="Email" @bind-Value=@email />
+                <RadzenEmailValidator Component="Email" Text="Enter email" />
                 <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
 
             </p>
@@ -25,11 +27,10 @@
                 <RadzenPassword @bind-Value=@password />
                 <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
             </p>
-
+            
             <p>
                 <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenTextBox Name="Nationality" @bind-Value=@nationality />
-                <RadzenRequiredValidator Component="Nationality" Text="Nationality is required!"/>
+                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
             </p>
 
             <p>
@@ -48,11 +49,10 @@
                 <RadzenTextBox Name="LastName" @bind-Value=@lastName />
                 <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
             </p>
-
+            
             <p>
                 <RadzenLabel Component="Gender" Text="Gender"/>
-                <RadzenTextBox Name="Gender" @bind-Value=@gender />
-                <RadzenRequiredValidator Component="Gender" Text="Gender is required!"/>
+                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange"/>
             </p>
 
             <p>
@@ -92,6 +92,8 @@
     DateOnly date = new DateOnly(2011, 11, 11);
 
     public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
+    public Collection<string> Nationalities = new Collection<string>() { "Danish", "Lithuanian", "Polish", "English", "French", "Ukrainian", "German", "Other" };
+    public Collection<string> GenderCollection = new Collection<string>() { "Female", "Male", "Other" };
 
     private string resultMsg = "";
 
@@ -104,40 +106,38 @@
 
         if (personType.Contains("host"))
         {
-            try
-            {
-                await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
-                Console.WriteLine("We created a host.");
-                Clear();
-                resultMsg = "User successfully created";
-                color = "green";
+            HostDTO host = await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                if (host.ErrorMessage.Equals(""))
+                {
+                    Console.WriteLine("We created a host.");
+                    Clear();
+                    resultMsg = "User successfully created";
+                    color = "green";
+                }
+                else
+                {
+                    Console.WriteLine(host.ErrorMessage);
+                    resultMsg = host.ErrorMessage;
+                    color = "red";
+                }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                resultMsg = e.Message;
-                color = "red";
-            }
-        }
         else if (personType.Contains("refugee"))
         {
-            try
-            {
-                Console.Write("BUTTON CLICKED");
-                await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
-                Console.Write("AFTER CALL");
+            RefugeeDTO refugee = await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+                if (refugee.ErrorMessage.Equals(""))
+                {
+                    Clear();
+                    resultMsg = "User successfully created";
+                    color = "green";
+                    Console.WriteLine("We created a refugee.");
+                }
+                else
+                {
+                    Console.WriteLine(refugee.ErrorMessage);
+                    resultMsg = refugee.ErrorMessage;
+                    color = "red";
+                }
                 
-                Clear();
-                resultMsg = "User successfully created";
-                color = "green";
-                Console.WriteLine("We created a refugee.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                resultMsg = e.Message;
-                color = "red";
-            }
         }
     }
 
@@ -166,6 +166,21 @@
             personType = "refugee";
         }
 
+        Console.WriteLine($"Value changed to {str}");
+    }
+
+    private void ChangeNationality(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        nationality = (string)str;
+        Console.WriteLine($"Value changed to {str}");
+    }
+
+
+    private void GenderChange(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        gender = (string)str;
         Console.WriteLine($"Value changed to {str}");
     }
 

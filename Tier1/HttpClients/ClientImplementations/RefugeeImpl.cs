@@ -15,27 +15,17 @@ public class RefugeeImpl:RefugeeInterface
         this.client = client;
     }
 
-    public async Task RegisterRefugee(RefugeeRegisterDTO dto)
+    public async Task<RefugeeDTO> RegisterRefugee(RefugeeRegisterDTO dto)
     {
         HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/refugee", dto);
-        if (!responseMessage.IsSuccessStatusCode)
-        {
-            string content = await responseMessage.Content.ReadAsStringAsync();
-            throw new Exception(content);
-        }
-    }
-
-    public async Task<Refugee> LoginRefugee(LoginDTO dto)
-    {
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/refugee/login", dto);
         
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
             throw new Exception(content);
         }
-
-        Refugee refugee = JsonSerializer.Deserialize<Refugee>(content, new JsonSerializerOptions
+        
+        RefugeeDTO refugee = JsonSerializer.Deserialize<RefugeeDTO>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
@@ -43,22 +33,22 @@ public class RefugeeImpl:RefugeeInterface
         return refugee;
     }
 
-    /**
-    private async Task<Refugee> GetRefugeeAsync(string email)
+    public async Task<RefugeeDTO> LoginRefugee(LoginDTO dto)
     {
-        HttpResponseMessage responseMessage = await client.GetAsync($"/refugee/{email}");
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/refugee/login", dto);
+        
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
             throw new Exception(content);
         }
 
-        Refugee refugee = JsonSerializer.Deserialize<Refugee>(content, new JsonSerializerOptions
+        RefugeeDTO refugee = JsonSerializer.Deserialize<RefugeeDTO>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
         
         return refugee;
     }
-    */
+    
 }
