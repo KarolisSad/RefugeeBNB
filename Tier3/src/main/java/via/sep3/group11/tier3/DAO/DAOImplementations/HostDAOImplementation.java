@@ -62,8 +62,6 @@ public class HostDAOImplementation implements HostDaoInterface {
         }
 
         return Optional.ofNullable(housing.get().host);
-
-
     }
 
 }
