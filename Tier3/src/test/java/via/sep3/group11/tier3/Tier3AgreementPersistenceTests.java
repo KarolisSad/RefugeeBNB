@@ -10,6 +10,7 @@ import via.sep3.group11.tier3.DAO.DAOImplementations.HostDAOImplementation;
 import via.sep3.group11.tier3.DAO.DAOImplementations.HousingDAOImplementation;
 import via.sep3.group11.tier3.DAO.DAOImplementations.RefugeeDAOImplementation;
 import via.sep3.group11.tier3.model.*;
+import via.sep3.group11.tier3.repository.AgreementRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,6 +26,9 @@ public class Tier3AgreementPersistenceTests {
     HousingDAOImplementation housingDao;
     @Autowired
     AgreementDAOImplementation agreementDao;
+
+    @Autowired
+    AgreementRepository agreementRepo;
 
     Refugee refugee;
     Refugee refugee1;
@@ -47,7 +51,6 @@ public class Tier3AgreementPersistenceTests {
 
     @BeforeEach
     void setup() {
-
         System.out.println("<STARTING>...");
 
         host = new Host(
@@ -184,6 +187,9 @@ public class Tier3AgreementPersistenceTests {
         housing = housingDao.addHousing(housing4, "host3@test.dk");
         System.out.println("Finished setting up housing");
 
+
+        agreementRepo.deleteAll();
+
         System.out.println("Finished setup!");
     }
 
@@ -201,28 +207,6 @@ public class Tier3AgreementPersistenceTests {
 
         Assert.isTrue(agreementReturned.getHost().getEmail().equals(agreement.getHost().getEmail()), "FAILED!");
         Assert.isTrue(testGet.getHost().getEmail().equals(agreement.getHost().getEmail()), "FAILED!");
-    }
-
-    @Test
-    void updateAgreement() {
-        Agreement agreement = new Agreement(
-                new Date(30,11,2022),
-                refugee,
-                housing,
-                host
-        );
-
-        Agreement agreementReturned = agreementDao.addAgreement(agreement);
-        Assert.isTrue(agreementReturned.getDate().equals(LocalDate.of(2022,11,30)), "FAILED!");
-
-        Agreement toUpdate = agreementDao.getAgreementById(agreementReturned.getAgreementId()).get();
-        toUpdate.setDate(LocalDate.of(2022,12,12));
-
-        Agreement updated = agreementDao.updateAgreement(toUpdate);
-        Assert.isTrue(updated.getDate().equals(LocalDate.of(2022,12,12)), "FAILED!");
-
-        System.out.println(agreementDao.getAgreementById(updated.getAgreementId()).get().getDate());
-        Assert.isTrue(agreementDao.getAgreementById(updated.getAgreementId()).get().getDate().equals(LocalDate.of(2022,12,12)), "FAILED!");
     }
 
     @Test
@@ -258,6 +242,7 @@ public class Tier3AgreementPersistenceTests {
                 host3
         );
 
+
         agreementDao.addAgreement(agreement1);
         agreementDao.addAgreement(agreement2);
         agreementDao.addAgreement(agreement3);
@@ -271,6 +256,95 @@ public class Tier3AgreementPersistenceTests {
         Assert.isTrue(agreementsHost1.size() == 3, "FAILED HOST1, Actual size: " + agreementsHost1.size());
         Assert.isTrue(agreementsHost2.size() == 1, "FAILED HOST2, Actual size: " + agreementsHost2.size());
         Assert.isTrue(agreementsHost3.size() == 1, "FAILED HOST3, Actual size: " + agreementsHost3.size());
+
+    }
+
+    @Test
+    void removeAgreement() {
+        Agreement a1 = new Agreement(
+                new Date(1,12,2022),
+                refugee4,
+                housing1,
+                host1
+        );
+        Agreement a2 = new Agreement(
+                new Date(1,12,2022),
+                refugee3,
+                housing1,
+                host1
+        );
+
+        agreementDao.addAgreement(a1);
+        agreementDao.addAgreement(a2);
+
+        List<Agreement> host1 = agreementDao.getAgreementsByHostId("host1@test.dk");
+
+        Assert.isTrue(host1.size() == 2, "FAILED HOST1, Actual size: " + host1.size());
+
+        agreementDao.deleteAgreement(host1.get(1).getAgreementId());
+
+        host1 = agreementDao.getAgreementsByHostId("host1@test.dk");
+        Assert.isTrue(host1.size() == 1, "FAILED HOST1, Actual size: " + host1.size());
+    }
+
+    @Test
+    void allPendingAgreementsByHostEmail() {
+        // Todo need to be able to set state to test
+    }
+
+    @Test
+    void agreementsByHousingId() {
+        Agreement agreement = new Agreement(
+                new Date(30,11,2022),
+                refugee,
+                housing,
+                host
+        );
+        Agreement agreement1 = new Agreement(
+                new Date(30,11,2022),
+                refugee,
+                housing,
+                host
+        );
+        Agreement agreement2 = new Agreement(
+                new Date(30,11,2022),
+                refugee,
+                housing,
+                host
+        );
+        Agreement agreement3 = new Agreement(
+                new Date(30,11,2022),
+                refugee,
+                housing1,
+                host
+        );
+        Agreement agreement4 = new Agreement(
+                new Date(30,11,2022),
+                refugee,
+                housing1,
+                host
+        );
+        Agreement agreement5 = new Agreement(
+                new Date(30,11,2022),
+                refugee,
+                housing2,
+                host
+        );
+
+        agreementDao.addAgreement(agreement);
+        agreementDao.addAgreement(agreement1);
+        agreementDao.addAgreement(agreement2);
+        agreementDao.addAgreement(agreement3);
+        agreementDao.addAgreement(agreement4);
+        agreementDao.addAgreement(agreement5);
+
+        List<Agreement> housingAgreements = agreementDao.getAllAgreementsByHousingId(housing.getHousingId());
+        List<Agreement> housingAgreements1 = agreementDao.getAllAgreementsByHousingId(housing1.getHousingId());
+        List<Agreement> housingAgreements2 = agreementDao.getAllAgreementsByHousingId(housing2.getHousingId());
+
+        Assert.isTrue(housingAgreements.size() == 3, "Housingagreements failed. Actual size is: " + housingAgreements.size());
+        Assert.isTrue(housingAgreements1.size() == 2, "Housingagreements1 failed. Actual size is: " + housingAgreements1.size());
+        Assert.isTrue(housingAgreements2.size() == 1, "Housingagreements2 failed. Actual size is: " + housingAgreements2.size());
 
     }
 

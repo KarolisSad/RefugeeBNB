@@ -17,10 +17,14 @@ public class Agreement {
     @Column(name = "agreement_date")
     private LocalDate date;
 
+
+    //Todo many to one??
     @OneToOne
     @JoinColumn(name = "refugee_id")
     private Refugee refugee;
 
+
+    // todo change to one to many
     @OneToOne
     @JoinColumn(name = "housing_id")
     private Housing housing;

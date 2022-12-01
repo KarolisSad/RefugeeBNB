@@ -41,4 +41,19 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
     public List<Agreement> getAgreementsByHostId(String hostId) {
         return agreementRepository.findAgreementsByHost_Email(hostId);
     }
+
+    @Override
+    public void deleteAgreement(long id) {
+        agreementRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Agreement> getAllPendingAgreements(String hostEmail) {
+        return agreementRepository.findAgreementsByAcceptedIsFalseAndHost_Email(hostEmail);
+    }
+
+    @Override
+    public List<Agreement> getAllAgreementsByHousingId(long housingId) {
+        return agreementRepository.findAgreementsByHousing_HousingId(housingId);
+    }
 }

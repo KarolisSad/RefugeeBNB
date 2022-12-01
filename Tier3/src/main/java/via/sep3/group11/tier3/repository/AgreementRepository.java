@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AgreementRepository extends JpaRepository<Agreement, Long> {
     List<Agreement> findAgreementsByHost_Email(String hostEmail);
+    List<Agreement> findAgreementsByAcceptedIsFalseAndHost_Email(String hostEmail);
+    List<Agreement> findAgreementsByHousing_HousingId(long housingId);
 }

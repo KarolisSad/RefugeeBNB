@@ -21,6 +21,7 @@ public class Tier3HostPersistenceTests {
 
     @Autowired
     HostRepository hostRepository;
+
     List<Host> allHosts = new ArrayList<>();
 
 

@@ -10,4 +10,7 @@ public interface AgreementDaoInterface {
     Agreement updateAgreement(Agreement agreement);
     Optional<Agreement> getAgreementById(long agreementId);
     List<Agreement> getAgreementsByHostId(String hostId);
+    void deleteAgreement(long id);
+    List<Agreement> getAllPendingAgreements(String hostEmail);
+    List<Agreement> getAllAgreementsByHousingId(long housingId);
 }
