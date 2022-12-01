@@ -2,8 +2,12 @@ package via.sep3.group11.tier3.DAO.DAOImplementations;
 
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier3.model.Host;
+import via.sep3.group11.tier3.model.Housing;
 import via.sep3.group11.tier3.repository.HostRepository;
 import via.sep3.group11.tier3.DAO.DAOInterfaces.HostDaoInterface;
+import via.sep3.group11.tier3.repository.HousingRepository;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,14 +23,12 @@ import java.util.Optional;
 @Service
 public class HostDAOImplementation implements HostDaoInterface {
 
-    private HostRepository repository;
+    private HostRepository hostRepository;
+    private HousingRepository housingRepository;
 
-    /**
-     * Constructor to initialize repository class
-     * @param repository host repository
-     */
-    public HostDAOImplementation(HostRepository repository) {
-        this.repository = repository;
+    public HostDAOImplementation(HostRepository hostRepository, HousingRepository housingRepository) {
+        this.hostRepository = hostRepository;
+        this.housingRepository = housingRepository;
     }
 
     /**
@@ -37,7 +39,7 @@ public class HostDAOImplementation implements HostDaoInterface {
      */
     @Override
     public Host createHost(Host host) {
-        return repository.save(host);
+        return hostRepository.save(host);
     }
 
     /**
@@ -47,6 +49,21 @@ public class HostDAOImplementation implements HostDaoInterface {
      */
     @Override
     public Optional<Host> getHostByEmail(String email) {
-        return repository.findById(email);
+        return hostRepository.findById(email);
     }
+
+    @Override
+    public Optional<Host> getHostByHousingId(long id) {
+
+        Optional<Housing> housing = housingRepository.findById(id);
+
+        if (housing.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.ofNullable(housing.get().host);
+
+
+    }
+
 }

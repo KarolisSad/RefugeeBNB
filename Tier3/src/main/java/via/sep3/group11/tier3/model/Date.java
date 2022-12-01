@@ -54,4 +54,8 @@ import java.time.LocalDate;
     public static LocalDate convertDateObjectToLocalDate(Date date) {
         return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }
+
+    public static Date convertLocalDateToDateObject(LocalDate date) {
+            return new Date(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
+    }
     }

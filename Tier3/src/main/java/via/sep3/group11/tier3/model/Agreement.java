@@ -47,6 +47,15 @@ public class Agreement {
         accepted = false;
     }
 
+    public Agreement(long agreementId, Date date, Refugee refugee, Housing housing, Host host, boolean accepted) {
+        this.agreementId = agreementId;
+        this.date = convertDateObjectToLocalDate(date);
+        this.refugee = refugee;
+        this.housing = housing;
+        this.host = host;
+        this.accepted = accepted;
+    }
+
     public long getAgreementId() {
         return agreementId;
     }
