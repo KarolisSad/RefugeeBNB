@@ -6,7 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
+import via.sep3.group11.tier2.logicInterfaces.HousingInterface;
 import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
+import via.sep3.group11.tier2.shared.DTOs.HousingDTO;
+import via.sep3.group11.tier2.shared.DTOs.HousingListDTO;
 import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
@@ -21,10 +24,12 @@ public class HousingController {
      * @version 28/11/22
      */
     HostInterface hostInterface;
+    HousingInterface housingInterface;
 
-    public HousingController(HostInterface hostInterface)
+    public HousingController(HostInterface hostInterface, HousingInterface housingInterface)
     {
         this.hostInterface = hostInterface;
+        this.housingInterface = housingInterface;
     }
 
     /**
@@ -48,5 +53,18 @@ public class HousingController {
         catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        public ResponseEntity<HousingListDTO> getAvailableHousing(){
+            try{
+                housingInterface.getAvailableHousing(dto);
+                return new ResponseEntity<>(dto,HttpStatus.CREATED)
+            }
+        }
+        public ResponseEntity<HousingDTO> removeHousing(@RequestBody HousingIdDTO dto){
+            try{
+                housingInterface.removeHousing(dto);
+                return new ResponseEntity<>(dto,HttpStatus.CREATED);
+            }
+        }
     }
+
 }
