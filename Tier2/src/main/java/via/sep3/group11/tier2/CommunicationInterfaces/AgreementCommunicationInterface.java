@@ -1,5 +1,6 @@
 package via.sep3.group11.tier2.CommunicationInterfaces;
 
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.domain.Agreement;
 
 import java.util.List;

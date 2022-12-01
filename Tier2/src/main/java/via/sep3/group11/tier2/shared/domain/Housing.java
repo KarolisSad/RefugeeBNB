@@ -20,6 +20,13 @@ public class Housing {
         this.available = available;
     }
 
+    public Housing(long housingId, int capacity, Address address, boolean available) {
+        this.housingId = housingId;
+        this.capacity = capacity;
+        this.address = address;
+        this.available = available;
+    }
+
     public long getHousingId() {
         return housingId;
     }

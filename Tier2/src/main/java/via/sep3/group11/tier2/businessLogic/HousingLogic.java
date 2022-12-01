@@ -5,10 +5,7 @@ import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInte
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.HousingInterface;
-import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
-import via.sep3.group11.tier2.shared.DTOs.HousingDTO;
-import via.sep3.group11.tier2.shared.DTOs.HousingIdDTO;
-import via.sep3.group11.tier2.shared.DTOs.HousingListDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
 import via.sep3.group11.tier2.shared.domain.Address;
 import via.sep3.group11.tier2.shared.domain.Housing;
 
@@ -67,5 +64,6 @@ public class HousingLogic implements HousingInterface {
         housingDAO.removeHousing(dto.getHousingId());
         return new HousingDTO(housing.get(),"");
     }
+
 
 }

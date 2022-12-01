@@ -7,8 +7,10 @@ import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
+import via.sep3.group11.tier2.shared.domain.Address;
 import via.sep3.group11.tier2.shared.domain.Date;
 import via.sep3.group11.tier2.shared.domain.Host;
+import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 import java.util.Optional;
@@ -90,6 +92,19 @@ public class HostLogic implements HostInterface {
             return new HostDTO(host.get(),"");
         }
             return new HostDTO(dummyHost,"Password is incorrect");
+    }
+
+    @Override
+    public HostDTO getHostByHousingId(Long housingId) {
+        // Dummy data
+        Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
+
+        Optional<Housing> housing = housingDAO.getHousingById(housingId);
+        if (housing.isEmpty())
+        {
+            return new HostDTO(dummyHost,"This housing no longer exists.");
+        }
+        return new HostDTO(hostDAO.getHostByHousingId(housingId),"");
     }
 
     /**
