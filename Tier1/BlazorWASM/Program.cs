@@ -15,7 +15,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://
 builder.Services.AddScoped<HostInterface, HostImpl>();
 builder.Services.AddScoped<RefugeeInterface, RefugeeImpl>();
 builder.Services.AddScoped<HousingInterface, HousingImpl>();
-//builder.Services.AddScoped<AgreementInterface, AgreementImpl>();
+builder.Services.AddScoped<AgreementInterface, AgreementImpl>();
 
 //RADZEN stuff
 builder.Services.AddScoped<DialogService>();

@@ -1,24 +1,28 @@
 ﻿@page "/DisplayHousing"
 @using System.Collections.ObjectModel
 @using global::Shared.Domain
+@using global::Shared.DTOs
 @using HttpClients.ClientInterfaces
-@inject HousingInterface HousingInterface;
+@using UIComponents
+@inject HousingInterface HousingInterface
+@inject AgreementInterface AgreementInterface
 
 
 <h3>DisplayHousing</h3>
 
 @if (allHousing?.Any() == true)
 {
-    <RadzenButton Click="@ClearSelection" Text="Clear Selection" />
+    <RadzenButton Click="@ClearSelection" Text="Clear Selection"/>
     <RadzenDataList
-        WrapItems="true" 
-        AllowPaging="true" 
+        WrapItems="true"
+        AllowPaging="true"
         Data="@allHousing"
-        TItem="Housing" 
-        SelectionMode="DataGridSelectionMode.Single" 
-        @bind-Value=@housingObject>
-        <Template Context="housingObject">
-            <RadzenCard Style="width: 100%; margin: 3px; overflow: hidden;" Click="@Select">
+        TItem="Housing"
+        SelectionMode="DataGridSelectionMode.Single"
+        @bind-Value=@housingObject
+        >
+        <Template Context="housingObject" >
+            <RadzenCard Style="width: 100%; margin: 3px; overflow: hidden;" >
                 <div class="container">
 
                     <div class="col-lg-12 product-title">
@@ -53,7 +57,9 @@
                         </div>
                     </div>
                     <div class="col-lg-3 p-3 position-absolute bottom-0 end-0">
-                        <RadzenButton Text="Apply for" Class="w-100"/>
+                        <RadzenButton Text="Apply for" Class="w-100" Click="@Apply"/>
+                        
+
                     </div>
                 </div>
             </RadzenCard>
@@ -63,7 +69,23 @@
 
 <label style="color: @color">@resultMsg</label>
 
-
+<Modal ShowModal="showModal">
+    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-1">Are you sure you want to apply for that housing?</RadzenText><br/>
+    <p>
+    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host: hostEmail</RadzenText>
+    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
+    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
+    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
+    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
+    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
+    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
+    </p>
+    <div>
+                            <RadzenButton Text="Confirm" Click="@Confirm"/>
+                            <RadzenButton Text="Cancel"  Click="@Cancel"/>
+    
+                        </div>
+</Modal>
 
 @code {
     private Collection<Housing> allHousing;
@@ -71,6 +93,7 @@
     private string color = "";
     private Housing selectedHousing = new Housing();
     private Housing housingObject = new Housing();
+    private bool showModal;
 
     protected override async void OnInitialized()
     {
@@ -105,6 +128,23 @@
     {
         selectedHousing = (Housing)value;
         Console.WriteLine("Selected housing changed to " + selectedHousing.Address.City + ", " + selectedHousing.Address.HouseNumber);
+    }
+
+
+    private async void Confirm()
+    {
+        //RequestAgreementDTO dto = await AgreementInterface.RequestAgreement();
+        showModal = false;
+    }
+
+    private void Apply()
+    {
+        showModal = true;
+    }
+
+    private void Cancel()
+    {
+        showModal = false;
     }
 
 }
