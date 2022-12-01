@@ -53,4 +53,21 @@ public class HostImpl:HostInterface
         return host;
     }
 
+    public async Task<HostDTO> GetHostByHousingId(long housingId)
+    {
+        HttpResponseMessage responseMessage = await client.GetAsync($"/api/host/{housingId}");
+        
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return host;
+    }
 }

@@ -6,65 +6,49 @@
 @using UIComponents
 @inject HousingInterface HousingInterface
 @inject AgreementInterface AgreementInterface
+@inject HostInterface HostInterface;
 
 
 <h3>DisplayHousing</h3>
 
-@if (allHousing?.Any() == true)
+@foreach (Housing housing in allHousing)
 {
-    <RadzenButton Click="@ClearSelection" Text="Clear Selection"/>
-    <RadzenDataList
-        WrapItems="true"
-        AllowPaging="true"
-        Data="@allHousing"
-        TItem="Housing"
-        SelectionMode="DataGridSelectionMode.Single"
-        @bind-Value=@housingObject
-        >
-        <Template Context="housingObject" >
-            <RadzenCard Style="width: 100%; margin: 3px; overflow: hidden;" >
-                <div class="container">
-
-                    <div class="col-lg-12 product-title">
-                        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">House</RadzenText>
-                    </div>
-                    <div >
-                        <div class="row d-flex">
-                            <div class="col-lg-2 col-lg-">
-                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
-                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housingObject.Address.Country)</RadzenText>
-                            </div>
-                            <div class="col-lg-2 ">
-                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
-                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housingObject.Address.City)</RadzenText>
-                            </div>
-                            <div class="col-lg-2 ">
-                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
-                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housingObject.Address.StreetName)</RadzenText>
-                            </div>
-                            <div class="col-lg-2">
-                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
-                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housingObject.Address.HouseNumber)</RadzenText>
-                            </div>
-                            <div class="col-lg-2">
-                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
-                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housingObject.Address?.RoomNumber)</RadzenText>
-                            </div>
-                            <div class="col-lg-2">
-                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
-                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housingObject.Address.PostCode)</RadzenText>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 p-3 position-absolute bottom-0 end-0">
-                        <RadzenButton Text="Apply for" Class="w-100" Click="@Apply"/>
-                        
-
-                    </div>
+    <div class="card" style="width: 700px">
+        <div class="col-lg-12 product-title">
+            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">House</RadzenText>
+        </div>
+        <div >
+            <div class="row d-flex">
+                <div class="col-lg-2 col-lg-">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.Country)</RadzenText>
                 </div>
-            </RadzenCard>
-        </Template>
-    </RadzenDataList>
+                <div class="col-lg-2 ">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.City)</RadzenText>
+                </div>
+                <div class="col-lg-2 ">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.StreetName)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.HouseNumber)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address?.RoomNumber)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.PostCode)</RadzenText>
+                </div>
+            </div>
+            <div>
+                <button class="applyBtn" @onclick="args => Apply(housing)">Apply for</button>
+            </div>
+        </div>
+    </div>
 }
 
 <label style="color: @color">@resultMsg</label>
@@ -72,19 +56,22 @@
 <Modal ShowModal="showModal">
     <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-1">Are you sure you want to apply for that housing?</RadzenText><br/>
     <p>
-    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host: hostEmail</RadzenText>
-    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
-    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
-    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
-    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
-    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
-    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
+        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">@ownerEmail</RadzenText>
+        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">@selectedHousing.Address.Country</RadzenText>
+        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">@selectedHousing.Address.City</RadzenText>
+        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">@selectedHousing.Address.StreetName</RadzenText>
+        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">@selectedHousing.Address.HouseNumber</RadzenText>
+        @if (!selectedHousing.Address.RoomNumber.Equals(""))
+        {
+            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">@selectedHousing.Address.RoomNumber</RadzenText>
+        }
+        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">@selectedHousing.Address.PostCode</RadzenText>
     </p>
+    <label style="color: @color">@resultMsg</label>
     <div>
-                            <RadzenButton Text="Confirm" Click="@Confirm"/>
-                            <RadzenButton Text="Cancel"  Click="@Cancel"/>
-    
-                        </div>
+        <RadzenButton Text="Confirm" Click="@Confirm"/>
+        <RadzenButton Text="Cancel" Click="@Cancel"/>
+    </div>
 </Modal>
 
 @code {
@@ -92,12 +79,12 @@
     private string resultMsg = "";
     private string color = "";
     private Housing selectedHousing = new Housing();
-    private Housing housingObject = new Housing();
+    private string ownerEmail = "";
     private bool showModal;
 
     protected override async void OnInitialized()
     {
-    /*
+        /*
         HousingListDTO dto = await HousingInterface.GetAvailableHousing();
         if (dto.ErrorMessage.Equals(""))
         {
@@ -109,8 +96,9 @@
             resultMsg = dto.ErrorMessage;
             color = "red";
         }
+        */
         
-    */
+    
         allHousing = new Collection<Housing>()
         {
             new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069")),
@@ -119,26 +107,44 @@
         };
     }
 
-    private void ClearSelection()
-    {
-        selectedHousing = null;
-    }
-
-    public void Select(object value)
-    {
-        selectedHousing = (Housing)value;
-        Console.WriteLine("Selected housing changed to " + selectedHousing.Address.City + ", " + selectedHousing.Address.HouseNumber);
-    }
-
 
     private async void Confirm()
     {
-        //RequestAgreementDTO dto = await AgreementInterface.RequestAgreement();
-        showModal = false;
+    //todo retrieve the refugee email from authentication stuff
+        
+        RequestAgreementDTO dto = await AgreementInterface.RequestAgreement(new RequestAgreementDTO("refugeeEmail@gmail.com",ownerEmail, selectedHousing,"" ));
+        
+        
+        if (dto.ErrorMessage.Equals(""))
+        {
+            showModal = false;
+            resultMsg = "";
+        }
+        else
+        {
+            resultMsg = dto.ErrorMessage;
+            color = "red";
+        }
+
     }
 
-    private void Apply()
+    private async Task Apply(Housing housing)
     {
+        /*HostDTO owner = await HostInterface.GetHostByHousingId(selectedHousing.HousingId);
+        if (owner.ErrorMessage.Equals(""))
+        {
+            ownerEmail = owner.Host.Email;
+            resultMsg = "";
+        }
+        else
+        {
+            resultMsg = owner.ErrorMessage;
+            color = "red";
+        }
+        */
+        ownerEmail = "owneremail@gmail.com";
+        selectedHousing = housing;
+        Console.WriteLine("Selected housing changed to " + selectedHousing.Address.City + ", " + selectedHousing.Address.HouseNumber);
         showModal = true;
     }
 
