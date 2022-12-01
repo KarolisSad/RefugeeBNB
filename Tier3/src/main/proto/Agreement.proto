@@ -1,0 +1,20 @@
+syntax = "proto3";
+import "SharedMessages.proto";
+
+option java_multiple_files = true;
+option java_package = "via.sep3.group11.tier3.protobuf";
+
+service Agreement{
+  rpc addAgreement(GAgreement) returns (GAgreement);
+  rpc updateAgreement(GAgreement) returns (GAgreement);
+  rpc getAgreementById(GId) returns (GAgreement);
+  rpc getAgreementByHostId(GEmail) returns (getAllPendingAgreementsResponse);
+  rpc deleteAgreement(GId) returns (Empty);
+  rpc getAllPendingAgreements(GEmail) returns (getAllPendingAgreementsResponse);
+  rpc getAllAgreementByHousingId(GId) returns (getAllPendingAgreementsResponse);
+}
+
+message getAllPendingAgreementsResponse
+{
+  repeated GAgreement agreements = 1;
+}

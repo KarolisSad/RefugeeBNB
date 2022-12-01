@@ -4,6 +4,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
+import via.sep3.group11.tier2.protobuf.AgreementGrpc;
 import via.sep3.group11.tier2.protobuf.HostGrpc;
 import via.sep3.group11.tier2.protobuf.HousingGrpc;
 import via.sep3.group11.tier2.protobuf.RefugeeGrpc;
@@ -17,6 +18,7 @@ public class Channel {
     private HostGrpc.HostBlockingStub hostStub;
     private RefugeeGrpc.RefugeeBlockingStub refugeeStub;
     private HousingGrpc.HousingBlockingStub housingStub;
+    private AgreementGrpc.AgreementBlockingStub agreementStub;
 
     public Channel() {
         createChannel();
@@ -35,6 +37,7 @@ public class Channel {
         hostStub = null;
         refugeeStub = null;
         housingStub = null;
+        agreementStub = null;
     }
 
     public HostGrpc.HostBlockingStub getHostStub() {
@@ -56,5 +59,12 @@ public class Channel {
             this.housingStub = HousingGrpc.newBlockingStub(managedChannel);
         }
         return housingStub;
+    }
+
+    public AgreementGrpc.AgreementBlockingStub getAgreementStub() {
+        if (agreementStub == null) {
+            this.agreementStub = AgreementGrpc.newBlockingStub(managedChannel);
+        }
+        return agreementStub;
     }
 }

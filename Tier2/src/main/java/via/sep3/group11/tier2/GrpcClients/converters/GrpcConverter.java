@@ -9,9 +9,14 @@ import java.util.Optional;
 public class GrpcConverter {
 
     public static Host hostFromGrpc(GHost grpcHost) throws ValidationException {
-        return new Host(grpcHost.getFirstName(),grpcHost.getEmail(), grpcHost.getPassword(),
-                grpcHost.getGender().charAt(0),grpcHost.getNationality(), Optional.of(grpcHost.getMiddleName()),
-                grpcHost.getLastName(), new Date(grpcHost.getDateOfBirth().getDay(),grpcHost.getDateOfBirth().getMonth(),
+        return new Host(grpcHost.getFirstName(),
+                grpcHost.getEmail(),
+                grpcHost.getPassword(),
+                grpcHost.getGender().charAt(0),
+                grpcHost.getNationality(),
+                Optional.of(grpcHost.getMiddleName()),
+                grpcHost.getLastName(),
+                new Date(grpcHost.getDateOfBirth().getDay(),grpcHost.getDateOfBirth().getMonth(),
                 grpcHost.getDateOfBirth().getYear()));
                 //TODO ADD Housing
     }
@@ -76,11 +81,56 @@ public class GrpcConverter {
         return new Date(date.getDay(), date.getMonth(), date.getYear());
     }
 
-
-
+    public static Date DateFromGrpc(GDateOfBirth date) throws ValidationException {
+        return new Date(
+                date.getDay(),
+                date.getMonth(),
+                date.getYear());
+    }
 
     public static GAddHousingRequest addHousingRequest(Housing housing, String email)
     {
-        return GAddHousingRequest.newBuilder().setHousing(housingToGrpc(housing)).setEmail(email).build();
+        return GAddHousingRequest.newBuilder()
+                .setHousing(housingToGrpc(housing))
+                .setEmail(email).build();
+    }
+
+    public static Agreement AgreementWithIdFromGrpc(GAgreement agreement) {
+        return new Agreement(
+                agreement.getId(),
+                DateFromGrpc(agreement.getDateOfCreation()),
+                refugeeFromGrpc(agreement.getRefugee()),
+                housingFromGrpc(agreement.getHousing()),
+                HostDetailsfromGrpc(agreement.getHostDetails()),
+                agreement.getStatus());
+    }
+
+    public static GAgreement AgreementWithIdToGrpc(Agreement agreement) {
+        return GAgreement.newBuilder()
+                .setId(agreement.getAgreementId())
+                .setDateOfCreation(DateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
+                .setHostDetails(HostDetailsToGrpc(agreement.getHost()))
+                .setHousing(housingToGrpc(agreement.getHousing()))
+                .setRefugee(refugeeToGrpc(agreement.getRefugee()))
+                .setStatus(agreement.isAccepted()).build();
+
+    }
+
+    public static GAgreement AgreementToGrpc(Agreement agreement)
+    {
+        return GAgreement.newBuilder()
+                .setDateOfCreation(DateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
+                .setRefugee(refugeeToGrpc(agreement.getRefugee()))
+                .setHostDetails(HostDetailsToGrpc(agreement.getHost()))
+                .setHousing(housingToGrpc(agreement.getHousing()))
+                .setStatus(agreement.isAccepted()).build();
+    }
+
+    public static Agreement AgreementFromGrpc(GAgreement agreement) {
+        return new Agreement(
+                DateFromGrpc(agreement.getDateOfCreation()),
+                refugeeFromGrpc(agreement.getRefugee()),
+                housingFromGrpc(agreement.getHousing()),
+                HostDetailsfromGrpc(agreement.getHostDetails()));
     }
 }

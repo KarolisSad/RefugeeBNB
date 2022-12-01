@@ -19,6 +19,16 @@ public final class HousingOuterClass {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_GAddHousingRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_ListOfAvailableHousing_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_ListOfAvailableHousing_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Empty_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Empty_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -30,10 +40,13 @@ public final class HousingOuterClass {
     java.lang.String[] descriptorData = {
       "\n\rHousing.proto\032\024SharedMessages.proto\"?\n" +
       "\022GAddHousingRequest\022\032\n\007housing\030\001 \001(\0132\t.G" +
-      "Housing\022\r\n\005email\030\002 \001(\t27\n\007Housing\022,\n\nadd" +
-      "Housing\022\023.GAddHousingRequest\032\t.GHousingB" +
-      "#\n\037via.sep3.group11.tier2.protobufP\001b\006pr" +
-      "oto3"
+      "Housing\022\r\n\005email\030\002 \001(\t\"5\n\026ListOfAvailabl" +
+      "eHousing\022\033\n\010housings\030\001 \003(\0132\t.GHousing\"\007\n" +
+      "\005Empty2\216\001\n\007Housing\022,\n\naddHousing\022\023.GAddH" +
+      "ousingRequest\032\t.GHousing\0226\n\023getAvailable" +
+      "Housing\022\006.Empty\032\027.ListOfAvailableHousing" +
+      "\022\035\n\rremoveHousing\022\004.GId\032\006.EmptyB#\n\037via.s" +
+      "ep3.group11.tier2.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -46,6 +59,18 @@ public final class HousingOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GAddHousingRequest_descriptor,
         new java.lang.String[] { "Housing", "Email", });
+    internal_static_ListOfAvailableHousing_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_ListOfAvailableHousing_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_ListOfAvailableHousing_descriptor,
+        new java.lang.String[] { "Housings", });
+    internal_static_Empty_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_Empty_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Empty_descriptor,
+        new java.lang.String[] { });
     via.sep3.group11.tier2.protobuf.SharedMessages.getDescriptor();
   }
 

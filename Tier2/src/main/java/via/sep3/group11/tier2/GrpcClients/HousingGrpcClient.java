@@ -5,12 +5,13 @@ import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier2.GrpcClients.connections.Channel;
 import via.sep3.group11.tier2.GrpcClients.converters.GrpcConverter;
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
-import via.sep3.group11.tier2.protobuf.GAddHousingRequest;
-import via.sep3.group11.tier2.protobuf.GHousing;
+import via.sep3.group11.tier2.protobuf.*;
 import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @GRpcService
@@ -31,6 +32,26 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
             reestablishConnection();
             return null;
         }
+    }
+
+    @Override
+    public List<Housing> getAvailableHousing() {
+        return null;
+    }
+
+    @Override
+    public void removeHousing(long housingId) {
+
+    }
+
+    @Override
+    public Housing getHousingById(long housingId) {
+
+    }
+
+    @Override
+    public Housing updateHousing(Housing housing) {
+        return null;
     }
 
     public void reestablishConnection() {
