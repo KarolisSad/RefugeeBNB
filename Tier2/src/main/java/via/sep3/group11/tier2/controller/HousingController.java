@@ -9,6 +9,7 @@ import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.logicInterfaces.HousingInterface;
 import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingDTO;
+import via.sep3.group11.tier2.shared.DTOs.HousingIdDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingListDTO;
 import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
@@ -50,19 +51,24 @@ public class HousingController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+    }
         public ResponseEntity<HousingListDTO> getAvailableHousing (@RequestBody HousingListDTO dto){
             try {
-                housingInterface.getAvailableHousing(dto);
-                return new ResponseEntity<>(dto, HttpStatus.CREATED);
-            } catch(Exception e){
+                HousingListDTO availableHousing = housingInterface.getAvailableHousing(dto);
+                return new ResponseEntity<>(availableHousing, HttpStatus.CREATED);
+            }
+            catch(Exception e){
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
+
         public ResponseEntity<HousingDTO> removeHousing (@RequestBody HousingIdDTO dto){
             try {
-                housingInterface.removeHousing(dto);
-                return new ResponseEntity<>(dto, HttpStatus.CREATED);
-            } catch (Exception e){
+                HousingDTO remove = housingInterface.removeHousing(dto);
+                return new ResponseEntity<>(remove, HttpStatus.CREATED);
+            }
+            catch (Exception e){
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
