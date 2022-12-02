@@ -86,6 +86,6 @@ public class HostController {
         } catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-             // IT SHOULD WORk? right?
+
     }
 }

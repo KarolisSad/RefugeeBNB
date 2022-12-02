@@ -53,10 +53,10 @@ public class HousingController {
         catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        public ResponseEntity<HousingListDTO> getAvailableHousing(){
+        public ResponseEntity<HousingListDTO> getAvailableHousing(@RequestBody HousingListDTO dto){
             try{
                 housingInterface.getAvailableHousing(dto);
-                return new ResponseEntity<>(dto,HttpStatus.CREATED)
+                return new ResponseEntity<>(dto,HttpStatus.CREATED);
             }
         }
         public ResponseEntity<HousingDTO> removeHousing(@RequestBody HousingIdDTO dto){
