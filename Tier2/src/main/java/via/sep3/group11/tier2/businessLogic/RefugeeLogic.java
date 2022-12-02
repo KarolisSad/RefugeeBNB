@@ -47,16 +47,10 @@ public class RefugeeLogic implements RefugeeInterface {
      */
     @Override
     public RefugeeDTO registerRefugee(RefugeeRegisterDTO dto) {
-
-        // Creating refugee object from dto
-        // Don't really know what value it does, but sure
-        Refugee toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(),
-        dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
-
-        // Check if there's a refugee with same email
+        Refugee toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
+        // refugee check
         Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
-
-        // If refugee doesn't exist - create new one & return
+        // if no refugee found - create
         return existing.map
                         (refugee -> new RefugeeDTO(toRegister, "Host with email " + refugee.getEmail() + " already exists."))
                 .orElseGet(() -> new RefugeeDTO(refugeeDAO.createRefugee(existing.get()), ""));
@@ -74,17 +68,16 @@ public class RefugeeLogic implements RefugeeInterface {
      */
     @Override
     public RefugeeDTO loginRefugee(LoginDTO dto) {
-        // Creating dummy refugee, because now it's required to return some kind of Refugee
         Refugee dummyRefugee = new Refugee("DummyRefugee@gmail.com","DummyRefugee",'O',"DummyRefugee","DummyRefugee","DummyRefugee","DummyRefugee",new Date(01,01,2021));
 
-        // Getting refugee from DataBase
+        // refugee check
         Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(dto.getEmail());
         if (refugee.isEmpty())
         {
             return new RefugeeDTO(dummyRefugee, "Refugee with email " + refugee.get().getEmail() + " doesn't exist.");
         }
 
-        // We check if password matches
+        // username & password check
         if (dto.getPassword().equals(refugee.get().getPassword()))
         {
             return new RefugeeDTO(refugee.get(),"");

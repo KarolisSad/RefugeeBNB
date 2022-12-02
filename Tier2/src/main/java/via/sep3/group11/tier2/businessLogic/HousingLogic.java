@@ -26,10 +26,7 @@ public class HousingLogic implements HousingInterface {
     }
     @Override
     public HousingDTO addHousing(HousingCreationDTO dto) {
-
-        Housing housingToAdd = new Housing(dto.getCapacity(),
-                new Address(dto.getCountry(), dto.getCity(), dto.getStreetName(),
-                        dto.getHouseNumber(), dto.getRoomNumber(), dto.getPostCode()),false);
+        Housing housingToAdd = new Housing(dto.getCapacity(), new Address(dto.getCountry(), dto.getCity(), dto.getStreetName(), dto.getHouseNumber(), dto.getRoomNumber(), dto.getPostCode()),false);
 
         try {
            Housing addedHousing = housingDAO.addHousing(housingToAdd, dto.getHostEmail());
@@ -52,6 +49,7 @@ public class HousingLogic implements HousingInterface {
     public HousingDTO removeHousing(HousingIdDTO dto) {
         Housing dummyHousing = new Housing(1,new Address("DummyData","DummyData","DummyData","DummyData","DummyData","DummyData"),false);
 
+        // housing check
         Optional<Housing> housing = housingDAO.getHousingById(dto.getHousingId());
         if (housing.isEmpty())
         {

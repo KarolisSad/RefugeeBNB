@@ -31,16 +31,16 @@ public class AgreementLogic implements AgreementInterface {
 
     @Override
     public AgreementDTO requestAgreement(RequestAgreementDTO dto) {
-        // Creating dummy agreement, because now it's required to return some kind of Agreement TODO change DTOs
         Agreement dummyAgreement = dummyAgreement();
 
+        // Host check
         Optional<Host> host = hostDAO.getHostByEmail(dto.getHostEmail());
         if (host.isEmpty())
         {
             return new AgreementDTO(dummyAgreement, "Owner of this housing deactivated his account and this housing is no longer available");
         }
 
-        // Checking if housing is still listed & available
+        // Housing check
         Optional<Housing> housing = housingDAO.getHousingById(dto.getHousing().getHousingId());
         if (housing.isEmpty())
         {
@@ -52,6 +52,7 @@ public class AgreementLogic implements AgreementInterface {
         }
         Optional<Refugee> refugee = refugeeDTO.getRefugeeByEmail(dto.getRefugeeEmail());
 
+        // Create agreement
         Agreement agreementToCreate = new Agreement(host.get(),housing.get(),refugee.get());
         Agreement createdAgreement = agreementDTO.addAgreement(agreementToCreate);
         return new AgreementDTO(createdAgreement,"");
@@ -59,9 +60,9 @@ public class AgreementLogic implements AgreementInterface {
 
     @Override
     public AgreementDTO respondToAgreement(RespondAgreementDTO dto) {
-        Agreement dummyAgreement = dummyAgreement();  // Creating dummy agreement, because now it's required to return some kind of Agreement TODO change DTOs
+        Agreement dummyAgreement = dummyAgreement();
 
-        // Getting agreement & setting availability
+        // Agreement check
         Optional<Agreement> agreement = agreementDTO.getAgreementById(dto.getAgreementID());
         if (agreement.isEmpty())
         {
@@ -70,15 +71,14 @@ public class AgreementLogic implements AgreementInterface {
 
         if (dto.isAccepted())
         {
-            //Update housing to not available
+            //Update housing
             Optional<Housing> updatedHousing = housingDAO.getHousingById(agreement.get().getHousing().getHousingId());
             updatedHousing.get().setAvailable(false);
             housingDAO.updateHousing(updatedHousing.get());
 
-            //Todo Delete all requests for this housing
-            // Deleting all requests for this housing
+            // todo delete all requests for this housing
 
-            // Update agreement & return
+            // Update agreement
             agreement.get().setAccepted(true);
             agreementDTO.updateAgreement(agreement.get());
             return new AgreementDTO(agreement.get(),"");
@@ -95,7 +95,6 @@ public class AgreementLogic implements AgreementInterface {
         return agreementDTO.getAllPendingAgreements(dto.getHostEmail());
     }
 
-    //TODO Delete this, after fixing DTOs
     public Agreement dummyAgreement()
     {
         Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));

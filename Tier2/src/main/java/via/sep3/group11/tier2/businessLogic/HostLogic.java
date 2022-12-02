@@ -7,7 +7,6 @@ import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
-import via.sep3.group11.tier2.shared.domain.Address;
 import via.sep3.group11.tier2.shared.domain.Date;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Housing;
@@ -49,17 +48,10 @@ public class HostLogic implements HostInterface {
      */
     @Override
     public HostDTO registerHost(HostRegisterDTO dto) {
-
-            // Creating host object from dto
-            // Don't really know what value it does, but sure
-            Host toRegister = new Host(dto.getFirstName(), dto.getEmail(),
-                    dto.getPassword(), dto.getGender(), dto.getNationality(),
-                    dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
-
-            // Check if there's a host with same email
+            Host toRegister = new Host(dto.getFirstName(), dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
+            // host check
             Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
-
-            // If host doesn't exist - create new one & return
+            // if no host found - create
         return existing.map
                 (host -> new HostDTO(toRegister, "Host with email " + host.getEmail() + " already exists."))
                 .orElseGet(() -> new HostDTO(hostDAO.createHost(toRegister), ""));
@@ -76,17 +68,16 @@ public class HostLogic implements HostInterface {
      */
     @Override
     public HostDTO loginHost(LoginDTO dto) {
-        // Creating dummy host, because now it's required to return some kind of Host
             Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
 
-        // Getting host from DataBase
+        // host check
         Optional<Host> host = hostDAO.getHostByEmail(dto.getEmail());
         if (host.isEmpty())
         {
             return new HostDTO(dummyHost, "Host with email " + host.get().getEmail() + " doesn't exist.");
         }
 
-        // We check if password matches
+        // username & password check
         if (dto.getPassword().equals(host.get().getPassword()))
         {
             return new HostDTO(host.get(),"");
@@ -96,9 +87,9 @@ public class HostLogic implements HostInterface {
 
     @Override
     public HostDTO getHostByHousingId(Long housingId) {
-        // Dummy data
         Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
 
+        // housing check
         Optional<Housing> housing = housingDAO.getHousingById(housingId);
         if (housing.isEmpty())
         {
