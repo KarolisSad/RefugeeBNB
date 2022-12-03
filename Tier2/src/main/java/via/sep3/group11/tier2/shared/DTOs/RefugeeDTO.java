@@ -10,4 +10,12 @@ public class RefugeeDTO {
         this.refugee = refugee;
         this.errorMessage = errorMessage;
     }
+
+    public Refugee getRefugee() {
+        return refugee;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

@@ -28,7 +28,7 @@ public class HousingController {
     HousingInterface housingInterface;
 
     public HousingController(HostInterface hostInterface, HousingInterface housingInterface) {
-        this.hostInterface = hostInterface;
+        this.hostInterface = hostInterface; //todo never used???
         this.housingInterface = housingInterface;
     }
 
@@ -40,37 +40,32 @@ public class HousingController {
      */
     @CrossOrigin
     @PostMapping(value = "/housing", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Housing> addHousing(@RequestBody HousingCreationDTO housing) {
+    public ResponseEntity<HousingDTO> addHousing(@RequestBody HousingCreationDTO housing) {
 
         try {
-            Housing created = hostInterface.addHousing(housing);
+            HousingDTO created = housingInterface.addHousing(housing);
             return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (IllegalArgumentException | ValidationException e) {
-            System.out.println(e.getMessage());
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
-        public ResponseEntity<HousingListDTO> getAvailableHousing (@RequestBody HousingListDTO dto){
-            try {
-                HousingListDTO availableHousing = housingInterface.getAvailableHousing(dto);
-                return new ResponseEntity<>(availableHousing, HttpStatus.CREATED);
-            }
-            catch(Exception e){
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
 
-        public ResponseEntity<HousingDTO> removeHousing (@RequestBody HousingIdDTO dto){
-            try {
-                HousingDTO remove = housingInterface.removeHousing(dto);
-                return new ResponseEntity<>(remove, HttpStatus.CREATED);
-            }
-            catch (Exception e){
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+    public ResponseEntity<HousingListDTO> getAvailableHousing() {
+        try {
+            HousingListDTO availableHousing = housingInterface.getAvailableHousing();
+            return new ResponseEntity<>(availableHousing, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public ResponseEntity<HousingDTO> removeHousing(@RequestBody HousingIdDTO dto) {
+        try {
+            HousingDTO remove = housingInterface.removeHousing(dto);
+            return new ResponseEntity<>(remove, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
