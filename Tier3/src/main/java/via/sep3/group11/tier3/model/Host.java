@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static via.sep3.group11.tier3.model.Date.convertDateObjectToLocalDate;
+import static via.sep3.group11.tier3.model.Date.convertLocalDateToDateObject;
 
 /**
  * A class responsible for creating an Address table.
@@ -100,6 +101,6 @@ public class Host {
     }
 
     public Date getDateOfBirth() {
-        return new Date(dateOfBirth.getDayOfMonth(), dateOfBirth.getMonthValue(), dateOfBirth.getYear());
+        return convertLocalDateToDateObject(dateOfBirth);
     }
 }

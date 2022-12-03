@@ -2,6 +2,10 @@ package via.sep3.group11.tier3.model;
 
 import lombok.Data;
 import javax.persistence.*;
+import java.time.LocalDate;
+
+import static via.sep3.group11.tier3.model.Date.convertDateObjectToLocalDate;
+import static via.sep3.group11.tier3.model.Date.convertLocalDateToDateObject;
 
 /**
  * A class responsible for creating an Address table.
@@ -38,7 +42,7 @@ public class Refugee {
     private char gender;
 
     @Column(name = "dob")
-    private java.sql.Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @OneToOne
     @JoinColumn(name = "address")
@@ -54,17 +58,9 @@ public class Refugee {
         this.password = password;
         this.nationality = nationality;
         this.gender = gender;
-        this.dateOfBirth = dateToSqlDate(dateOfBirth);
+        this.dateOfBirth = convertDateObjectToLocalDate(dateOfBirth);
     }
 
-    public java.sql.Date dateToSqlDate(via.sep3.group11.tier3.model.Date date){
-        return new java.sql.Date(date.getYear(),date.getMonth(),date.getDay());
-    }
-
-    public via.sep3.group11.tier3.model.Date dateFromSqlDate(java.sql.Date date)
-    {
-        return new via.sep3.group11.tier3.model.Date(date.getDay(),date.getMonth(),date.getYear());
-    }
 
     public String getEmail() {
         return email;
@@ -99,6 +95,6 @@ public class Refugee {
     }
 
     public Date getDateOfBirth() {
-        return dateFromSqlDate(dateOfBirth);
+        return convertLocalDateToDateObject(dateOfBirth);
     }
 }
