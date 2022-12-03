@@ -91,7 +91,6 @@ public class HousingDAOImplementation implements HousingDaoInterface {
         return availableHousing;
     }
 
-    //TODO also seems to work
     @Override
     public void removeHousing(long housingId) {
         repository.deleteById(housingId);
