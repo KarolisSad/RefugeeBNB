@@ -4,15 +4,14 @@ import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
-import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
-import via.sep3.group11.tier2.shared.domain.Address;
+import via.sep3.group11.tier2.shared.domain.Date;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
-
 import java.util.Optional;
 
 /**
@@ -48,34 +47,14 @@ public class HostLogic implements HostInterface {
      * @throws ValidationException: If any of the validation checks on the values ion the DTO fails.
      */
     @Override
-    public Host registerHost(HostRegisterDTO dto) throws NotUniqueException, ValidationException {
-        try {
-            Host toRegister = new Host();
-
-            toRegister.setEmail(dto.getEmail());
-            toRegister.setPassword(dto.getPassword());
-            toRegister.setGender(dto.getGender());
-            toRegister.setNationality(dto.getNationality());
-            toRegister.setFirstName(dto.getFirstName());
-            toRegister.setMiddleName(Optional.ofNullable(dto.getMiddleName()));
-            toRegister.setLastName(dto.getLastName());
-            toRegister.setDateOfBirth(dto.getDateOfBirth());
-
-
-
+    public HostDTO registerHost(HostRegisterDTO dto) {
+            Host toRegister = new Host(dto.getFirstName(), dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
+            // host check
             Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
-
-
-
-            if (existing.isPresent()) {
-                throw new NotUniqueException("Host with email " + existing.get().getEmail() + " already exists.");
-            }
-
-
-            return hostDAO.createHost(toRegister);
-        } catch (ValidationException e) {
-            throw new ValidationException("Problem with provided information: " + e.getMessage());
-        }
+            // if no host found - create
+        return existing.map
+                (host -> new HostDTO(toRegister, "Host with email " + host.getEmail() + " already exists."))
+                .orElseGet(() -> new HostDTO(hostDAO.createHost(toRegister), ""));
     }
 
     /**
@@ -88,27 +67,35 @@ public class HostLogic implements HostInterface {
      * @throws ValidationException if any of the validation specified above fails.
      */
     @Override
-    public Host loginHost(LoginDTO dto) throws ValidationException {
-        try {
-            Host toLogin = new Host();
-            toLogin.setEmail(dto.getEmail());
-            toLogin.setPassword(dto.getPassword());
+    public HostDTO loginHost(LoginDTO dto) {
+            Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
 
-            Optional<Host> loggedIn = hostDAO.getHostByEmail(toLogin.getEmail());
-
-            if (loggedIn.isEmpty()) {
-                throw new NullPointerException("Host with email " + toLogin.getEmail() + " not found.");
-            }
-
-            if (!(toLogin.getPassword().equals(loggedIn.get().getPassword()))) {
-                throw new ValidationException("Password incorrect.");
-            }
-
-            return loggedIn.get();
-
-        } catch (ValidationException e) {
-            throw new ValidationException("Problem with provided information: " + e.getMessage());
+        // host check
+        Optional<Host> host = hostDAO.getHostByEmail(dto.getEmail());
+        if (host.isEmpty())
+        {
+            return new HostDTO(dummyHost, "Host with email " + host.get().getEmail() + " doesn't exist.");
         }
+
+        // username & password check
+        if (dto.getPassword().equals(host.get().getPassword()))
+        {
+            return new HostDTO(host.get(),"");
+        }
+            return new HostDTO(dummyHost,"Password is incorrect");
+    }
+
+    @Override
+    public HostDTO getHostByHousingId(Long housingId) {
+        Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
+
+        // housing check
+        Optional<Housing> housing = housingDAO.getHousingById(housingId);
+        if (housing.isEmpty())
+        {
+            return new HostDTO(dummyHost,"This housing no longer exists.");
+        }
+        return new HostDTO(hostDAO.getHostByHousingId(housingId),"");
     }
 
     /**
@@ -121,25 +108,4 @@ public class HostLogic implements HostInterface {
      * @throws ValidationException if any validation of the housing throws an exception.
      * @throws IllegalArgumentException if the host specified in the DTO does not exist.
      */
-    @Override
-    public Housing addHousing(HousingCreationDTO dto) throws ValidationException {
-        try {
-            Optional<Host> owner = hostDAO.getHostByEmail(dto.getHostEmail());
-
-            if (owner.isEmpty()) {
-                throw new IllegalArgumentException("Host with email: " + dto.getHostEmail() + " not found.");
-            }
-
-            Address address = new Address(dto.getCountry(), dto.getCity(), dto.getStreetName(),
-                    dto.getHouseNumber(), dto.getRoomNumber(), dto.getPostCode());
-
-            Housing toCreate = new Housing(dto.getCapacity(), address);
-
-            return housingDAO.addHousing(toCreate, owner.get().getEmail());
-        }
-
-        catch (ValidationException e) {
-            throw new ValidationException("Problem with provided information: " + e.getMessage());
-        }
-    }
 }

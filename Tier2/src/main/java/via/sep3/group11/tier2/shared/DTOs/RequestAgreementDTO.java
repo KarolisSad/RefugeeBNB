@@ -14,4 +14,20 @@ public class RequestAgreementDTO {
         this.housing = housing;
         this.errorMessage = errorMessage;
     }
+
+    public String getRefugeeEmail() {
+        return refugeeEmail;
+    }
+
+    public String getHostEmail() {
+        return hostEmail;
+    }
+
+    public Housing getHousing() {
+        return housing;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

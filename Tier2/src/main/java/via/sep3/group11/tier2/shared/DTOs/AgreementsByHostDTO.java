@@ -10,4 +10,12 @@ public class AgreementsByHostDTO {
         this.hostEmail = hostEmail;
         this.refugee = refugee;
     }
+
+    public String getHostEmail() {
+        return hostEmail;
+    }
+
+    public Refugee getRefugee() {
+        return refugee;
+    }
 }
