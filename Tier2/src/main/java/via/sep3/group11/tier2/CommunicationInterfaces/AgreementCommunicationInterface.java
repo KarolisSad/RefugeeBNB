@@ -1,5 +1,6 @@
 package via.sep3.group11.tier2.CommunicationInterfaces;
 
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.domain.Agreement;
 
 import java.util.List;
@@ -10,4 +11,7 @@ public interface AgreementCommunicationInterface {
     Agreement updateAgreement(Agreement agreement);
     Optional<Agreement> getAgreementById(Long agreementId);
     List<Agreement> getAgreementsByHostId(String hostId);
+    void deleteAgreement(Long id);
+    List<Agreement> getAllPendingAgreements(String hostEmail);
+    List<Agreement> getAllAgreementsByHousingId(Long housingId);
 }

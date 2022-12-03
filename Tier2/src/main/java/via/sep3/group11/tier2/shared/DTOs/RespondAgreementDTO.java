@@ -10,4 +10,16 @@ public class RespondAgreementDTO {
         this.accepted = accepted;
         this.errorMessage = errorMessage;
     }
+
+    public Long getAgreementID() {
+        return agreementID;
+    }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

@@ -32,24 +32,26 @@ public class Address {
      * @param postCode: The post code of the address.
      * @throws ValidationException if any set method throws an exception.
      */
-    public Address(String country, String city, String streetName, String houseNumber, String roomNumber, String postCode) throws ValidationException {
-        setCountry(country);
-        setCity(city);
-        setStreetName(streetName);
-        setHouseNumber(houseNumber);
-        setRoomNumber(roomNumber);
-        setPostCode(postCode);
+    public Address(String country, String city, String streetName, String houseNumber, String roomNumber, String postCode) {
+        this.country = country;
+        this.city = city;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.roomNumber = roomNumber;
+        this.postCode = postCode;
     }
 
-    public Address(Long id,String country, String city, String streetName, String houseNumber, String roomNumber, String postCode) throws ValidationException {
-        setCountry(country);
-        setCity(city);
-        setStreetName(streetName);
-        setHouseNumber(houseNumber);
-        setRoomNumber(roomNumber);
-        setPostCode(postCode);
-        setAddressId(id);
+    public Address(Long id,String country, String city, String streetName, String houseNumber, String roomNumber, String postCode) {
+        this.country = country;
+        this.city = city;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.roomNumber = roomNumber;
+        this.postCode = postCode;
+        this.addressId = id;
     }
+
+
 
     /**
      * Getter-method for getting the id of the address.
@@ -59,10 +61,9 @@ public class Address {
         return addressId;
     }
 
-    // Todo would this ever be needed??
-    public void setAddressId(long addressId) {
-        this.addressId = addressId;
-    }
+//    public void setAddressId(long addressId) {
+//        this.addressId = addressId;
+//    }
 
     /**
      * Getter-method for getting the country of the address.
@@ -72,16 +73,16 @@ public class Address {
         return country;
     }
 
-    /**
-     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
-     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
-     * @param country: String representation of the country of the address.
-     * @throws ValidationException if the parameter is either null or an empty string.
-     */
-    public void setCountry(String country) throws ValidationException {
-        simpleValidateString(country, "Country");
-        this.country = country;
-    }
+//    /**
+//     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
+//     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
+//     * @param country: String representation of the country of the address.
+//     * @throws ValidationException if the parameter is either null or an empty string.
+//     */
+//    public void setCountry(String country) throws ValidationException {
+//        simpleValidateString(country, "Country");
+//        this.country = country;
+//    }
 
     /**
      * Getter-method for getting the city of the address.
@@ -91,16 +92,16 @@ public class Address {
         return city;
     }
 
-    /**
-     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
-     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
-     * @param city: String representation of the city of the address.
-     * @throws ValidationException if the parameter is either null or an empty string.
-     */
-    public void setCity(String city) throws ValidationException {
-        simpleValidateString(city, "City");
-        this.city = city;
-    }
+//    /**
+//     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
+//     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
+//     * @param city: String representation of the city of the address.
+//     * @throws ValidationException if the parameter is either null or an empty string.
+//     */
+//    public void setCity(String city) throws ValidationException {
+//        simpleValidateString(city, "City");
+//        this.city = city;
+//    }
 
     /**
      * Getter-method for getting the street name of the address.
@@ -110,16 +111,16 @@ public class Address {
         return streetName;
     }
 
-    /**
-     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
-     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
-     * @param streetName: String representation of the street name of the address.
-     * @throws ValidationException if the parameter is either null or an empty string.
-     */
-    public void setStreetName(String streetName) throws ValidationException {
-        simpleValidateString(streetName, "Street name");
-        this.streetName = streetName;
-    }
+//    /**
+//     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
+//     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
+//     * @param streetName: String representation of the street name of the address.
+//     * @throws ValidationException if the parameter is either null or an empty string.
+//     */
+//    public void setStreetName(String streetName) throws ValidationException {
+//        simpleValidateString(streetName, "Street name");
+//        this.streetName = streetName;
+//    }
 
     /**
      * Getter-method for getting the house number of the address.
@@ -129,16 +130,16 @@ public class Address {
         return houseNumber;
     }
 
-    /**
-     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
-     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
-     * @param houseNumber: String representation of the house number of the address.
-     * @throws ValidationException if the parameter is either null or an empty string.
-     */
-    public void setHouseNumber(String houseNumber) throws ValidationException {
-        simpleValidateString(houseNumber, "House Number");
-        this.houseNumber = houseNumber;
-    }
+//    /**
+//     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
+//     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
+//     * @param houseNumber: String representation of the house number of the address.
+//     * @throws ValidationException if the parameter is either null or an empty string.
+//     */
+//    public void setHouseNumber(String houseNumber) throws ValidationException {
+//        simpleValidateString(houseNumber, "House Number");
+//        this.houseNumber = houseNumber;
+//    }
 
     /**
      * Getter-method for getting the room number of the address.
@@ -148,20 +149,20 @@ public class Address {
         return roomNumber;
     }
 
-    /**
-     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
-     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
-     * If an exception is thrown by the validator-method, it means that the string is either null or empty, in which case the variable is set to be an empty string.
-     * @param roomNumber: String representation of the room number of the address.
-     */
-    public void setRoomNumber(String roomNumber) {
-        try {
-            simpleValidateString(roomNumber, "Room Number");
-            this.roomNumber = roomNumber;
-        } catch (ValidationException ve) {
-            this.roomNumber = "";
-        }
-    }
+//    /**
+//     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
+//     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
+//     * If an exception is thrown by the validator-method, it means that the string is either null or empty, in which case the variable is set to be an empty string.
+//     * @param roomNumber: String representation of the room number of the address.
+//     */
+//    public void setRoomNumber(String roomNumber) {
+//        try {
+//            simpleValidateString(roomNumber, "Room Number");
+//            this.roomNumber = roomNumber;
+//        } catch (ValidationException ve) {
+//            this.roomNumber = "";
+//        }
+//    }
 
     /**
      * Getter-method for getting the post code of the address.
@@ -171,14 +172,14 @@ public class Address {
         return postCode;
     }
 
-    /**
-     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
-     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
-     * @param postCode: String representation of the post code of the address.
-     * @throws ValidationException if the parameter is either null or an empty string.
-     */
-    public void setPostCode(String postCode) throws ValidationException {
-        simpleValidateString(postCode, "Postcode");
-        this.postCode = postCode;
-    }
+//    /**
+//     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
+//     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
+//     * @param postCode: String representation of the post code of the address.
+//     * @throws ValidationException if the parameter is either null or an empty string.
+//     */
+//    public void setPostCode(String postCode) throws ValidationException {
+//        simpleValidateString(postCode, "Postcode");
+//        this.postCode = postCode;
+//    }
 }
