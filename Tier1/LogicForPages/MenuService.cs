@@ -1,31 +1,50 @@
 ﻿namespace LogicForPages;
 
-public class MenuService:IMenuService
+public class MenuService : IMenuService
 {
-    public List<MenuItem>? AdditionalMenuItems { get; set; }if
-
+    public bool refugeeLogged { get; set; }
+    public bool hostLogged { get; set; }
 
     public event Action? OnChanged;
 
-    public MenuService()
-    {
-    }
-
     public void NotifyStateChanged() => OnChanged?.Invoke();
-    
-    public void AddMenuItems(List<MenuItem> newMenuItems)
+
+    public void setRefugee()
     {
-        AdditionalMenuItems?.AddRange(
-                new List<MenuItem>());
-        Console.WriteLine("Added: " + newMenuItems.First().Name);
+        refugeeLogged = true;
+        hostLogged = false;
         NotifyStateChanged();
     }
 
-    public void DeleteMenuItem(MenuItem menuItem)
+    public void setHost()
     {
-        AdditionalMenuItems?.Remove(menuItem);
-        Console.WriteLine("item deleted: " + menuItem.Name);
+        refugeeLogged = false;
+        hostLogged = true;
+        NotifyStateChanged();
+        Console.WriteLine("host changes in MenuService: " + hostLogged);
+    }
+
+    public bool isRefugeeLogged()
+    {
+        Console.WriteLine(refugeeLogged);
+        return refugeeLogged;
+    }
+
+    public bool isAnyoneLogged()
+    {
+        if (hostLogged || refugeeLogged)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void logout()
+    {
+        refugeeLogged = false;
+        hostLogged = false;
         NotifyStateChanged();
     }
-    
+
 }

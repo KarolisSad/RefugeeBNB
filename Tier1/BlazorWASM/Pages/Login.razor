@@ -118,10 +118,8 @@
     }
 
     private void TryChangingNavMenu()
-    { 
-        //MenuService.DeleteMenuItem(new MenuItem("/Register", "Register"));
-        
-        MenuService.AddMenuItems(new List<MenuItem>(){new ("/AddHousing", "Add Housing")});
+    {
+        MenuService.setHost();
 
         navMgr.NavigateTo("/", true);
     }
