@@ -22,27 +22,67 @@ public class GrpcConverter {
     }
 
     public static GHost hostToGrpc(Host host) {
-            return GHost.newBuilder().setFirstName(host.getFirstName()).setEmail(host.getEmail())
-                .setPassword(host.getPassword()).setGender(String.valueOf(host.getGender()))
-                .setNationality(host.getNationality()).setMiddleName(host.getMiddleName())
-                .setLastName(host.getLastName()).setDateOfBirth(dateToGrpc(host.getDateOfBirth())).build();
+            return GHost.newBuilder()
+                    .setFirstName(host.getFirstName())
+                    .setEmail(host.getEmail())
+                    .setPassword(host.getPassword())
+                    .setGender(String.valueOf(host.getGender()))
+                    .setNationality(host.getNationality())
+                    .setMiddleName(host.getMiddleName())
+                    .setLastName(host.getLastName())
+                    .setDateOfBirth(dateToGrpc(host.getDateOfBirth())).build();
                 //TODO ADD Housing
     }
 
+    public static GHostDetails HostDetailsToGrpc(Host host) {
+        return GHostDetails.newBuilder()
+                .setFirstName(host.getFirstName())
+                .setEmail(host.getEmail())
+                .setPassword(host.getPassword())
+                .setGender(String.valueOf(host.getGender()))
+                .setNationality(host.getNationality())
+                .setMiddleName(host.getMiddleName())
+                .setLastName(host.getLastName())
+                .setDateOfBirth(dateToGrpc(host.getDateOfBirth()))
+                .build();
+    }
+
+    public static Host HostDetailsfromGrpc(GHostDetails grpcHostDetails) throws ValidationException
+    {
+        return new Host(
+                grpcHostDetails.getFirstName(),
+                grpcHostDetails.getEmail(),
+                grpcHostDetails.getPassword(),
+                grpcHostDetails.getGender().charAt(0),
+                grpcHostDetails.getNationality(),
+                Optional.of(grpcHostDetails.getMiddleName()),
+                grpcHostDetails.getLastName(),
+                DateFromGrpc(grpcHostDetails.getDateOfBirth()));
+    }
 
     public static Refugee refugeeFromGrpc(GRefugee grpcRefugee) throws ValidationException {
-        return new Refugee(grpcRefugee.getEmail(), grpcRefugee.getPassword(), grpcRefugee.getGender()
-                .charAt(0),grpcRefugee.getNationality(),grpcRefugee.getFirstName()
-                ,Optional.of(grpcRefugee.getMiddleName()),grpcRefugee.getLastName()
-                , dateFromGrpc(grpcRefugee.getDateOfBirth()));
+        return new Refugee(
+                grpcRefugee.getEmail(),
+                grpcRefugee.getPassword(),
+                grpcRefugee.getGender().charAt(0),
+                grpcRefugee.getNationality(),
+                grpcRefugee.getFirstName(),
+                Optional.of(grpcRefugee.getMiddleName()),
+                grpcRefugee.getLastName(),
+                dateFromGrpc(grpcRefugee.getDateOfBirth()));
     }
 
     public static GRefugee refugeeToGrpc(Refugee refugee)
     {
-        return GRefugee.newBuilder().setEmail(refugee.getEmail()).setPassword(refugee.getPassword())
-                .setGender(String.valueOf(refugee.getGender())).setNationality(refugee.getNationality())
-                .setFirstName(refugee.getFirstName()).setMiddleName(refugee.getMiddleName())
-                .setLastName(refugee.getLastName()).setDateOfBirth(dateToGrpc(refugee.getDateOfBirth())).build();
+        return GRefugee.newBuilder()
+                .setEmail(refugee.getEmail())
+                .setPassword(refugee.getPassword())
+                .setGender(String.valueOf(refugee.getGender()))
+                .setNationality(refugee.getNationality())
+                .setFirstName(refugee.getFirstName())
+                .setMiddleName(refugee.getMiddleName())
+                .setLastName(refugee.getLastName())
+                .setDateOfBirth(dateToGrpc(refugee.getDateOfBirth())).build();
     }
 
     public static GAddress addressToGrpc(Address address)
@@ -66,15 +106,17 @@ public class GrpcConverter {
 
     public static GHousing housingToGrpc(Housing housing)
     {
-        return  GHousing.newBuilder().setCapacity(housing.getCapacity())
+        return  GHousing.newBuilder()
+                .setCapacity(housing.getCapacity())
                 .setAddress(addressToGrpc(housing.getAddress())).build();
     }
 
-
     public static GDateOfBirth dateToGrpc(Date date)
     {
-        return GDateOfBirth.newBuilder().setDay(date.getDay())
-                .setMonth(date.getMonth()).setYear(date.getYear()).build();
+        return GDateOfBirth.newBuilder()
+                .setDay(date.getDay())
+                .setMonth(date.getMonth())
+                .setYear(date.getYear()).build();
     }
 
     public static Date dateFromGrpc(GDateOfBirth date) throws ValidationException {
@@ -95,42 +137,30 @@ public class GrpcConverter {
                 .setEmail(email).build();
     }
 
-    public static Agreement AgreementWithIdFromGrpc(GAgreement agreement) {
+    public static Agreement AgreementWithIdFromGrpc(GAgreement agreement) throws ValidationException {
         return new Agreement(
                 agreement.getId(),
-                DateFromGrpc(agreement.getDateOfCreation()),
-                refugeeFromGrpc(agreement.getRefugee()),
-                housingFromGrpc(agreement.getHousing()),
                 HostDetailsfromGrpc(agreement.getHostDetails()),
+                housingFromGrpc(agreement.getHousing()),
+                refugeeFromGrpc(agreement.getRefugee()),
                 agreement.getStatus());
     }
 
     public static GAgreement AgreementWithIdToGrpc(Agreement agreement) {
         return GAgreement.newBuilder()
                 .setId(agreement.getAgreementId())
-                .setDateOfCreation(DateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
                 .setHostDetails(HostDetailsToGrpc(agreement.getHost()))
                 .setHousing(housingToGrpc(agreement.getHousing()))
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
                 .setStatus(agreement.isAccepted()).build();
-
     }
 
     public static GAgreement AgreementToGrpc(Agreement agreement)
     {
         return GAgreement.newBuilder()
-                .setDateOfCreation(DateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
                 .setHostDetails(HostDetailsToGrpc(agreement.getHost()))
                 .setHousing(housingToGrpc(agreement.getHousing()))
                 .setStatus(agreement.isAccepted()).build();
-    }
-
-    public static Agreement AgreementFromGrpc(GAgreement agreement) {
-        return new Agreement(
-                DateFromGrpc(agreement.getDateOfCreation()),
-                refugeeFromGrpc(agreement.getRefugee()),
-                housingFromGrpc(agreement.getHousing()),
-                HostDetailsfromGrpc(agreement.getHostDetails()));
     }
 }

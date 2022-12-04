@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface HostCommunicationInterface {
     Host createHost(Host host) throws ValidationException;
     Optional<Host> getHostByEmail(String email) throws ValidationException;
+    Optional<Host> getHostByHousingId(long housingId);
 }

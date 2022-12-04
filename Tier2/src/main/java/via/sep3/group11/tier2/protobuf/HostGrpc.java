@@ -76,6 +76,37 @@ public final class HostGrpc {
     return getGetHostByEmailMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GId,
+      via.sep3.group11.tier2.protobuf.GHost> getGetHostByHousingIdMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getHostByHousingId",
+      requestType = via.sep3.group11.tier2.protobuf.GId.class,
+      responseType = via.sep3.group11.tier2.protobuf.GHost.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GId,
+      via.sep3.group11.tier2.protobuf.GHost> getGetHostByHousingIdMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GId, via.sep3.group11.tier2.protobuf.GHost> getGetHostByHousingIdMethod;
+    if ((getGetHostByHousingIdMethod = HostGrpc.getGetHostByHousingIdMethod) == null) {
+      synchronized (HostGrpc.class) {
+        if ((getGetHostByHousingIdMethod = HostGrpc.getGetHostByHousingIdMethod) == null) {
+          HostGrpc.getGetHostByHousingIdMethod = getGetHostByHousingIdMethod =
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier2.protobuf.GId, via.sep3.group11.tier2.protobuf.GHost>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getHostByHousingId"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.GId.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.GHost.getDefaultInstance()))
+              .setSchemaDescriptor(new HostMethodDescriptorSupplier("getHostByHousingId"))
+              .build();
+        }
+      }
+    }
+    return getGetHostByHousingIdMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -138,6 +169,13 @@ public final class HostGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetHostByEmailMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getHostByHousingId(via.sep3.group11.tier2.protobuf.GId request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GHost> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetHostByHousingIdMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -154,6 +192,13 @@ public final class HostGrpc {
                 via.sep3.group11.tier2.protobuf.GEmail,
                 via.sep3.group11.tier2.protobuf.GHost>(
                   this, METHODID_GET_HOST_BY_EMAIL)))
+          .addMethod(
+            getGetHostByHousingIdMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                via.sep3.group11.tier2.protobuf.GId,
+                via.sep3.group11.tier2.protobuf.GHost>(
+                  this, METHODID_GET_HOST_BY_HOUSING_ID)))
           .build();
     }
   }
@@ -187,6 +232,14 @@ public final class HostGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetHostByEmailMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getHostByHousingId(via.sep3.group11.tier2.protobuf.GId request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GHost> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetHostByHousingIdMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -215,6 +268,13 @@ public final class HostGrpc {
     public via.sep3.group11.tier2.protobuf.GHost getHostByEmail(via.sep3.group11.tier2.protobuf.GEmail request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetHostByEmailMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public via.sep3.group11.tier2.protobuf.GHost getHostByHousingId(via.sep3.group11.tier2.protobuf.GId request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetHostByHousingIdMethod(), getCallOptions(), request);
     }
   }
 
@@ -247,10 +307,19 @@ public final class HostGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetHostByEmailMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier2.protobuf.GHost> getHostByHousingId(
+        via.sep3.group11.tier2.protobuf.GId request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetHostByHousingIdMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_HOST = 0;
   private static final int METHODID_GET_HOST_BY_EMAIL = 1;
+  private static final int METHODID_GET_HOST_BY_HOUSING_ID = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -275,6 +344,10 @@ public final class HostGrpc {
           break;
         case METHODID_GET_HOST_BY_EMAIL:
           serviceImpl.getHostByEmail((via.sep3.group11.tier2.protobuf.GEmail) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GHost>) responseObserver);
+          break;
+        case METHODID_GET_HOST_BY_HOUSING_ID:
+          serviceImpl.getHostByHousingId((via.sep3.group11.tier2.protobuf.GId) request,
               (io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GHost>) responseObserver);
           break;
         default:
@@ -340,6 +413,7 @@ public final class HostGrpc {
               .setSchemaDescriptor(new HostFileDescriptorSupplier())
               .addMethod(getCreateHostMethod())
               .addMethod(getGetHostByEmailMethod())
+              .addMethod(getGetHostByHousingIdMethod())
               .build();
         }
       }

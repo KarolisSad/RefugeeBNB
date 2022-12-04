@@ -108,34 +108,127 @@ public final class AgreementGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail,
-      via.sep3.group11.tier2.protobuf.GAgreement> getGetAgreementByHostIdMethod;
+      via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getGetAgreementByHostIdMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "getAgreementByHostId",
       requestType = via.sep3.group11.tier2.protobuf.GEmail.class,
-      responseType = via.sep3.group11.tier2.protobuf.GAgreement.class,
+      responseType = via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail,
-      via.sep3.group11.tier2.protobuf.GAgreement> getGetAgreementByHostIdMethod() {
-    io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail, via.sep3.group11.tier2.protobuf.GAgreement> getGetAgreementByHostIdMethod;
+      via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getGetAgreementByHostIdMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail, via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getGetAgreementByHostIdMethod;
     if ((getGetAgreementByHostIdMethod = AgreementGrpc.getGetAgreementByHostIdMethod) == null) {
       synchronized (AgreementGrpc.class) {
         if ((getGetAgreementByHostIdMethod = AgreementGrpc.getGetAgreementByHostIdMethod) == null) {
           AgreementGrpc.getGetAgreementByHostIdMethod = getGetAgreementByHostIdMethod =
-              io.grpc.MethodDescriptor.<via.sep3.group11.tier2.protobuf.GEmail, via.sep3.group11.tier2.protobuf.GAgreement>newBuilder()
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier2.protobuf.GEmail, via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getAgreementByHostId"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   via.sep3.group11.tier2.protobuf.GEmail.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  via.sep3.group11.tier2.protobuf.GAgreement.getDefaultInstance()))
+                  via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse.getDefaultInstance()))
               .setSchemaDescriptor(new AgreementMethodDescriptorSupplier("getAgreementByHostId"))
               .build();
         }
       }
     }
     return getGetAgreementByHostIdMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GId,
+      via.sep3.group11.tier2.protobuf.Empty> getDeleteAgreementMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "deleteAgreement",
+      requestType = via.sep3.group11.tier2.protobuf.GId.class,
+      responseType = via.sep3.group11.tier2.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GId,
+      via.sep3.group11.tier2.protobuf.Empty> getDeleteAgreementMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GId, via.sep3.group11.tier2.protobuf.Empty> getDeleteAgreementMethod;
+    if ((getDeleteAgreementMethod = AgreementGrpc.getDeleteAgreementMethod) == null) {
+      synchronized (AgreementGrpc.class) {
+        if ((getDeleteAgreementMethod = AgreementGrpc.getDeleteAgreementMethod) == null) {
+          AgreementGrpc.getDeleteAgreementMethod = getDeleteAgreementMethod =
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier2.protobuf.GId, via.sep3.group11.tier2.protobuf.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "deleteAgreement"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.GId.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new AgreementMethodDescriptorSupplier("deleteAgreement"))
+              .build();
+        }
+      }
+    }
+    return getDeleteAgreementMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail,
+      via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getGetAllPendingAgreementsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getAllPendingAgreements",
+      requestType = via.sep3.group11.tier2.protobuf.GEmail.class,
+      responseType = via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail,
+      via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getGetAllPendingAgreementsMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail, via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getGetAllPendingAgreementsMethod;
+    if ((getGetAllPendingAgreementsMethod = AgreementGrpc.getGetAllPendingAgreementsMethod) == null) {
+      synchronized (AgreementGrpc.class) {
+        if ((getGetAllPendingAgreementsMethod = AgreementGrpc.getGetAllPendingAgreementsMethod) == null) {
+          AgreementGrpc.getGetAllPendingAgreementsMethod = getGetAllPendingAgreementsMethod =
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier2.protobuf.GEmail, via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getAllPendingAgreements"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.GEmail.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new AgreementMethodDescriptorSupplier("getAllPendingAgreements"))
+              .build();
+        }
+      }
+    }
+    return getGetAllPendingAgreementsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GId,
+      via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getGetAllAgreementByHousingIdMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getAllAgreementByHousingId",
+      requestType = via.sep3.group11.tier2.protobuf.GId.class,
+      responseType = via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GId,
+      via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getGetAllAgreementByHousingIdMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GId, via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getGetAllAgreementByHousingIdMethod;
+    if ((getGetAllAgreementByHousingIdMethod = AgreementGrpc.getGetAllAgreementByHousingIdMethod) == null) {
+      synchronized (AgreementGrpc.class) {
+        if ((getGetAllAgreementByHousingIdMethod = AgreementGrpc.getGetAllAgreementByHousingIdMethod) == null) {
+          AgreementGrpc.getGetAllAgreementByHousingIdMethod = getGetAllAgreementByHousingIdMethod =
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier2.protobuf.GId, via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getAllAgreementByHousingId"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.GId.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new AgreementMethodDescriptorSupplier("getAllAgreementByHousingId"))
+              .build();
+        }
+      }
+    }
+    return getGetAllAgreementByHousingIdMethod;
   }
 
   /**
@@ -210,8 +303,29 @@ public final class AgreementGrpc {
     /**
      */
     public void getAgreementByHostId(via.sep3.group11.tier2.protobuf.GEmail request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GAgreement> responseObserver) {
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAgreementByHostIdMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void deleteAgreement(via.sep3.group11.tier2.protobuf.GId request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteAgreementMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getAllPendingAgreements(via.sep3.group11.tier2.protobuf.GEmail request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllPendingAgreementsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getAllAgreementByHousingId(via.sep3.group11.tier2.protobuf.GId request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAllAgreementByHousingIdMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -242,8 +356,29 @@ public final class AgreementGrpc {
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 via.sep3.group11.tier2.protobuf.GEmail,
-                via.sep3.group11.tier2.protobuf.GAgreement>(
+                via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse>(
                   this, METHODID_GET_AGREEMENT_BY_HOST_ID)))
+          .addMethod(
+            getDeleteAgreementMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                via.sep3.group11.tier2.protobuf.GId,
+                via.sep3.group11.tier2.protobuf.Empty>(
+                  this, METHODID_DELETE_AGREEMENT)))
+          .addMethod(
+            getGetAllPendingAgreementsMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                via.sep3.group11.tier2.protobuf.GEmail,
+                via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse>(
+                  this, METHODID_GET_ALL_PENDING_AGREEMENTS)))
+          .addMethod(
+            getGetAllAgreementByHousingIdMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                via.sep3.group11.tier2.protobuf.GId,
+                via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse>(
+                  this, METHODID_GET_ALL_AGREEMENT_BY_HOUSING_ID)))
           .build();
     }
   }
@@ -289,9 +424,33 @@ public final class AgreementGrpc {
     /**
      */
     public void getAgreementByHostId(via.sep3.group11.tier2.protobuf.GEmail request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GAgreement> responseObserver) {
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetAgreementByHostIdMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void deleteAgreement(via.sep3.group11.tier2.protobuf.GId request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteAgreementMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getAllPendingAgreements(via.sep3.group11.tier2.protobuf.GEmail request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAllPendingAgreementsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getAllAgreementByHousingId(via.sep3.group11.tier2.protobuf.GId request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAllAgreementByHousingIdMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -332,9 +491,30 @@ public final class AgreementGrpc {
 
     /**
      */
-    public via.sep3.group11.tier2.protobuf.GAgreement getAgreementByHostId(via.sep3.group11.tier2.protobuf.GEmail request) {
+    public via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse getAgreementByHostId(via.sep3.group11.tier2.protobuf.GEmail request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetAgreementByHostIdMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public via.sep3.group11.tier2.protobuf.Empty deleteAgreement(via.sep3.group11.tier2.protobuf.GId request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteAgreementMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse getAllPendingAgreements(via.sep3.group11.tier2.protobuf.GEmail request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAllPendingAgreementsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse getAllAgreementByHousingId(via.sep3.group11.tier2.protobuf.GId request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAllAgreementByHousingIdMethod(), getCallOptions(), request);
     }
   }
 
@@ -378,10 +558,34 @@ public final class AgreementGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier2.protobuf.GAgreement> getAgreementByHostId(
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getAgreementByHostId(
         via.sep3.group11.tier2.protobuf.GEmail request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetAgreementByHostIdMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier2.protobuf.Empty> deleteAgreement(
+        via.sep3.group11.tier2.protobuf.GId request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteAgreementMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getAllPendingAgreements(
+        via.sep3.group11.tier2.protobuf.GEmail request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAllPendingAgreementsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse> getAllAgreementByHousingId(
+        via.sep3.group11.tier2.protobuf.GId request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAllAgreementByHousingIdMethod(), getCallOptions()), request);
     }
   }
 
@@ -389,6 +593,9 @@ public final class AgreementGrpc {
   private static final int METHODID_UPDATE_AGREEMENT = 1;
   private static final int METHODID_GET_AGREEMENT_BY_ID = 2;
   private static final int METHODID_GET_AGREEMENT_BY_HOST_ID = 3;
+  private static final int METHODID_DELETE_AGREEMENT = 4;
+  private static final int METHODID_GET_ALL_PENDING_AGREEMENTS = 5;
+  private static final int METHODID_GET_ALL_AGREEMENT_BY_HOUSING_ID = 6;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -421,7 +628,19 @@ public final class AgreementGrpc {
           break;
         case METHODID_GET_AGREEMENT_BY_HOST_ID:
           serviceImpl.getAgreementByHostId((via.sep3.group11.tier2.protobuf.GEmail) request,
-              (io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GAgreement>) responseObserver);
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_AGREEMENT:
+          serviceImpl.deleteAgreement((via.sep3.group11.tier2.protobuf.GId) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.Empty>) responseObserver);
+          break;
+        case METHODID_GET_ALL_PENDING_AGREEMENTS:
+          serviceImpl.getAllPendingAgreements((via.sep3.group11.tier2.protobuf.GEmail) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse>) responseObserver);
+          break;
+        case METHODID_GET_ALL_AGREEMENT_BY_HOUSING_ID:
+          serviceImpl.getAllAgreementByHousingId((via.sep3.group11.tier2.protobuf.GId) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.getAllPendingAgreementsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -488,6 +707,9 @@ public final class AgreementGrpc {
               .addMethod(getUpdateAgreementMethod())
               .addMethod(getGetAgreementByIdMethod())
               .addMethod(getGetAgreementByHostIdMethod())
+              .addMethod(getDeleteAgreementMethod())
+              .addMethod(getGetAllPendingAgreementsMethod())
+              .addMethod(getGetAllAgreementByHousingIdMethod())
               .build();
         }
       }

@@ -5,11 +5,12 @@ import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HousingCommunicationInterface {
     Housing addHousing(Housing housing, String email) throws ValidationException;
     List<Housing> getAvailableHousing();
     void removeHousing(long housingId);
-    Housing getHousingById(long housingId);
-    Housing updateHousing (Housing housing);
+    Optional<Housing> getHousingById(long housingId) throws ValidationException;
+    Housing updateHousing (Housing housing) throws ValidationException;
 }

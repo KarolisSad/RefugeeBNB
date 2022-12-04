@@ -72,4 +72,10 @@ public interface GAgreementOrBuilder extends
    * <code>.GRefugee refugee = 5;</code>
    */
   via.sep3.group11.tier2.protobuf.GRefugeeOrBuilder getRefugeeOrBuilder();
+
+  /**
+   * <code>bool status = 6;</code>
+   * @return The status.
+   */
+  boolean getStatus();
 }
