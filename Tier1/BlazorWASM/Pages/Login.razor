@@ -3,8 +3,11 @@
 @using System.Collections.ObjectModel
 @using global::Shared.Domain
 @using global::Shared.DTOs
+@using LogicForPages
 @inject HostInterface HostInterface;
 @inject RefugeeInterface RefugeeInterface;
+@inject NavigationManager navMgr;
+@inject IMenuService MenuService;
 
 
 <h3>Login</h3>
@@ -30,6 +33,8 @@
             <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Login" Click="@OnLogin"/>
             <label style="color: @color">@resultMsg</label>
         </RadzenTemplateForm>
+        
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21"  Text="Trying" Click="@TryChangingNavMenu"/>
     </div>
 </div>
 
@@ -39,7 +44,6 @@
     class Person
     {
     }
-
     private string email { get; set; }
     private string password { get; set; }
 
@@ -48,11 +52,13 @@
     public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
     private string resultMsg = "";
     private string color = "";
+    
 
 
     private async void OnLogin()
     {
-        if (personType.Contains("host"))
+    
+     if (personType.Contains("host"))
         {
             HostDTO hostDto = await HostInterface.LoginHostAsync(new LoginDTO(email, password));
             if (hostDto.ErrorMessage.Equals(""))
@@ -75,6 +81,7 @@
             if (refugee.ErrorMessage.Equals(""))
             {
                 Console.WriteLine("Refugee has logged in: " + email);
+                
                 color = "green";
                 resultMsg = "you have logged in";
             }
@@ -91,6 +98,7 @@
             color = "red";
             resultMsg = "Make sure you let us know if you are a host or a refuge.";
         }
+        
     }
 
 
@@ -107,6 +115,15 @@
         }
 
         Console.WriteLine($"Value changed to {str}");
+    }
+
+    private void TryChangingNavMenu()
+    { 
+        //MenuService.DeleteMenuItem(new MenuItem("/Register", "Register"));
+        
+        MenuService.AddMenuItems(new List<MenuItem>(){new ("/AddHousing", "Add Housing")});
+
+        navMgr.NavigateTo("/", true);
     }
 
 }
