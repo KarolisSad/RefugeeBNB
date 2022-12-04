@@ -50,7 +50,6 @@ import java.time.LocalDate;
         }
 
 
-    //TODO Update Class Diagram
     public static LocalDate convertDateObjectToLocalDate(Date date) {
         return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }

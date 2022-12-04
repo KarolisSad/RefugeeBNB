@@ -4,6 +4,7 @@ import via.sep3.group11.tier2.shared.domain.Refugee;
 
 public class AgreementsByHostDTO {
     private String hostEmail;
+    //TODO Why is this dto having a refugee instead of errormessage???
     private Refugee refugee;
 
     public AgreementsByHostDTO(String hostEmail, Refugee refugee) {

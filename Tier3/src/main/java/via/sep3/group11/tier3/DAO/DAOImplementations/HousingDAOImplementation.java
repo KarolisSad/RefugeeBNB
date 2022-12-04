@@ -2,6 +2,7 @@ package via.sep3.group11.tier3.DAO.DAOImplementations;
 
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier3.model.Address;
+import via.sep3.group11.tier3.model.Agreement;
 import via.sep3.group11.tier3.model.Host;
 import via.sep3.group11.tier3.model.Housing;
 import via.sep3.group11.tier3.repository.AddressRepository;
@@ -63,7 +64,6 @@ public class HousingDAOImplementation implements HousingDaoInterface {
     }
 
 
-    //Todo add class diagram
     @Override
     public Optional<Housing> getHousingById(long housingId) {
         return repository.findById(housingId);
@@ -71,9 +71,14 @@ public class HousingDAOImplementation implements HousingDaoInterface {
 
     @Override
     public Housing updateHousing(Housing housing) {
+        // If there exists housing i DB with same id as the updated version given as argument..
+        if (repository.findById(housing.getHousingId()).isPresent()) {
 
-     //todo probably not needed!
+            // save updated version in db WITH SAME id as original (overwrite)
+            return repository.save(housing);
+        }
 
+        // If NOT FOUND return null (maybe do sth else??)
         return null;
     }
 
@@ -86,7 +91,6 @@ public class HousingDAOImplementation implements HousingDaoInterface {
         return availableHousing;
     }
 
-    //TODO also seems to work
     @Override
     public void removeHousing(long housingId) {
         repository.deleteById(housingId);

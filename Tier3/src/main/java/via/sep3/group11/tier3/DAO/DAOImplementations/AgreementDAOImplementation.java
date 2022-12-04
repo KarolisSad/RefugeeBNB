@@ -23,7 +23,6 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
     }
 
 
-    //TODO needed??
     @Override
     public Agreement updateAgreement(Agreement agreement) {
         Agreement toUpdate = agreementRepository.findById(agreement.getAgreementId()).get();

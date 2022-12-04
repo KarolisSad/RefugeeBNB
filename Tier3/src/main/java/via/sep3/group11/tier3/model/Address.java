@@ -50,7 +50,6 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-    //todo maybe delete again
     public Address(String country, String city, String streetName, String houseNumber, String roomNumber, String postalCode) {
         this.country = country;
         this.city = city;

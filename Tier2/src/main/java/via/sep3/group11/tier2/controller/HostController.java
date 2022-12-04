@@ -37,20 +37,13 @@ public class HostController {
      * @return
      */
     @PostMapping(value ="/host",produces ={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Host> createHost(@RequestBody HostRegisterDTO host) {
+    public ResponseEntity<HostDTO> createHost(@RequestBody HostRegisterDTO host) {
 
         try{
-            Host created = hostLogic.registerHost(host);
+            HostDTO created = hostLogic.registerHost(host);
             return new ResponseEntity<>(created, HttpStatus.CREATED);
         }
-        catch (NotUniqueException e)
-        {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-        }
-        catch (ValidationException e)
-        {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+
         catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -63,27 +56,21 @@ public class HostController {
      */
 
     @PostMapping("/host/login")
-    public ResponseEntity<Host> loginHost(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<HostDTO> loginHost(@RequestBody LoginDTO loginDTO) {
         try {
-            Host host = hostLogic.loginHost(loginDTO);
+            HostDTO host = hostLogic.loginHost(loginDTO);
             return new ResponseEntity<>(host, HttpStatus.OK);
-        } catch (NullPointerException e) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
-        } catch (ValidationException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @GetMapping("/host/{housingId}")
-        public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable ("housingId") long housingId) {
+    public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable ("housingId") long housingId) {
         try {
-            ResponseEntity<HostDTO> hostById = hostLogic.getHostByHousingId(housingId);
-        } catch (NullPointerException e){
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
-        } catch (ValidationException e){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        } catch (Exception e){
+            HostDTO hostById = hostLogic.getHostByHousingId(housingId);
+            return new ResponseEntity<>(hostById, HttpStatus.OK);
+        }
+         catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
