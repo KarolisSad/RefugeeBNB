@@ -53,14 +53,14 @@ public class HousingServiceGrpcImpl extends HousingGrpc.HousingImplBase {
     @Override
     public void updateHousing(GHousing request, StreamObserver<GHousing> responseObserver)
     {
-        Optional<Housing> dataResponse = housingDaoInterface.updateHousing(housingFromGrpc(request));
-        if (dataResponse.isEmpty())
+        Housing dataResponse = housingDaoInterface.updateHousing(housingFromGrpc(request));
+        if (dataResponse == null)
         {
             responseObserver.onNext(GHousing.newBuilder().build());
             responseObserver.onCompleted();
         }
         else {
-            GHousing housing = housingToGrpc(dataResponse.get());
+            GHousing housing = housingToGrpc(dataResponse);
             responseObserver.onNext(housing);
             responseObserver.onCompleted();
         }

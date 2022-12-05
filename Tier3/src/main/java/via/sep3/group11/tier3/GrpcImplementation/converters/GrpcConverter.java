@@ -23,6 +23,8 @@ public class GrpcConverter {
     }
 
     public static GHost HostToGrpc(Host host) {
+
+        System.out.println("DATA TIER CHECKING GENDER BEFORE CONVERT: " + host.getGender());
         return GHost.newBuilder()
                 .setFirstName(host.getFirstName())
                 .setEmail(host.getEmail())

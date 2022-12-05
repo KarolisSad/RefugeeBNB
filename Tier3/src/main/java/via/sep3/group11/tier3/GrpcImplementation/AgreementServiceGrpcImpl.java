@@ -2,6 +2,7 @@ package via.sep3.group11.tier3.GrpcImplementation;
 
 import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
+import via.sep3.group11.tier3.DAO.DAOInterfaces.AgreementDaoInterface;
 import via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter;
 import via.sep3.group11.tier3.model.Agreement;
 import via.sep3.group11.tier3.protobuf.*;
@@ -47,7 +48,7 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
     @Override
     public void getAgreementByHostId(GEmail request, StreamObserver<getAllPendingAgreementsResponse> responseObserver)
     {
-        List<Agreement> dataResponse = agreementDao.getAgreementByHostId(request.getEmail());
+        List<Agreement> dataResponse = agreementDao.getAgreementsByHostId(request.getEmail());
         getAllPendingAgreementsResponse.Builder responseBuilder = getAllPendingAgreementsResponse.newBuilder();
         if (dataResponse.isEmpty())
         {
@@ -68,14 +69,14 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
     @Override
     public void updateAgreement(GAgreement request, StreamObserver<GAgreement> responseObserver)
     {
-        Optional<Agreement> dataResponse = agreementDao.updateAgreement(AgreementWithIdFromGrpc(request));
-        if (dataResponse.isEmpty())
+        Agreement dataResponse = agreementDao.updateAgreement(AgreementWithIdFromGrpc(request));
+        if (dataResponse == null)
         {
             responseObserver.onNext(GAgreement.newBuilder().build());
             responseObserver.onCompleted();
         }
         else {
-            GAgreement agreement = AgreementWithIdToGrpc(dataResponse.get());
+            GAgreement agreement = AgreementWithIdToGrpc(dataResponse);
             responseObserver.onNext(agreement);
             responseObserver.onCompleted();
         }

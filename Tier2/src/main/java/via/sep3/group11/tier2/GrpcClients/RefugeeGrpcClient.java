@@ -39,7 +39,7 @@ public class RefugeeGrpcClient implements RefugeeCommunicationInterface {
     }
 
     @Override
-    public Optional<Refugee> getRefugeeByEmail(String email) throws ValidationException {
+    public Optional<Refugee> getRefugeeByEmail(String email) {
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GRefugee response = channel.getRefugeeStub().withDeadlineAfter(1, TimeUnit.SECONDS).getRefugeeByEmail(request);

@@ -49,8 +49,21 @@ public class HostLogic implements HostInterface {
     @Override
     public HostDTO registerHost(HostRegisterDTO dto) {
             Host toRegister = new Host(dto.getFirstName(), dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
-            // host check
+        System.out.println("TEST: " + toRegister.getGender());
+
+
+        // host check
             Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
+
+            if (existing.isEmpty()) {
+                return new HostDTO(hostDAO.createHost(toRegister), "");
+            }
+            else
+            {
+                return new HostDTO()
+            }
+
+        System.out.println("TEST: " + existing.get().getGender());
             // if no host found - create
         return existing.map
                 (host -> new HostDTO(toRegister, "Host with email " + host.getEmail() + " already exists."))
@@ -95,7 +108,7 @@ public class HostLogic implements HostInterface {
         {
             return new HostDTO(dummyHost,"This housing no longer exists.");
         }
-        return new HostDTO(hostDAO.getHostByHousingId(housingId),"");
+        return new HostDTO(hostDAO.getHostByHousingId(housingId).get(),"");
     }
 
     /**

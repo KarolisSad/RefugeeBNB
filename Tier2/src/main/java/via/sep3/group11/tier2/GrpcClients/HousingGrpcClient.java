@@ -21,7 +21,7 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     Channel channel;
 
     @Override
-    public Housing addHousing(Housing housing, String email) throws ValidationException {
+    public Housing addHousing(Housing housing, String email) {
         try {
             GAddHousingRequest request = GrpcConverter.addHousingRequest(housing, email);
             GHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).addHousing(request);
@@ -35,7 +35,7 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     }
 
     @Override
-    public List<Housing> getAvailableHousing() throws ValidationException{
+    public List<Housing> getAvailableHousing() {
         try {
             Empty request = Empty.newBuilder().build();
             ListOfAvailableHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAvailableHousing(request);
@@ -67,7 +67,7 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     }
 
     @Override
-    public Optional<Housing> getHousingById(long housingId) throws ValidationException{
+    public Optional<Housing> getHousingById(long housingId) {
         try {
             GId request = GId.newBuilder().setId(housingId).build();
             GHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHousingById(request);
@@ -85,7 +85,7 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     }
 
     @Override
-    public Housing updateHousing(Housing housing) throws ValidationException{
+    public Housing updateHousing(Housing housing) {
         try {
             GHousing request = GHousing.newBuilder().build();
             GHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).updateHousing(request);

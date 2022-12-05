@@ -20,8 +20,11 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
 
     @Override
     public void createHost(GHost request, StreamObserver<GHost> responseObserver) {
+        System.out.println("DATA TIER CHECKING GENDER AFTER CONVERT: " + request.getGender());
+
         responseObserver.onNext(GrpcConverter.HostToGrpc(
                 hostDaoInterface.createHost(GrpcConverter.HostFromGrpc(request))));
+        System.out.println("DATA TIER CHECKING GENDER AFTER CONVERT: " + request.getGender());
 
         responseObserver.onCompleted();
 
