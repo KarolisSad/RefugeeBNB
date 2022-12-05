@@ -23,16 +23,20 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
     }
 
 
+    /**
+     * Method used for updating an existing agreement entity in the database.
+     * This is done by taking an updated version of the agremeent entity as an argument (the actual updating is done in the logic tier).
+     * The repository then checks if the agreement actually exists in the database, and then overwrites it with the updated version.
+     * @param agreement The updated agreement object used to overwrite the already existing entity in the database.
+     * @return The updated agerement entity from the database after the update is done, or null if no entity with a matching id is found.
+     */
     @Override
     public Agreement updateAgreement(Agreement agreement) {
-        // If there exists housing i DB with same id as the updated version given as argument..
         if (agreementRepository.findById(agreement.getAgreementId()).isPresent()) {
 
-            // save updated version in db WITH SAME id as original (overwrite)
             return agreementRepository.save(agreement);
         }
 
-        // If NOT FOUND return null (maybe do sth else??)
         return null;
     }
 

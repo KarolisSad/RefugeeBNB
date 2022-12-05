@@ -69,26 +69,28 @@ public class HousingDAOImplementation implements HousingDaoInterface {
         return repository.findById(housingId);
     }
 
+    /**
+     * Method used for updating an existing housing entity in the database.
+     * This is done by taking an updated version of the housing entity as an argument (the actual updating is done in the logic tier).
+     * The repository then checks if the housing actually exists in the database, and then pverwrites it with the updated version.
+     * @param housing The updated housing object used to overwrite the already existing entity in the database.
+     * @return The updated housing entity from the database after the update is done, or null if no entity with a matching id is found.
+     */
     @Override
     public Housing updateHousing(Housing housing) {
-        // If there exists housing i DB with same id as the updated version given as argument..
         if (repository.findById(housing.getHousingId()).isPresent()) {
 
-            // save updated version in db WITH SAME id as original (overwrite)
             return repository.save(housing);
         }
 
-        // If NOT FOUND return null (maybe do sth else??)
         return null;
     }
-
 
     //TODO seems to work - but test when changing status!!
     @Override
     public List<Housing> getAvailableHousing() {
-        List<Housing> availableHousing = repository.findAllByAvailableTrue();
 
-        return availableHousing;
+        return repository.findAllByAvailableTrue();
     }
 
     @Override
