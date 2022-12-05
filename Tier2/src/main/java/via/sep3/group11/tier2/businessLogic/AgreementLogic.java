@@ -33,7 +33,6 @@ public class AgreementLogic implements AgreementInterface {
     public AgreementDTO requestAgreement(RequestAgreementDTO dto) {
         Agreement dummyAgreement = dummyAgreement();
 
-        System.out.println("TESTETSTSTTS: " + dto.getHousing().getHousingId());
         // Host check
         Optional<Host> host = hostDAO.getHostByEmail(dto.getHostEmail());
         if (host.isEmpty())
@@ -43,7 +42,6 @@ public class AgreementLogic implements AgreementInterface {
         // Housing check
         Optional<Housing> housing = housingDAO.getHousingById(dto.getHousing().getHousingId());
 
-        System.out.println("AGreeLogic housing Id after get: " + housing);
         if (housing.isEmpty())
         {
             return new AgreementDTO(dummyAgreement, "This housing is no longer listed.");
@@ -94,7 +92,7 @@ public class AgreementLogic implements AgreementInterface {
 
     @Override
     public List<Agreement> getAllRequestsByHost(AgreementsByHostDTO dto) {
-        return agreementDAO.getAllPendingAgreements(dto.getHostEmail());
+        return agreementDAO.getAgreementsByHostId(dto.getHostEmail());
     }
 
     public Agreement dummyAgreement()

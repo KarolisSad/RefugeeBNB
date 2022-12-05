@@ -69,7 +69,7 @@ public class HousingController {
     public ResponseEntity<HousingDTO> removeHousing(@RequestBody HousingIdDTO dto) {
         try {
             HousingDTO remove = housingInterface.removeHousing(dto);
-            return new ResponseEntity<>(remove, HttpStatus.CREATED);
+            return new ResponseEntity<>(remove, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

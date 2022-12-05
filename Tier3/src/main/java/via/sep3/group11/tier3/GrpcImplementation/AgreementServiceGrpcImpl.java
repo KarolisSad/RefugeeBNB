@@ -60,7 +60,7 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
         else {
             for(int i = 0; i < dataResponse.size(); i++)
             {
-                responseBuilder.addAgreements(AgreementToGrpc(dataResponse.get(i)));
+                responseBuilder.addAgreements(AgreementWithIdToGrpc(dataResponse.get(i)));
             }
             getAllPendingAgreementsResponse response = responseBuilder.build();
             responseObserver.onNext(response);

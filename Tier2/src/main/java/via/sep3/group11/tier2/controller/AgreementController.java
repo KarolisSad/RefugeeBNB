@@ -55,8 +55,11 @@ public class AgreementController {
 
 
     }
+
+    @PostMapping(value ="/agreements/respond/",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<AgreementDTO> respondToAgreement(@RequestBody RespondAgreementDTO dto){
         try{
+            //todo fix
             AgreementDTO respond = agreementInterface.respondToAgreement(dto);
             return new ResponseEntity<>(respond,HttpStatus.CREATED);
         }
@@ -64,9 +67,13 @@ public class AgreementController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping(value ="/agreements/host",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Agreement>> getAllRequestByHost(@RequestBody AgreementsByHostDTO dto){
         try{
+            System.out.println("TEST");
             List<Agreement> requests = agreementInterface.getAllRequestsByHost(dto);
+            System.out.println("TEST " + requests.size());
 
             return new ResponseEntity<>(requests, HttpStatus.OK);
         } catch(Exception e){
