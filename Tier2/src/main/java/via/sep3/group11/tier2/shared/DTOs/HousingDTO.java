@@ -10,4 +10,12 @@ public class HousingDTO {
         this.housing = housing;
         this.errorMessage = errorMessage;
     }
+
+    public Housing getHousing() {
+        return housing;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

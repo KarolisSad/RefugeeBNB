@@ -44,6 +44,7 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
             {
                 availableHousing.add(GrpcConverter.housingFromGrpc(response.getHousings(i)));
             }
+            System.out.println("----------- ERROR -------- "+availableHousing.size());
             return availableHousing;
 
         }

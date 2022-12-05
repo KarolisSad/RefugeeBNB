@@ -8,10 +8,11 @@ public class Housing
 
     public bool Available { get; set; }
 
-    public Housing(int capacity, Address address)
+    public Housing(int capacity, Address address, bool available)
     {
         Capacity = capacity;
         Address = address;
+        Available = available;
     }
 
     public Housing(long housingId, int capacity, Address address, bool available)

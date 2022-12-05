@@ -9,8 +9,9 @@
 @inject HostInterface HostInterface;
 
 
-<h3>DisplayHousing</h3>
 
+<h3>DisplayHousing</h3>
+<label>@allHousing.Count.ToString()</label>
 @foreach (Housing housing in allHousing)
 {
     <div class="card" style="width: 700px">
@@ -75,7 +76,7 @@
 </Modal>
 
 @code {
-    private Collection<Housing> allHousing;
+    private List<Housing> allHousing = new List<Housing>();
     private string resultMsg = "";
     private string color = "";
     private Housing selectedHousing = new Housing();
@@ -86,6 +87,7 @@
     {
         
         HousingListDTO dto = await HousingInterface.GetAvailableHousing();
+        Console.WriteLine(dto.HousingList.Count);
         if (dto.ErrorMessage.Equals(""))
         {
             allHousing = dto.HousingList;
@@ -95,6 +97,11 @@
         {
             resultMsg = dto.ErrorMessage;
             color = "red";
+            if (dto.HousingList.Count == 0)
+            {
+                resultMsg = "There is no available housing.";
+                color = "red";
+            }
         }
         
         
@@ -131,7 +138,7 @@
 
     private async Task Apply(Housing housing)
     {
-        /*HostDTO owner = await HostInterface.GetHostByHousingId(selectedHousing.HousingId);
+        HostDTO owner = await HostInterface.GetHostByHousingId(selectedHousing.HousingId);
         if (owner.ErrorMessage.Equals(""))
         {
             ownerEmail = owner.Host.Email;
@@ -142,8 +149,8 @@
             resultMsg = owner.ErrorMessage;
             color = "red";
         }
-        */
-        ownerEmail = "owneremail@gmail.com";
+        
+        //ownerEmail = "owneremail@gmail.com";
         selectedHousing = housing;
         Console.WriteLine("Selected housing changed to " + selectedHousing.Address.City + ", " + selectedHousing.Address.HouseNumber);
         showModal = true;
