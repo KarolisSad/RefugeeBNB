@@ -4,15 +4,12 @@ import via.sep3.group11.tier2.protobuf.*;
 import via.sep3.group11.tier2.shared.domain.*;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class GrpcConverter {
 
     public static Host hostFromGrpc(GHost grpcHost)  {
-
-        System.out.println();
-        System.out.println("TEST GRPC GENDER: " + grpcHost.getGender());
-
         return new Host(grpcHost.getFirstName(),
                 grpcHost.getEmail(),
                 grpcHost.getPassword(),
@@ -105,13 +102,14 @@ public class GrpcConverter {
     }
 
     public static Housing housingFromGrpc(GHousing returnedHousing) {
-        return new Housing(returnedHousing.getCapacity(),
+        return new Housing(returnedHousing.getId(), returnedHousing.getCapacity(),
                 addressFromGrpc(returnedHousing.getAddress()), true); //todo fix
     }
 
     public static GHousing housingToGrpc(Housing housing)
     {
         return  GHousing.newBuilder()
+                .setId(housing.getHousingId())
                 .setCapacity(housing.getCapacity())
                 .setAddress(addressToGrpc(housing.getAddress())).build();
     }
@@ -163,10 +161,19 @@ public class GrpcConverter {
 
     public static GAgreement AgreementToGrpc(Agreement agreement)
     {
+        LocalDate date = LocalDate.now();
+
         return GAgreement.newBuilder()
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
                 .setHostDetails(HostDetailsToGrpc(agreement.getHost()))
                 .setHousing(housingToGrpc(agreement.getHousing()))
+                .setDateOfCreation(
+                        GDateOfBirth.newBuilder()
+                                .setDay(date.getDayOfMonth())
+                                .setMonth(date.getMonthValue())
+                                .setYear(date.getYear())
+                                .build()
+                )
                 .setStatus(agreement.isAccepted()).build();
     }
 }

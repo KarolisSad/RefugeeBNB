@@ -17,7 +17,7 @@ import via.sep3.group11.tier3.model.Housing;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 @SpringBootTest
 public class Tier3HousingPersistenceTests {
 
@@ -132,7 +132,3 @@ public class Tier3HousingPersistenceTests {
     }
 
      */
-
-
-
-}

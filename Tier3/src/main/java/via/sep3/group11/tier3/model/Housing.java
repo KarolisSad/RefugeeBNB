@@ -60,5 +60,14 @@ public class Housing {
         return address;
     }
 
-
+    @Override
+    public String toString() {
+        return "Housing{" +
+                "housingId=" + housingId +
+                ", capacity=" + capacity +
+                ", available=" + available +
+                ", address=" + address +
+                ", host=" + host +
+                '}';
+    }
 }

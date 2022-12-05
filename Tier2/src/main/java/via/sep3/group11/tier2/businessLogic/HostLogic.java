@@ -92,9 +92,10 @@ public class HostLogic implements HostInterface {
     }
 
     @Override
-    public HostDTO getHostByHousingId(Long housingId) {
+    public HostDTO getHostByHousingId(long housingId) {
         Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
 
+        System.out.println("getHostByID Test: " + housingId);
         // housing check
         Optional<Housing> housing = housingDAO.getHousingById(housingId);
         if (housing.isEmpty())

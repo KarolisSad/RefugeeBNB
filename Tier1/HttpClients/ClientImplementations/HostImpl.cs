@@ -56,13 +56,17 @@ public class HostImpl:HostInterface
 
     public async Task<HostDTO> GetHostByHousingId(long housingId)
     {
+        Console.WriteLine("HousingID: " + housingId);
         HttpResponseMessage responseMessage = await client.GetAsync($"/api/host/{housingId}");
+        Console.WriteLine(responseMessage);
         
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
             throw new Exception(content);
         }
+        
+        
 
         HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
         {

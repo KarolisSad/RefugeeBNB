@@ -70,12 +70,20 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     @Override
     public Optional<Housing> getHousingById(long housingId) {
         try {
+            System.out.println("param test: "+ housingId);
             GId request = GId.newBuilder().setId(housingId).build();
+            System.out.println("ID TEST: " + request.getId());
             GHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHousingById(request);
+
+            System.out.println("Housing ID RETURN: " + response.getId());
+            /*
             if (response == null)
             {
                 return Optional.empty();
             }
+
+             */
+
             return Optional.of(GrpcConverter.housingFromGrpc(response));
         }
         catch (StatusRuntimeException e)

@@ -72,7 +72,7 @@ private static final long serialVersionUID = 0L;
           }
           case 24: {
 
-            id_ = input.readInt32();
+            id_ = input.readInt64();
             break;
           }
           default: {
@@ -147,13 +147,13 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int ID_FIELD_NUMBER = 3;
-  private int id_;
+  private long id_;
   /**
-   * <code>int32 id = 3;</code>
+   * <code>int64 id = 3;</code>
    * @return The id.
    */
   @java.lang.Override
-  public int getId() {
+  public long getId() {
     return id_;
   }
 
@@ -177,8 +177,8 @@ private static final long serialVersionUID = 0L;
     if (address_ != null) {
       output.writeMessage(2, getAddress());
     }
-    if (id_ != 0) {
-      output.writeInt32(3, id_);
+    if (id_ != 0L) {
+      output.writeInt64(3, id_);
     }
     unknownFields.writeTo(output);
   }
@@ -197,9 +197,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(2, getAddress());
     }
-    if (id_ != 0) {
+    if (id_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(3, id_);
+        .computeInt64Size(3, id_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -243,7 +243,8 @@ private static final long serialVersionUID = 0L;
       hash = (53 * hash) + getAddress().hashCode();
     }
     hash = (37 * hash) + ID_FIELD_NUMBER;
-    hash = (53 * hash) + getId();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getId());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -389,7 +390,7 @@ private static final long serialVersionUID = 0L;
         address_ = null;
         addressBuilder_ = null;
       }
-      id_ = 0;
+      id_ = 0L;
 
       return this;
     }
@@ -478,7 +479,7 @@ private static final long serialVersionUID = 0L;
       if (other.hasAddress()) {
         mergeAddress(other.getAddress());
       }
-      if (other.getId() != 0) {
+      if (other.getId() != 0L) {
         setId(other.getId());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -660,33 +661,33 @@ private static final long serialVersionUID = 0L;
       return addressBuilder_;
     }
 
-    private int id_ ;
+    private long id_ ;
     /**
-     * <code>int32 id = 3;</code>
+     * <code>int64 id = 3;</code>
      * @return The id.
      */
     @java.lang.Override
-    public int getId() {
+    public long getId() {
       return id_;
     }
     /**
-     * <code>int32 id = 3;</code>
+     * <code>int64 id = 3;</code>
      * @param value The id to set.
      * @return This builder for chaining.
      */
-    public Builder setId(int value) {
+    public Builder setId(long value) {
       
       id_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 id = 3;</code>
+     * <code>int64 id = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearId() {
       
-      id_ = 0;
+      id_ = 0L;
       onChanged();
       return this;
     }

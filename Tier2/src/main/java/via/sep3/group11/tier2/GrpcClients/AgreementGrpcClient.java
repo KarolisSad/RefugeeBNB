@@ -24,7 +24,9 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     @Override
     public Agreement addAgreement(Agreement agreement) {
        try {
+           System.out.println("Logic housing id: " + agreement.getHousing().getHousingId());
            GAgreement request = GrpcConverter.AgreementToGrpc(agreement);
+           System.out.println("Request: " + request.getHousing().getId());
            GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).addAgreement(request);
            return GrpcConverter.AgreementWithIdFromGrpc(response);
        }

@@ -41,7 +41,7 @@ public class Address {
         this.postCode = postCode;
     }
 
-    public Address(Long id,String country, String city, String streetName, String houseNumber, String roomNumber, String postCode) {
+    public Address(long id,String country, String city, String streetName, String houseNumber, String roomNumber, String postCode) {
         this.country = country;
         this.city = city;
         this.streetName = streetName;
@@ -51,7 +51,8 @@ public class Address {
         this.addressId = id;
     }
 
-
+    public Address() {
+    }
 
     /**
      * Getter-method for getting the id of the address.
@@ -172,7 +173,35 @@ public class Address {
         return postCode;
     }
 
-//    /**
+    public void setAddressId(long addressId) {
+        this.addressId = addressId;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    //    /**
 //     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
 //     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
 //     * @param postCode: String representation of the post code of the address.

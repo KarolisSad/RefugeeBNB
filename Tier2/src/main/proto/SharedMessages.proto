@@ -43,7 +43,7 @@ message GRefugee{
 message GHousing{
   int32 capacity = 1;
   GAddress address = 2;
-  int32 id = 3;
+  int64 id = 3;
 }
 
 // -- OTHERS

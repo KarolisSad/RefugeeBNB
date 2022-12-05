@@ -23,8 +23,10 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
     public void addAgreement (GAgreement request, StreamObserver<GAgreement> responseObserver)
     {
         Agreement convertedRequest = GrpcConverter.AgreementFromGrpc(request);
+        System.out.println("ConvertedRequest: " + convertedRequest);
         Agreement dataResponse = agreementDao.addAgreement(convertedRequest);
-        GAgreement response = AgreementToGrpc(dataResponse);
+        System.out.println(dataResponse);
+        GAgreement response = AgreementWithIdToGrpc(dataResponse);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }

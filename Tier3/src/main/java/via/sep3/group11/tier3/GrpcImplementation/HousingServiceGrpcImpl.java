@@ -76,6 +76,8 @@ public class HousingServiceGrpcImpl extends HousingGrpc.HousingImplBase {
     public void getHousingById(GId request, StreamObserver<GHousing> responseObserver)
     {
         Optional<Housing> dataResponse = housingDaoInterface.getHousingById(request.getId());
+
+        System.out.println("Housing id: " + dataResponse.get().getHousingId());
         if (dataResponse.isEmpty())
         {
             responseObserver.onNext(GHousing.newBuilder().build());
@@ -83,6 +85,7 @@ public class HousingServiceGrpcImpl extends HousingGrpc.HousingImplBase {
         }
         else {
             GHousing housing = housingToGrpc(dataResponse.get());
+            System.out.println("HousingID After convert: " + housing.getId());
             responseObserver.onNext(housing);
             responseObserver.onCompleted();
         }

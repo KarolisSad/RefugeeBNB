@@ -89,7 +89,7 @@ public final class SharedMessages {
       "\006 \001(\t\022\020\n\010lastName\030\007 \001(\t\022\"\n\013dateOfBirth\030\010" +
       " \001(\0132\r.GDateOfBirth\"D\n\010GHousing\022\020\n\010capac" +
       "ity\030\001 \001(\005\022\032\n\007address\030\002 \001(\0132\t.GAddress\022\n\n" +
-      "\002id\030\003 \001(\005\"\027\n\006GEmail\022\r\n\005email\030\001 \001(\t\"\204\001\n\010G" +
+      "\002id\030\003 \001(\003\"\027\n\006GEmail\022\r\n\005email\030\001 \001(\t\"\204\001\n\010G" +
       "Address\022\017\n\007country\030\001 \001(\t\022\014\n\004city\030\002 \001(\t\022\022" +
       "\n\nstreetName\030\003 \001(\t\022\023\n\013houseNumber\030\004 \001(\t\022" +
       "\022\n\nroomNumber\030\005 \001(\t\022\020\n\010postCode\030\006 \001(\t\022\n\n" +

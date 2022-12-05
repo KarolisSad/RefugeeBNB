@@ -225,9 +225,6 @@ public final class HousingGrpc {
     }
 
     /**
-     * <pre>
-     *TODO!!!!!!!!Delete void message
-     * </pre>
      */
     public void getAvailableHousing(via.sep3.group11.tier3.protobuf.Empty request,
         io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.ListOfAvailableHousing> responseObserver) {
@@ -319,9 +316,6 @@ public final class HousingGrpc {
     }
 
     /**
-     * <pre>
-     *TODO!!!!!!!!Delete void message
-     * </pre>
      */
     public void getAvailableHousing(via.sep3.group11.tier3.protobuf.Empty request,
         io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.ListOfAvailableHousing> responseObserver) {
@@ -376,9 +370,6 @@ public final class HousingGrpc {
     }
 
     /**
-     * <pre>
-     *TODO!!!!!!!!Delete void message
-     * </pre>
      */
     public via.sep3.group11.tier3.protobuf.ListOfAvailableHousing getAvailableHousing(via.sep3.group11.tier3.protobuf.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -430,9 +421,6 @@ public final class HousingGrpc {
     }
 
     /**
-     * <pre>
-     *TODO!!!!!!!!Delete void message
-     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.ListOfAvailableHousing> getAvailableHousing(
         via.sep3.group11.tier3.protobuf.Empty request) {

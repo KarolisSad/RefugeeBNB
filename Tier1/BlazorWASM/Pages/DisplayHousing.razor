@@ -11,8 +11,11 @@
 
 
 <h3>DisplayHousing</h3>
-<label>@allHousing.Count.ToString()</label>
-@foreach (Housing housing in allHousing)
+
+
+
+
+    @foreach (Housing housing in allHousing)
 {
     <div class="card" style="width: 700px">
         <div class="col-lg-12 product-title">
@@ -52,6 +55,8 @@
     </div>
 }
 
+
+
 <label style="color: @color">@resultMsg</label>
 
 <Modal ShowModal="showModal">
@@ -80,10 +85,10 @@
     private string resultMsg = "";
     private string color = "";
     private Housing selectedHousing = new Housing();
-    private string ownerEmail = "";
+    private string ownerEmail = "315269@via.dk";
     private bool showModal;
 
-    protected override async void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         
         HousingListDTO dto = await HousingInterface.GetAvailableHousing();
@@ -120,7 +125,7 @@
     {
     //todo retrieve the refugee email from authentication stuff
         
-        RequestAgreementDTO dto = await AgreementInterface.RequestAgreement(new RequestAgreementDTO("refugeeEmail@gmail.com",ownerEmail, selectedHousing,"" ));
+        RequestAgreementDTO dto = await AgreementInterface.RequestAgreement(new RequestAgreementDTO("refugee@test.dk",ownerEmail, selectedHousing,"" ));
         
         
         if (dto.ErrorMessage.Equals(""))

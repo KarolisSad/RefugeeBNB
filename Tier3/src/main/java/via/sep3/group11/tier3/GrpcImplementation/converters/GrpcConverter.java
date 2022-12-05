@@ -113,12 +113,14 @@ public class GrpcConverter {
 
     public static Housing housingFromGrpc(GHousing returnedHousing) {
         return new Housing(
+                returnedHousing.getId(),
                 returnedHousing.getCapacity(),
                 AddressFromGrpc(returnedHousing.getAddress()));
     }
 
     public static GHousing housingToGrpc(Housing housing) {
         return GHousing.newBuilder()
+                .setId(housing.getHousingId())
                 .setCapacity(housing.getCapacity())
                 .setAddress(AddressToGrpc(housing.getAddress())).build();
     }
@@ -171,7 +173,9 @@ public class GrpcConverter {
     }
 
     public static Agreement AgreementFromGrpc(GAgreement agreement) {
+        System.out.println("GRPCCONVERTER: \n" + agreement.getHousing().getId());
         return new Agreement(
+
                 DateFromGrpc(agreement.getDateOfCreation()),
                 refugeeFromGrpc(agreement.getRefugee()),
                 housingFromGrpc(agreement.getHousing()),

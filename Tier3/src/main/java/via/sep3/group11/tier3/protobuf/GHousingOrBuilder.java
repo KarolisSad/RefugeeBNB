@@ -29,8 +29,8 @@ public interface GHousingOrBuilder extends
   via.sep3.group11.tier3.protobuf.GAddressOrBuilder getAddressOrBuilder();
 
   /**
-   * <code>int32 id = 3;</code>
+   * <code>int64 id = 3;</code>
    * @return The id.
    */
-  int getId();
+  long getId();
 }
