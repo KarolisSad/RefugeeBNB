@@ -3,8 +3,11 @@
 @using System.Collections.ObjectModel
 @using global::Shared.Domain
 @using global::Shared.DTOs
+@using LogicForPages
 @inject HostInterface HostInterface;
 @inject RefugeeInterface RefugeeInterface;
+@inject NavigationManager navMgr;
+@inject MenuService MenuService;
 
 
 <h3>Login</h3>
@@ -39,7 +42,6 @@
     class Person
     {
     }
-
     private string email { get; set; }
     private string password { get; set; }
 
@@ -48,16 +50,21 @@
     public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
     private string resultMsg = "";
     private string color = "";
+    
 
 
     private async void OnLogin()
     {
-        if (personType.Contains("host"))
+    
+     if (personType.Contains("host"))
         {
             HostDTO hostDto = await HostInterface.LoginHostAsync(new LoginDTO(email, password));
             if (hostDto.ErrorMessage.Equals(""))
             {
                 Console.WriteLine("Host has logged in: " + email + ", " + password);
+                navMgr.NavigateTo("/");
+                MenuService.Host = true;
+                MenuService.Refugee = false;
                 color = "green";
                 resultMsg = "You have logged in";
             }
@@ -75,6 +82,9 @@
             if (refugee.ErrorMessage.Equals(""))
             {
                 Console.WriteLine("Refugee has logged in: " + email);
+                navMgr.NavigateTo("/");
+                MenuService.Host = false;
+                MenuService.Refugee = true;
                 color = "green";
                 resultMsg = "you have logged in";
             }
@@ -91,6 +101,7 @@
             color = "red";
             resultMsg = "Make sure you let us know if you are a host or a refuge.";
         }
+        
     }
 
 
@@ -108,5 +119,6 @@
 
         Console.WriteLine($"Value changed to {str}");
     }
+    
 
 }

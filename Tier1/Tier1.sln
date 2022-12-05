@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWASM", "BlazorWASM\Bl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClients", "HttpClients\HttpClients.csproj", "{4BD8D72D-4170-4F25-91F7-A3F3F43DE802}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicForPages", "LogicForPages\LogicForPages.csproj", "{7D5360DF-42BC-4382-995D-35439C142127}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{4BD8D72D-4170-4F25-91F7-A3F3F43DE802}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD8D72D-4170-4F25-91F7-A3F3F43DE802}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BD8D72D-4170-4F25-91F7-A3F3F43DE802}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D5360DF-42BC-4382-995D-35439C142127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D5360DF-42BC-4382-995D-35439C142127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D5360DF-42BC-4382-995D-35439C142127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D5360DF-42BC-4382-995D-35439C142127}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
