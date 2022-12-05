@@ -6,8 +6,6 @@ import via.sep3.group11.tier3.model.Housing;
 import via.sep3.group11.tier3.repository.HostRepository;
 import via.sep3.group11.tier3.DAO.DAOInterfaces.HostDaoInterface;
 import via.sep3.group11.tier3.repository.HousingRepository;
-
-import java.util.List;
 import java.util.Optional;
 
 /**

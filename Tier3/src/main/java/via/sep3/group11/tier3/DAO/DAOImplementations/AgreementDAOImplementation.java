@@ -8,6 +8,12 @@ import via.sep3.group11.tier3.repository.AgreementRepository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class implementing the Agreement DAO-interface.
+ * This class uses an interface extending JpaRepository<Agreement, Long> to access a PostgreSQL database.
+ * @author Group 11
+ * @version 5/12-2022
+ */
 @Service
 public class AgreementDAOImplementation implements AgreementDaoInterface {
 
