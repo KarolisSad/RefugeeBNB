@@ -15,7 +15,9 @@ public class RefugeeRegisterDTO
 
     public string ErrorMessage { get; }
 
-    public RefugeeRegisterDTO(string email, string password, char gender, string nationality, string firstName, string middleName, string lastName, Date dateOfBirth, string errorMessage)
+    public RefugeeRegisterDTO(string email, string password, char gender, string nationality,
+        string firstName, string middleName, string lastName, Date dateOfBirth,
+        string errorMessage)
     {
         Email = email;
         Password = password;

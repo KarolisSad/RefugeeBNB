@@ -10,4 +10,12 @@ public class HostDTO {
         this.host = host;
         this.errorMessage = errorMessage;
     }
+
+    public Host getHost() {
+        return host;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

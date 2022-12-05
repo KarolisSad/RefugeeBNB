@@ -10,7 +10,9 @@ public class GrpcConverter {
 
     public static Host hostFromGrpc(GHost grpcHost)  {
 
+        System.out.println();
         System.out.println("TEST GRPC GENDER: " + grpcHost.getGender());
+
         return new Host(grpcHost.getFirstName(),
                 grpcHost.getEmail(),
                 grpcHost.getPassword(),

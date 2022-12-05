@@ -38,6 +38,7 @@ public class RefugeeController {
     @CrossOrigin
     @PostMapping(value ="/refugee",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<RefugeeDTO> createRefugee(@RequestBody RefugeeRegisterDTO refugee){
+
         try{
             RefugeeDTO created = refugeeInterface.registerRefugee(refugee);
 

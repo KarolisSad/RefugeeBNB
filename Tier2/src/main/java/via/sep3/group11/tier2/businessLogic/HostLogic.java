@@ -55,19 +55,12 @@ public class HostLogic implements HostInterface {
         // host check
             Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
 
-            if (existing.isEmpty()) {
-                return new HostDTO(hostDAO.createHost(toRegister), "");
-            }
-            else
-            {
-                return new HostDTO()
-            }
-
-        System.out.println("TEST: " + existing.get().getGender());
-            // if no host found - create
+        // if no host found - create
         return existing.map
                 (host -> new HostDTO(toRegister, "Host with email " + host.getEmail() + " already exists."))
                 .orElseGet(() -> new HostDTO(hostDAO.createHost(toRegister), ""));
+
+
     }
 
     /**

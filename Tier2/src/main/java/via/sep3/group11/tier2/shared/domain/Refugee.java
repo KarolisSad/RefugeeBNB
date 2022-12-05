@@ -21,7 +21,8 @@ public class Refugee {
     private String lastName;
     private Date dateOfBirth;
 
-    public Refugee(String email, String password, char gender, String nationality, String firstName, String middleName, String lastName, Date dateOfBirth) {
+    public Refugee(String email, String password, char gender, String nationality,
+                   String firstName, String middleName, String lastName, Date dateOfBirth) {
         this.email = email;
         this.password = password;
         this.gender = gender;

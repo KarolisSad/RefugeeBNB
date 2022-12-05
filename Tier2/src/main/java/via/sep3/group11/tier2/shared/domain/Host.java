@@ -25,7 +25,8 @@ public class Host {
     private List<Housing> housingList;
 
 
-    public Host(String firstName, String email, String password, char gender, String nationality,String middleName, String lastName, Date dateOfBirth) {
+    public Host(String firstName, String email, String password, char gender,
+                String nationality,String middleName, String lastName, Date dateOfBirth) {
         this.firstName = firstName;
         this.email = email;
         this.password = password;

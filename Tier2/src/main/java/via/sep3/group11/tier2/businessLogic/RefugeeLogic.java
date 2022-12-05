@@ -47,13 +47,21 @@ public class RefugeeLogic implements RefugeeInterface {
      */
     @Override
     public RefugeeDTO registerRefugee(RefugeeRegisterDTO dto) {
-        Refugee toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
-        // refugee check
-        Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
-        // if no refugee found - create
-        return existing.map
-                        (refugee -> new RefugeeDTO(toRegister, "Host with email " + refugee.getEmail() + " already exists."))
-                .orElseGet(() -> new RefugeeDTO(refugeeDAO.createRefugee(existing.get()), ""));
+        try {
+            Refugee toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
+            // refugee check
+            Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
+            // if no refugee found - create
+            return existing.map
+                            (refugee -> new RefugeeDTO(toRegister, "Host with email " + refugee.getEmail() + " already exists."))
+                    .orElseGet(() -> new RefugeeDTO(refugeeDAO.createRefugee(toRegister), ""));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
 
     }
 

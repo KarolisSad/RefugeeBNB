@@ -51,6 +51,7 @@ public class HousingController {
 
     }
 
+    @GetMapping("/housing")
     public ResponseEntity<HousingListDTO> getAvailableHousing() {
         try {
             HousingListDTO availableHousing = housingInterface.getAvailableHousing();
@@ -60,6 +61,7 @@ public class HousingController {
         }
     }
 
+   // @DeleteMapping("/housing/")
     public ResponseEntity<HousingDTO> removeHousing(@RequestBody HousingIdDTO dto) {
         try {
             HousingDTO remove = housingInterface.removeHousing(dto);
