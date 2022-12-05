@@ -9,7 +9,6 @@ import via.sep3.group11.tier3.protobuf.GEmail;
 import via.sep3.group11.tier3.protobuf.GHost;
 import via.sep3.group11.tier3.protobuf.GId;
 import via.sep3.group11.tier3.protobuf.HostGrpc;
-
 import javax.annotation.Resource;
 import java.util.Optional;
 
@@ -46,7 +45,6 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
             GHost response = GrpcConverter.HostToGrpc(dataResponse.get());
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-
         }
     }
 
@@ -66,8 +64,6 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
 
         }
     }
-
-
 
 }
 

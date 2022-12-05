@@ -91,7 +91,7 @@ public class Agreement {
     public void setHost(Host host) {
         this.host = host;
     }
-
+    
     //TODO DELETE AGAIN ONLY FOR TESTING!
     public void setDate(LocalDate date) {
         this.date = date;

@@ -5,6 +5,6 @@ namespace HttpClients.ClientInterfaces;
 
 public interface RefugeeInterface
 {
-    Task RegisterRefugee(RefugeeRegisterDTO dto);
-    Task<Refugee> LoginRefugee(LoginDTO dto);
+    Task<RefugeeDTO> RegisterRefugee(RefugeeRegisterDTO dto);
+    Task<RefugeeDTO> LoginRefugee(LoginDTO dto);
 }

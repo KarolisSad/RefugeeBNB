@@ -18,19 +18,26 @@ public class HostImpl:HostInterface
         this.client = client;
     }
 
-    public async Task RegisterHostAsync(HostRegisterDTO host)
+    public async Task<HostDTO> RegisterHostAsync(HostRegisterDTO host)
     {
         HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/host", host);
+        string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
-            string content = await responseMessage.Content.ReadAsStringAsync();
             throw new Exception(content);
         }
+
+        HostDTO result = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return result;
     }
 
-    public async Task<Host> LoginHostAsync(LoginDTO dto)
+    public async Task<HostDTO> LoginHostAsync(LoginDTO dto)
     {
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/host/login", dto);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/host/login", dto);
         
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
@@ -38,7 +45,7 @@ public class HostImpl:HostInterface
             throw new Exception(content);
         }
 
-        Host host = JsonSerializer.Deserialize<Host>(content, new JsonSerializerOptions
+        HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
@@ -46,42 +53,21 @@ public class HostImpl:HostInterface
         return host;
     }
 
-    public async Task<Housing> AddHousingAsync(HousingCreationDTO housing)
+    public async Task<HostDTO> GetHostByHousingId(long housingId)
     {
-        //We create housing in Database
-        HttpResponseMessage created = await client.PostAsJsonAsync("/api/housing", housing);
-        string result = await created.Content.ReadAsStringAsync();
+        HttpResponseMessage responseMessage = await client.GetAsync($"/api/host/{housingId}");
         
-        if (!created.IsSuccessStatusCode)
-        {
-            throw new Exception(result);
-        }
-        
-        Housing housingCreated = JsonSerializer.Deserialize<Housing>(result, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-
-        return housingCreated;
-    }
-
-    /**
-    public async Task<Host> getHostAsync(string email)
-    {
-        HttpResponseMessage responseMessage = await client.GetAsync($"/host/{email}");
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
             throw new Exception(content);
         }
 
-        Host host = JsonSerializer.Deserialize<Host>(content, new JsonSerializerOptions
+        HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;
         
         return host;
     }
-*/
-
 }

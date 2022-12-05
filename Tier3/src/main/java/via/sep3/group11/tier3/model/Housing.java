@@ -15,20 +15,23 @@ import javax.persistence.*;
 public class Housing {
 
     @Id
-    @SequenceGenerator(name = "housing_sequence", sequenceName = "housing_seq", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "housing_sequence", sequenceName = "housing_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "housing_sequence")
     private long housingId;
 
     @Column(name = "capacity")
     private int capacity;
 
+    @Column(name = "available")
+    private boolean available;
 
     @OneToOne
     @JoinColumn(name = "address")
     private Address address;
 
+
     @ManyToOne
-    @JoinTable(name = "housing_id")
+    @JoinTable(name = "housing_host")
     public Host host;
 
     public Housing() {}
@@ -36,6 +39,7 @@ public class Housing {
     public Housing(int capacity, Address address) {
         this.capacity = capacity;
         this.address = address;
+        available = true;
     }
 
     public Housing(long housingId, int capacity, Address address) {

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
+import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
 import via.sep3.group11.tier2.shared.domain.Refugee;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
@@ -36,19 +37,13 @@ public class RefugeeController {
      */
     @CrossOrigin
     @PostMapping(value ="/refugee",produces ={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Refugee> createRefugee(@RequestBody RefugeeRegisterDTO refugee){
+    public ResponseEntity<RefugeeDTO> createRefugee(@RequestBody RefugeeRegisterDTO refugee){
         try{
-            Refugee created = refugeeInterface.registerRefugee(refugee);
+            RefugeeDTO created = refugeeInterface.registerRefugee(refugee);
+
             return new ResponseEntity<>(created,HttpStatus.CREATED);
         }
-        catch (NotUniqueException e)
-        {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
-        }
-        catch (ValidationException e)
-        {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+
         catch (Exception e) {
             System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -61,19 +56,12 @@ public class RefugeeController {
      * @return
      */
     @GetMapping("/refugee/login")
-    public ResponseEntity<Refugee> loginRefugee(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<RefugeeDTO> loginRefugee(@RequestBody LoginDTO loginDTO) {
         try {
-            Refugee refugee = refugeeInterface.loginRefugee(loginDTO);
+            RefugeeDTO refugee = refugeeInterface.loginRefugee(loginDTO);
             return new ResponseEntity<>(refugee, HttpStatus.OK);
         }
-        catch (NullPointerException e)
-        {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
-        }
-        catch (ValidationException e)
-        {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
+
         catch (Exception e)
         {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

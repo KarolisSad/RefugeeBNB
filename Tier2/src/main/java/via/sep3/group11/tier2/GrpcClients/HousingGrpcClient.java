@@ -1,5 +1,4 @@
 package via.sep3.group11.tier2.GrpcClients;
-
 import io.grpc.StatusRuntimeException;
 import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier2.GrpcClients.connections.Channel;
@@ -9,7 +8,6 @@ import via.sep3.group11.tier2.protobuf.*;
 import via.sep3.group11.tier2.shared.domain.Agreement;
 import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
-
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +52,6 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
             reestablishConnection();
             return null;
         }
-
     }
 
     @Override

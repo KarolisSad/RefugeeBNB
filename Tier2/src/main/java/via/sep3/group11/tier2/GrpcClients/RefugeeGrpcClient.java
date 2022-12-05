@@ -21,7 +21,7 @@ public class RefugeeGrpcClient implements RefugeeCommunicationInterface {
     Channel channel;
 
     @Override
-    public Refugee createRefugee(Refugee refugee) throws ValidationException {
+    public Refugee createRefugee(Refugee refugee) {
         try {
             GRefugee request = GrpcConverter.refugeeToGrpc(refugee);
             GRefugee response = channel.getRefugeeStub().withDeadlineAfter(1, TimeUnit.SECONDS).createRefugee(request);
