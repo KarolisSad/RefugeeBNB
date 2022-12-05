@@ -25,10 +25,15 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
 
     @Override
     public Agreement updateAgreement(Agreement agreement) {
-        Agreement toUpdate = agreementRepository.findById(agreement.getAgreementId()).get();
-        toUpdate = agreement;
+        // If there exists housing i DB with same id as the updated version given as argument..
+        if (agreementRepository.findById(agreement.getAgreementId()).isPresent()) {
 
-        return agreementRepository.save(toUpdate);
+            // save updated version in db WITH SAME id as original (overwrite)
+            return agreementRepository.save(agreement);
+        }
+
+        // If NOT FOUND return null (maybe do sth else??)
+        return null;
     }
 
     @Override
