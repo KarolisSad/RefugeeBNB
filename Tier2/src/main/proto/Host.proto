@@ -7,5 +7,6 @@ option java_package = "via.sep3.group11.tier2.protobuf";
 service Host{
   rpc CreateHost(GHost) returns (GHost);
   rpc GetHostByEmail(GEmail) returns (GHost);
+  rpc getHostByHousingId(GId) returns (GHost);
 }
 

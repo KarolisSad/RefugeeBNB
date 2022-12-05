@@ -17,11 +17,9 @@ public class Agreement {
     @Column(name = "agreement_date")
     private LocalDate date;
 
-
     @OneToOne
     @JoinColumn(name = "refugee_id")
     private Refugee refugee;
-
 
     @OneToOne
     @JoinColumn(name = "housing_id")
@@ -54,6 +52,10 @@ public class Agreement {
         this.accepted = accepted;
     }
 
+    public boolean isAccepted() {
+        return accepted;
+    }
+
     public long getAgreementId() {
         return agreementId;
     }
@@ -74,6 +76,22 @@ public class Agreement {
         return host;
     }
 
+    public void setAgreementId(long agreementId) {
+        this.agreementId = agreementId;
+    }
+
+    public void setRefugee(Refugee refugee) {
+        this.refugee = refugee;
+    }
+
+    public void setHousing(Housing housing) {
+        this.housing = housing;
+    }
+
+    public void setHost(Host host) {
+        this.host = host;
+    }
+    
     //TODO DELETE AGAIN ONLY FOR TESTING!
     public void setDate(LocalDate date) {
         this.date = date;

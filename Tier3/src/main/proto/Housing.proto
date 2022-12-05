@@ -6,9 +6,18 @@ option java_package = "via.sep3.group11.tier3.protobuf";
 
 service Housing {
   rpc addHousing(GAddHousingRequest) returns (GHousing);
+  rpc getAvailableHousing(Empty) returns (ListOfAvailableHousing);
+  rpc removeHousing(GId) returns (Empty);
+  rpc getHousingById(GId) returns (GHousing);
+  rpc updateHousing(GHousing) returns (GHousing);
 }
 
 message GAddHousingRequest{
   GHousing housing = 1;
   string email = 2;
 }
+
+message ListOfAvailableHousing{
+  repeated GHousing housings = 1;
+}
+

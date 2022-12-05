@@ -9,9 +9,10 @@ import java.util.Optional;
 public interface AgreementCommunicationInterface {
     Agreement addAgreement(Agreement agreement);
     Agreement updateAgreement(Agreement agreement);
-    Optional<Agreement> getAgreementById(Long agreementId);
+    Optional<Agreement> getAgreementById(long agreementId);
     List<Agreement> getAgreementsByHostId(String hostId);
-    void deleteAgreement(Long id);
+    void deleteAgreement(long agreementId);
     List<Agreement> getAllPendingAgreements(String hostEmail);
-    List<Agreement> getAllAgreementsByHousingId(Long housingId);
+    List<Agreement> getAllAgreementsByHousingId(long housingId);
 }
+

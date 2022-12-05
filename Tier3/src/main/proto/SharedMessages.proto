@@ -64,5 +64,20 @@ message GAddress{
 message GDateOfBirth{
   int32 day = 1;
   int32 month = 2;
-  int32  year = 3;
+  int32 year = 3;
 }
+
+message GAgreement{
+  int64 id = 1;
+  GDateOfBirth dateOfCreation = 2;
+  GHostDetails hostDetails = 3;
+  GHousing housing = 4;
+  GRefugee refugee = 5;
+  bool status = 6;
+}
+
+message GId{
+  int64 id = 1;
+}
+
+message Empty{}

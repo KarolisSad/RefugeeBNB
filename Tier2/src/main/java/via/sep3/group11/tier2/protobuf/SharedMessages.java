@@ -49,6 +49,21 @@ public final class SharedMessages {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_GDateOfBirth_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GAgreement_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GAgreement_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GId_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GId_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_Empty_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_Empty_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -79,8 +94,13 @@ public final class SharedMessages {
       "\n\nstreetName\030\003 \001(\t\022\023\n\013houseNumber\030\004 \001(\t\022" +
       "\022\n\nroomNumber\030\005 \001(\t\022\020\n\010postCode\030\006 \001(\t\022\n\n" +
       "\002id\030\007 \001(\003\"8\n\014GDateOfBirth\022\013\n\003day\030\001 \001(\005\022\r" +
-      "\n\005month\030\002 \001(\005\022\014\n\004year\030\003 \001(\005B#\n\037via.sep3." +
-      "group11.tier2.protobufP\001b\006proto3"
+      "\n\005month\030\002 \001(\005\022\014\n\004year\030\003 \001(\005\"\253\001\n\nGAgreeme" +
+      "nt\022\n\n\002id\030\001 \001(\003\022%\n\016dateOfCreation\030\002 \001(\0132\r" +
+      ".GDateOfBirth\022\"\n\013hostDetails\030\003 \001(\0132\r.GHo" +
+      "stDetails\022\032\n\007housing\030\004 \001(\0132\t.GHousing\022\032\n" +
+      "\007refugee\030\005 \001(\0132\t.GRefugee\022\016\n\006status\030\006 \001(" +
+      "\010\"\021\n\003GId\022\n\n\002id\030\001 \001(\003\"\007\n\005EmptyB#\n\037via.sep" +
+      "3.group11.tier2.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -128,6 +148,24 @@ public final class SharedMessages {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GDateOfBirth_descriptor,
         new java.lang.String[] { "Day", "Month", "Year", });
+    internal_static_GAgreement_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_GAgreement_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GAgreement_descriptor,
+        new java.lang.String[] { "Id", "DateOfCreation", "HostDetails", "Housing", "Refugee", "Status", });
+    internal_static_GId_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_GId_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GId_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_Empty_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_Empty_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_Empty_descriptor,
+        new java.lang.String[] { });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
