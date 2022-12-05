@@ -1,50 +1,39 @@
 ﻿namespace LogicForPages;
 
-public class MenuService : IMenuService
+public class MenuService
 {
-    public bool refugeeLogged { get; set; }
-    public bool hostLogged { get; set; }
-
-    public event Action? OnChanged;
-
-    public void NotifyStateChanged() => OnChanged?.Invoke();
-
-    public void setRefugee()
+    private bool _refugee;
+    public bool Refugee
     {
-        refugeeLogged = true;
-        hostLogged = false;
-        NotifyStateChanged();
-    }
-
-    public void setHost()
-    {
-        refugeeLogged = false;
-        hostLogged = true;
-        NotifyStateChanged();
-        Console.WriteLine("host changes in MenuService: " + hostLogged);
-    }
-
-    public bool isRefugeeLogged()
-    {
-        Console.WriteLine(refugeeLogged);
-        return refugeeLogged;
-    }
-
-    public bool isAnyoneLogged()
-    {
-        if (hostLogged || refugeeLogged)
+        get
         {
-            return true;
+            return _refugee;
         }
-
-        return false;
+        set
+        {
+            _refugee = value;
+            NotifyDataChanged();
+        }
     }
-
-    public void logout()
+    
+    
+    
+    private bool _host;
+    public bool Host
     {
-        refugeeLogged = false;
-        hostLogged = false;
-        NotifyStateChanged();
+        get
+        {
+            return _host;
+        }
+        set
+        {
+            _host = value;
+            NotifyDataChanged();
+        }
     }
+
+    public event Action OnChange;
+
+    private void NotifyDataChanged() => OnChange?.Invoke();
 
 }

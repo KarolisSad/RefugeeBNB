@@ -1,7 +1,7 @@
 ﻿@using global::Shared.Domain
 @using System.Dynamic
 @using LogicForPages
-@inject IMenuService MenuService;
+@inject MenuService MenuService;
 @implements IDisposable;
 
 <div class="top-row ps-3 navbar navbar-dark">
@@ -21,25 +21,43 @@
             </NavLink>
         </div>
         
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/Login" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Login
-            </NavLink>
-        </div>
-        
-        @if (hostLogged)
+        @if (!MenuService.Host && !MenuService.Refugee)
         {
             <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/Logout" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Logout
+                <NavLink class="nav-link" href="/Login" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Login
                 </NavLink>
             </div>
+        }
+        
+        @if (MenuService.Host)
+        {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/AddHousing" Match="NavLinkMatch.All">
                     <span class="oi oi-home" aria-hidden="true"></span> Add Housing
                 </NavLink>
             </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/Logout" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Logout
+                </NavLink>
+            </div>
         }
+        
+         @if (MenuService.Refugee)
+                {
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/DisplayHousing" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> Display Housing
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/Logout" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> Logout
+                        </NavLink>
+                    </div>
+                    
+                }
         
         
     </nav>
@@ -48,8 +66,6 @@
 @code {
 
     private bool collapseNavMenu = true;
-    private bool refugeeLogged { get; set; }
-    private bool hostLogged { get; set; }
 
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -61,33 +77,13 @@
 
     protected override void OnInitialized()
     {
-        MenuService.OnChanged += StateHasChanged;
-
-        if (MenuService.isAnyoneLogged())
-        {
-            if (MenuService.isRefugeeLogged())
-            {
-                refugeeLogged = true;
-            }
-            else
-            {
-                Console.WriteLine("host set to true");
-                hostLogged = true;
-            }
-        }
-        else
-        {
-            refugeeLogged = false;
-            hostLogged = false;
-            Console.WriteLine("shit happens");
-        }
-
+        MenuService.OnChange += StateHasChanged;
         Console.WriteLine("OnInitialized");
     }
 
     public void Dispose()
     {
-        MenuService.OnChanged -= StateHasChanged;
+        MenuService.OnChange -= StateHasChanged;
     }
     
 

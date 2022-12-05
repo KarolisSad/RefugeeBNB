@@ -17,7 +17,7 @@ builder.Services.AddScoped<HostInterface, HostImpl>();
 builder.Services.AddScoped<RefugeeInterface, RefugeeImpl>();
 builder.Services.AddScoped<HousingInterface, HousingImpl>();
 builder.Services.AddScoped<AgreementInterface, AgreementImpl>();
-builder.Services.AddScoped<IMenuService, MenuService>();
+builder.Services.AddSingleton<MenuService>();
 
 //RADZEN stuff
 builder.Services.AddScoped<DialogService>();
