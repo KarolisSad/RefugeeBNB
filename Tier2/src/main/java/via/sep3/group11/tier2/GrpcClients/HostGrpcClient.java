@@ -27,7 +27,7 @@ public class HostGrpcClient implements HostCommunicationInterface {
         try {
             GHost request = GrpcConverter.hostToGrpc(host);
             GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).createHost(request);
-            if (response.getEmail().isEmpty())
+            if (response == null)
             {
                 return null;
             }
@@ -46,7 +46,7 @@ public class HostGrpcClient implements HostCommunicationInterface {
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHostByEmail(request);
-            if (response.getEmail().isEmpty()) {
+            if (response == null) {
                 return Optional.empty();
             }
             return Optional.of(GrpcConverter.hostFromGrpc(response));

@@ -110,7 +110,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     public List<Agreement> getAllAgreementsByHousingId(Long housingId) throws ValidationException{
         try {
             GId request = GId.newBuilder().setId(housingId).build();
-            getAllPendingAgreementsResponse response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAllAgreementByHousingId(request);
+                getAllPendingAgreementsResponse response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAllAgreementByHousingId(request);
             List<Agreement> agreements = new ArrayList<>();
             for (int i = 0; i < response.getAgreementsCount(); i++)
             {

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface HousingCommunicationInterface {
     Housing addHousing(Housing housing, String email) throws ValidationException;
-    List<Housing> getAvailableHousing();
+    List<Housing> getAvailableHousing() throws ValidationException;
     void removeHousing(long housingId);
     Optional<Housing> getHousingById(long housingId) throws ValidationException;
     Housing updateHousing (Housing housing) throws ValidationException;

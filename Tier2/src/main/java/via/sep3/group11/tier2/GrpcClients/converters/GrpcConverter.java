@@ -88,7 +88,8 @@ public class GrpcConverter {
     public static GAddress addressToGrpc(Address address)
     {
         return GAddress.newBuilder().setCountry(address.getCountry())
-                .setCity(address.getCity()).setStreetName(address.getStreetName())
+                .setCity(address.getCity())
+                .setStreetName(address.getStreetName())
                 .setHouseNumber(address.getHouseNumber()).setRoomNumber(address.getRoomNumber())
                 .setPostCode(address.getPostCode()).setId(address.getAddressId()).build();
     }
@@ -143,7 +144,8 @@ public class GrpcConverter {
                 HostDetailsfromGrpc(agreement.getHostDetails()),
                 housingFromGrpc(agreement.getHousing()),
                 refugeeFromGrpc(agreement.getRefugee()),
-                agreement.getStatus());
+                agreement.getStatus(),
+                DateFromGrpc(agreement.getDateOfCreation()));
     }
 
     public static GAgreement AgreementWithIdToGrpc(Agreement agreement) {

@@ -11,6 +11,7 @@ import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -36,8 +37,24 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     }
 
     @Override
-    public List<Housing> getAvailableHousing() {
-        return null;
+    public List<Housing> getAvailableHousing() throws ValidationException{
+        try {
+            Empty request = Empty.newBuilder().build();
+            ListOfAvailableHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAvailableHousing(request);
+            List<Housing> availableHousing = new ArrayList<>();
+            for (int i = 0; i < response.getHousingsCount(); i++)
+            {
+                availableHousing.add(GrpcConverter.housingFromGrpc(response.getHousings(i)));
+            }
+            return availableHousing;
+
+        }
+        catch (StatusRuntimeException e)
+        {
+            reestablishConnection();
+            return null;
+        }
+
     }
 
     @Override
