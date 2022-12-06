@@ -9,4 +9,7 @@ public interface HostInterface
     Task<HostDTO> LoginHostAsync(LoginDTO dto);
 
     Task<HostDTO> GetHostByHousingId(long housingId);
+    
+    Task<HostDTO> DeleteAccount(string email);
+
 }

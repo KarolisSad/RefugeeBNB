@@ -50,5 +50,22 @@ public class RefugeeImpl:RefugeeInterface
         
         return refugee;
     }
-    
+
+    public async Task<RefugeeDTO> DeleteAccount(string email)
+    {
+        HttpResponseMessage responseMessage = await client.DeleteAsync($"/api/refugee/delete/{email}");
+        
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        RefugeeDTO refugee = JsonSerializer.Deserialize<RefugeeDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return refugee;
+    }
 }

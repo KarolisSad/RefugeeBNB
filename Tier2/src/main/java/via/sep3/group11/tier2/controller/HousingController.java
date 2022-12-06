@@ -74,7 +74,6 @@ public class HousingController {
     @GetMapping("/housing/{email}")
     public ResponseEntity<HousingListDTO> getHousingByHostId(@PathVariable("email") String email){
         try {
-            //todo getHousingByHostId implementation
             HousingListDTO housingByHostId = housingInterface.getHousingByHostId(email);
             return new ResponseEntity<>(housingByHostId, HttpStatus.OK);
         }

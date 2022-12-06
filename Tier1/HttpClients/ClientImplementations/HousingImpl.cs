@@ -72,7 +72,7 @@ public class HousingImpl:HousingInterface
 
     public async Task<HousingListDTO> GetHousingByHostId(string ownerEmail)
     {
-        HttpResponseMessage created = await client.GetAsync($"/api/housing  /{ownerEmail}");
+        HttpResponseMessage created = await client.GetAsync($"/api/housing/{ownerEmail}");
         string result = await created.Content.ReadAsStringAsync();
         
         if (!created.IsSuccessStatusCode)
