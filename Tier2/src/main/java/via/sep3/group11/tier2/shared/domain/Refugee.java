@@ -20,9 +20,11 @@ public class Refugee {
     private String middleName;
     private String lastName;
     private Date dateOfBirth;
+    private int familySize;
+    private String description;
 
     public Refugee(String email, String password, char gender, String nationality,
-                   String firstName, String middleName, String lastName, Date dateOfBirth) {
+                   String firstName, String middleName, String lastName, Date dateOfBirth, int familySize, String description) {
         this.email = email;
         this.password = password;
         this.gender = gender;
@@ -31,6 +33,8 @@ public class Refugee {
         this.middleName = middleName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.familySize = familySize;
+        this.description = description;
     }
 
     public String getEmail() {
@@ -63,6 +67,14 @@ public class Refugee {
 
     public Date getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public int getFamilySize() {
+        return familySize;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     //                          GRAVE OF GREAT CODE :(
