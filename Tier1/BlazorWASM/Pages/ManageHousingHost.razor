@@ -1,0 +1,118 @@
+﻿@page "/DisplayHousing"
+@using System.Collections.ObjectModel
+@using global::Shared.Domain
+@using global::Shared.DTOs
+@using HttpClients.ClientInterfaces
+@using LogicForPages
+@using UIComponents
+@inject HousingInterface HousingInterface
+@inject AgreementInterface AgreementInterface
+@inject HostInterface HostInterface;
+@inject MenuService MenuService;
+
+
+
+<h3>ManageHousingHost</h3>
+
+
+
+
+    @foreach (Housing housing in allHousing)
+{
+    <div class="card" style="width: 700px">
+        <div class="col-lg-12 product-title">
+            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">House</RadzenText>
+        </div>
+        <div >
+            <div class="row d-flex">
+                <div class="col-lg-2 col-lg-">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.Country)</RadzenText>
+                </div>
+                <div class="col-lg-2 ">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.City)</RadzenText>
+                </div>
+                <div class="col-lg-2 ">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.StreetName)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.HouseNumber)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address?.RoomNumber)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.PostCode)</RadzenText>
+                </div>
+            </div>
+            <div>
+                <button class="applyBtn" @onclick="args => DeleteAsync(housing)">Delete</button>
+            </div>
+        </div>
+    </div>
+}
+
+<label style="color: @color">@resultMsg</label>
+
+<label style="color: @color">@resultMsg</label>
+
+@code {
+    private List<Housing> allHousing = new List<Housing>();
+    private string resultMsg = "";
+    private string color = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+        HousingListDTO dto = await HousingInterface.GetHousingByHostId(MenuService.HostLogged);
+        Console.WriteLine(dto.HousingList.Count);
+        if (dto.ErrorMessage.Equals(""))
+        {
+            allHousing = dto.HousingList;
+            resultMsg = "";
+        }
+        else
+        {
+            resultMsg = dto.ErrorMessage;
+            color = "red";
+            if (dto.HousingList.Count == 0)
+            {
+                resultMsg = "There is no available housing.";
+                color = "red";
+            }
+        }
+        
+        
+    /*
+        allHousing = new Collection<Housing>()
+        {
+            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069")),
+            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069")),
+            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"))
+        };
+        */
+    }
+    
+    private async void DeleteAsync(Housing housing)
+    {
+        HousingDTO deletedHousing = await HousingInterface.RemoveHousing(new HousingIdDTO(housing.HousingId, MenuService.HostLogged, ""));
+
+        if (deletedHousing.ErrorMessage.Equals(""))
+        {
+            resultMsg = "Chosen Accommodation got deleted";
+            color = "green";
+        }
+        else
+        {
+            resultMsg = deletedHousing.ErrorMessage;
+            color = "red";
+        }
+
+    }
+
+}

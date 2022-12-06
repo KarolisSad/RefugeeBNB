@@ -63,8 +63,13 @@
             {
                 Console.WriteLine("Host has logged in: " + email + ", " + password);
                 navMgr.NavigateTo("/");
+                
+                //changing Singeton values
                 MenuService.Host = true;
                 MenuService.Refugee = false;
+                MenuService.HostLogged = email;
+                MenuService.RefugeeLogged = "";
+                    
                 color = "green";
                 resultMsg = "You have logged in";
             }
@@ -83,10 +88,16 @@
             {
                 Console.WriteLine("Refugee has logged in: " + email);
                 navMgr.NavigateTo("/");
+                
+                //changing singleton values
                 MenuService.Host = false;
                 MenuService.Refugee = true;
+                MenuService.HostLogged = "";
+                MenuService.RefugeeLogged = email;
+                
+                
                 color = "green";
-                resultMsg = "you have logged in";
+                resultMsg = "You have logged in";
             }
             else
             {

@@ -69,4 +69,22 @@ public class HousingImpl:HousingInterface
 
         return housingDeleted;
     }
+
+    public async Task<HousingListDTO> GetHousingByHostId(string ownerEmail)
+    {
+        HttpResponseMessage created = await client.GetAsync($"/api/housing  /{ownerEmail}");
+        string result = await created.Content.ReadAsStringAsync();
+        
+        if (!created.IsSuccessStatusCode)
+        {
+            throw new Exception(result);
+        }
+        
+        HousingListDTO housings = JsonSerializer.Deserialize<HousingListDTO>(result, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+
+        return housings;
+    }
 }

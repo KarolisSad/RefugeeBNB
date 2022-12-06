@@ -1,8 +1,11 @@
-﻿namespace LogicForPages;
+﻿using Shared.Domain;
+
+namespace LogicForPages;
 
 public class MenuService
 {
     private bool _refugee;
+    private string _refugeeLogged;
     public bool Refugee
     {
         get
@@ -15,10 +18,22 @@ public class MenuService
             NotifyDataChanged();
         }
     }
-    
-    
-    
+
+    public string RefugeeLogged
+    {
+        get
+        {
+            return _refugeeLogged;
+        }
+        set
+        {
+            _refugeeLogged = value;
+        }
+    }
+
+
     private bool _host;
+    private string _hostLogged;
     public bool Host
     {
         get
@@ -29,6 +44,18 @@ public class MenuService
         {
             _host = value;
             NotifyDataChanged();
+        }
+    }
+
+    public string HostLogged
+    {
+        get
+        {
+            return _hostLogged;
+        }
+        set
+        {
+            _hostLogged = value;
         }
     }
 
