@@ -72,5 +72,17 @@ public class Agreement {
     public void setAccepted(boolean accepted) {
         isAccepted = accepted;
     }
+
+    @Override
+    public String toString() {
+        return "Agreement{" +
+                "agreementId=" + agreementId +
+                ", host=" + host +
+                ", housing=" + housing +
+                ", refugee=" + refugee +
+                ", isAccepted=" + isAccepted +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
 }
 

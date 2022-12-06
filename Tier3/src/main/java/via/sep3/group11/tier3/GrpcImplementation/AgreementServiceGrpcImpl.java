@@ -41,7 +41,7 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
             responseObserver.onCompleted();
         }
         else {
-            GAgreement agreement = AgreementToGrpc(dataResponse.get());
+            GAgreement agreement = AgreementWithIdToGrpc(dataResponse.get());
             responseObserver.onNext(agreement);
             responseObserver.onCompleted();
         }
@@ -71,7 +71,11 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
     @Override
     public void updateAgreement(GAgreement request, StreamObserver<GAgreement> responseObserver)
     {
+        System.out.println("Request dates: REFUGEE" + request.getRefugee().getDateOfBirth());
+        System.out.println("Request dates: HOST" + request.getHostDetails().getDateOfBirth());
+        System.out.println("Request dates: Agreement" + request.getDateOfCreation());
         Agreement dataResponse = agreementDao.updateAgreement(AgreementWithIdFromGrpc(request));
+        System.out.println("DataResponse: " + dataResponse);
         if (dataResponse == null)
         {
             responseObserver.onNext(GAgreement.newBuilder().build());

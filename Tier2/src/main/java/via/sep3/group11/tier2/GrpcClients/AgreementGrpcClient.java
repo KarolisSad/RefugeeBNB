@@ -40,7 +40,8 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     @Override
     public Agreement updateAgreement(Agreement agreement) {
         try {
-            GAgreement request = GAgreement.newBuilder().build();
+            System.out.println("AgreementGrpcClient agreement: " + agreement);
+            GAgreement request = GrpcConverter.AgreementWithIdToGrpc(agreement);
             GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).updateAgreement(request);
             if (response.equals(agreement))
             {
@@ -59,8 +60,11 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     @Override
     public Optional<Agreement> getAgreementById(long agreementId) {
         try{
+            System.out.println("AgreeGrpcClient ID: " + agreementId);
             GId request = GId.newBuilder().setId(agreementId).build();
+            System.out.println("GID Request Id: " + request.getId());
             GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAgreementById(request);
+            System.out.println("AgreeGrpc return Id: " + response.getId());
             if (response == null){
                 return Optional.empty();
             }

@@ -56,6 +56,9 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
      */
     @Override
     public Agreement updateAgreement(Agreement agreement) {
+
+        System.out.println("Trying to update: " + agreement);
+
         if (agreementRepository.findById(agreement.getAgreementId()).isPresent()) {
 
             return agreementRepository.save(agreement);

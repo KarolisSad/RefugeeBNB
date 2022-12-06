@@ -62,12 +62,17 @@ public class AgreementLogic implements AgreementInterface {
     public AgreementDTO respondToAgreement(RespondAgreementDTO dto) {
         Agreement dummyAgreement = dummyAgreement();
 
+        System.out.println("RespondToAgreement in logic DTO ID: " + dto.getAgreementID());
+
         // Agreement check
         Optional<Agreement> agreement = agreementDAO.getAgreementById(dto.getAgreementID());
         if (agreement.isEmpty())
         {
+            System.out.println("agreement is empty");
             return new AgreementDTO(dummyAgreement,"This agreement no longer exists");
         }
+
+        System.out.println("RespondToAgreement in logic ID : " + agreement.get().getAgreementId());
 
         if (dto.isAccepted())
         {

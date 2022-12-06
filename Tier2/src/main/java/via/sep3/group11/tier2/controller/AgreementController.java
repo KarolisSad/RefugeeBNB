@@ -56,11 +56,13 @@ public class AgreementController {
 
     }
 
-    @PostMapping(value ="/agreements/respond/",produces ={MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value ="/agreements/respond",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<AgreementDTO> respondToAgreement(@RequestBody RespondAgreementDTO dto){
         try{
             //todo fix
+            System.out.println("DTO ID: " + dto.getAgreementID());
             AgreementDTO respond = agreementInterface.respondToAgreement(dto);
+            System.out.println("Respond ID: " + respond.getAgreement().getAgreementId());
             return new ResponseEntity<>(respond,HttpStatus.CREATED);
         }
         catch (Exception e){
@@ -71,9 +73,7 @@ public class AgreementController {
     @PostMapping(value ="/agreements/host",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<Agreement>> getAllRequestByHost(@RequestBody AgreementsByHostDTO dto){
         try{
-            System.out.println("TEST");
             List<Agreement> requests = agreementInterface.getAllRequestsByHost(dto);
-            System.out.println("TEST " + requests.size());
 
             return new ResponseEntity<>(requests, HttpStatus.OK);
         } catch(Exception e){

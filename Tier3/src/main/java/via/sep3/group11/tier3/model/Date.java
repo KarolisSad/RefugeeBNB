@@ -50,10 +50,21 @@ import java.time.LocalDate;
         }
 
     public static LocalDate convertDateObjectToLocalDate(Date date) {
+        System.out.println("Trying to convert: " + date);
+        System.out.println("LocalDate: " + LocalDate.of(date.getYear(), date.getMonth(), date.getDay()));
         return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }
 
     public static Date convertLocalDateToDateObject(LocalDate date) {
             return new Date(date.getDayOfMonth(), date.getMonthValue(), date.getYear());
     }
- }
+
+    @Override
+    public String toString() {
+        return "Date{" +
+                "day=" + day +
+                ", month=" + month +
+                ", year=" + year +
+                '}';
+    }
+}
