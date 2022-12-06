@@ -44,19 +44,19 @@ public interface GAgreementOrBuilder extends
   via.sep3.group11.tier3.protobuf.GHostDetailsOrBuilder getHostDetailsOrBuilder();
 
   /**
-   * <code>.GHousing housing = 4;</code>
+   * <code>.GHousingWithStatus housing = 4;</code>
    * @return Whether the housing field is set.
    */
   boolean hasHousing();
   /**
-   * <code>.GHousing housing = 4;</code>
+   * <code>.GHousingWithStatus housing = 4;</code>
    * @return The housing.
    */
-  via.sep3.group11.tier3.protobuf.GHousing getHousing();
+  via.sep3.group11.tier3.protobuf.GHousingWithStatus getHousing();
   /**
-   * <code>.GHousing housing = 4;</code>
+   * <code>.GHousingWithStatus housing = 4;</code>
    */
-  via.sep3.group11.tier3.protobuf.GHousingOrBuilder getHousingOrBuilder();
+  via.sep3.group11.tier3.protobuf.GHousingWithStatusOrBuilder getHousingOrBuilder();
 
   /**
    * <code>.GRefugee refugee = 5;</code>

@@ -36,15 +36,27 @@ public class Housing {
 
     public Housing() {}
 
+    //todo maybe delete??
+    /*
     public Housing(int capacity, Address address) {
         this.capacity = capacity;
         this.address = address;
         available = true;
     }
 
+     */
+
     public Housing(long housingId, int capacity, Address address) {
         this.housingId = housingId;
         this.capacity = capacity;
+        this.address = address;
+        available = true;
+    }
+
+    public Housing(long housingId, int capacity, boolean available, Address address) {
+        this.housingId = housingId;
+        this.capacity = capacity;
+        this.available = available;
         this.address = address;
     }
 
@@ -58,6 +70,14 @@ public class Housing {
 
     public Address getAddress() {
         return address;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 
     @Override

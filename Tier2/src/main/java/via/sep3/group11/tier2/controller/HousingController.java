@@ -58,7 +58,6 @@ public class HousingController {
     public ResponseEntity<HousingListDTO> getAvailableHousing() {
         try {
             HousingListDTO availableHousing = housingInterface.getAvailableHousing();
-            System.out.println(availableHousing.getHousingList().get(0));
             return new ResponseEntity<>(availableHousing, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

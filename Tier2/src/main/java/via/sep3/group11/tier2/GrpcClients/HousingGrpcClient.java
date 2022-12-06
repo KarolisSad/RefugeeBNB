@@ -24,7 +24,7 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     public Housing addHousing(Housing housing, String email) {
         try {
             GAddHousingRequest request = GrpcConverter.addHousingRequest(housing, email);
-            GHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).addHousing(request);
+            GHousingWithStatus response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).addHousing(request);
             return GrpcConverter.housingFromGrpc(response);
         }
         catch (StatusRuntimeException e)
@@ -44,7 +44,6 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
             {
                 availableHousing.add(GrpcConverter.housingFromGrpc(response.getHousings(i)));
             }
-            System.out.println("----------- ERROR -------- "+availableHousing.size());
             return availableHousing;
 
         }
@@ -70,12 +69,9 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     @Override
     public Optional<Housing> getHousingById(long housingId) {
         try {
-            System.out.println("param test: "+ housingId);
             GId request = GId.newBuilder().setId(housingId).build();
-            System.out.println("ID TEST: " + request.getId());
-            GHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHousingById(request);
+            GHousingWithStatus response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHousingById(request);
 
-            System.out.println("Housing ID RETURN: " + response.getId());
             /*
             if (response == null)
             {
@@ -96,8 +92,8 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     @Override
     public Housing updateHousing(Housing housing) {
         try {
-            GHousing request = GHousing.newBuilder().build();
-            GHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).updateHousing(request);
+            GHousingWithStatus request = GrpcConverter.housingToGrpcWithStatus(housing);
+            GHousingWithStatus response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).updateHousing(request);
             if (response.equals(housing))
             {
                 return housing;

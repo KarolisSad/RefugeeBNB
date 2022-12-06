@@ -52,11 +52,11 @@ private static final long serialVersionUID = 0L;
             break;
           case 10: {
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              housings_ = new java.util.ArrayList<via.sep3.group11.tier2.protobuf.GHousing>();
+              housings_ = new java.util.ArrayList<via.sep3.group11.tier2.protobuf.GHousingWithStatus>();
               mutable_bitField0_ |= 0x00000001;
             }
             housings_.add(
-                input.readMessage(via.sep3.group11.tier2.protobuf.GHousing.parser(), extensionRegistry));
+                input.readMessage(via.sep3.group11.tier2.protobuf.GHousingWithStatus.parser(), extensionRegistry));
             break;
           }
           default: {
@@ -97,41 +97,41 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int HOUSINGS_FIELD_NUMBER = 1;
-  private java.util.List<via.sep3.group11.tier2.protobuf.GHousing> housings_;
+  private java.util.List<via.sep3.group11.tier2.protobuf.GHousingWithStatus> housings_;
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
   @java.lang.Override
-  public java.util.List<via.sep3.group11.tier2.protobuf.GHousing> getHousingsList() {
+  public java.util.List<via.sep3.group11.tier2.protobuf.GHousingWithStatus> getHousingsList() {
     return housings_;
   }
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
   @java.lang.Override
-  public java.util.List<? extends via.sep3.group11.tier2.protobuf.GHousingOrBuilder> 
+  public java.util.List<? extends via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder> 
       getHousingsOrBuilderList() {
     return housings_;
   }
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
   @java.lang.Override
   public int getHousingsCount() {
     return housings_.size();
   }
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
   @java.lang.Override
-  public via.sep3.group11.tier2.protobuf.GHousing getHousings(int index) {
+  public via.sep3.group11.tier2.protobuf.GHousingWithStatus getHousings(int index) {
     return housings_.get(index);
   }
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
   @java.lang.Override
-  public via.sep3.group11.tier2.protobuf.GHousingOrBuilder getHousingsOrBuilder(
+  public via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder getHousingsOrBuilder(
       int index) {
     return housings_.get(index);
   }
@@ -478,22 +478,22 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
-    private java.util.List<via.sep3.group11.tier2.protobuf.GHousing> housings_ =
+    private java.util.List<via.sep3.group11.tier2.protobuf.GHousingWithStatus> housings_ =
       java.util.Collections.emptyList();
     private void ensureHousingsIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
-        housings_ = new java.util.ArrayList<via.sep3.group11.tier2.protobuf.GHousing>(housings_);
+        housings_ = new java.util.ArrayList<via.sep3.group11.tier2.protobuf.GHousingWithStatus>(housings_);
         bitField0_ |= 0x00000001;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        via.sep3.group11.tier2.protobuf.GHousing, via.sep3.group11.tier2.protobuf.GHousing.Builder, via.sep3.group11.tier2.protobuf.GHousingOrBuilder> housingsBuilder_;
+        via.sep3.group11.tier2.protobuf.GHousingWithStatus, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder, via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder> housingsBuilder_;
 
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
-    public java.util.List<via.sep3.group11.tier2.protobuf.GHousing> getHousingsList() {
+    public java.util.List<via.sep3.group11.tier2.protobuf.GHousingWithStatus> getHousingsList() {
       if (housingsBuilder_ == null) {
         return java.util.Collections.unmodifiableList(housings_);
       } else {
@@ -501,7 +501,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
     public int getHousingsCount() {
       if (housingsBuilder_ == null) {
@@ -511,9 +511,9 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
-    public via.sep3.group11.tier2.protobuf.GHousing getHousings(int index) {
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatus getHousings(int index) {
       if (housingsBuilder_ == null) {
         return housings_.get(index);
       } else {
@@ -521,10 +521,10 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
     public Builder setHousings(
-        int index, via.sep3.group11.tier2.protobuf.GHousing value) {
+        int index, via.sep3.group11.tier2.protobuf.GHousingWithStatus value) {
       if (housingsBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -538,10 +538,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
     public Builder setHousings(
-        int index, via.sep3.group11.tier2.protobuf.GHousing.Builder builderForValue) {
+        int index, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder builderForValue) {
       if (housingsBuilder_ == null) {
         ensureHousingsIsMutable();
         housings_.set(index, builderForValue.build());
@@ -552,9 +552,9 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
-    public Builder addHousings(via.sep3.group11.tier2.protobuf.GHousing value) {
+    public Builder addHousings(via.sep3.group11.tier2.protobuf.GHousingWithStatus value) {
       if (housingsBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -568,10 +568,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
     public Builder addHousings(
-        int index, via.sep3.group11.tier2.protobuf.GHousing value) {
+        int index, via.sep3.group11.tier2.protobuf.GHousingWithStatus value) {
       if (housingsBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -585,10 +585,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
     public Builder addHousings(
-        via.sep3.group11.tier2.protobuf.GHousing.Builder builderForValue) {
+        via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder builderForValue) {
       if (housingsBuilder_ == null) {
         ensureHousingsIsMutable();
         housings_.add(builderForValue.build());
@@ -599,10 +599,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
     public Builder addHousings(
-        int index, via.sep3.group11.tier2.protobuf.GHousing.Builder builderForValue) {
+        int index, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder builderForValue) {
       if (housingsBuilder_ == null) {
         ensureHousingsIsMutable();
         housings_.add(index, builderForValue.build());
@@ -613,10 +613,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
     public Builder addAllHousings(
-        java.lang.Iterable<? extends via.sep3.group11.tier2.protobuf.GHousing> values) {
+        java.lang.Iterable<? extends via.sep3.group11.tier2.protobuf.GHousingWithStatus> values) {
       if (housingsBuilder_ == null) {
         ensureHousingsIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -628,7 +628,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
     public Builder clearHousings() {
       if (housingsBuilder_ == null) {
@@ -641,7 +641,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
     public Builder removeHousings(int index) {
       if (housingsBuilder_ == null) {
@@ -654,16 +654,16 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
-    public via.sep3.group11.tier2.protobuf.GHousing.Builder getHousingsBuilder(
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder getHousingsBuilder(
         int index) {
       return getHousingsFieldBuilder().getBuilder(index);
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
-    public via.sep3.group11.tier2.protobuf.GHousingOrBuilder getHousingsOrBuilder(
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder getHousingsOrBuilder(
         int index) {
       if (housingsBuilder_ == null) {
         return housings_.get(index);  } else {
@@ -671,9 +671,9 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
-    public java.util.List<? extends via.sep3.group11.tier2.protobuf.GHousingOrBuilder> 
+    public java.util.List<? extends via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder> 
          getHousingsOrBuilderList() {
       if (housingsBuilder_ != null) {
         return housingsBuilder_.getMessageOrBuilderList();
@@ -682,33 +682,33 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
-    public via.sep3.group11.tier2.protobuf.GHousing.Builder addHousingsBuilder() {
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder addHousingsBuilder() {
       return getHousingsFieldBuilder().addBuilder(
-          via.sep3.group11.tier2.protobuf.GHousing.getDefaultInstance());
+          via.sep3.group11.tier2.protobuf.GHousingWithStatus.getDefaultInstance());
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
-    public via.sep3.group11.tier2.protobuf.GHousing.Builder addHousingsBuilder(
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder addHousingsBuilder(
         int index) {
       return getHousingsFieldBuilder().addBuilder(
-          index, via.sep3.group11.tier2.protobuf.GHousing.getDefaultInstance());
+          index, via.sep3.group11.tier2.protobuf.GHousingWithStatus.getDefaultInstance());
     }
     /**
-     * <code>repeated .GHousing housings = 1;</code>
+     * <code>repeated .GHousingWithStatus housings = 1;</code>
      */
-    public java.util.List<via.sep3.group11.tier2.protobuf.GHousing.Builder> 
+    public java.util.List<via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder> 
          getHousingsBuilderList() {
       return getHousingsFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        via.sep3.group11.tier2.protobuf.GHousing, via.sep3.group11.tier2.protobuf.GHousing.Builder, via.sep3.group11.tier2.protobuf.GHousingOrBuilder> 
+        via.sep3.group11.tier2.protobuf.GHousingWithStatus, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder, via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder> 
         getHousingsFieldBuilder() {
       if (housingsBuilder_ == null) {
         housingsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            via.sep3.group11.tier2.protobuf.GHousing, via.sep3.group11.tier2.protobuf.GHousing.Builder, via.sep3.group11.tier2.protobuf.GHousingOrBuilder>(
+            via.sep3.group11.tier2.protobuf.GHousingWithStatus, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder, via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder>(
                 housings_,
                 ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),

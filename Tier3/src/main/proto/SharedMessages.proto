@@ -46,6 +46,13 @@ message GHousing{
   int64 id = 3;
 }
 
+message GHousingWithStatus{
+  int32 capacity = 1;
+  GAddress address = 2;
+  int64 id = 3;
+  bool available = 4;
+}
+
 // -- OTHERS
 message GEmail{
   string email = 1;
@@ -71,7 +78,7 @@ message GAgreement{
   int64 id = 1;
   GDateOfBirth dateOfCreation = 2;
   GHostDetails hostDetails = 3;
-  GHousing housing = 4;
+  GHousingWithStatus housing = 4;
   GRefugee refugee = 5;
   bool status = 6;
 }

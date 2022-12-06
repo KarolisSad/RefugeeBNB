@@ -53,6 +53,7 @@ public class HousingDAOImplementation implements HousingDaoInterface {
         addressRepository.save(a);
 
         Housing toAdd = housing;
+        System.out.println("TEST AVAILABLITIY: " + toAdd.isAvailable());
         Optional<Host> host = hostRepository.findById(email);
 
         if (host.isPresent()) {

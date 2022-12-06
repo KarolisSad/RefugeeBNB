@@ -5,11 +5,11 @@ option java_multiple_files = true;
 option java_package = "via.sep3.group11.tier3.protobuf";
 
 service Housing {
-  rpc addHousing(GAddHousingRequest) returns (GHousing);
+  rpc addHousing(GAddHousingRequest) returns (GHousingWithStatus);
   rpc getAvailableHousing(Empty) returns (ListOfAvailableHousing);
   rpc removeHousing(GId) returns (Empty);
-  rpc getHousingById(GId) returns (GHousing);
-  rpc updateHousing(GHousing) returns (GHousing);
+  rpc getHousingById(GId) returns (GHousingWithStatus);
+  rpc updateHousing(GHousingWithStatus) returns (GHousingWithStatus);
 }
 
 message GAddHousingRequest{
@@ -18,6 +18,6 @@ message GAddHousingRequest{
 }
 
 message ListOfAvailableHousing{
-  repeated GHousing housings = 1;
+  repeated GHousingWithStatus housings = 1;
 }
 

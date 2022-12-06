@@ -101,9 +101,9 @@ public class GrpcConverter {
                 address.getPostCode());
     }
 
-    public static Housing housingFromGrpc(GHousing returnedHousing) {
+    public static Housing housingFromGrpc(GHousingWithStatus returnedHousing) {
         return new Housing(returnedHousing.getId(), returnedHousing.getCapacity(),
-                addressFromGrpc(returnedHousing.getAddress()), true); //todo fix
+                addressFromGrpc(returnedHousing.getAddress()), returnedHousing.getAvailable());
     }
 
     public static GHousing housingToGrpc(Housing housing)
@@ -111,7 +111,18 @@ public class GrpcConverter {
         return  GHousing.newBuilder()
                 .setId(housing.getHousingId())
                 .setCapacity(housing.getCapacity())
-                .setAddress(addressToGrpc(housing.getAddress())).build();
+                .setAddress(addressToGrpc(housing.getAddress()))
+                .build();
+    }
+
+    public static GHousingWithStatus housingToGrpcWithStatus(Housing housing)
+    {
+        return  GHousingWithStatus.newBuilder()
+                .setId(housing.getHousingId())
+                .setCapacity(housing.getCapacity())
+                .setAddress(addressToGrpc(housing.getAddress()))
+                .setAvailable(housing.isAvailable())
+                .build();
     }
 
     public static GDateOfBirth dateToGrpc(Date date)
@@ -151,11 +162,21 @@ public class GrpcConverter {
     }
 
     public static GAgreement AgreementWithIdToGrpc(Agreement agreement) {
+
+        LocalDate date = LocalDate.now();
+
+
         return GAgreement.newBuilder()
                 .setId(agreement.getAgreementId())
                 .setHostDetails(HostDetailsToGrpc(agreement.getHost()))
-                .setHousing(housingToGrpc(agreement.getHousing()))
+                .setHousing(housingToGrpcWithStatus(agreement.getHousing()))
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
+                .setDateOfCreation(GDateOfBirth.newBuilder()
+                        .setDay(date.getDayOfMonth())
+                        .setMonth(date.getMonthValue())
+                        .setYear(date.getYear())
+                        .build()
+                )
                 .setStatus(agreement.isAccepted()).build();
     }
 
@@ -166,7 +187,7 @@ public class GrpcConverter {
         return GAgreement.newBuilder()
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
                 .setHostDetails(HostDetailsToGrpc(agreement.getHost()))
-                .setHousing(housingToGrpc(agreement.getHousing()))
+                .setHousing(housingToGrpcWithStatus(agreement.getHousing()))
                 .setDateOfCreation(
                         GDateOfBirth.newBuilder()
                                 .setDay(date.getDayOfMonth())

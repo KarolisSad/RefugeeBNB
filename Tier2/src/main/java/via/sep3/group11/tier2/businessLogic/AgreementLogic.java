@@ -62,8 +62,6 @@ public class AgreementLogic implements AgreementInterface {
     public AgreementDTO respondToAgreement(RespondAgreementDTO dto) {
         Agreement dummyAgreement = dummyAgreement();
 
-        System.out.println("RespondToAgreement in logic DTO ID: " + dto.getAgreementID());
-
         // Agreement check
         Optional<Agreement> agreement = agreementDAO.getAgreementById(dto.getAgreementID());
         if (agreement.isEmpty())
@@ -72,14 +70,15 @@ public class AgreementLogic implements AgreementInterface {
             return new AgreementDTO(dummyAgreement,"This agreement no longer exists");
         }
 
-        System.out.println("RespondToAgreement in logic ID : " + agreement.get().getAgreementId());
 
         if (dto.isAccepted())
         {
             //Update housing
             Optional<Housing> updatedHousing = housingDAO.getHousingById(agreement.get().getHousing().getHousingId());
             updatedHousing.get().setAvailable(false);
-            housingDAO.updateHousing(updatedHousing.get());
+            System.out.println("Should be false - before sending: " + updatedHousing.get().isAvailable());
+            Housing test = housingDAO.updateHousing(updatedHousing.get());
+            System.out.println("Should be false - after sending: " + test.isAvailable());
 
             // todo delete all requests for this housing
 

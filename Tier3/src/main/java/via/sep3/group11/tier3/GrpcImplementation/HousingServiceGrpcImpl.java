@@ -21,11 +21,12 @@ public class HousingServiceGrpcImpl extends HousingGrpc.HousingImplBase {
     HousingDaoInterface housingDaoInterface;
 
     @Override
-    public void addHousing(GAddHousingRequest request, StreamObserver<GHousing> responseObserver)
+    public void addHousing(GAddHousingRequest request, StreamObserver<GHousingWithStatus> responseObserver)
     {
         Housing housingRequest = GrpcConverter.housingFromGrpc(request.getHousing());
+        System.out.println(request.getHousing());
         Housing toSend = housingDaoInterface.addHousing(housingRequest,request.getEmail());
-        GHousing response = GrpcConverter.housingToGrpc(toSend);
+        GHousingWithStatus response = GrpcConverter.housingToGrpc(toSend);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
@@ -51,16 +52,16 @@ public class HousingServiceGrpcImpl extends HousingGrpc.HousingImplBase {
     }
 
     @Override
-    public void updateHousing(GHousing request, StreamObserver<GHousing> responseObserver)
+    public void updateHousing(GHousingWithStatus request, StreamObserver<GHousingWithStatus> responseObserver)
     {
-        Housing dataResponse = housingDaoInterface.updateHousing(housingFromGrpc(request));
+        Housing dataResponse = housingDaoInterface.updateHousing(housingFromGrpcWithStatus(request));
         if (dataResponse == null)
         {
-            responseObserver.onNext(GHousing.newBuilder().build());
+            responseObserver.onNext(GHousingWithStatus.newBuilder().build());
             responseObserver.onCompleted();
         }
         else {
-            GHousing housing = housingToGrpc(dataResponse);
+            GHousingWithStatus housing = housingToGrpc(dataResponse);
             responseObserver.onNext(housing);
             responseObserver.onCompleted();
         }
@@ -73,18 +74,18 @@ public class HousingServiceGrpcImpl extends HousingGrpc.HousingImplBase {
     }
 
     @Override
-    public void getHousingById(GId request, StreamObserver<GHousing> responseObserver)
+    public void getHousingById(GId request, StreamObserver<GHousingWithStatus> responseObserver)
     {
         Optional<Housing> dataResponse = housingDaoInterface.getHousingById(request.getId());
 
         System.out.println("Housing id: " + dataResponse.get().getHousingId());
         if (dataResponse.isEmpty())
         {
-            responseObserver.onNext(GHousing.newBuilder().build());
+            responseObserver.onNext(GHousingWithStatus.newBuilder().build());
             responseObserver.onCompleted();
         }
         else {
-            GHousing housing = housingToGrpc(dataResponse.get());
+            GHousingWithStatus housing = housingToGrpc(dataResponse.get());
             System.out.println("HousingID After convert: " + housing.getId());
             responseObserver.onNext(housing);
             responseObserver.onCompleted();
