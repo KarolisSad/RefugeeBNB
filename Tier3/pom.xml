@@ -77,6 +77,12 @@
             <version>3.21.7</version>
         </dependency>
 
+<!--        for testing database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
