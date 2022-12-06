@@ -1,0 +1,71 @@
+@page "/Agreements"
+@using global::Shared.Domain
+@using System.Collections.ObjectModel
+@using Microsoft.AspNetCore.Components
+
+<h3>Agreements</h3>
+@foreach (Agreement agreement in allAgreements)
+{
+    <div class="card" style="width: 700px">
+        <div class="col-lg-12 product-title">
+            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">Agreement</RadzenText>
+        </div>
+        <div >
+            <div class="row d-flex">
+                <div class="col-lg-2 col-lg-">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Date</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Date)</RadzenText>
+                </div>
+                <div class="col-lg-2 ">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">First name</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Refugee.FirstName)</RadzenText>
+                </div>
+                <div class="col-lg-2 ">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Last name</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Refugee.LastName)</RadzenText>
+                </div>
+                <div class="col-lg-2 ">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Nationality</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Refugee.Nationality)</RadzenText>
+                </div>
+                <div class="col-lg-2 ">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Housing ID</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Housing.HousingId)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Host.FirstName)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Host.LastName)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Host.Nationality)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Accepted)</RadzenText>
+                </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.AgreementId)</RadzenText>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private Collection<Agreement> allAgreements;
+
+    protected override async void OnInitialized()
+    {
+        allAgreements = new Collection<Agreement>()
+        {
+            new Agreement()
+        };
+    }
+
+}
