@@ -83,7 +83,7 @@
         }
         else if (personType.Contains("refugee"))
         {
-            RefugeeDTO refugee = await RefugeeInterface.LoginRefugee(new LoginDTO(email, password));
+            RefugeeDTO refugee = await RefugeeInterface.LoginRefugeeAsync(new LoginDTO(email, password));
             if (refugee.ErrorMessage.Equals(""))
             {
                 Console.WriteLine("Refugee has logged in: " + email);

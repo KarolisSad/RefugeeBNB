@@ -14,7 +14,7 @@
 <div class="card">
     <div class="form-group field">
 
-        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@Create>
+        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@CreateAsync>
             <p>
                 <RadzenLabel Component="Email" Text="Email"/>
                 <RadzenTextBox Name="Email" @bind-Value=@email />
@@ -65,7 +65,7 @@
                 <input type="date" id="dateOfBirth" name="dateofBirth" @bind="date">
             </p>
 
-            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@Create"/>
+            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@CreateAsync"/>
 
         </RadzenTemplateForm>
 
@@ -99,7 +99,7 @@
 
     private string color = "";
 
-    private async Task Create()
+    private async Task CreateAsync()
     {
         resultMsg = "";
         Date dateOfBirth = new Date(date.Day, date.Month, date.Year);
@@ -123,7 +123,7 @@
             }
         else if (personType.Contains("refugee"))
         {
-            RefugeeDTO refugee = await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
+            RefugeeDTO refugee = await refugeeClient.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
                 if (refugee.ErrorMessage.Equals(""))
                 {
                     Clear();

@@ -1,4 +1,4 @@
-﻿@page "/DisplayHousing"
+﻿@page "/ManageHousingHost"
 @using System.Collections.ObjectModel
 @using global::Shared.Domain
 @using global::Shared.DTOs
@@ -15,7 +15,7 @@
 
 
 
-    @foreach (Housing housing in allHousing)
+    @foreach (Housing housing in myHousing)
 {
     <div class="card" style="width: 700px">
         <div class="col-lg-12 product-title">
@@ -60,18 +60,18 @@
 <label style="color: @color">@resultMsg</label>
 
 @code {
-    private List<Housing> allHousing = new List<Housing>();
+    private List<Housing> myHousing = new List<Housing>();
     private string resultMsg = "";
     private string color = "";
 
     protected override async Task OnInitializedAsync()
     {
-        
-        HousingListDTO dto = await HousingInterface.GetHousingByHostId(MenuService.HostLogged);
+        /*
+        HousingListDTO dto = await HousingInterface.GetHousingByHostIdAsync(MenuService.HostLogged);
         Console.WriteLine(dto.HousingList.Count);
         if (dto.ErrorMessage.Equals(""))
         {
-            allHousing = dto.HousingList;
+            myHousing = dto.HousingList;
             resultMsg = "";
         }
         else
@@ -84,21 +84,22 @@
                 color = "red";
             }
         }
-        
-        
-    /*
-        allHousing = new Collection<Housing>()
-        {
-            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069")),
-            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069")),
-            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"))
-        };
         */
+        
+        
+    
+        myHousing = new List<Housing>()
+        {
+            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"), true),
+            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"), true),
+            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"), true)
+        };
+        
     }
     
     private async void DeleteAsync(Housing housing)
     {
-        HousingDTO deletedHousing = await HousingInterface.RemoveHousing(new HousingIdDTO(housing.HousingId, MenuService.HostLogged, ""));
+        HousingDTO deletedHousing = await HousingInterface.RemoveHousingAsync(new HousingIdDTO(housing.HousingId, MenuService.HostLogged, ""));
 
         if (deletedHousing.ErrorMessage.Equals(""))
         {

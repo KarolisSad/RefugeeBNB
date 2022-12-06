@@ -71,6 +71,7 @@ public class RefugeeController {
     }
 
 
+    /*
     @CrossOrigin
     @DeleteMapping("/refugee/delete/{email}")
     public ResponseEntity<RefugeeDTO> deleteAccount(@PathVariable("email") String email) {
@@ -84,4 +85,6 @@ public class RefugeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+     */
 }
