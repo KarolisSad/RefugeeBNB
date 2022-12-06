@@ -4,18 +4,15 @@ import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
-import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
 import via.sep3.group11.tier2.shared.domain.Agreement;
 import via.sep3.group11.tier2.shared.domain.Date;
-import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Refugee;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
-import java.sql.Ref;
 import java.util.Optional;
 
 /**
@@ -35,8 +32,9 @@ public class RefugeeLogic implements RefugeeInterface {
      * Constructor used to inject the DAO needed for communicating with the data-tier.
      * @param refugeeDAO: Data Access Object used access Refugee information from the Data-tier.
      */
-    public RefugeeLogic(RefugeeCommunicationInterface refugeeDAO) {
+    public RefugeeLogic(RefugeeCommunicationInterface refugeeDAO, AgreementCommunicationInterface agreementCommunicationInterface) {
         this.refugeeDAO = refugeeDAO;
+        this.agreementCommunicationInterface = agreementCommunicationInterface;
     }
 
     /**
@@ -51,7 +49,7 @@ public class RefugeeLogic implements RefugeeInterface {
     @Override
     public RefugeeDTO registerRefugee(RefugeeRegisterDTO dto) {
         try {
-            Refugee toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
+            Refugee toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth(), dto.getFamilySize(), dto.getDescription());
             // refugee check
             Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
             // if no refugee found - create
@@ -75,11 +73,10 @@ public class RefugeeLogic implements RefugeeInterface {
      * If such a refugee is found, it is verified that the password given in the DTO matches the password stored.
      * @param dto: A domain transfer object containing the email and password of the refugee trying to log in.
      * @return An object representation of the logged in refugee gotten from the Data-tier.
-     * @throws ValidationException if any of the validation specified above fails.
      */
     @Override
     public RefugeeDTO loginRefugee(LoginDTO dto) {
-        Refugee dummyRefugee = new Refugee("DummyRefugee@gmail.com","DummyRefugee",'O',"DummyRefugee","DummyRefugee","DummyRefugee","DummyRefugee",new Date(01,01,2021));
+        Refugee dummyRefugee = new Refugee("DummyRefugee@gmail.com","DummyRefugee",'O',"DummyRefugee","DummyRefugee","DummyRefugee","DummyRefugee",new Date(01,01,2021), -1, "");
 
         // refugee check
         Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(dto.getEmail());
@@ -106,7 +103,7 @@ public class RefugeeLogic implements RefugeeInterface {
         }
 
         // Check if refugee is part of any agreements. If yes, check if agreement is pending or accepted. If pending -> remove it, else unable to delete.
-        Optional<Agreement> existingAgreement = agreementCommunicationInterface.getAgreementByRefugeeEmail(email);
+        Optional<Agreement> existingAgreement = agreementCommunicationInterface.getAgreementByRefugeeEmail(email); //TODO
         if (existingAgreement.isPresent()) {
             if (existingAgreement.get().isAccepted()) {
                 return new RefugeeDTO(null, "Unable to delete, due to refugee being part of an accepted agreement");

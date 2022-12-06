@@ -120,7 +120,7 @@ public class HostLogic implements HostInterface {
 
         // If host is existing - get lists of agreements and housings.
         List<Agreement> agreementList = agreementCommunicationInterface.getAgreementsByHostId(email);
-        List<Housing> housingList = housingDAO.getHousingByHostId(email);
+        List<Housing> housingList = housingDAO.getHousingByHostId(email); //TODO
 
         // if any agreement is accepted - do not delete, instead return a dto with error message.
         for (Agreement a : agreementList) {
@@ -140,7 +140,7 @@ public class HostLogic implements HostInterface {
         }
 
         // delete host entity
-        hostDAO.deleteAccount(email);
+        hostDAO.deleteAccount(email); //TODO
 
         return new HostDTO(null, "");
     }
