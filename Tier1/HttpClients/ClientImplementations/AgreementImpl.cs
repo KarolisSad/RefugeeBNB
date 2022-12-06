@@ -1,4 +1,6 @@
-﻿using HttpClients.ClientInterfaces;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
+using HttpClients.ClientInterfaces;
 using Shared.Domain;
 using Shared.DTOs;
 
@@ -6,18 +8,64 @@ namespace HttpClients.ClientImplementations;
 
 public class AgreementImpl:AgreementInterface
 {
-    public Task<RequestAgreementDTO> RequestAgreement(RequestAgreementDTO dto)
+    private HttpClient Client;
+
+    public AgreementImpl(HttpClient client)
     {
-        throw new NotImplementedException();
+        Client = client;
     }
 
-    public Task<RespondAgreementDTO> RespondToAgreement(RespondAgreementDTO dto)
+    public async Task<RequestAgreementDTO> RequestAgreement(RequestAgreementDTO dto)
     {
-        throw new NotImplementedException();
+        HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements", dto);
+               
+               string content = await responseMessage.Content.ReadAsStringAsync();
+               if (!responseMessage.IsSuccessStatusCode)
+               {
+                   throw new Exception(content);
+               }
+       
+               RequestAgreementDTO agreement = JsonSerializer.Deserialize<RequestAgreementDTO>(content, new JsonSerializerOptions
+               {
+                   PropertyNameCaseInsensitive = true
+               })!;
+               
+               return agreement;
     }
 
-    public Task<List<Agreement>> GetAllRequestsByHostDTO(AgreementsByHostDTO dto)
+    public async Task<RespondAgreementDTO> RespondToAgreement(RespondAgreementDTO dto)
     {
-        throw new NotImplementedException();
+        HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements/respond", dto);
+               
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+       
+        RespondAgreementDTO agreement = JsonSerializer.Deserialize<RespondAgreementDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+               
+        return agreement;
+    }
+
+    public async Task<AgreementsByHostDTO> GetAllRequestsByHostDTO(AgreementsByHostDTO dto)
+    {
+        HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements/host", dto);
+               
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+       
+        AgreementsByHostDTO agreements = JsonSerializer.Deserialize<AgreementsByHostDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+               
+        return agreements;
     }
 }
