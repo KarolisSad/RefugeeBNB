@@ -101,6 +101,6 @@ public class HousingDAOImplementation implements HousingDaoInterface {
 
     @Override
     public List<Housing> getAllHousingByHostId(String email) {
-        return null;
+        return repository.findAllByHost_Email(email);
     }
 }
