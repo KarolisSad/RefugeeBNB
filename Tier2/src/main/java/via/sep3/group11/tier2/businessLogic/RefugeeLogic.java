@@ -1,12 +1,14 @@
 package via.sep3.group11.tier2.businessLogic;
 
 import org.springframework.stereotype.Service;
+import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
 import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
+import via.sep3.group11.tier2.shared.domain.Agreement;
 import via.sep3.group11.tier2.shared.domain.Date;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Refugee;
@@ -27,6 +29,7 @@ import java.util.Optional;
 public class RefugeeLogic implements RefugeeInterface {
 
     private RefugeeCommunicationInterface refugeeDAO;
+    private AgreementCommunicationInterface agreementCommunicationInterface;
 
     /**
      * Constructor used to inject the DAO needed for communicating with the data-tier.
@@ -91,6 +94,29 @@ public class RefugeeLogic implements RefugeeInterface {
             return new RefugeeDTO(refugee.get(),"");
         }
         return new RefugeeDTO(dummyRefugee,"Password is incorrect");
+    }
+
+    @Override
+    public RefugeeDTO deleteAccount(String email) {
+
+        // Check if refugee exists
+        Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(email);
+        if (existing.isEmpty()) {
+            return new RefugeeDTO(null, "No refugee with email: " + email + " found.");
+        }
+
+        // Check if refugee is part of any agreements. If yes, check if agreement is pending or accepted. If pending -> remove it, else unable to delete.
+        Optional<Agreement> existingAgreement = agreementCommunicationInterface.getAgreementByRefugeeEmail(email);
+        if (existingAgreement.isPresent()) {
+            if (existingAgreement.get().isAccepted()) {
+                return new RefugeeDTO(null, "Unable to delete, due to refugee being part of an accepted agreement");
+            }
+            else {
+                agreementCommunicationInterface.deleteAgreement(existingAgreement.get().getAgreementId());
+            }
+        }
+
+        return new RefugeeDTO(null, null);
     }
 
 }
