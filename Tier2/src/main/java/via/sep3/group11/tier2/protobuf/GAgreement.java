@@ -80,11 +80,11 @@ private static final long serialVersionUID = 0L;
             break;
           }
           case 34: {
-            via.sep3.group11.tier2.protobuf.GHousing.Builder subBuilder = null;
+            via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder subBuilder = null;
             if (housing_ != null) {
               subBuilder = housing_.toBuilder();
             }
-            housing_ = input.readMessage(via.sep3.group11.tier2.protobuf.GHousing.parser(), extensionRegistry);
+            housing_ = input.readMessage(via.sep3.group11.tier2.protobuf.GHousingWithStatus.parser(), extensionRegistry);
             if (subBuilder != null) {
               subBuilder.mergeFrom(housing_);
               housing_ = subBuilder.buildPartial();
@@ -208,9 +208,9 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int HOUSING_FIELD_NUMBER = 4;
-  private via.sep3.group11.tier2.protobuf.GHousing housing_;
+  private via.sep3.group11.tier2.protobuf.GHousingWithStatus housing_;
   /**
-   * <code>.GHousing housing = 4;</code>
+   * <code>.GHousingWithStatus housing = 4;</code>
    * @return Whether the housing field is set.
    */
   @java.lang.Override
@@ -218,18 +218,18 @@ private static final long serialVersionUID = 0L;
     return housing_ != null;
   }
   /**
-   * <code>.GHousing housing = 4;</code>
+   * <code>.GHousingWithStatus housing = 4;</code>
    * @return The housing.
    */
   @java.lang.Override
-  public via.sep3.group11.tier2.protobuf.GHousing getHousing() {
-    return housing_ == null ? via.sep3.group11.tier2.protobuf.GHousing.getDefaultInstance() : housing_;
+  public via.sep3.group11.tier2.protobuf.GHousingWithStatus getHousing() {
+    return housing_ == null ? via.sep3.group11.tier2.protobuf.GHousingWithStatus.getDefaultInstance() : housing_;
   }
   /**
-   * <code>.GHousing housing = 4;</code>
+   * <code>.GHousingWithStatus housing = 4;</code>
    */
   @java.lang.Override
-  public via.sep3.group11.tier2.protobuf.GHousingOrBuilder getHousingOrBuilder() {
+  public via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder getHousingOrBuilder() {
     return getHousing();
   }
 
@@ -980,31 +980,31 @@ private static final long serialVersionUID = 0L;
       return hostDetailsBuilder_;
     }
 
-    private via.sep3.group11.tier2.protobuf.GHousing housing_;
+    private via.sep3.group11.tier2.protobuf.GHousingWithStatus housing_;
     private com.google.protobuf.SingleFieldBuilderV3<
-        via.sep3.group11.tier2.protobuf.GHousing, via.sep3.group11.tier2.protobuf.GHousing.Builder, via.sep3.group11.tier2.protobuf.GHousingOrBuilder> housingBuilder_;
+        via.sep3.group11.tier2.protobuf.GHousingWithStatus, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder, via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder> housingBuilder_;
     /**
-     * <code>.GHousing housing = 4;</code>
+     * <code>.GHousingWithStatus housing = 4;</code>
      * @return Whether the housing field is set.
      */
     public boolean hasHousing() {
       return housingBuilder_ != null || housing_ != null;
     }
     /**
-     * <code>.GHousing housing = 4;</code>
+     * <code>.GHousingWithStatus housing = 4;</code>
      * @return The housing.
      */
-    public via.sep3.group11.tier2.protobuf.GHousing getHousing() {
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatus getHousing() {
       if (housingBuilder_ == null) {
-        return housing_ == null ? via.sep3.group11.tier2.protobuf.GHousing.getDefaultInstance() : housing_;
+        return housing_ == null ? via.sep3.group11.tier2.protobuf.GHousingWithStatus.getDefaultInstance() : housing_;
       } else {
         return housingBuilder_.getMessage();
       }
     }
     /**
-     * <code>.GHousing housing = 4;</code>
+     * <code>.GHousingWithStatus housing = 4;</code>
      */
-    public Builder setHousing(via.sep3.group11.tier2.protobuf.GHousing value) {
+    public Builder setHousing(via.sep3.group11.tier2.protobuf.GHousingWithStatus value) {
       if (housingBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
@@ -1018,10 +1018,10 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.GHousing housing = 4;</code>
+     * <code>.GHousingWithStatus housing = 4;</code>
      */
     public Builder setHousing(
-        via.sep3.group11.tier2.protobuf.GHousing.Builder builderForValue) {
+        via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder builderForValue) {
       if (housingBuilder_ == null) {
         housing_ = builderForValue.build();
         onChanged();
@@ -1032,13 +1032,13 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.GHousing housing = 4;</code>
+     * <code>.GHousingWithStatus housing = 4;</code>
      */
-    public Builder mergeHousing(via.sep3.group11.tier2.protobuf.GHousing value) {
+    public Builder mergeHousing(via.sep3.group11.tier2.protobuf.GHousingWithStatus value) {
       if (housingBuilder_ == null) {
         if (housing_ != null) {
           housing_ =
-            via.sep3.group11.tier2.protobuf.GHousing.newBuilder(housing_).mergeFrom(value).buildPartial();
+            via.sep3.group11.tier2.protobuf.GHousingWithStatus.newBuilder(housing_).mergeFrom(value).buildPartial();
         } else {
           housing_ = value;
         }
@@ -1050,7 +1050,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.GHousing housing = 4;</code>
+     * <code>.GHousingWithStatus housing = 4;</code>
      */
     public Builder clearHousing() {
       if (housingBuilder_ == null) {
@@ -1064,33 +1064,33 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>.GHousing housing = 4;</code>
+     * <code>.GHousingWithStatus housing = 4;</code>
      */
-    public via.sep3.group11.tier2.protobuf.GHousing.Builder getHousingBuilder() {
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder getHousingBuilder() {
       
       onChanged();
       return getHousingFieldBuilder().getBuilder();
     }
     /**
-     * <code>.GHousing housing = 4;</code>
+     * <code>.GHousingWithStatus housing = 4;</code>
      */
-    public via.sep3.group11.tier2.protobuf.GHousingOrBuilder getHousingOrBuilder() {
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder getHousingOrBuilder() {
       if (housingBuilder_ != null) {
         return housingBuilder_.getMessageOrBuilder();
       } else {
         return housing_ == null ?
-            via.sep3.group11.tier2.protobuf.GHousing.getDefaultInstance() : housing_;
+            via.sep3.group11.tier2.protobuf.GHousingWithStatus.getDefaultInstance() : housing_;
       }
     }
     /**
-     * <code>.GHousing housing = 4;</code>
+     * <code>.GHousingWithStatus housing = 4;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
-        via.sep3.group11.tier2.protobuf.GHousing, via.sep3.group11.tier2.protobuf.GHousing.Builder, via.sep3.group11.tier2.protobuf.GHousingOrBuilder> 
+        via.sep3.group11.tier2.protobuf.GHousingWithStatus, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder, via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder> 
         getHousingFieldBuilder() {
       if (housingBuilder_ == null) {
         housingBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-            via.sep3.group11.tier2.protobuf.GHousing, via.sep3.group11.tier2.protobuf.GHousing.Builder, via.sep3.group11.tier2.protobuf.GHousingOrBuilder>(
+            via.sep3.group11.tier2.protobuf.GHousingWithStatus, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder, via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder>(
                 getHousing(),
                 getParentForChildren(),
                 isClean());

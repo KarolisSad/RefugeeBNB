@@ -22,7 +22,7 @@ public class HostGrpcClient implements HostCommunicationInterface {
     Channel channel;
 
     @Override
-    public Host createHost(Host host) throws ValidationException {
+    public Host createHost(Host host) {
 
         try {
             GHost request = GrpcConverter.hostToGrpc(host);
@@ -41,14 +41,33 @@ public class HostGrpcClient implements HostCommunicationInterface {
     }
 
     @Override
-    public Optional<Host> getHostByEmail(String email) throws ValidationException {
+    public Optional<Host> getHostByEmail(String email) {
 
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHostByEmail(request);
+
+           /*
+            System.out.println(response == null);
+            System.out.println("Response is init: " + response.isInitialized());
+            System.out.println("Response has email: " + response.getEmail());
+            */
+
+
+
+            if (response.getEmail().isEmpty())
+            {
+                return Optional.empty();
+            }
+
+
+
+            /*
             if (response == null) {
                 return Optional.empty();
             }
+
+             */
             return Optional.of(GrpcConverter.hostFromGrpc(response));
         }
         catch (StatusRuntimeException e)
@@ -68,7 +87,7 @@ public class HostGrpcClient implements HostCommunicationInterface {
             }
             return Optional.of(GrpcConverter.hostFromGrpc(response));
         }
-        catch (StatusRuntimeException | ValidationException e)
+        catch (StatusRuntimeException e)
         {
             reestablishConnection();
             return null;

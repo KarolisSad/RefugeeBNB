@@ -1,6 +1,7 @@
 package via.sep3.group11.tier2.GrpcClients;
 
 import io.grpc.StatusRuntimeException;
+import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInterface;
 import via.sep3.group11.tier2.GrpcClients.connections.Channel;
 import via.sep3.group11.tier2.GrpcClients.converters.GrpcConverter;
@@ -14,15 +15,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+@GRpcService
 public class AgreementGrpcClient implements AgreementCommunicationInterface {
 
     @Resource
     Channel channel;
 
     @Override
-    public Agreement addAgreement(Agreement agreement) throws ValidationException {
+    public Agreement addAgreement(Agreement agreement) {
        try {
+           System.out.println("Logic housing id: " + agreement.getHousing().getHousingId());
            GAgreement request = GrpcConverter.AgreementToGrpc(agreement);
+           System.out.println("Request: " + request.getHousing().getId());
            GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).addAgreement(request);
            return GrpcConverter.AgreementWithIdFromGrpc(response);
        }
@@ -34,9 +38,10 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     }
 
     @Override
-    public Agreement updateAgreement(Agreement agreement) throws ValidationException{
+    public Agreement updateAgreement(Agreement agreement) {
         try {
-            GAgreement request = GAgreement.newBuilder().build();
+            System.out.println("AgreementGrpcClient agreement: " + agreement);
+            GAgreement request = GrpcConverter.AgreementWithIdToGrpc(agreement);
             GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).updateAgreement(request);
             if (response.equals(agreement))
             {
@@ -53,10 +58,13 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     }
 
     @Override
-    public Optional<Agreement> getAgreementById(long agreementId) throws ValidationException  {
+    public Optional<Agreement> getAgreementById(long agreementId) {
         try{
+            System.out.println("AgreeGrpcClient ID: " + agreementId);
             GId request = GId.newBuilder().setId(agreementId).build();
+            System.out.println("GID Request Id: " + request.getId());
             GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAgreementById(request);
+            System.out.println("AgreeGrpc return Id: " + response.getId());
             if (response == null){
                 return Optional.empty();
             }
@@ -70,7 +78,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     }
 
     @Override
-    public List<Agreement> getAgreementByHostId(String hostId) throws ValidationException{
+    public List<Agreement> getAgreementsByHostId(String hostId) {
         try {
             GEmail request = GEmail.newBuilder().setEmail(hostId).build();
             getAllPendingAgreementsResponse response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAgreementByHostId(request);
@@ -107,7 +115,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     }
 
     @Override
-    public List<Agreement> getAllAgreementsByHousingId(Long housingId) throws ValidationException{
+    public List<Agreement> getAllAgreementsByHousingId(long housingId) {
         try {
             GId request = GId.newBuilder().setId(housingId).build();
                 getAllPendingAgreementsResponse response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAllAgreementByHousingId(request);

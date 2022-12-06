@@ -19,14 +19,14 @@ public class AgreementLogic implements AgreementInterface {
 
     private HostCommunicationInterface hostDAO;
     private HousingCommunicationInterface housingDAO;
-    private AgreementCommunicationInterface agreementDTO;
-    private RefugeeCommunicationInterface refugeeDTO;
+    private AgreementCommunicationInterface agreementDAO;
+    private RefugeeCommunicationInterface refugeeDAO;
 
-    public AgreementLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO, AgreementCommunicationInterface agreementDTO, RefugeeCommunicationInterface refugeeDTO) {
+    public AgreementLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO, AgreementCommunicationInterface agreementDAO, RefugeeCommunicationInterface refugeeDAO) {
         this.hostDAO = hostDAO;
         this.housingDAO = housingDAO;
-        this.agreementDTO = agreementDTO;
-        this.refugeeDTO = refugeeDTO;
+        this.agreementDAO = agreementDAO;
+        this.refugeeDAO = refugeeDAO;
     }
 
     @Override
@@ -39,9 +39,9 @@ public class AgreementLogic implements AgreementInterface {
         {
             return new AgreementDTO(dummyAgreement, "Owner of this housing deactivated his account and this housing is no longer available");
         }
-
         // Housing check
         Optional<Housing> housing = housingDAO.getHousingById(dto.getHousing().getHousingId());
+
         if (housing.isEmpty())
         {
             return new AgreementDTO(dummyAgreement, "This housing is no longer listed.");
@@ -50,11 +50,11 @@ public class AgreementLogic implements AgreementInterface {
         {
             return new AgreementDTO(dummyAgreement, "This housing is already reserved.");
         }
-        Optional<Refugee> refugee = refugeeDTO.getRefugeeByEmail(dto.getRefugeeEmail());
+        Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(dto.getRefugeeEmail());
 
         // Create agreement
         Agreement agreementToCreate = new Agreement(host.get(),housing.get(),refugee.get());
-        Agreement createdAgreement = agreementDTO.addAgreement(agreementToCreate);
+        Agreement createdAgreement = agreementDAO.addAgreement(agreementToCreate);
         return new AgreementDTO(createdAgreement,"");
     }
 
@@ -63,36 +63,40 @@ public class AgreementLogic implements AgreementInterface {
         Agreement dummyAgreement = dummyAgreement();
 
         // Agreement check
-        Optional<Agreement> agreement = agreementDTO.getAgreementById(dto.getAgreementID());
+        Optional<Agreement> agreement = agreementDAO.getAgreementById(dto.getAgreementID());
         if (agreement.isEmpty())
         {
+            System.out.println("agreement is empty");
             return new AgreementDTO(dummyAgreement,"This agreement no longer exists");
         }
+
 
         if (dto.isAccepted())
         {
             //Update housing
             Optional<Housing> updatedHousing = housingDAO.getHousingById(agreement.get().getHousing().getHousingId());
             updatedHousing.get().setAvailable(false);
-            housingDAO.updateHousing(updatedHousing.get());
+            System.out.println("Should be false - before sending: " + updatedHousing.get().isAvailable());
+            Housing test = housingDAO.updateHousing(updatedHousing.get());
+            System.out.println("Should be false - after sending: " + test.isAvailable());
 
             // todo delete all requests for this housing
 
             // Update agreement
             agreement.get().setAccepted(true);
-            agreementDTO.updateAgreement(agreement.get());
+            agreementDAO.updateAgreement(agreement.get());
             return new AgreementDTO(agreement.get(),"");
         }
         else {
             // Delete agreement
-            agreementDTO.deleteAgreement(agreement.get().getAgreementId());
+            agreementDAO.deleteAgreement(agreement.get().getAgreementId());
             return new AgreementDTO(agreement.get(), "");
         }
     }
 
     @Override
     public List<Agreement> getAllRequestsByHost(AgreementsByHostDTO dto) {
-        return agreementDTO.getAllPendingAgreements(dto.getHostEmail());
+        return agreementDAO.getAgreementsByHostId(dto.getHostEmail());
     }
 
     public Agreement dummyAgreement()

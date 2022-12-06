@@ -72,5 +72,25 @@ public class Agreement {
     public void setAccepted(boolean accepted) {
         isAccepted = accepted;
     }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    @Override
+    public String toString() {
+        return "Agreement{" +
+                "agreementId=" + agreementId +
+                ", host=" + host +
+                ", housing=" + housing +
+                ", refugee=" + refugee +
+                ", isAccepted=" + isAccepted +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
 }
 

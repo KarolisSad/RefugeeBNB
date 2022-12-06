@@ -35,15 +35,16 @@ public final class HousingOuterClass {
     java.lang.String[] descriptorData = {
       "\n\rHousing.proto\032\024SharedMessages.proto\"?\n" +
       "\022GAddHousingRequest\022\032\n\007housing\030\001 \001(\0132\t.G" +
-      "Housing\022\r\n\005email\030\002 \001(\t\"5\n\026ListOfAvailabl" +
-      "eHousing\022\033\n\010housings\030\001 \003(\0132\t.GHousing2\330\001" +
-      "\n\007Housing\022,\n\naddHousing\022\023.GAddHousingReq" +
-      "uest\032\t.GHousing\0226\n\023getAvailableHousing\022\006" +
-      ".Empty\032\027.ListOfAvailableHousing\022\035\n\rremov" +
-      "eHousing\022\004.GId\032\006.Empty\022!\n\016getHousingById" +
-      "\022\004.GId\032\t.GHousing\022%\n\rupdateHousing\022\t.GHo" +
-      "using\032\t.GHousingB#\n\037via.sep3.group11.tie" +
-      "r3.protobufP\001b\006proto3"
+      "Housing\022\r\n\005email\030\002 \001(\t\"?\n\026ListOfAvailabl" +
+      "eHousing\022%\n\010housings\030\001 \003(\0132\023.GHousingWit" +
+      "hStatus2\200\002\n\007Housing\0226\n\naddHousing\022\023.GAdd" +
+      "HousingRequest\032\023.GHousingWithStatus\0226\n\023g" +
+      "etAvailableHousing\022\006.Empty\032\027.ListOfAvail" +
+      "ableHousing\022\035\n\rremoveHousing\022\004.GId\032\006.Emp" +
+      "ty\022+\n\016getHousingById\022\004.GId\032\023.GHousingWit" +
+      "hStatus\0229\n\rupdateHousing\022\023.GHousingWithS" +
+      "tatus\032\023.GHousingWithStatusB#\n\037via.sep3.g" +
+      "roup11.tier3.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

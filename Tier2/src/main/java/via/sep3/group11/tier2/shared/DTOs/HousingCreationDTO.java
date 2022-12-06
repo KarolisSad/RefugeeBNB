@@ -16,6 +16,8 @@ public class HousingCreationDTO {
     private int capacity;
     private String hostEmail;
 
+    private String errorMessage;
+
     /**
      * All-argument constructor used to create an instance of the DTO with all variables set.
      * @param country: The country in which the housing exists.
@@ -29,7 +31,7 @@ public class HousingCreationDTO {
      */
     public HousingCreationDTO(String country, String city, String streetName,
                               String houseNumber, String roomNumber, String postCode,
-                              int capacity, String hostEmail) {
+                              int capacity, String hostEmail, String errorMessage) {
         this.country = country;
         this.city = city;
         this.streetName = streetName;
@@ -38,6 +40,7 @@ public class HousingCreationDTO {
         this.postCode = postCode;
         this.capacity = capacity;
         this.hostEmail = hostEmail;
+        this.errorMessage = errorMessage;
     }
 
     /**
@@ -102,5 +105,9 @@ public class HousingCreationDTO {
      */
     public String getHostEmail() {
         return hostEmail;
+    }
+
+    public String getErrorMessage(){
+        return errorMessage;
     }
 }

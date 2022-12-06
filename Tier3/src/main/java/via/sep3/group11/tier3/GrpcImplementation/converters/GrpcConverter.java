@@ -23,6 +23,8 @@ public class GrpcConverter {
     }
 
     public static GHost HostToGrpc(Host host) {
+
+        System.out.println("DATA TIER CHECKING GENDER BEFORE CONVERT: " + host.getGender());
         return GHost.newBuilder()
                 .setFirstName(host.getFirstName())
                 .setEmail(host.getEmail())
@@ -111,14 +113,26 @@ public class GrpcConverter {
 
     public static Housing housingFromGrpc(GHousing returnedHousing) {
         return new Housing(
+                returnedHousing.getId(),
                 returnedHousing.getCapacity(),
                 AddressFromGrpc(returnedHousing.getAddress()));
     }
 
-    public static GHousing housingToGrpc(Housing housing) {
-        return GHousing.newBuilder()
+    public static Housing housingFromGrpcWithStatus(GHousingWithStatus returnedHousing) {
+        return new Housing(
+                returnedHousing.getId(),
+                returnedHousing.getCapacity(),
+                returnedHousing.getAvailable(),
+                AddressFromGrpc(returnedHousing.getAddress()));
+    }
+
+    public static GHousingWithStatus housingToGrpc(Housing housing) {
+        return GHousingWithStatus.newBuilder()
+                .setId(housing.getHousingId())
                 .setCapacity(housing.getCapacity())
-                .setAddress(AddressToGrpc(housing.getAddress())).build();
+                .setAddress(AddressToGrpc(housing.getAddress()))
+                .setAvailable(housing.isAvailable())
+                .build();
     }
 
 
@@ -142,7 +156,7 @@ public class GrpcConverter {
                 agreement.getId(),
                 DateFromGrpc(agreement.getDateOfCreation()),
                 refugeeFromGrpc(agreement.getRefugee()),
-                housingFromGrpc(agreement.getHousing()),
+                housingFromGrpcWithStatus(agreement.getHousing()),
                 HostDetailsfromGrpc(agreement.getHostDetails()),
                 agreement.getStatus());
     }
@@ -169,10 +183,12 @@ public class GrpcConverter {
     }
 
     public static Agreement AgreementFromGrpc(GAgreement agreement) {
+        System.out.println("GRPCCONVERTER: \n" + agreement.getHousing().getId());
         return new Agreement(
+
                 DateFromGrpc(agreement.getDateOfCreation()),
                 refugeeFromGrpc(agreement.getRefugee()),
-                housingFromGrpc(agreement.getHousing()),
+                housingFromGrpcWithStatus(agreement.getHousing()),
                 HostDetailsfromGrpc(agreement.getHostDetails()));
     }
 

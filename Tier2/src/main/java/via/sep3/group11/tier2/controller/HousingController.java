@@ -11,6 +11,7 @@ import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingIdDTO;
 import via.sep3.group11.tier2.shared.DTOs.HousingListDTO;
+import via.sep3.group11.tier2.shared.domain.Address;
 import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
@@ -41,7 +42,6 @@ public class HousingController {
     @CrossOrigin
     @PostMapping(value = "/housing", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<HousingDTO> addHousing(@RequestBody HousingCreationDTO housing) {
-
         try {
             HousingDTO created = housingInterface.addHousing(housing);
             return new ResponseEntity<>(created, HttpStatus.CREATED);
@@ -49,8 +49,12 @@ public class HousingController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+
+        //return new ResponseEntity<>(new HousingDTO(new Housing(1,new Address("DummyData","DummyData","DummyData","DummyData","DummyData","DummyData"),false), ""), HttpStatus.CREATED);
+
     }
 
+    @GetMapping("/housing")
     public ResponseEntity<HousingListDTO> getAvailableHousing() {
         try {
             HousingListDTO availableHousing = housingInterface.getAvailableHousing();
@@ -60,10 +64,11 @@ public class HousingController {
         }
     }
 
+   @DeleteMapping("/housing")
     public ResponseEntity<HousingDTO> removeHousing(@RequestBody HousingIdDTO dto) {
         try {
             HousingDTO remove = housingInterface.removeHousing(dto);
-            return new ResponseEntity<>(remove, HttpStatus.CREATED);
+            return new ResponseEntity<>(remove, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

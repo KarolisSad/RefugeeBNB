@@ -9,7 +9,6 @@ public class Housing {
     private long housingId;
     private int capacity;
     private Address address;
-
     private boolean available;
 
 
@@ -25,6 +24,9 @@ public class Housing {
         this.capacity = capacity;
         this.address = address;
         this.available = available;
+    }
+
+    public Housing() {
     }
 
     public long getHousingId() {
@@ -57,6 +59,16 @@ public class Housing {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    @Override
+    public String toString() {
+        return "Housing{" +
+                "housingId=" + housingId +
+                ", capacity=" + capacity +
+                ", address=" + address +
+                ", available=" + available +
+                '}';
     }
 
     //                          GRAVE OF GREAT CODE :(

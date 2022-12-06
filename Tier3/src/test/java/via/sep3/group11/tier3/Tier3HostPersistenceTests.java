@@ -17,7 +17,7 @@ import via.sep3.group11.tier3.repository.HousingRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+/*
 @SpringBootTest
 public class Tier3HostPersistenceTests {
 
@@ -112,3 +112,5 @@ public class Tier3HostPersistenceTests {
         Assert.isTrue(get2.get().getEmail().equals(housing2.host.getEmail()), "WRONG: " + housing2.host.getEmail());
     }
 }
+
+ */

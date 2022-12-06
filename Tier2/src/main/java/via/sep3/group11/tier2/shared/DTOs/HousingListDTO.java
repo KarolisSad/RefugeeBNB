@@ -12,4 +12,12 @@ public class HousingListDTO {
         this.housingList = housingList;
         this.errorMessage = errorMessage;
     }
+
+    public List<Housing> getHousingList() {
+        return housingList;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

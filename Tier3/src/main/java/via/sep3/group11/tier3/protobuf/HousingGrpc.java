@@ -15,28 +15,28 @@ public final class HousingGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GAddHousingRequest,
-      via.sep3.group11.tier3.protobuf.GHousing> getAddHousingMethod;
+      via.sep3.group11.tier3.protobuf.GHousingWithStatus> getAddHousingMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "addHousing",
       requestType = via.sep3.group11.tier3.protobuf.GAddHousingRequest.class,
-      responseType = via.sep3.group11.tier3.protobuf.GHousing.class,
+      responseType = via.sep3.group11.tier3.protobuf.GHousingWithStatus.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GAddHousingRequest,
-      via.sep3.group11.tier3.protobuf.GHousing> getAddHousingMethod() {
-    io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GAddHousingRequest, via.sep3.group11.tier3.protobuf.GHousing> getAddHousingMethod;
+      via.sep3.group11.tier3.protobuf.GHousingWithStatus> getAddHousingMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GAddHousingRequest, via.sep3.group11.tier3.protobuf.GHousingWithStatus> getAddHousingMethod;
     if ((getAddHousingMethod = HousingGrpc.getAddHousingMethod) == null) {
       synchronized (HousingGrpc.class) {
         if ((getAddHousingMethod = HousingGrpc.getAddHousingMethod) == null) {
           HousingGrpc.getAddHousingMethod = getAddHousingMethod =
-              io.grpc.MethodDescriptor.<via.sep3.group11.tier3.protobuf.GAddHousingRequest, via.sep3.group11.tier3.protobuf.GHousing>newBuilder()
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier3.protobuf.GAddHousingRequest, via.sep3.group11.tier3.protobuf.GHousingWithStatus>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "addHousing"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   via.sep3.group11.tier3.protobuf.GAddHousingRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  via.sep3.group11.tier3.protobuf.GHousing.getDefaultInstance()))
+                  via.sep3.group11.tier3.protobuf.GHousingWithStatus.getDefaultInstance()))
               .setSchemaDescriptor(new HousingMethodDescriptorSupplier("addHousing"))
               .build();
         }
@@ -108,28 +108,28 @@ public final class HousingGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GId,
-      via.sep3.group11.tier3.protobuf.GHousing> getGetHousingByIdMethod;
+      via.sep3.group11.tier3.protobuf.GHousingWithStatus> getGetHousingByIdMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "getHousingById",
       requestType = via.sep3.group11.tier3.protobuf.GId.class,
-      responseType = via.sep3.group11.tier3.protobuf.GHousing.class,
+      responseType = via.sep3.group11.tier3.protobuf.GHousingWithStatus.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GId,
-      via.sep3.group11.tier3.protobuf.GHousing> getGetHousingByIdMethod() {
-    io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GId, via.sep3.group11.tier3.protobuf.GHousing> getGetHousingByIdMethod;
+      via.sep3.group11.tier3.protobuf.GHousingWithStatus> getGetHousingByIdMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GId, via.sep3.group11.tier3.protobuf.GHousingWithStatus> getGetHousingByIdMethod;
     if ((getGetHousingByIdMethod = HousingGrpc.getGetHousingByIdMethod) == null) {
       synchronized (HousingGrpc.class) {
         if ((getGetHousingByIdMethod = HousingGrpc.getGetHousingByIdMethod) == null) {
           HousingGrpc.getGetHousingByIdMethod = getGetHousingByIdMethod =
-              io.grpc.MethodDescriptor.<via.sep3.group11.tier3.protobuf.GId, via.sep3.group11.tier3.protobuf.GHousing>newBuilder()
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier3.protobuf.GId, via.sep3.group11.tier3.protobuf.GHousingWithStatus>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getHousingById"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   via.sep3.group11.tier3.protobuf.GId.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  via.sep3.group11.tier3.protobuf.GHousing.getDefaultInstance()))
+                  via.sep3.group11.tier3.protobuf.GHousingWithStatus.getDefaultInstance()))
               .setSchemaDescriptor(new HousingMethodDescriptorSupplier("getHousingById"))
               .build();
         }
@@ -138,29 +138,29 @@ public final class HousingGrpc {
     return getGetHousingByIdMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GHousing,
-      via.sep3.group11.tier3.protobuf.GHousing> getUpdateHousingMethod;
+  private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GHousingWithStatus,
+      via.sep3.group11.tier3.protobuf.GHousingWithStatus> getUpdateHousingMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "updateHousing",
-      requestType = via.sep3.group11.tier3.protobuf.GHousing.class,
-      responseType = via.sep3.group11.tier3.protobuf.GHousing.class,
+      requestType = via.sep3.group11.tier3.protobuf.GHousingWithStatus.class,
+      responseType = via.sep3.group11.tier3.protobuf.GHousingWithStatus.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GHousing,
-      via.sep3.group11.tier3.protobuf.GHousing> getUpdateHousingMethod() {
-    io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GHousing, via.sep3.group11.tier3.protobuf.GHousing> getUpdateHousingMethod;
+  public static io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GHousingWithStatus,
+      via.sep3.group11.tier3.protobuf.GHousingWithStatus> getUpdateHousingMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GHousingWithStatus, via.sep3.group11.tier3.protobuf.GHousingWithStatus> getUpdateHousingMethod;
     if ((getUpdateHousingMethod = HousingGrpc.getUpdateHousingMethod) == null) {
       synchronized (HousingGrpc.class) {
         if ((getUpdateHousingMethod = HousingGrpc.getUpdateHousingMethod) == null) {
           HousingGrpc.getUpdateHousingMethod = getUpdateHousingMethod =
-              io.grpc.MethodDescriptor.<via.sep3.group11.tier3.protobuf.GHousing, via.sep3.group11.tier3.protobuf.GHousing>newBuilder()
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier3.protobuf.GHousingWithStatus, via.sep3.group11.tier3.protobuf.GHousingWithStatus>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "updateHousing"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  via.sep3.group11.tier3.protobuf.GHousing.getDefaultInstance()))
+                  via.sep3.group11.tier3.protobuf.GHousingWithStatus.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  via.sep3.group11.tier3.protobuf.GHousing.getDefaultInstance()))
+                  via.sep3.group11.tier3.protobuf.GHousingWithStatus.getDefaultInstance()))
               .setSchemaDescriptor(new HousingMethodDescriptorSupplier("updateHousing"))
               .build();
         }
@@ -220,14 +220,11 @@ public final class HousingGrpc {
     /**
      */
     public void addHousing(via.sep3.group11.tier3.protobuf.GAddHousingRequest request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousing> responseObserver) {
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousingWithStatus> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAddHousingMethod(), responseObserver);
     }
 
     /**
-     * <pre>
-     *TODO!!!!!!!!Delete void message
-     * </pre>
      */
     public void getAvailableHousing(via.sep3.group11.tier3.protobuf.Empty request,
         io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.ListOfAvailableHousing> responseObserver) {
@@ -244,14 +241,14 @@ public final class HousingGrpc {
     /**
      */
     public void getHousingById(via.sep3.group11.tier3.protobuf.GId request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousing> responseObserver) {
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousingWithStatus> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetHousingByIdMethod(), responseObserver);
     }
 
     /**
      */
-    public void updateHousing(via.sep3.group11.tier3.protobuf.GHousing request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousing> responseObserver) {
+    public void updateHousing(via.sep3.group11.tier3.protobuf.GHousingWithStatus request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousingWithStatus> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateHousingMethod(), responseObserver);
     }
 
@@ -262,7 +259,7 @@ public final class HousingGrpc {
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 via.sep3.group11.tier3.protobuf.GAddHousingRequest,
-                via.sep3.group11.tier3.protobuf.GHousing>(
+                via.sep3.group11.tier3.protobuf.GHousingWithStatus>(
                   this, METHODID_ADD_HOUSING)))
           .addMethod(
             getGetAvailableHousingMethod(),
@@ -283,14 +280,14 @@ public final class HousingGrpc {
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 via.sep3.group11.tier3.protobuf.GId,
-                via.sep3.group11.tier3.protobuf.GHousing>(
+                via.sep3.group11.tier3.protobuf.GHousingWithStatus>(
                   this, METHODID_GET_HOUSING_BY_ID)))
           .addMethod(
             getUpdateHousingMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                via.sep3.group11.tier3.protobuf.GHousing,
-                via.sep3.group11.tier3.protobuf.GHousing>(
+                via.sep3.group11.tier3.protobuf.GHousingWithStatus,
+                via.sep3.group11.tier3.protobuf.GHousingWithStatus>(
                   this, METHODID_UPDATE_HOUSING)))
           .build();
     }
@@ -313,15 +310,12 @@ public final class HousingGrpc {
     /**
      */
     public void addHousing(via.sep3.group11.tier3.protobuf.GAddHousingRequest request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousing> responseObserver) {
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousingWithStatus> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getAddHousingMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
-     * <pre>
-     *TODO!!!!!!!!Delete void message
-     * </pre>
      */
     public void getAvailableHousing(via.sep3.group11.tier3.protobuf.Empty request,
         io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.ListOfAvailableHousing> responseObserver) {
@@ -340,15 +334,15 @@ public final class HousingGrpc {
     /**
      */
     public void getHousingById(via.sep3.group11.tier3.protobuf.GId request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousing> responseObserver) {
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousingWithStatus> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetHousingByIdMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void updateHousing(via.sep3.group11.tier3.protobuf.GHousing request,
-        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousing> responseObserver) {
+    public void updateHousing(via.sep3.group11.tier3.protobuf.GHousingWithStatus request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousingWithStatus> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getUpdateHousingMethod(), getCallOptions()), request, responseObserver);
     }
@@ -370,15 +364,12 @@ public final class HousingGrpc {
 
     /**
      */
-    public via.sep3.group11.tier3.protobuf.GHousing addHousing(via.sep3.group11.tier3.protobuf.GAddHousingRequest request) {
+    public via.sep3.group11.tier3.protobuf.GHousingWithStatus addHousing(via.sep3.group11.tier3.protobuf.GAddHousingRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getAddHousingMethod(), getCallOptions(), request);
     }
 
     /**
-     * <pre>
-     *TODO!!!!!!!!Delete void message
-     * </pre>
      */
     public via.sep3.group11.tier3.protobuf.ListOfAvailableHousing getAvailableHousing(via.sep3.group11.tier3.protobuf.Empty request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -394,14 +385,14 @@ public final class HousingGrpc {
 
     /**
      */
-    public via.sep3.group11.tier3.protobuf.GHousing getHousingById(via.sep3.group11.tier3.protobuf.GId request) {
+    public via.sep3.group11.tier3.protobuf.GHousingWithStatus getHousingById(via.sep3.group11.tier3.protobuf.GId request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetHousingByIdMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public via.sep3.group11.tier3.protobuf.GHousing updateHousing(via.sep3.group11.tier3.protobuf.GHousing request) {
+    public via.sep3.group11.tier3.protobuf.GHousingWithStatus updateHousing(via.sep3.group11.tier3.protobuf.GHousingWithStatus request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getUpdateHousingMethod(), getCallOptions(), request);
     }
@@ -423,16 +414,13 @@ public final class HousingGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.GHousing> addHousing(
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.GHousingWithStatus> addHousing(
         via.sep3.group11.tier3.protobuf.GAddHousingRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getAddHousingMethod(), getCallOptions()), request);
     }
 
     /**
-     * <pre>
-     *TODO!!!!!!!!Delete void message
-     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.ListOfAvailableHousing> getAvailableHousing(
         via.sep3.group11.tier3.protobuf.Empty request) {
@@ -450,7 +438,7 @@ public final class HousingGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.GHousing> getHousingById(
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.GHousingWithStatus> getHousingById(
         via.sep3.group11.tier3.protobuf.GId request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetHousingByIdMethod(), getCallOptions()), request);
@@ -458,8 +446,8 @@ public final class HousingGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.GHousing> updateHousing(
-        via.sep3.group11.tier3.protobuf.GHousing request) {
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.GHousingWithStatus> updateHousing(
+        via.sep3.group11.tier3.protobuf.GHousingWithStatus request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getUpdateHousingMethod(), getCallOptions()), request);
     }
@@ -490,7 +478,7 @@ public final class HousingGrpc {
       switch (methodId) {
         case METHODID_ADD_HOUSING:
           serviceImpl.addHousing((via.sep3.group11.tier3.protobuf.GAddHousingRequest) request,
-              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousing>) responseObserver);
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousingWithStatus>) responseObserver);
           break;
         case METHODID_GET_AVAILABLE_HOUSING:
           serviceImpl.getAvailableHousing((via.sep3.group11.tier3.protobuf.Empty) request,
@@ -502,11 +490,11 @@ public final class HousingGrpc {
           break;
         case METHODID_GET_HOUSING_BY_ID:
           serviceImpl.getHousingById((via.sep3.group11.tier3.protobuf.GId) request,
-              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousing>) responseObserver);
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousingWithStatus>) responseObserver);
           break;
         case METHODID_UPDATE_HOUSING:
-          serviceImpl.updateHousing((via.sep3.group11.tier3.protobuf.GHousing) request,
-              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousing>) responseObserver);
+          serviceImpl.updateHousing((via.sep3.group11.tier3.protobuf.GHousingWithStatus) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHousingWithStatus>) responseObserver);
           break;
         default:
           throw new AssertionError();

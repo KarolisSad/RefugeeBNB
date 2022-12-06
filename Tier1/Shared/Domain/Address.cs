@@ -3,6 +3,7 @@
 
 public class Address
 {
+    public long AddressId { get; set; }
     public string Country { set; get; }
     public string City { get; set; }
     public string StreetName { get; set; }
@@ -12,6 +13,17 @@ public class Address
 
     public Address(string country, string city, string streetName, string houseNumber, string roomNumber, string postCode)
     {
+        Country = country;
+        City = city;
+        StreetName = streetName;
+        HouseNumber = houseNumber;
+        RoomNumber = roomNumber;
+        PostCode = postCode;
+    }
+
+    public Address(long addressId, string country, string city, string streetName, string houseNumber, string roomNumber, string postCode)
+    {
+        AddressId = addressId;
         Country = country;
         City = city;
         StreetName = streetName;

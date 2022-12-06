@@ -14,6 +14,7 @@ import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class RefugeeController {
     /**
@@ -35,9 +36,9 @@ public class RefugeeController {
      * @param refugee
      * @return
      */
-    @CrossOrigin
     @PostMapping(value ="/refugee",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<RefugeeDTO> createRefugee(@RequestBody RefugeeRegisterDTO refugee){
+
         try{
             RefugeeDTO created = refugeeInterface.registerRefugee(refugee);
 
@@ -55,7 +56,8 @@ public class RefugeeController {
      * @param
      * @return
      */
-    @GetMapping("/refugee/login")
+    @CrossOrigin
+    @PostMapping("/refugee/login")
     public ResponseEntity<RefugeeDTO> loginRefugee(@RequestBody LoginDTO loginDTO) {
         try {
             RefugeeDTO refugee = refugeeInterface.loginRefugee(loginDTO);

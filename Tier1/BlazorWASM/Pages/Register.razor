@@ -106,7 +106,7 @@
 
         if (personType.Contains("host"))
         {
-            HostDTO host = await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+            HostDTO host = await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
                 if (host.ErrorMessage.Equals(""))
                 {
                     Console.WriteLine("We created a host.");
@@ -123,7 +123,7 @@
             }
         else if (personType.Contains("refugee"))
         {
-            RefugeeDTO refugee = await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, lastName, middleName, dateOfBirth));
+            RefugeeDTO refugee = await refugeeClient.RegisterRefugee(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
                 if (refugee.ErrorMessage.Equals(""))
                 {
                     Clear();

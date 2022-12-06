@@ -18,4 +18,6 @@ public class AgreementDTO {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+
 }

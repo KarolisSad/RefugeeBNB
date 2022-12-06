@@ -17,7 +17,7 @@ public class HostRegisterDTO {
     private String middleName;
     private String lastName;
     private Date dateOfBirth;
-
+    private String errorMessage;
 
     /**
      * All-argument constructor used to create an instance of the DTO with all variables set.
@@ -31,7 +31,7 @@ public class HostRegisterDTO {
      * @param lastName: Represents the last name of the host.
      * @param dob: Represents the date of birth of the host.
      */
-    public HostRegisterDTO(String email, String password, char gender, String nationality, String firstName, String middleName, String lastName, Date dob) {
+    public HostRegisterDTO(String email, String password, char gender, String nationality, String firstName, String middleName, String lastName, Date dob, String errorMessage) {
         this.email = email;
         this.password = password;
         this.gender = gender;
@@ -40,6 +40,7 @@ public class HostRegisterDTO {
         this.middleName = middleName;
         this.lastName = lastName;
         this.dateOfBirth = dob;
+        this.errorMessage = errorMessage;
     }
 
     /**

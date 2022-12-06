@@ -15,7 +15,8 @@ public class Host
     public Date DateOfBirth { get; set; }
     public ICollection<Housing> MyHousings { get; set; }
 
-    public Host(string email, string password, char gender, string nationality, string firstName, string lastName, string middleName, Date dateOfBirth, ICollection<Housing> myHousings)
+    public Host(string firstName, string email, string password, char gender, string nationality,
+        string middleName, string lastName, Date dateOfBirth)
     {
         Email = email;
         Password = password;
@@ -24,6 +25,19 @@ public class Host
         FirstName = firstName;
         LastName = lastName;
         MiddleName = middleName;
+        DateOfBirth = dateOfBirth;
+        MyHousings = new List<Housing>();
+    }
+
+    public Host(string email, string password, char gender, string nationality, string firstName, string middleName, string lastName, Date dateOfBirth, ICollection<Housing> myHousings)
+    {
+        Email = email;
+        Password = password;
+        Gender = gender;
+        Nationality = nationality;
+        FirstName = firstName;
+        MiddleName = middleName;
+        LastName = lastName;
         DateOfBirth = dateOfBirth;
         MyHousings = myHousings;
     }

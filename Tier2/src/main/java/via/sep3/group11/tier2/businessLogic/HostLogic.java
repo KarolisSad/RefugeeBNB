@@ -49,12 +49,18 @@ public class HostLogic implements HostInterface {
     @Override
     public HostDTO registerHost(HostRegisterDTO dto) {
             Host toRegister = new Host(dto.getFirstName(), dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
-            // host check
+        System.out.println("TEST: " + toRegister.getGender());
+
+
+        // host check
             Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
-            // if no host found - create
+
+        // if no host found - create
         return existing.map
                 (host -> new HostDTO(toRegister, "Host with email " + host.getEmail() + " already exists."))
                 .orElseGet(() -> new HostDTO(hostDAO.createHost(toRegister), ""));
+
+
     }
 
     /**
@@ -86,16 +92,17 @@ public class HostLogic implements HostInterface {
     }
 
     @Override
-    public HostDTO getHostByHousingId(Long housingId) {
+    public HostDTO getHostByHousingId(long housingId) {
         Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
 
+        System.out.println("getHostByID Test: " + housingId);
         // housing check
         Optional<Housing> housing = housingDAO.getHousingById(housingId);
         if (housing.isEmpty())
         {
             return new HostDTO(dummyHost,"This housing no longer exists.");
         }
-        return new HostDTO(hostDAO.getHostByHousingId(housingId),"");
+        return new HostDTO(hostDAO.getHostByHousingId(housingId).get(),"");
     }
 
     /**

@@ -3,8 +3,8 @@
 
 package via.sep3.group11.tier3.protobuf;
 
-public interface GHousingOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:GHousing)
+public interface GHousingWithStatusOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:GHousingWithStatus)
     com.google.protobuf.MessageOrBuilder {
 
   /**
@@ -33,4 +33,10 @@ public interface GHousingOrBuilder extends
    * @return The id.
    */
   long getId();
+
+  /**
+   * <code>bool available = 4;</code>
+   * @return The available.
+   */
+  boolean getAvailable();
 }

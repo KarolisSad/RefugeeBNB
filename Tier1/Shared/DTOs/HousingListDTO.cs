@@ -6,10 +6,10 @@ namespace Shared.DTOs;
 
 public class HousingListDTO
 {
-    public Collection<Housing> HousingList;
-    public string ErrorMessage;
+    public List<Housing> HousingList { get; }
+    public string ErrorMessage { get; }
 
-    public HousingListDTO(Collection<Housing> housingList, string errorMessage)
+    public HousingListDTO(List<Housing> housingList, string errorMessage)
     {
         HousingList = housingList;
         ErrorMessage = errorMessage;

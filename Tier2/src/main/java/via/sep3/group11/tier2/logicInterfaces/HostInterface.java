@@ -35,6 +35,6 @@ public interface HostInterface {
      * @throws ValidationException if no Host corresponding to the email in the dto is found, or if the password and email given does not match.
      */
     HostDTO loginHost(LoginDTO dto) throws ValidationException;
-    HostDTO getHostByHousingId (Long housingId);
+    HostDTO getHostByHousingId (long housingId);
 }
 

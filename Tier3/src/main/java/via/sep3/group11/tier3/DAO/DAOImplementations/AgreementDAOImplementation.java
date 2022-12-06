@@ -3,10 +3,15 @@ package via.sep3.group11.tier3.DAO.DAOImplementations;
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier3.DAO.DAOInterfaces.AgreementDaoInterface;
 import via.sep3.group11.tier3.model.Agreement;
+import via.sep3.group11.tier3.model.Housing;
 import via.sep3.group11.tier3.repository.AgreementRepository;
+import via.sep3.group11.tier3.repository.HousingRepository;
 
 import java.util.List;
 import java.util.Optional;
+
+import static via.sep3.group11.tier3.model.Date.convertDateObjectToLocalDate;
+import static via.sep3.group11.tier3.model.Date.convertLocalDateToDateObject;
 
 /**
  * Class implementing the Agreement DAO-interface.
@@ -18,14 +23,27 @@ import java.util.Optional;
 public class AgreementDAOImplementation implements AgreementDaoInterface {
 
     private AgreementRepository agreementRepository;
+    private HousingRepository housingRepo;
 
-    public AgreementDAOImplementation(AgreementRepository agreementRepository) {
+    public AgreementDAOImplementation(AgreementRepository agreementRepository, HousingRepository housingRepo) {
         this.agreementRepository = agreementRepository;
+        this.housingRepo = housingRepo;
     }
 
     @Override
     public Agreement addAgreement(Agreement agreement) {
-        return agreementRepository.save(agreement);
+
+        System.out.println("Agreement: " + agreement);
+
+        System.out.println("Test getting housing id:;" + agreement.getHousing().getHousingId());
+        Optional<Housing> housing = housingRepo.findById(agreement.getHousing().getHousingId());
+
+
+        Agreement newAgreement = new Agreement(convertLocalDateToDateObject(agreement.getDate()),
+                agreement.getRefugee(), housing.get(), agreement.getHost());
+
+
+        return agreementRepository.save(newAgreement);
     }
 
 
@@ -38,6 +56,9 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
      */
     @Override
     public Agreement updateAgreement(Agreement agreement) {
+
+        System.out.println("Trying to update: " + agreement);
+
         if (agreementRepository.findById(agreement.getAgreementId()).isPresent()) {
 
             return agreementRepository.save(agreement);

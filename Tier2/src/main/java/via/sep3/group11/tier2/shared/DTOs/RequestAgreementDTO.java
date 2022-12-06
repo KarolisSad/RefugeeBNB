@@ -30,4 +30,30 @@ public class RequestAgreementDTO {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+    public void setRefugeeEmail(String refugeeEmail) {
+        this.refugeeEmail = refugeeEmail;
+    }
+
+    public void setHostEmail(String hostEmail) {
+        this.hostEmail = hostEmail;
+    }
+
+    public void setHousing(Housing housing) {
+        this.housing = housing;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    @Override
+    public String toString() {
+        return "RequestAgreementDTO{" +
+                "refugeeEmail='" + refugeeEmail + '\'' +
+                ", hostEmail='" + hostEmail + '\'' +
+                ", housing=" + housing +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
+    }
 }

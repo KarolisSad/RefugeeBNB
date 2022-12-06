@@ -8,26 +8,26 @@ public interface ListOfAvailableHousingOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
-  java.util.List<via.sep3.group11.tier3.protobuf.GHousing> 
+  java.util.List<via.sep3.group11.tier3.protobuf.GHousingWithStatus> 
       getHousingsList();
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
-  via.sep3.group11.tier3.protobuf.GHousing getHousings(int index);
+  via.sep3.group11.tier3.protobuf.GHousingWithStatus getHousings(int index);
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
   int getHousingsCount();
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
-  java.util.List<? extends via.sep3.group11.tier3.protobuf.GHousingOrBuilder> 
+  java.util.List<? extends via.sep3.group11.tier3.protobuf.GHousingWithStatusOrBuilder> 
       getHousingsOrBuilderList();
   /**
-   * <code>repeated .GHousing housings = 1;</code>
+   * <code>repeated .GHousingWithStatus housings = 1;</code>
    */
-  via.sep3.group11.tier3.protobuf.GHousingOrBuilder getHousingsOrBuilder(
+  via.sep3.group11.tier3.protobuf.GHousingWithStatusOrBuilder getHousingsOrBuilder(
       int index);
 }

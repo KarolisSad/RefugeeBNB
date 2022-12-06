@@ -4,29 +4,25 @@
 package via.sep3.group11.tier2.protobuf;
 
 /**
- * <pre>
- * -- HOUSING
- * </pre>
- *
- * Protobuf type {@code GHousing}
+ * Protobuf type {@code GHousingWithStatus}
  */
-public final class GHousing extends
+public final class GHousingWithStatus extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:GHousing)
-    GHousingOrBuilder {
+    // @@protoc_insertion_point(message_implements:GHousingWithStatus)
+    GHousingWithStatusOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use GHousing.newBuilder() to construct.
-  private GHousing(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use GHousingWithStatus.newBuilder() to construct.
+  private GHousingWithStatus(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private GHousing() {
+  private GHousingWithStatus() {
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new GHousing();
+    return new GHousingWithStatus();
   }
 
   @java.lang.Override
@@ -34,7 +30,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private GHousing(
+  private GHousingWithStatus(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -75,6 +71,11 @@ private static final long serialVersionUID = 0L;
             id_ = input.readInt64();
             break;
           }
+          case 32: {
+
+            available_ = input.readBool();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -98,15 +99,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousing_descriptor;
+    return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousingWithStatus_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousing_fieldAccessorTable
+    return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousingWithStatus_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            via.sep3.group11.tier2.protobuf.GHousing.class, via.sep3.group11.tier2.protobuf.GHousing.Builder.class);
+            via.sep3.group11.tier2.protobuf.GHousingWithStatus.class, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder.class);
   }
 
   public static final int CAPACITY_FIELD_NUMBER = 1;
@@ -157,6 +158,17 @@ private static final long serialVersionUID = 0L;
     return id_;
   }
 
+  public static final int AVAILABLE_FIELD_NUMBER = 4;
+  private boolean available_;
+  /**
+   * <code>bool available = 4;</code>
+   * @return The available.
+   */
+  @java.lang.Override
+  public boolean getAvailable() {
+    return available_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -180,6 +192,9 @@ private static final long serialVersionUID = 0L;
     if (id_ != 0L) {
       output.writeInt64(3, id_);
     }
+    if (available_ != false) {
+      output.writeBool(4, available_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -201,6 +216,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt64Size(3, id_);
     }
+    if (available_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(4, available_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -211,10 +230,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof via.sep3.group11.tier2.protobuf.GHousing)) {
+    if (!(obj instanceof via.sep3.group11.tier2.protobuf.GHousingWithStatus)) {
       return super.equals(obj);
     }
-    via.sep3.group11.tier2.protobuf.GHousing other = (via.sep3.group11.tier2.protobuf.GHousing) obj;
+    via.sep3.group11.tier2.protobuf.GHousingWithStatus other = (via.sep3.group11.tier2.protobuf.GHousingWithStatus) obj;
 
     if (getCapacity()
         != other.getCapacity()) return false;
@@ -225,6 +244,8 @@ private static final long serialVersionUID = 0L;
     }
     if (getId()
         != other.getId()) return false;
+    if (getAvailable()
+        != other.getAvailable()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -245,74 +266,77 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getId());
+    hash = (37 * hash) + AVAILABLE_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getAvailable());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(byte[] data)
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(java.io.InputStream input)
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseDelimitedFrom(java.io.InputStream input)
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseDelimitedFrom(
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static via.sep3.group11.tier2.protobuf.GHousing parseFrom(
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -325,7 +349,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(via.sep3.group11.tier2.protobuf.GHousing prototype) {
+  public static Builder newBuilder(via.sep3.group11.tier2.protobuf.GHousingWithStatus prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -341,30 +365,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * <pre>
-   * -- HOUSING
-   * </pre>
-   *
-   * Protobuf type {@code GHousing}
+   * Protobuf type {@code GHousingWithStatus}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:GHousing)
-      via.sep3.group11.tier2.protobuf.GHousingOrBuilder {
+      // @@protoc_insertion_point(builder_implements:GHousingWithStatus)
+      via.sep3.group11.tier2.protobuf.GHousingWithStatusOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousing_descriptor;
+      return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousingWithStatus_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousing_fieldAccessorTable
+      return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousingWithStatus_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              via.sep3.group11.tier2.protobuf.GHousing.class, via.sep3.group11.tier2.protobuf.GHousing.Builder.class);
+              via.sep3.group11.tier2.protobuf.GHousingWithStatus.class, via.sep3.group11.tier2.protobuf.GHousingWithStatus.Builder.class);
     }
 
-    // Construct using via.sep3.group11.tier2.protobuf.GHousing.newBuilder()
+    // Construct using via.sep3.group11.tier2.protobuf.GHousingWithStatus.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -392,23 +412,25 @@ private static final long serialVersionUID = 0L;
       }
       id_ = 0L;
 
+      available_ = false;
+
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousing_descriptor;
+      return via.sep3.group11.tier2.protobuf.SharedMessages.internal_static_GHousingWithStatus_descriptor;
     }
 
     @java.lang.Override
-    public via.sep3.group11.tier2.protobuf.GHousing getDefaultInstanceForType() {
-      return via.sep3.group11.tier2.protobuf.GHousing.getDefaultInstance();
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatus getDefaultInstanceForType() {
+      return via.sep3.group11.tier2.protobuf.GHousingWithStatus.getDefaultInstance();
     }
 
     @java.lang.Override
-    public via.sep3.group11.tier2.protobuf.GHousing build() {
-      via.sep3.group11.tier2.protobuf.GHousing result = buildPartial();
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatus build() {
+      via.sep3.group11.tier2.protobuf.GHousingWithStatus result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -416,8 +438,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public via.sep3.group11.tier2.protobuf.GHousing buildPartial() {
-      via.sep3.group11.tier2.protobuf.GHousing result = new via.sep3.group11.tier2.protobuf.GHousing(this);
+    public via.sep3.group11.tier2.protobuf.GHousingWithStatus buildPartial() {
+      via.sep3.group11.tier2.protobuf.GHousingWithStatus result = new via.sep3.group11.tier2.protobuf.GHousingWithStatus(this);
       result.capacity_ = capacity_;
       if (addressBuilder_ == null) {
         result.address_ = address_;
@@ -425,6 +447,7 @@ private static final long serialVersionUID = 0L;
         result.address_ = addressBuilder_.build();
       }
       result.id_ = id_;
+      result.available_ = available_;
       onBuilt();
       return result;
     }
@@ -463,16 +486,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof via.sep3.group11.tier2.protobuf.GHousing) {
-        return mergeFrom((via.sep3.group11.tier2.protobuf.GHousing)other);
+      if (other instanceof via.sep3.group11.tier2.protobuf.GHousingWithStatus) {
+        return mergeFrom((via.sep3.group11.tier2.protobuf.GHousingWithStatus)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(via.sep3.group11.tier2.protobuf.GHousing other) {
-      if (other == via.sep3.group11.tier2.protobuf.GHousing.getDefaultInstance()) return this;
+    public Builder mergeFrom(via.sep3.group11.tier2.protobuf.GHousingWithStatus other) {
+      if (other == via.sep3.group11.tier2.protobuf.GHousingWithStatus.getDefaultInstance()) return this;
       if (other.getCapacity() != 0) {
         setCapacity(other.getCapacity());
       }
@@ -481,6 +504,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getId() != 0L) {
         setId(other.getId());
+      }
+      if (other.getAvailable() != false) {
+        setAvailable(other.getAvailable());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -497,11 +523,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      via.sep3.group11.tier2.protobuf.GHousing parsedMessage = null;
+      via.sep3.group11.tier2.protobuf.GHousingWithStatus parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (via.sep3.group11.tier2.protobuf.GHousing) e.getUnfinishedMessage();
+        parsedMessage = (via.sep3.group11.tier2.protobuf.GHousingWithStatus) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -691,6 +717,37 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+
+    private boolean available_ ;
+    /**
+     * <code>bool available = 4;</code>
+     * @return The available.
+     */
+    @java.lang.Override
+    public boolean getAvailable() {
+      return available_;
+    }
+    /**
+     * <code>bool available = 4;</code>
+     * @param value The available to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAvailable(boolean value) {
+      
+      available_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool available = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearAvailable() {
+      
+      available_ = false;
+      onChanged();
+      return this;
+    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -704,41 +761,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:GHousing)
+    // @@protoc_insertion_point(builder_scope:GHousingWithStatus)
   }
 
-  // @@protoc_insertion_point(class_scope:GHousing)
-  private static final via.sep3.group11.tier2.protobuf.GHousing DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:GHousingWithStatus)
+  private static final via.sep3.group11.tier2.protobuf.GHousingWithStatus DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new via.sep3.group11.tier2.protobuf.GHousing();
+    DEFAULT_INSTANCE = new via.sep3.group11.tier2.protobuf.GHousingWithStatus();
   }
 
-  public static via.sep3.group11.tier2.protobuf.GHousing getDefaultInstance() {
+  public static via.sep3.group11.tier2.protobuf.GHousingWithStatus getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<GHousing>
-      PARSER = new com.google.protobuf.AbstractParser<GHousing>() {
+  private static final com.google.protobuf.Parser<GHousingWithStatus>
+      PARSER = new com.google.protobuf.AbstractParser<GHousingWithStatus>() {
     @java.lang.Override
-    public GHousing parsePartialFrom(
+    public GHousingWithStatus parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new GHousing(input, extensionRegistry);
+      return new GHousingWithStatus(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<GHousing> parser() {
+  public static com.google.protobuf.Parser<GHousingWithStatus> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<GHousing> getParserForType() {
+  public com.google.protobuf.Parser<GHousingWithStatus> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public via.sep3.group11.tier2.protobuf.GHousing getDefaultInstanceForType() {
+  public via.sep3.group11.tier2.protobuf.GHousingWithStatus getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

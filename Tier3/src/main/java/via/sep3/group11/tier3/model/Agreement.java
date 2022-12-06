@@ -96,4 +96,16 @@ public class Agreement {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "Agreement{" +
+                "agreementId=" + agreementId +
+                ", date=" + date +
+                ", refugee=" + refugee +
+                ", housing=" + housing +
+                ", host=" + host +
+                ", accepted=" + accepted +
+                '}';
+    }
 }
