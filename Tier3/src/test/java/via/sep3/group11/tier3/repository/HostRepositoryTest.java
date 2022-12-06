@@ -22,6 +22,29 @@ class HostRepositoryTest {
     }
 
     @Test
+    void deleteExistingHost() {
+        // given
+        String email = "Bob@gmail.com";
+        Host host = new Host(
+                email,
+                "Bob",
+                "",
+                "Builder",
+                "builder",
+                "Denmark",
+                'M',
+                new Date(01,01,1999)
+        );
+        underTest.save(host);
+
+        // when
+        underTest.deleteHostByEmail(email);
+        //then
+        assertThat(underTest.findById(email)).isEmpty();
+    }
+
+//  ---------  Already tested  ---------
+    @Test
     void addOneHost() {
         // given
         String email = "Bob@gmail.com";
