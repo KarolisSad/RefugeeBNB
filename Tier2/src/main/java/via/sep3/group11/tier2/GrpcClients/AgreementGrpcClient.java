@@ -7,7 +7,6 @@ import via.sep3.group11.tier2.GrpcClients.connections.Channel;
 import via.sep3.group11.tier2.GrpcClients.converters.GrpcConverter;
 import via.sep3.group11.tier2.protobuf.*;
 import via.sep3.group11.tier2.shared.domain.Agreement;
-import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     public Agreement addAgreement(Agreement agreement) {
        try {
            System.out.println("Logic housing id: " + agreement.getHousing().getHousingId());
-           GAgreement request = GrpcConverter.AgreementToGrpc(agreement);
+           GAgreement request = GrpcConverter.agreementToGrpc(agreement);
            System.out.println("Request: " + request.getHousing().getId());
            GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).addAgreement(request);
            return GrpcConverter.agreementWithIdFromGrpc(response);
@@ -41,7 +40,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
     public Agreement updateAgreement(Agreement agreement) {
         try {
             System.out.println("AgreementGrpcClient agreement: " + agreement);
-            GAgreement request = GrpcConverter.AgreementWithIdToGrpc(agreement);
+            GAgreement request = GrpcConverter.agreementWithIdToGrpc(agreement);
             GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).updateAgreement(request);
             if (response.equals(agreement))
             {

@@ -3,7 +3,6 @@ package via.sep3.group11.tier3.GrpcImplementation.converters;
 import via.sep3.group11.tier3.model.*;
 import via.sep3.group11.tier3.protobuf.*;
 
-import static via.sep3.group11.tier3.model.Date.convertDateObjectToLocalDate;
 import static via.sep3.group11.tier3.model.Date.convertLocalDateToDateObject;
 
 public class GrpcConverter {
@@ -32,7 +31,7 @@ public class GrpcConverter {
                 .setGender(String.valueOf(host.getGender()))
                 .setNationality(host.getNationality())
                 .setMiddleName(host.getMiddleName())
-                .setLastName(host.getLastName()).setDateOfBirth(DateToGrpc(host.getDateOfBirth()))
+                .setLastName(host.getLastName()).setDateOfBirth(dateToGrpc(host.getDateOfBirth()))
                 .build();
         //TODO ADD Housing
     }
@@ -46,7 +45,7 @@ public class GrpcConverter {
                 .setNationality(host.getNationality())
                 .setMiddleName(host.getMiddleName())
                 .setLastName(host.getLastName())
-                .setDateOfBirth(DateToGrpc(host.getDateOfBirth()))
+                .setDateOfBirth(dateToGrpc(host.getDateOfBirth()))
                 .build();
     }
 
@@ -60,7 +59,7 @@ public class GrpcConverter {
                 grpcHostDetails.getPassword(),
                 grpcHostDetails.getNationality(),
                 grpcHostDetails.getGender().charAt(0),
-                DateFromGrpc(grpcHostDetails.getDateOfBirth()));
+                dateFromGrpc(grpcHostDetails.getDateOfBirth()));
     }
 
 
@@ -73,7 +72,7 @@ public class GrpcConverter {
                 grpcRefugee.getPassword(),
                 grpcRefugee.getNationality(),
                 grpcRefugee.getGender().charAt(0),
-                DateFromGrpc(grpcRefugee.getDateOfBirth()));
+                dateFromGrpc(grpcRefugee.getDateOfBirth()));
     }
 
     public static GRefugee refugeeToGrpc(Refugee refugee) {
@@ -85,11 +84,11 @@ public class GrpcConverter {
                 .setFirstName(refugee.getFirstName())
                 .setMiddleName(refugee.getMiddleName())
                 .setLastName(refugee.getLastName())
-                .setDateOfBirth(DateToGrpc(refugee.getDateOfBirth()))
+                .setDateOfBirth(dateToGrpc(refugee.getDateOfBirth()))
                 .build();
     }
 
-    public static GAddress AddressToGrpc(Address address) {
+    public static GAddress addressToGrpc(Address address) {
         return GAddress.newBuilder()
                 .setCountry(address.getCountry())
                 .setCity(address.getCity())
@@ -100,7 +99,7 @@ public class GrpcConverter {
                 .setId(address.getAddressId()).build();
     }
 
-    public static Address AddressFromGrpc(GAddress address) {
+    public static Address addressFromGrpc(GAddress address) {
         return new Address(
                 address.getId(),
                 address.getCountry(),
@@ -115,7 +114,7 @@ public class GrpcConverter {
         return new Housing(
                 returnedHousing.getId(),
                 returnedHousing.getCapacity(),
-                AddressFromGrpc(returnedHousing.getAddress()));
+                addressFromGrpc(returnedHousing.getAddress()));
     }
 
     public static Housing housingFromGrpcWithStatus(GHousingWithStatus returnedHousing) {
@@ -123,20 +122,20 @@ public class GrpcConverter {
                 returnedHousing.getId(),
                 returnedHousing.getCapacity(),
                 returnedHousing.getAvailable(),
-                AddressFromGrpc(returnedHousing.getAddress()));
+                addressFromGrpc(returnedHousing.getAddress()));
     }
 
     public static GHousingWithStatus housingToGrpc(Housing housing) {
         return GHousingWithStatus.newBuilder()
                 .setId(housing.getHousingId())
                 .setCapacity(housing.getCapacity())
-                .setAddress(AddressToGrpc(housing.getAddress()))
+                .setAddress(addressToGrpc(housing.getAddress()))
                 .setAvailable(housing.isAvailable())
                 .build();
     }
 
 
-    public static GDateOfBirth DateToGrpc(Date date) {
+    public static GDateOfBirth dateToGrpc(Date date) {
         return GDateOfBirth.newBuilder()
                 .setDay(date.getDay())
                 .setMonth(date.getMonth())
@@ -144,7 +143,7 @@ public class GrpcConverter {
                 .build();
     }
 
-    public static Date DateFromGrpc(GDateOfBirth date) {
+    public static Date dateFromGrpc(GDateOfBirth date) {
         return new Date(
                 date.getDay(),
                 date.getMonth(),
@@ -154,7 +153,7 @@ public class GrpcConverter {
     public static Agreement agreementWithIdFromGrpc(GAgreement agreement) {
         return new Agreement(
                 agreement.getId(),
-                DateFromGrpc(agreement.getDateOfCreation()),
+                dateFromGrpc(agreement.getDateOfCreation()),
                 refugeeFromGrpc(agreement.getRefugee()),
                 housingFromGrpcWithStatus(agreement.getHousing()),
                 hostDetailsFromGrpc(agreement.getHostDetails()),
@@ -164,7 +163,7 @@ public class GrpcConverter {
     public static GAgreement agreementWithIdToGrpc(Agreement agreement) {
         return GAgreement.newBuilder()
                 .setId(agreement.getAgreementId())
-                .setDateOfCreation(DateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
+                .setDateOfCreation(dateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
                 .setHostDetails(hostDetailsToGrpc(agreement.getHost()))
                 .setHousing(housingToGrpc(agreement.getHousing()))
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
@@ -175,7 +174,7 @@ public class GrpcConverter {
     public static GAgreement agreementToGrpc(Agreement agreement)
     {
         return GAgreement.newBuilder()
-                .setDateOfCreation(DateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
+                .setDateOfCreation(dateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
                 .setHostDetails(hostDetailsToGrpc(agreement.getHost()))
                 .setHousing(housingToGrpc(agreement.getHousing()))
@@ -186,7 +185,7 @@ public class GrpcConverter {
         System.out.println("GRPCCONVERTER: \n" + agreement.getHousing().getId());
         return new Agreement(
 
-                DateFromGrpc(agreement.getDateOfCreation()),
+                dateFromGrpc(agreement.getDateOfCreation()),
                 refugeeFromGrpc(agreement.getRefugee()),
                 housingFromGrpcWithStatus(agreement.getHousing()),
                 hostDetailsFromGrpc(agreement.getHostDetails()));
