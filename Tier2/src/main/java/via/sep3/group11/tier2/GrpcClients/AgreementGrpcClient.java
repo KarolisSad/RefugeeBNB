@@ -28,7 +28,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
            GAgreement request = GrpcConverter.AgreementToGrpc(agreement);
            System.out.println("Request: " + request.getHousing().getId());
            GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).addAgreement(request);
-           return GrpcConverter.AgreementWithIdFromGrpc(response);
+           return GrpcConverter.agreementWithIdFromGrpc(response);
        }
        catch (StatusRuntimeException e)
        {
@@ -47,7 +47,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
             {
                 return agreement;
             }
-            return GrpcConverter.AgreementWithIdFromGrpc(response);
+            return GrpcConverter.agreementWithIdFromGrpc(response);
         }
         catch (StatusRuntimeException e)
         {
@@ -68,7 +68,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
             if (response == null){
                 return Optional.empty();
             }
-            return Optional.of(GrpcConverter.AgreementWithIdFromGrpc(response));
+            return Optional.of(GrpcConverter.agreementWithIdFromGrpc(response));
         }
         catch (StatusRuntimeException e)
         {
@@ -85,7 +85,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
             List<Agreement> agreements = new ArrayList<>();
             for (int i = 0; i < response.getAgreementsCount(); i++)
             {
-                agreements.add(GrpcConverter.AgreementWithIdFromGrpc(response.getAgreements(i)));
+                agreements.add(GrpcConverter.agreementWithIdFromGrpc(response.getAgreements(i)));
             }
             return agreements;
         }
@@ -122,7 +122,7 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
             List<Agreement> agreements = new ArrayList<>();
             for (int i = 0; i < response.getAgreementsCount(); i++)
             {
-                agreements.add(GrpcConverter.AgreementWithIdFromGrpc(response.getAgreements(i)));
+                agreements.add(GrpcConverter.agreementWithIdFromGrpc(response.getAgreements(i)));
             }
             return agreements;
         }

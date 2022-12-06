@@ -14,7 +14,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\HttpClients\HttpClients.csproj" />
-      <ProjectReference Include="..\LogicForPages\LogicForPages.csproj" />
+      <ProjectReference Include="..\UserData\UserData.csproj" />
     </ItemGroup>
 
 </Project>

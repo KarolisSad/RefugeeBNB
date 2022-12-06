@@ -5,10 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import via.sep3.group11.tier2.logicInterfaces.AgreementInterface;
-import via.sep3.group11.tier2.shared.DTOs.AgreementDTO;
-import via.sep3.group11.tier2.shared.DTOs.AgreementsByHostDTO;
-import via.sep3.group11.tier2.shared.DTOs.RequestAgreementDTO;
-import via.sep3.group11.tier2.shared.DTOs.RespondAgreementDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
 import via.sep3.group11.tier2.shared.domain.*;
 
 import java.util.List;
@@ -71,10 +68,9 @@ public class AgreementController {
     }
 
     @PostMapping(value ="/agreements/host",produces ={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<List<Agreement>> getAllRequestByHost(@RequestBody AgreementsByHostDTO dto){
+    public ResponseEntity<AgreementListDTO> getAllRequestsByHost(@RequestBody AgreementsByHostDTO dto){
         try{
-            List<Agreement> requests = agreementInterface.getAllRequestsByHost(dto);
-
+            AgreementListDTO requests = agreementInterface.getAllRequestsByHost(dto);
             return new ResponseEntity<>(requests, HttpStatus.OK);
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

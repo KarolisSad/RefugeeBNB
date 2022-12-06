@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWASM", "BlazorWASM\Bl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpClients", "HttpClients\HttpClients.csproj", "{4BD8D72D-4170-4F25-91F7-A3F3F43DE802}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicForPages", "LogicForPages\LogicForPages.csproj", "{7D5360DF-42BC-4382-995D-35439C142127}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserData", "UserData\UserData.csproj", "{7D5360DF-42BC-4382-995D-35439C142127}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

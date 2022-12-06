@@ -22,8 +22,8 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
     public void createHost(GHost request, StreamObserver<GHost> responseObserver) {
         System.out.println("DATA TIER CHECKING GENDER AFTER CONVERT: " + request.getGender());
 
-        responseObserver.onNext(GrpcConverter.HostToGrpc(
-                hostDaoInterface.createHost(GrpcConverter.HostFromGrpc(request))));
+        responseObserver.onNext(GrpcConverter.hostToGrpc(
+                hostDaoInterface.createHost(GrpcConverter.hostFromGrpc(request))));
         System.out.println("DATA TIER CHECKING GENDER AFTER CONVERT: " + request.getGender());
 
         responseObserver.onCompleted();
@@ -45,7 +45,7 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
             responseObserver.onCompleted();
         }
         else {
-            GHost response = GrpcConverter.HostToGrpc(dataResponse.get());
+            GHost response = GrpcConverter.hostToGrpc(dataResponse.get());
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }
@@ -61,7 +61,7 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
             responseObserver.onCompleted();
         }
         else {
-            GHost response = GrpcConverter.HostToGrpc(dataResponse.get());
+            GHost response = GrpcConverter.hostToGrpc(dataResponse.get());
             responseObserver.onNext(response);
             responseObserver.onCompleted();
 

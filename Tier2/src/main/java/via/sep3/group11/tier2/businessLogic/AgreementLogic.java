@@ -6,10 +6,7 @@ import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.AgreementInterface;
-import via.sep3.group11.tier2.shared.DTOs.AgreementDTO;
-import via.sep3.group11.tier2.shared.DTOs.AgreementsByHostDTO;
-import via.sep3.group11.tier2.shared.DTOs.RequestAgreementDTO;
-import via.sep3.group11.tier2.shared.DTOs.RespondAgreementDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
 import via.sep3.group11.tier2.shared.domain.*;
 import java.util.List;
 import java.util.Optional;
@@ -95,8 +92,10 @@ public class AgreementLogic implements AgreementInterface {
     }
 
     @Override
-    public List<Agreement> getAllRequestsByHost(AgreementsByHostDTO dto) {
-        return agreementDAO.getAgreementsByHostId(dto.getHostEmail());
+    public AgreementListDTO getAllRequestsByHost(AgreementsByHostDTO dto) {
+        List<Agreement> a = agreementDAO.getAgreementsByHostId(dto.getHostEmail());
+        AgreementListDTO agreementListDTO = new AgreementListDTO(a, "");
+        return agreementListDTO;
     }
 
     public Agreement dummyAgreement()

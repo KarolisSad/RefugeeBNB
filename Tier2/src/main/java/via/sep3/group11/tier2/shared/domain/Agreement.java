@@ -6,15 +6,15 @@ public class Agreement {
     private Housing housing;
     private Refugee refugee;
     private boolean isAccepted;
-    private Date dateOfBirth;
+    private Date dateOfIssue;
 
-    public Agreement(Long agreementId, Host host, Housing housing, Refugee refugee, boolean isAccepted, Date dateOfBirth) {
+    public Agreement(Long agreementId, Host host, Housing housing, Refugee refugee, boolean isAccepted, Date dateOfIssue) {
         this.agreementId = agreementId;
         this.host = host;
         this.housing = housing;
         this.refugee = refugee;
         this.isAccepted = isAccepted;
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfIssue = dateOfIssue;
     }
 
     public Agreement(Long agreementId, Host host, Housing housing, Refugee refugee, boolean isAccepted) {
@@ -74,11 +74,11 @@ public class Agreement {
     }
 
     public Date getDateOfBirth() {
-        return dateOfBirth;
+        return dateOfIssue;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfIssue = dateOfBirth;
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Agreement {
                 ", housing=" + housing +
                 ", refugee=" + refugee +
                 ", isAccepted=" + isAccepted +
-                ", dateOfBirth=" + dateOfBirth +
+                ", dateOfBirth=" + dateOfIssue +
                 '}';
     }
 }

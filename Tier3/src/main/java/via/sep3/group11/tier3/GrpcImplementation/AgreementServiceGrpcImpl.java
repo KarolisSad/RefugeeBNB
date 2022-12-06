@@ -22,11 +22,11 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
     @Override
     public void addAgreement (GAgreement request, StreamObserver<GAgreement> responseObserver)
     {
-        Agreement convertedRequest = GrpcConverter.AgreementFromGrpc(request);
+        Agreement convertedRequest = GrpcConverter.agreementFromGrpc(request);
         System.out.println("ConvertedRequest: " + convertedRequest);
         Agreement dataResponse = agreementDao.addAgreement(convertedRequest);
         System.out.println(dataResponse);
-        GAgreement response = AgreementWithIdToGrpc(dataResponse);
+        GAgreement response = agreementWithIdToGrpc(dataResponse);
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
@@ -41,7 +41,7 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
             responseObserver.onCompleted();
         }
         else {
-            GAgreement agreement = AgreementWithIdToGrpc(dataResponse.get());
+            GAgreement agreement = agreementWithIdToGrpc(dataResponse.get());
             responseObserver.onNext(agreement);
             responseObserver.onCompleted();
         }
@@ -60,7 +60,7 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
         else {
             for(int i = 0; i < dataResponse.size(); i++)
             {
-                responseBuilder.addAgreements(AgreementWithIdToGrpc(dataResponse.get(i)));
+                responseBuilder.addAgreements(agreementWithIdToGrpc(dataResponse.get(i)));
             }
             getAllPendingAgreementsResponse response = responseBuilder.build();
             responseObserver.onNext(response);
@@ -74,7 +74,7 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
         System.out.println("Request dates: REFUGEE" + request.getRefugee().getDateOfBirth());
         System.out.println("Request dates: HOST" + request.getHostDetails().getDateOfBirth());
         System.out.println("Request dates: Agreement" + request.getDateOfCreation());
-        Agreement dataResponse = agreementDao.updateAgreement(AgreementWithIdFromGrpc(request));
+        Agreement dataResponse = agreementDao.updateAgreement(agreementWithIdFromGrpc(request));
         System.out.println("DataResponse: " + dataResponse);
         if (dataResponse == null)
         {
@@ -82,7 +82,7 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
             responseObserver.onCompleted();
         }
         else {
-            GAgreement agreement = AgreementWithIdToGrpc(dataResponse);
+            GAgreement agreement = agreementWithIdToGrpc(dataResponse);
             responseObserver.onNext(agreement);
             responseObserver.onCompleted();
         }
@@ -106,7 +106,7 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
         else {
             for(int i = 0; i < dataResponse.size(); i++)
             {
-                responseBuilder.addAgreements(AgreementToGrpc(dataResponse.get(i)));
+                responseBuilder.addAgreements(agreementToGrpc(dataResponse.get(i)));
             }
             getAllPendingAgreementsResponse response = responseBuilder.build();
             responseObserver.onNext(response);
@@ -126,7 +126,7 @@ public class AgreementServiceGrpcImpl extends AgreementGrpc.AgreementImplBase {
         else {
             for(int i = 0; i < dataResponse.size(); i++)
             {
-                responseBuilder.addAgreements(AgreementToGrpc(dataResponse.get(i)));
+                responseBuilder.addAgreements(agreementToGrpc(dataResponse.get(i)));
             }
             getAllPendingAgreementsResponse response = responseBuilder.build();
             responseObserver.onNext(response);

@@ -58,7 +58,7 @@ public class GrpcConverter {
                 grpcHostDetails.getNationality(),
                 grpcHostDetails.getMiddleName(),
                 grpcHostDetails.getLastName(),
-                DateFromGrpc(grpcHostDetails.getDateOfBirth()));
+                dateFromGrpc(grpcHostDetails.getDateOfBirth()));
     }
 
     public static Refugee refugeeFromGrpc(GRefugee grpcRefugee) {
@@ -137,13 +137,6 @@ public class GrpcConverter {
         return new Date(date.getDay(), date.getMonth(), date.getYear());
     }
 
-    public static Date DateFromGrpc(GDateOfBirth date) {
-        return new Date(
-                date.getDay(),
-                date.getMonth(),
-                date.getYear());
-    }
-
     public static GAddHousingRequest addHousingRequest(Housing housing, String email)
     {
         return GAddHousingRequest.newBuilder()
@@ -151,14 +144,14 @@ public class GrpcConverter {
                 .setEmail(email).build();
     }
 
-    public static Agreement AgreementWithIdFromGrpc(GAgreement agreement) {
+    public static Agreement agreementWithIdFromGrpc(GAgreement agreement) {
         return new Agreement(
                 agreement.getId(),
                 HostDetailsfromGrpc(agreement.getHostDetails()),
                 housingFromGrpc(agreement.getHousing()),
                 refugeeFromGrpc(agreement.getRefugee()),
                 agreement.getStatus(),
-                DateFromGrpc(agreement.getDateOfCreation()));
+                dateFromGrpc(agreement.getDateOfCreation()));
     }
 
     public static GAgreement AgreementWithIdToGrpc(Agreement agreement) {

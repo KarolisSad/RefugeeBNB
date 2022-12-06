@@ -63,5 +63,10 @@ public class HousingLogic implements HousingInterface {
         return new HousingDTO(housing.get(),"");
     }
 
+    @Override
+    public HousingListDTO getHousingByHostId(String email) {
+        return null;
+    }
+
 
 }

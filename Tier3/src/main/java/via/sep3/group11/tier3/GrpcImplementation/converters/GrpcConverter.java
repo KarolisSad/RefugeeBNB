@@ -8,7 +8,7 @@ import static via.sep3.group11.tier3.model.Date.convertLocalDateToDateObject;
 
 public class GrpcConverter {
 
-    public static Host HostFromGrpc(GHost grpcHost) {
+    public static Host hostFromGrpc(GHost grpcHost) {
         return new Host(
                 grpcHost.getEmail(),
                 grpcHost.getFirstName(),
@@ -22,7 +22,7 @@ public class GrpcConverter {
         //TODO ADD Housing
     }
 
-    public static GHost HostToGrpc(Host host) {
+    public static GHost hostToGrpc(Host host) {
 
         System.out.println("DATA TIER CHECKING GENDER BEFORE CONVERT: " + host.getGender());
         return GHost.newBuilder()
@@ -37,7 +37,7 @@ public class GrpcConverter {
         //TODO ADD Housing
     }
 
-    public static GHostDetails HostDetailsToGrpc(Host host) {
+    public static GHostDetails hostDetailsToGrpc(Host host) {
         return GHostDetails.newBuilder()
                 .setFirstName(host.getFirstName())
                 .setEmail(host.getEmail())
@@ -50,7 +50,7 @@ public class GrpcConverter {
                 .build();
     }
 
-    public static Host HostDetailsfromGrpc(GHostDetails grpcHostDetails)
+    public static Host hostDetailsFromGrpc(GHostDetails grpcHostDetails)
     {
         return new Host(
                 grpcHostDetails.getEmail(),
@@ -151,45 +151,45 @@ public class GrpcConverter {
                 date.getYear());
     }
 
-    public static Agreement AgreementWithIdFromGrpc(GAgreement agreement) {
+    public static Agreement agreementWithIdFromGrpc(GAgreement agreement) {
         return new Agreement(
                 agreement.getId(),
                 DateFromGrpc(agreement.getDateOfCreation()),
                 refugeeFromGrpc(agreement.getRefugee()),
                 housingFromGrpcWithStatus(agreement.getHousing()),
-                HostDetailsfromGrpc(agreement.getHostDetails()),
+                hostDetailsFromGrpc(agreement.getHostDetails()),
                 agreement.getStatus());
     }
 
-    public static GAgreement AgreementWithIdToGrpc(Agreement agreement) {
+    public static GAgreement agreementWithIdToGrpc(Agreement agreement) {
         return GAgreement.newBuilder()
                 .setId(agreement.getAgreementId())
                 .setDateOfCreation(DateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
-                .setHostDetails(HostDetailsToGrpc(agreement.getHost()))
+                .setHostDetails(hostDetailsToGrpc(agreement.getHost()))
                 .setHousing(housingToGrpc(agreement.getHousing()))
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
                 .setStatus(agreement.isAccepted()).build();
 
     }
 
-    public static GAgreement AgreementToGrpc(Agreement agreement)
+    public static GAgreement agreementToGrpc(Agreement agreement)
     {
         return GAgreement.newBuilder()
                 .setDateOfCreation(DateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
-                .setHostDetails(HostDetailsToGrpc(agreement.getHost()))
+                .setHostDetails(hostDetailsToGrpc(agreement.getHost()))
                 .setHousing(housingToGrpc(agreement.getHousing()))
                 .setStatus(agreement.isAccepted()).build();
     }
 
-    public static Agreement AgreementFromGrpc(GAgreement agreement) {
+    public static Agreement agreementFromGrpc(GAgreement agreement) {
         System.out.println("GRPCCONVERTER: \n" + agreement.getHousing().getId());
         return new Agreement(
 
                 DateFromGrpc(agreement.getDateOfCreation()),
                 refugeeFromGrpc(agreement.getRefugee()),
                 housingFromGrpcWithStatus(agreement.getHousing()),
-                HostDetailsfromGrpc(agreement.getHostDetails()));
+                hostDetailsFromGrpc(agreement.getHostDetails()));
     }
 
 

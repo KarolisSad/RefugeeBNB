@@ -8,5 +8,6 @@ public interface HousingInterface {
     HousingDTO addHousing(HousingCreationDTO dto);
     HousingListDTO getAvailableHousing();
     HousingDTO removeHousing(HousingIdDTO dto);
+    HousingListDTO getHousingByHostId(String email);
 
 }
