@@ -116,7 +116,7 @@ public class RefugeeLogic implements RefugeeInterface {
             }
         }
 
-        return new RefugeeDTO(null, null);
+        return new RefugeeDTO(null, "");
     }
 
 }

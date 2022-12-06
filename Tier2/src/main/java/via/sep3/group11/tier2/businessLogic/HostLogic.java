@@ -140,19 +140,9 @@ public class HostLogic implements HostInterface {
         }
 
         // delete host entity
-        hostDAO.deleteAccound(email);
+        hostDAO.deleteAccount(email);
 
-        return new HostDTO(null, null);
+        return new HostDTO(null, "");
     }
 
-    /**
-     * Implementation of method used to add a new housing to a host.
-     * This is implemented by getting the Host specified in the DTO from the data-tier.
-     * After this, a new Address-object is created by passing along the information from the DTO.
-     * This address, along with the capacity stored in the DTO is used to create a new Housing-object, which is then passed along to the Housing DAO, and the response from this is returned.
-     * @param dto: a domain transfer object containing all relevant attributes about the housing to add (including address), and the email of the owner of the housing.
-     * @return A housing object representing the newly added entry in the Data-tier.
-     * @throws ValidationException if any validation of the housing throws an exception.
-     * @throws IllegalArgumentException if the host specified in the DTO does not exist.
-     */
 }

@@ -10,4 +10,5 @@ public interface HousingInterface {
     HousingDTO removeHousing(HousingIdDTO dto);
     HousingListDTO getHousingByHostId(String email);
 
+
 }
