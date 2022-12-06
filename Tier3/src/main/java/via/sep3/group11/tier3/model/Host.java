@@ -47,9 +47,9 @@ public class Host {
     @OneToMany(mappedBy = "host")
     private List<Housing> housing;
 
-    @OneToOne
-    @JoinColumn(name = "address")
-    private Address address;
+//    @OneToOne
+//    @JoinColumn(name = "address")
+//    private Address address;
 
     public Host() {}
 
@@ -90,10 +90,6 @@ public class Host {
 
     public char getGender() {
         return gender;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public List<Housing> getHousing() {
