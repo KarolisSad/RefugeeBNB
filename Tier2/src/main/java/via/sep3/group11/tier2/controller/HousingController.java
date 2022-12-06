@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.logicInterfaces.HousingInterface;
-import via.sep3.group11.tier2.shared.DTOs.HousingCreationDTO;
-import via.sep3.group11.tier2.shared.DTOs.HousingDTO;
-import via.sep3.group11.tier2.shared.DTOs.HousingIdDTO;
-import via.sep3.group11.tier2.shared.DTOs.HousingListDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
 import via.sep3.group11.tier2.shared.domain.Address;
 import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
@@ -71,6 +68,18 @@ public class HousingController {
             HousingDTO remove = housingInterface.removeHousing(dto);
             return new ResponseEntity<>(remove, HttpStatus.OK);
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/housing/{email}")
+    public ResponseEntity<HousingListDTO> getHousingByHostId(@PathVariable("email") String email){
+        try {
+            //todo getHousingByHostId implementation
+            HousingListDTO housingByHostId = housingInterface.getHousingByHostId(email);
+            return new ResponseEntity<>(housingByHostId, HttpStatus.OK);
+        }
+        catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
