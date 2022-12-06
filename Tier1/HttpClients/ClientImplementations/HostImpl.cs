@@ -75,4 +75,22 @@ public class HostImpl:HostInterface
         
         return host;
     }
+    
+    public async Task<HostDTO> DeleteAccount(string email)
+    {
+        HttpResponseMessage responseMessage = await client.DeleteAsync($"/api/host/delete/{email}");
+        
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return host;
+    }
 }
