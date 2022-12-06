@@ -91,4 +91,9 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
     public List<Agreement> getAllAgreementsByHousingId(long housingId) {
         return agreementRepository.findAgreementsByHousing_HousingId(housingId);
     }
+
+    @Override
+    public Agreement getAgreementByRefugeeEmail(String refugeeEmail) {
+        return null;
+    }
 }

@@ -13,4 +13,7 @@ public interface AgreementDaoInterface {
     void deleteAgreement(long id);
     List<Agreement> getAllPendingAgreements(String hostEmail);
     List<Agreement> getAllAgreementsByHousingId(long housingId);
+
+    // NEW
+    Agreement getAgreementByRefugeeEmail(String refugeeEmail);
 }

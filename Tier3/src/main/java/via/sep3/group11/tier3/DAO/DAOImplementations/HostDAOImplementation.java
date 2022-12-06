@@ -67,4 +67,9 @@ public class HostDAOImplementation implements HostDaoInterface {
         return Optional.ofNullable(housing.get().host);
     }
 
+    @Override
+    public void deleteAccount(String email) {
+
+    }
+
 }
