@@ -1,5 +1,4 @@
 package via.sep3.group11.tier2.GrpcClients.converters;
-
 import via.sep3.group11.tier2.protobuf.*;
 import via.sep3.group11.tier2.shared.domain.*;
 
@@ -68,7 +67,9 @@ public class GrpcConverter {
                 grpcRefugee.getFirstName(),
                 grpcRefugee.getMiddleName(),
                 grpcRefugee.getLastName(),
-                dateFromGrpc(grpcRefugee.getDateOfBirth()));
+                dateFromGrpc(grpcRefugee.getDateOfBirth()),
+                grpcRefugee.getFamilySize(),
+                grpcRefugee.getAbout());
     }
 
     public static GRefugee refugeeToGrpc(Refugee refugee)
@@ -81,7 +82,9 @@ public class GrpcConverter {
                 .setFirstName(refugee.getFirstName())
                 .setMiddleName(refugee.getMiddleName())
                 .setLastName(refugee.getLastName())
-                .setDateOfBirth(dateToGrpc(refugee.getDateOfBirth())).build();
+                .setDateOfBirth(dateToGrpc(refugee.getDateOfBirth()))
+                .setFamilySize(refugee.getFamilySize())
+                .setAbout(refugee.getDescription()).build();
     }
 
     public static GAddress addressToGrpc(Address address)
@@ -189,3 +192,4 @@ public class GrpcConverter {
                 .setStatus(agreement.isAccepted()).build();
     }
 }
+

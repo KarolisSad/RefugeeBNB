@@ -20,10 +20,10 @@ public final class HousingOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_GAddHousingRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ListOfAvailableHousing_descriptor;
+    internal_static_GListOfHousing_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ListOfAvailableHousing_fieldAccessorTable;
+      internal_static_GListOfHousing_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -35,16 +35,17 @@ public final class HousingOuterClass {
     java.lang.String[] descriptorData = {
       "\n\rHousing.proto\032\024SharedMessages.proto\"?\n" +
       "\022GAddHousingRequest\022\032\n\007housing\030\001 \001(\0132\t.G" +
-      "Housing\022\r\n\005email\030\002 \001(\t\"?\n\026ListOfAvailabl" +
-      "eHousing\022%\n\010housings\030\001 \003(\0132\023.GHousingWit" +
-      "hStatus2\200\002\n\007Housing\0226\n\naddHousing\022\023.GAdd" +
-      "HousingRequest\032\023.GHousingWithStatus\0226\n\023g" +
-      "etAvailableHousing\022\006.Empty\032\027.ListOfAvail" +
-      "ableHousing\022\035\n\rremoveHousing\022\004.GId\032\006.Emp" +
-      "ty\022+\n\016getHousingById\022\004.GId\032\023.GHousingWit" +
-      "hStatus\0229\n\rupdateHousing\022\023.GHousingWithS" +
-      "tatus\032\023.GHousingWithStatusB#\n\037via.sep3.g" +
-      "roup11.tier3.protobufP\001b\006proto3"
+      "Housing\022\r\n\005email\030\002 \001(\t\"7\n\016GListOfHousing" +
+      "\022%\n\010housings\030\001 \003(\0132\023.GHousingWithStatus2" +
+      "\255\002\n\007Housing\0226\n\naddHousing\022\023.GAddHousingR" +
+      "equest\032\023.GHousingWithStatus\022/\n\023getAvaila" +
+      "bleHousing\022\007.GEmpty\032\017.GListOfHousing\022\036\n\r" +
+      "removeHousing\022\004.GId\032\007.GEmpty\022+\n\016getHousi" +
+      "ngById\022\004.GId\032\023.GHousingWithStatus\0229\n\rupd" +
+      "ateHousing\022\023.GHousingWithStatus\032\023.GHousi" +
+      "ngWithStatus\0221\n\025getAllHousingByHostId\022\007." +
+      "GEmail\032\017.GListOfHousingB#\n\037via.sep3.grou" +
+      "p11.tier3.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -57,11 +58,11 @@ public final class HousingOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GAddHousingRequest_descriptor,
         new java.lang.String[] { "Housing", "Email", });
-    internal_static_ListOfAvailableHousing_descriptor =
+    internal_static_GListOfHousing_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_ListOfAvailableHousing_fieldAccessorTable = new
+    internal_static_GListOfHousing_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ListOfAvailableHousing_descriptor,
+        internal_static_GListOfHousing_descriptor,
         new java.lang.String[] { "Housings", });
     via.sep3.group11.tier3.protobuf.SharedMessages.getDescriptor();
   }

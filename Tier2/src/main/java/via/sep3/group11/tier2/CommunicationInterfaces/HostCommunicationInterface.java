@@ -8,4 +8,5 @@ public interface HostCommunicationInterface {
     Host createHost(Host host);
     Optional<Host> getHostByEmail(String email);
     Optional<Host> getHostByHousingId (long housingId);
+    void deleteAccount(String email);
 }

@@ -3,7 +3,7 @@
 
 package via.sep3.group11.tier2.protobuf;
 
-public interface EmptyOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:Empty)
+public interface GEmptyOrBuilder extends
+    // @@protoc_insertion_point(interface_extends:GEmpty)
     com.google.protobuf.MessageOrBuilder {
 }

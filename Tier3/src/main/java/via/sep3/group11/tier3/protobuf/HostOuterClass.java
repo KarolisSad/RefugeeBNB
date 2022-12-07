@@ -23,11 +23,12 @@ public final class HostOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\nHost.proto\032\024SharedMessages.proto2k\n\004Ho" +
-      "st\022\034\n\nCreateHost\022\006.GHost\032\006.GHost\022!\n\016GetH" +
-      "ostByEmail\022\007.GEmail\032\006.GHost\022\"\n\022getHostBy" +
-      "HousingId\022\004.GId\032\006.GHostB#\n\037via.sep3.grou" +
-      "p11.tier3.protobufP\001b\006proto3"
+      "\n\nHost.proto\032\024SharedMessages.proto2\216\001\n\004H" +
+      "ost\022\034\n\nCreateHost\022\006.GHost\032\006.GHost\022!\n\016Get" +
+      "HostByEmail\022\007.GEmail\032\006.GHost\022\"\n\022getHostB" +
+      "yHousingId\022\004.GId\032\006.GHost\022!\n\rdeleteAccoun" +
+      "t\022\007.GEmail\032\007.GEmptyB#\n\037via.sep3.group11." +
+      "tier3.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

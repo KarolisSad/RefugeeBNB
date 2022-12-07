@@ -4,6 +4,7 @@ import io.grpc.stub.StreamObserver;
 import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter;
 import via.sep3.group11.tier3.model.Refugee;
+import via.sep3.group11.tier3.protobuf.GEmpty;
 import via.sep3.group11.tier3.protobuf.GEmail;
 import via.sep3.group11.tier3.protobuf.GRefugee;
 import via.sep3.group11.tier3.protobuf.RefugeeGrpc;
@@ -20,7 +21,6 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
 
     @Override
     public void createRefugee(GRefugee request, StreamObserver<GRefugee> responseObserver) {
-
         Refugee convertedRequest = GrpcConverter.refugeeFromGrpc(request);
         Refugee dataResponse = refugeeDao.createRefugee(convertedRequest);
         GRefugee response = GrpcConverter.refugeeToGrpc(dataResponse);
@@ -29,8 +29,7 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
     }
 
     @Override
-    public void getRefugeeByEmail(GEmail request, StreamObserver<GRefugee> responseObserver)
-    {
+    public void getRefugeeByEmail(GEmail request, StreamObserver<GRefugee> responseObserver) {
         Optional<Refugee> dataResponse = refugeeDao.getRefugeeByEmail(request.getEmail());
         if (dataResponse.isEmpty())
         {
@@ -41,7 +40,12 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
             GRefugee response = GrpcConverter.refugeeToGrpc(dataResponse.get());
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-
         }
+    }
+
+    @Override
+    public void deleteAccount(GEmail request, StreamObserver<GEmpty> responseObserver) {
+        refugeeDao.deleteAccount(request.getEmail());
+        responseObserver.onCompleted();
     }
 }

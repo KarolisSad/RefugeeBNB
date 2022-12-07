@@ -37,6 +37,8 @@ message GRefugee{
   string middleName = 6;
   string lastName = 7;
   GDateOfBirth dateOfBirth = 8;
+  string about = 9;
+  int32 familySize = 10;
 }
 
 // -- HOUSING
@@ -87,4 +89,4 @@ message GId{
   int64 id = 1;
 }
 
-message Empty{}
+message GEmpty{}

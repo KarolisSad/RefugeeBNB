@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface RefugeeCommunicationInterface {
     Refugee createRefugee(Refugee refugee);
     Optional<Refugee> getRefugeeByEmail(String email);
+    void deleteAccount(String email);
 }
