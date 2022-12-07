@@ -67,7 +67,9 @@ public class GrpcConverter {
                 grpcRefugee.getPassword(),
                 grpcRefugee.getNationality(),
                 grpcRefugee.getGender().charAt(0),
-                dateFromGrpc(grpcRefugee.getDateOfBirth()));
+                dateFromGrpc(grpcRefugee.getDateOfBirth()),
+                grpcRefugee.getFamilySize(),
+                grpcRefugee.getAbout());
     }
 
     public static GRefugee refugeeToGrpc(Refugee refugee) {
@@ -80,7 +82,8 @@ public class GrpcConverter {
                 .setMiddleName(refugee.getMiddleName())
                 .setLastName(refugee.getLastName())
                 .setDateOfBirth(dateToGrpc(refugee.getDateOfBirth()))
-                .build();
+                .setFamilySize(refugee.getFamilySize())
+                .setAbout(refugee.getAbout()).build();
     }
 
     public static GAddress addressToGrpc(Address address) {
