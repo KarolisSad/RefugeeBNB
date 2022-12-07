@@ -32,7 +32,9 @@ class RefugeeRepositoryTest {
                 "builder",
                 "Denmark",
                 'M',
-                new Date(01,01,1999)
+                new Date(01,01,1999),
+                1,
+                ""
         );
         underTest.save(refugee);
         assertThat(underTest.findById("Bob@gmail.com")).isNotEmpty();

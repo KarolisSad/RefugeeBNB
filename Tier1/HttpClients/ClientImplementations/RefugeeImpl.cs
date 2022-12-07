@@ -58,6 +58,7 @@ public class RefugeeImpl:RefugeeInterface
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
         {
+            Console.WriteLine(content);
             throw new Exception(content);
         }
 

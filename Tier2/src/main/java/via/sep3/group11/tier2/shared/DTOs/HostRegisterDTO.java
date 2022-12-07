@@ -106,4 +106,8 @@ public class HostRegisterDTO {
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

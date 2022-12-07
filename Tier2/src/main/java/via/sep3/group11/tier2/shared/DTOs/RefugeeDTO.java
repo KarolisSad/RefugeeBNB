@@ -18,4 +18,12 @@ public class RefugeeDTO {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+    @Override
+    public String toString() {
+        return "RefugeeDTO{" +
+                "refugee=" + refugee +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
+    }
 }

@@ -71,12 +71,14 @@ public class RefugeeController {
     }
 
 
-    /*
+
     @CrossOrigin
     @DeleteMapping("/refugee/delete/{email}")
     public ResponseEntity<RefugeeDTO> deleteAccount(@PathVariable("email") String email) {
         try {
+            System.out.println("Trying to delete: " + email);
             RefugeeDTO refugee = refugeeInterface.deleteAccount(email);
+            System.out.println(refugee);
             return new ResponseEntity<>(refugee, HttpStatus.OK);
         }
 
@@ -86,5 +88,4 @@ public class RefugeeController {
         }
     }
 
-     */
 }

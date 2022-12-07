@@ -69,7 +69,8 @@ public class HostDAOImplementation implements HostDaoInterface {
 
     @Override
     public void deleteAccount(String email) {
-        hostRepository.deleteHostByEmail(email);
+        hostRepository.deleteById(email);
+        //hostRepository.deleteHostByEmail(email);
     }
 
 }

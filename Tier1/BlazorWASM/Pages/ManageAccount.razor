@@ -48,9 +48,12 @@
         }
         else if (MenuService.Refugee)
         {
+            Console.WriteLine(MenuService.RefugeeLogged);
+            
             RefugeeDTO dto = await RefugeeInterface.DeleteAccountAsync(MenuService.RefugeeLogged);
             if (dto.ErrorMessage.Equals(null))
             {
+                //todo change to nav manager go to main page with no user logged in.
                 resultMsg = dto.ErrorMessage;
                 color = "red";
             }

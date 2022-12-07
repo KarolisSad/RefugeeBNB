@@ -104,14 +104,19 @@ public class RefugeeLogic implements RefugeeInterface {
     @Override
     public RefugeeDTO deleteAccount(String email) {
 
+        System.out.println("deleteAccound Logic: " + email);
         // Check if refugee exists
         Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(email);
         if (existing.isEmpty()) {
             return new RefugeeDTO(null, "No refugee with email: " + email + " found.");
         }
 
+        System.out.println("Existing refugee from DB: " + existing.get().getEmail());
         // Check if refugee is part of any agreements. If yes, check if agreement is pending or accepted. If pending -> remove it, else unable to delete.
+
+        /*
         Optional<Agreement> existingAgreement = agreementCommunicationInterface.getAgreementByRefugeeEmail(email); //TODO
+
         if (existingAgreement.isPresent()) {
             if (existingAgreement.get().isAccepted()) {
                 return new RefugeeDTO(null, "Unable to delete, due to refugee being part of an accepted agreement");
@@ -120,6 +125,10 @@ public class RefugeeLogic implements RefugeeInterface {
                 agreementCommunicationInterface.deleteAgreement(existingAgreement.get().getAgreementId());
             }
         }
+         */
+
+        refugeeDAO.deleteAccount(email);
+        System.out.println("DELETED: " + email);
 
         return new RefugeeDTO(null, "");
     }

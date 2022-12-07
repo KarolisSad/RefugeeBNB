@@ -86,7 +86,7 @@ public class HostController {
 
     }
 
-    /*
+
     @DeleteMapping("/host/delete/{email}")
     public ResponseEntity<HostDTO> deleteAccount(@PathVariable("email") String email) {
         try {
@@ -99,6 +99,4 @@ public class HostController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-     */
 }

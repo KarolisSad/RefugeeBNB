@@ -110,4 +110,5 @@ public class HousingCreationDTO {
     public String getErrorMessage(){
         return errorMessage;
     }
+
 }

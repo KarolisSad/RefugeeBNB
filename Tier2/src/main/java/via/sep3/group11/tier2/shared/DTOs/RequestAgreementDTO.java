@@ -47,6 +47,8 @@ public class RequestAgreementDTO {
         this.errorMessage = errorMessage;
     }
 
+
+
     @Override
     public String toString() {
         return "RequestAgreementDTO{" +

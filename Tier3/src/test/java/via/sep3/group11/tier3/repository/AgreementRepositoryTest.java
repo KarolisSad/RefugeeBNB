@@ -48,8 +48,8 @@ class AgreementRepositoryTest {
         housing2.host = host2;
         housingRepository.save(housing1);
         housingRepository.save(housing2);
-        Refugee refugee = new Refugee("Refugee@gmail.com", "Bob", "", "Builder", "builder", "Denmark", 'M', new Date(01,01,1999));
-        Refugee refugee2 = new Refugee("Refugee2@gmail.com", "Bob", "", "Builder", "builder", "Denmark", 'M', new Date(01,01,1999));
+        Refugee refugee = new Refugee("Refugee@gmail.com", "Bob", "", "Builder", "builder", "Denmark", 'M', new Date(01,01,1999), 1, "");
+        Refugee refugee2 = new Refugee("Refugee2@gmail.com", "Bob", "", "Builder", "builder", "Denmark", 'M', new Date(01,01,1999), 1, "");
         refugeeRepository.save(refugee);
         refugeeRepository.save(refugee2);
 
