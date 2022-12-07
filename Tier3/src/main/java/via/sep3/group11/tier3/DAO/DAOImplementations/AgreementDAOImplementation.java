@@ -90,4 +90,9 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
     public Optional<Agreement> getAgreementByRefugeeEmail(String email) {
         return Optional.empty();
     }
+
+    @Override
+    public Agreement getAgreementByRefugeeEmail(String refugeeEmail) {
+        return agreementRepository.findAgreementByRefugee_Email(refugeeEmail);
+    }
 }

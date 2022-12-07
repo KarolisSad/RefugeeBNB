@@ -13,5 +13,5 @@ public interface HousingDaoInterface {
     Housing updateHousing(Housing housing);
     List<Housing> getAvailableHousing();
     void removeHousing(long housingId);
-    List<Housing> getAllHousingByHostId(String email);
+    List<Housing> getAllHousingByHostId(String hostEmail);
 }

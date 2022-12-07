@@ -52,6 +52,6 @@ public class RefugeeDAOImplementation implements RefugeeDaoInterface {
 
     @Override
     public void deleteAccount(String email) {
-
+        repository.deleteByEmail(email);
     }
 }

@@ -1,17 +1,19 @@
 package via.sep3.group11.tier2.businessLogic;
 
 import org.springframework.stereotype.Service;
+import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
-import via.sep3.group11.tier2.shared.DTOs.HostDTO;
-import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
-import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
+import via.sep3.group11.tier2.shared.domain.Agreement;
 import via.sep3.group11.tier2.shared.domain.Date;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Housing;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -26,15 +28,17 @@ public class HostLogic implements HostInterface {
 
     private HostCommunicationInterface hostDAO;
     private HousingCommunicationInterface housingDAO;
+    private AgreementCommunicationInterface agreementCommunicationInterface;
 
     /**
      * Simple constructor used to inject the two DAO's needed for communicating with the data-tier.
      * @param hostDAO: Data Access Object used for accessing Host-information in the data-tier.
      * @param housingDAO: Data Access Object used for accessing Housing-information in the data-tier.
      */
-    public HostLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO) {
+    public HostLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO, AgreementCommunicationInterface agreementCommunicationInterface) {
         this.hostDAO = hostDAO;
         this.housingDAO = housingDAO;
+        this.agreementCommunicationInterface = agreementCommunicationInterface;
     }
 
     /**
@@ -105,14 +109,40 @@ public class HostLogic implements HostInterface {
         return new HostDTO(hostDAO.getHostByHousingId(housingId).get(),"");
     }
 
-    /**
-     * Implementation of method used to add a new housing to a host.
-     * This is implemented by getting the Host specified in the DTO from the data-tier.
-     * After this, a new Address-object is created by passing along the information from the DTO.
-     * This address, along with the capacity stored in the DTO is used to create a new Housing-object, which is then passed along to the Housing DAO, and the response from this is returned.
-     * @param dto: a domain transfer object containing all relevant attributes about the housing to add (including address), and the email of the owner of the housing.
-     * @return A housing object representing the newly added entry in the Data-tier.
-     * @throws ValidationException if any validation of the housing throws an exception.
-     * @throws IllegalArgumentException if the host specified in the DTO does not exist.
-     */
+    @Override
+    public HostDTO deleteAccount(String email) {
+
+        Optional<Host> existing = hostDAO.getHostByEmail(email);
+        if (existing.isEmpty())
+        {
+            return new HostDTO(null, "Host with email: " + email + " not found, and therefore unable to be deleted.");
+        }
+
+        // If host is existing - get lists of agreements and housings.
+        List<Agreement> agreementList = agreementCommunicationInterface.getAgreementsByHostId(email);
+        List<Housing> housingList = housingDAO.getHousingByHostId(email); //TODO
+
+        // if any agreement is accepted - do not delete, instead return a dto with error message.
+        for (Agreement a : agreementList) {
+            if (a.isAccepted()) {
+                return new HostDTO(null, "Unable to delete. Ongoing agreement(s) found.");
+            }
+        }
+
+        // remove all pending agreements
+        for (Agreement a : agreementList) {
+            agreementCommunicationInterface.deleteAgreement(a.getAgreementId());
+        }
+
+        // remove all housing
+        for (Housing h : housingList) {
+            housingDAO.removeHousing(h.getHousingId());
+        }
+
+        // delete host entity
+        hostDAO.deleteAccount(email); //TODO
+
+        return new HostDTO(null, "");
+    }
+
 }

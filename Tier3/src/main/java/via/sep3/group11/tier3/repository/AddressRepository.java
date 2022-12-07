@@ -10,4 +10,5 @@ import via.sep3.group11.tier3.model.Address;
  * @author Group 11
  */
 public interface AddressRepository extends JpaRepository<Address, Long> {
+
 }
