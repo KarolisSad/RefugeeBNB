@@ -15,10 +15,10 @@ public final class AgreementOuterClass {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_getAllPendingAgreementsResponse_descriptor;
+    internal_static_GAgreementList_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_getAllPendingAgreementsResponse_fieldAccessorTable;
+      internal_static_GAgreementList_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -29,30 +29,28 @@ public final class AgreementOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\017Agreement.proto\032\024SharedMessages.proto\"" +
-      "B\n\037getAllPendingAgreementsResponse\022\037\n\nag" +
-      "reements\030\001 \003(\0132\013.GAgreement2\371\002\n\tAgreemen" +
-      "t\022(\n\014addAgreement\022\013.GAgreement\032\013.GAgreem" +
-      "ent\022+\n\017updateAgreement\022\013.GAgreement\032\013.GA" +
-      "greement\022%\n\020getAgreementById\022\004.GId\032\013.GAg" +
-      "reement\022A\n\024getAgreementByHostId\022\007.GEmail" +
-      "\032 .getAllPendingAgreementsResponse\022\037\n\017de" +
-      "leteAgreement\022\004.GId\032\006.Empty\022D\n\027getAllPen" +
-      "dingAgreements\022\007.GEmail\032 .getAllPendingA" +
-      "greementsResponse\022D\n\032getAllAgreementByHo" +
-      "usingId\022\004.GId\032 .getAllPendingAgreementsR" +
-      "esponseB#\n\037via.sep3.group11.tier3.protob" +
-      "ufP\001b\006proto3"
+      "1\n\016GAgreementList\022\037\n\nagreements\030\001 \003(\0132\013." +
+      "GAgreement2\303\002\n\tAgreement\022(\n\014addAgreement" +
+      "\022\013.GAgreement\032\013.GAgreement\022+\n\017updateAgre" +
+      "ement\022\013.GAgreement\032\013.GAgreement\022%\n\020getAg" +
+      "reementById\022\004.GId\032\013.GAgreement\0220\n\024getAgr" +
+      "eementByHostId\022\007.GEmail\032\017.GAgreementList" +
+      "\022 \n\017deleteAgreement\022\004.GId\032\007.GEmpty\0223\n\032ge" +
+      "tAllAgreementByHousingId\022\004.GId\032\017.GAgreem" +
+      "entList\022/\n\027getAgreementByRefugeeId\022\007.GEm" +
+      "ail\032\013.GAgreementB#\n\037via.sep3.group11.tie" +
+      "r3.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           via.sep3.group11.tier3.protobuf.SharedMessages.getDescriptor(),
         });
-    internal_static_getAllPendingAgreementsResponse_descriptor =
+    internal_static_GAgreementList_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_getAllPendingAgreementsResponse_fieldAccessorTable = new
+    internal_static_GAgreementList_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_getAllPendingAgreementsResponse_descriptor,
+        internal_static_GAgreementList_descriptor,
         new java.lang.String[] { "Agreements", });
     via.sep3.group11.tier3.protobuf.SharedMessages.getDescriptor();
   }

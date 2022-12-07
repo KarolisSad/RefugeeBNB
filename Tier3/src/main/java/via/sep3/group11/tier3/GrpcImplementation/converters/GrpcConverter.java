@@ -17,13 +17,10 @@ public class GrpcConverter {
                 grpcHost.getNationality(),
                 grpcHost.getGender().charAt(0),
                 new Date(grpcHost.getDateOfBirth().getDay(), grpcHost.getDateOfBirth().getMonth(), grpcHost.getDateOfBirth().getYear()));
-
         //TODO ADD Housing
     }
 
     public static GHost hostToGrpc(Host host) {
-
-        System.out.println("DATA TIER CHECKING GENDER BEFORE CONVERT: " + host.getGender());
         return GHost.newBuilder()
                 .setFirstName(host.getFirstName())
                 .setEmail(host.getEmail())
@@ -49,8 +46,7 @@ public class GrpcConverter {
                 .build();
     }
 
-    public static Host hostDetailsFromGrpc(GHostDetails grpcHostDetails)
-    {
+    public static Host hostDetailsFromGrpc(GHostDetails grpcHostDetails) {
         return new Host(
                 grpcHostDetails.getEmail(),
                 grpcHostDetails.getFirstName(),
@@ -62,7 +58,6 @@ public class GrpcConverter {
                 dateFromGrpc(grpcHostDetails.getDateOfBirth()));
     }
 
-
     public static Refugee refugeeFromGrpc(GRefugee grpcRefugee) {
         return new Refugee(
                 grpcRefugee.getEmail(),
@@ -72,7 +67,9 @@ public class GrpcConverter {
                 grpcRefugee.getPassword(),
                 grpcRefugee.getNationality(),
                 grpcRefugee.getGender().charAt(0),
-                dateFromGrpc(grpcRefugee.getDateOfBirth()));
+                dateFromGrpc(grpcRefugee.getDateOfBirth()),
+                grpcRefugee.getFamilySize(),
+                grpcRefugee.getAbout());
     }
 
     public static GRefugee refugeeToGrpc(Refugee refugee) {
@@ -85,7 +82,8 @@ public class GrpcConverter {
                 .setMiddleName(refugee.getMiddleName())
                 .setLastName(refugee.getLastName())
                 .setDateOfBirth(dateToGrpc(refugee.getDateOfBirth()))
-                .build();
+                .setFamilySize(refugee.getFamilySize())
+                .setAbout(refugee.getAbout()).build();
     }
 
     public static GAddress addressToGrpc(Address address) {
@@ -134,7 +132,6 @@ public class GrpcConverter {
                 .build();
     }
 
-
     public static GDateOfBirth dateToGrpc(Date date) {
         return GDateOfBirth.newBuilder()
                 .setDay(date.getDay())
@@ -168,11 +165,9 @@ public class GrpcConverter {
                 .setHousing(housingToGrpc(agreement.getHousing()))
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
                 .setStatus(agreement.isAccepted()).build();
-
     }
 
-    public static GAgreement agreementToGrpc(Agreement agreement)
-    {
+    public static GAgreement agreementToGrpc(Agreement agreement) {
         return GAgreement.newBuilder()
                 .setDateOfCreation(dateToGrpc(convertLocalDateToDateObject(agreement.getDate())))
                 .setRefugee(refugeeToGrpc(agreement.getRefugee()))
@@ -182,16 +177,12 @@ public class GrpcConverter {
     }
 
     public static Agreement agreementFromGrpc(GAgreement agreement) {
-        System.out.println("GRPCCONVERTER: \n" + agreement.getHousing().getId());
         return new Agreement(
-
                 dateFromGrpc(agreement.getDateOfCreation()),
                 refugeeFromGrpc(agreement.getRefugee()),
                 housingFromGrpcWithStatus(agreement.getHousing()),
                 hostDetailsFromGrpc(agreement.getHostDetails()));
     }
-
-
 }
 
 

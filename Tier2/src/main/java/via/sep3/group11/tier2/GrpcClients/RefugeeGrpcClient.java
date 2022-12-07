@@ -1,5 +1,4 @@
 package via.sep3.group11.tier2.GrpcClients;
-
 import io.grpc.StatusRuntimeException;
 import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier2.GrpcClients.connections.Channel;
@@ -8,8 +7,6 @@ import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterf
 import via.sep3.group11.tier2.protobuf.GEmail;
 import via.sep3.group11.tier2.protobuf.GRefugee;
 import via.sep3.group11.tier2.shared.domain.Refugee;
-import via.sep3.group11.tier2.shared.exceptions.ValidationException;
-
 import javax.annotation.Resource;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -56,7 +53,20 @@ public class RefugeeGrpcClient implements RefugeeCommunicationInterface {
         }
     }
 
+    @Override
+    public void deleteAccount(String email) {
+        try {
+            GEmail request = GEmail.newBuilder().setEmail(email).build();
+            channel.getRefugeeStub().withDeadlineAfter(1, TimeUnit.SECONDS).deleteAccount(request);
+        }
+        catch (StatusRuntimeException e)
+        {
+            reestablishConnection();
+        }
+    }
+
     private void reestablishConnection() {
         channel.createChannel();
     }
 }
+

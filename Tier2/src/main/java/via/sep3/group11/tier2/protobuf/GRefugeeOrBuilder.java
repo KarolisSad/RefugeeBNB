@@ -105,4 +105,22 @@ public interface GRefugeeOrBuilder extends
    * <code>.GDateOfBirth dateOfBirth = 8;</code>
    */
   via.sep3.group11.tier2.protobuf.GDateOfBirthOrBuilder getDateOfBirthOrBuilder();
+
+  /**
+   * <code>string about = 9;</code>
+   * @return The about.
+   */
+  java.lang.String getAbout();
+  /**
+   * <code>string about = 9;</code>
+   * @return The bytes for about.
+   */
+  com.google.protobuf.ByteString
+      getAboutBytes();
+
+  /**
+   * <code>int32 familySize = 10;</code>
+   * @return The familySize.
+   */
+  int getFamilySize();
 }

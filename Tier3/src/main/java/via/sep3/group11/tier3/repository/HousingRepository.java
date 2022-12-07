@@ -15,4 +15,5 @@ import java.util.Optional;
  */
 public interface HousingRepository extends JpaRepository<Housing, Long> {
     List<Housing> findAllByAvailableTrue();
+    List<Housing> findAllByHost_Email(String email);
 }

@@ -12,4 +12,5 @@ import java.util.Optional;
  * @author Group 11
  */
 public interface HostRepository extends JpaRepository<Host, String> {
+    void deleteHostByEmail(String email);
 }

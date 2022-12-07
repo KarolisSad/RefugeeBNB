@@ -27,6 +27,7 @@ private static final long serialVersionUID = 0L;
     firstName_ = "";
     middleName_ = "";
     lastName_ = "";
+    about_ = "";
   }
 
   @java.lang.Override
@@ -112,6 +113,17 @@ private static final long serialVersionUID = 0L;
               dateOfBirth_ = subBuilder.buildPartial();
             }
 
+            break;
+          }
+          case 74: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            about_ = s;
+            break;
+          }
+          case 80: {
+
+            familySize_ = input.readInt32();
             break;
           }
           default: {
@@ -440,6 +452,55 @@ private static final long serialVersionUID = 0L;
     return getDateOfBirth();
   }
 
+  public static final int ABOUT_FIELD_NUMBER = 9;
+  private volatile java.lang.Object about_;
+  /**
+   * <code>string about = 9;</code>
+   * @return The about.
+   */
+  @java.lang.Override
+  public java.lang.String getAbout() {
+    java.lang.Object ref = about_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      about_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string about = 9;</code>
+   * @return The bytes for about.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getAboutBytes() {
+    java.lang.Object ref = about_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      about_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int FAMILYSIZE_FIELD_NUMBER = 10;
+  private int familySize_;
+  /**
+   * <code>int32 familySize = 10;</code>
+   * @return The familySize.
+   */
+  @java.lang.Override
+  public int getFamilySize() {
+    return familySize_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -478,6 +539,12 @@ private static final long serialVersionUID = 0L;
     if (dateOfBirth_ != null) {
       output.writeMessage(8, getDateOfBirth());
     }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(about_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 9, about_);
+    }
+    if (familySize_ != 0) {
+      output.writeInt32(10, familySize_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -511,6 +578,13 @@ private static final long serialVersionUID = 0L;
     if (dateOfBirth_ != null) {
       size += com.google.protobuf.CodedOutputStream
         .computeMessageSize(8, getDateOfBirth());
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(about_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(9, about_);
+    }
+    if (familySize_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(10, familySize_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -546,6 +620,10 @@ private static final long serialVersionUID = 0L;
       if (!getDateOfBirth()
           .equals(other.getDateOfBirth())) return false;
     }
+    if (!getAbout()
+        .equals(other.getAbout())) return false;
+    if (getFamilySize()
+        != other.getFamilySize()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -575,6 +653,10 @@ private static final long serialVersionUID = 0L;
       hash = (37 * hash) + DATEOFBIRTH_FIELD_NUMBER;
       hash = (53 * hash) + getDateOfBirth().hashCode();
     }
+    hash = (37 * hash) + ABOUT_FIELD_NUMBER;
+    hash = (53 * hash) + getAbout().hashCode();
+    hash = (37 * hash) + FAMILYSIZE_FIELD_NUMBER;
+    hash = (53 * hash) + getFamilySize();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -732,6 +814,10 @@ private static final long serialVersionUID = 0L;
         dateOfBirth_ = null;
         dateOfBirthBuilder_ = null;
       }
+      about_ = "";
+
+      familySize_ = 0;
+
       return this;
     }
 
@@ -770,6 +856,8 @@ private static final long serialVersionUID = 0L;
       } else {
         result.dateOfBirth_ = dateOfBirthBuilder_.build();
       }
+      result.about_ = about_;
+      result.familySize_ = familySize_;
       onBuilt();
       return result;
     }
@@ -848,6 +936,13 @@ private static final long serialVersionUID = 0L;
       }
       if (other.hasDateOfBirth()) {
         mergeDateOfBirth(other.getDateOfBirth());
+      }
+      if (!other.getAbout().isEmpty()) {
+        about_ = other.about_;
+        onChanged();
+      }
+      if (other.getFamilySize() != 0) {
+        setFamilySize(other.getFamilySize());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1527,6 +1622,113 @@ private static final long serialVersionUID = 0L;
         dateOfBirth_ = null;
       }
       return dateOfBirthBuilder_;
+    }
+
+    private java.lang.Object about_ = "";
+    /**
+     * <code>string about = 9;</code>
+     * @return The about.
+     */
+    public java.lang.String getAbout() {
+      java.lang.Object ref = about_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        about_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string about = 9;</code>
+     * @return The bytes for about.
+     */
+    public com.google.protobuf.ByteString
+        getAboutBytes() {
+      java.lang.Object ref = about_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        about_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string about = 9;</code>
+     * @param value The about to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAbout(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      about_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string about = 9;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearAbout() {
+      
+      about_ = getDefaultInstance().getAbout();
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string about = 9;</code>
+     * @param value The bytes for about to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAboutBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      about_ = value;
+      onChanged();
+      return this;
+    }
+
+    private int familySize_ ;
+    /**
+     * <code>int32 familySize = 10;</code>
+     * @return The familySize.
+     */
+    @java.lang.Override
+    public int getFamilySize() {
+      return familySize_;
+    }
+    /**
+     * <code>int32 familySize = 10;</code>
+     * @param value The familySize to set.
+     * @return This builder for chaining.
+     */
+    public Builder setFamilySize(int value) {
+      
+      familySize_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 familySize = 10;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearFamilySize() {
+      
+      familySize_ = 0;
+      onChanged();
+      return this;
     }
     @java.lang.Override
     public final Builder setUnknownFields(

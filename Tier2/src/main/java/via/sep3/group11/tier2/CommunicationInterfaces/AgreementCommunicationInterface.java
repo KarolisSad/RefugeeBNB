@@ -12,7 +12,7 @@ public interface AgreementCommunicationInterface {
     Optional<Agreement> getAgreementById(long agreementId);
     List<Agreement> getAgreementsByHostId(String hostId);
     void deleteAgreement(long agreementId);
-    List<Agreement> getAllPendingAgreements(String hostEmail);
     List<Agreement> getAllAgreementsByHousingId(long housingId);
+    Optional<Agreement> getAgreementByRefugeeEmail (String email);
 }
 

@@ -10,4 +10,5 @@ public interface HostDaoInterface {
     Host createHost (Host host);
     Optional<Host> getHostByEmail(String email);
     Optional<Host> getHostByHousingId(long id);
+    void deleteAccount(String email);
 }

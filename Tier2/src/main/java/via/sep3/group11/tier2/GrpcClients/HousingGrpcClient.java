@@ -1,4 +1,5 @@
 package via.sep3.group11.tier2.GrpcClients;
+import com.google.protobuf.Empty;
 import io.grpc.StatusRuntimeException;
 import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier2.GrpcClients.connections.Channel;
@@ -37,15 +38,14 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
     @Override
     public List<Housing> getAvailableHousing() {
         try {
-            Empty request = Empty.newBuilder().build();
-            ListOfAvailableHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAvailableHousing(request);
+            GEmpty request = GEmpty.newBuilder().build();
+            GListOfHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAvailableHousing(request);
             List<Housing> availableHousing = new ArrayList<>();
             for (int i = 0; i < response.getHousingsCount(); i++)
             {
                 availableHousing.add(GrpcConverter.housingFromGrpc(response.getHousings(i)));
             }
             return availableHousing;
-
         }
         catch (StatusRuntimeException e)
         {
@@ -72,13 +72,13 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
             GId request = GId.newBuilder().setId(housingId).build();
             GHousingWithStatus response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHousingById(request);
 
-            /*
+            /* todo
             if (response == null)
             {
                 return Optional.empty();
             }
 
-             */
+            */
 
             return Optional.of(GrpcConverter.housingFromGrpc(response));
         }
@@ -102,6 +102,24 @@ public class HousingGrpcClient implements HousingCommunicationInterface {
         }
         catch (StatusRuntimeException e)
         {
+            reestablishConnection();
+            return null;
+        }
+    }
+
+    @Override
+    public List<Housing> getAllHousingByHostId(String email) {
+        try {
+            GEmail request = GEmail.newBuilder().setEmail(email).build();
+            GListOfHousing response = channel.getHousingStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAllHousingByHostId(request);
+            List<Housing> housings = new ArrayList<>();
+            for (int i = 0; i < response.getHousingsCount(); i++)
+            {
+                housings.add(GrpcConverter.housingFromGrpc(response.getHousings(i)));
+            }
+            return housings;
+        }
+        catch (StatusRuntimeException e) {
             reestablishConnection();
             return null;
         }

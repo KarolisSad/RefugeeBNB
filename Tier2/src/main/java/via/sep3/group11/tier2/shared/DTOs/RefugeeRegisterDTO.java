@@ -17,6 +17,8 @@ public class RefugeeRegisterDTO {
     private String middleName;
     private String lastName;
     private Date dateOfBirth;
+    private int familySize;
+    private String description;
     private String errorMessage;
     /**
      * All-argument constructor used to create an instance of the DTO with all variables set.
@@ -30,7 +32,7 @@ public class RefugeeRegisterDTO {
      * @param lastName: Represents the last name of the Refugee.
      * @param dateOfBirth: Represents the date of birth of the Refugee.
      */
-    public RefugeeRegisterDTO(String email, String password, char gender, String nationality, String firstName, String middleName, String lastName, Date dateOfBirth, String errorMessage) {
+    public RefugeeRegisterDTO(String email, String password, char gender, String nationality, String firstName, String middleName, String lastName, Date dateOfBirth, int familySize, String description, String errorMessage) {
         this.email = email;
         this.password = password;
         this.gender = gender;
@@ -39,6 +41,8 @@ public class RefugeeRegisterDTO {
         this.middleName = middleName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
+        this.familySize = familySize;
+        this.description = description;
         this.errorMessage = errorMessage;
     }
 
@@ -104,6 +108,14 @@ public class RefugeeRegisterDTO {
      */
     public Date getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public int getFamilySize() {
+        return familySize;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getErrorMessage() {

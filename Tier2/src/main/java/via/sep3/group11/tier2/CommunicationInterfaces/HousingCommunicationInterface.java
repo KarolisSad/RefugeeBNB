@@ -10,4 +10,5 @@ public interface HousingCommunicationInterface {
     void removeHousing(long housingId);
     Optional<Housing> getHousingById(long housingId);
     Housing updateHousing(Housing housing);
+    List<Housing> getAllHousingByHostId(String email);
 }
