@@ -5,6 +5,7 @@ namespace HttpClients.ClientInterfaces;
 
 public interface RefugeeInterface
 {
-    Task<RefugeeDTO> RegisterRefugee(RefugeeRegisterDTO dto);
-    Task<RefugeeDTO> LoginRefugee(LoginDTO dto);
+    Task<RefugeeDTO> RegisterRefugeeAsync(RefugeeRegisterDTO dto);
+    Task<RefugeeDTO> LoginRefugeeAsync(LoginDTO dto);
+    Task<RefugeeDTO> DeleteAccountAsync(string email);
 }

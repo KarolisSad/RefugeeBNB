@@ -9,6 +9,7 @@ import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
+import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
@@ -84,4 +85,20 @@ public class HostController {
         }
 
     }
+
+    /*
+    @DeleteMapping("/host/delete/{email}")
+    public ResponseEntity<HostDTO> deleteAccount(@PathVariable("email") String email) {
+        try {
+            HostDTO host = hostLogic.deleteAccount(email);
+            return new ResponseEntity<>(host, HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+     */
 }

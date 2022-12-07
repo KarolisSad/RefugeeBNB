@@ -69,4 +69,22 @@ public class RefugeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+    /*
+    @CrossOrigin
+    @DeleteMapping("/refugee/delete/{email}")
+    public ResponseEntity<RefugeeDTO> deleteAccount(@PathVariable("email") String email) {
+        try {
+            RefugeeDTO refugee = refugeeInterface.deleteAccount(email);
+            return new ResponseEntity<>(refugee, HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+     */
 }

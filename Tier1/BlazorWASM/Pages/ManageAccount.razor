@@ -1,0 +1,70 @@
+﻿@page "/ManageAccount"
+@using LogicForPages
+@using HttpClients.ClientInterfaces
+@using global::Shared.DTOs
+<h3>ManageAccount</h3>
+@inject MenuService MenuService;
+@inject RefugeeInterface RefugeeInterface;
+@inject HostInterface HostInterface;
+
+
+<div class="card">
+    <div class="form-group field">
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
+        <br/>
+
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+        <label style="color: @color">@resultMsg</label>
+    </div>
+</div>
+
+
+@code {
+
+    private string resultMsg = "";
+    private string color = "";
+
+    private void Logout()
+    {
+        MenuService.Host = false;
+        MenuService.Refugee = false;
+    }
+
+    private async void DeleteAccountAsync()
+    {
+        if (MenuService.Host)
+        {
+            HostDTO dto = await HostInterface.DeleteAccountAsync(MenuService.HostLogged);
+            if (dto.ErrorMessage.Equals(null))
+            {
+                resultMsg = dto.ErrorMessage;
+                color = "red";
+            }
+            else
+            {
+                resultMsg = "You have deleted your account";
+                color = "green";
+            }
+        }
+        else if (MenuService.Refugee)
+        {
+            RefugeeDTO dto = await RefugeeInterface.DeleteAccountAsync(MenuService.RefugeeLogged);
+            if (dto.ErrorMessage.Equals(null))
+            {
+                resultMsg = dto.ErrorMessage;
+                color = "red";
+            }
+            else
+            {
+                resultMsg = "You have deleted your account";
+                color = "green";
+            }
+        }
+        else
+        {
+            resultMsg = "No one is currently logged in";
+            color = "red";
+        }
+    }
+
+}

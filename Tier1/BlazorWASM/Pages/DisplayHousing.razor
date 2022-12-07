@@ -3,11 +3,12 @@
 @using global::Shared.Domain
 @using global::Shared.DTOs
 @using HttpClients.ClientInterfaces
+@using LogicForPages
 @using UIComponents
 @inject HousingInterface HousingInterface
 @inject AgreementInterface AgreementInterface
 @inject HostInterface HostInterface;
-
+@inject MenuService MenuService;
 
 
 <h3>DisplayHousing</h3>
@@ -49,7 +50,7 @@
                 </div>
             </div>
             <div>
-                <button class="applyBtn" @onclick="args => Apply(housing)">Apply for</button>
+                <button class="applyBtn" @onclick="args => ApplyAsync(housing)">Apply for</button>
             </div>
         </div>
     </div>
@@ -75,7 +76,7 @@
     </p>
     <label style="color: @color">@resultMsg</label>
     <div>
-        <RadzenButton Text="Confirm" Click="@Confirm"/>
+        <RadzenButton Text="Confirm" Click="@ConfirmAsync"/>
         <RadzenButton Text="Cancel" Click="@Cancel"/>
     </div>
 </Modal>
@@ -85,13 +86,13 @@
     private string resultMsg = "";
     private string color = "";
     private Housing selectedHousing = new Housing();
-    private string ownerEmail = "315269@via.dk";
+    private string ownerEmail;
     private bool showModal;
 
     protected override async Task OnInitializedAsync()
     {
         
-        HousingListDTO dto = await HousingInterface.GetAvailableHousing();
+        HousingListDTO dto = await HousingInterface.GetAvailableHousingAsync();
         Console.WriteLine(dto.HousingList.Count);
         if (dto.ErrorMessage.Equals(""))
         {
@@ -121,11 +122,10 @@
     }
 
 
-    private async void Confirm()
+    private async void ConfirmAsync()
     {
-    //todo retrieve the refugee email from authentication stuff
-        
-        RequestAgreementDTO dto = await AgreementInterface.RequestAgreement(new RequestAgreementDTO("refugee@test.dk",ownerEmail, selectedHousing,"" ));
+
+        RequestAgreementDTO dto = await AgreementInterface.RequestAgreementAsync(new RequestAgreementDTO(MenuService.RefugeeLogged,ownerEmail, selectedHousing,"" ));
         
         
         if (dto.ErrorMessage.Equals(""))
@@ -141,9 +141,9 @@
 
     }
 
-    private async Task Apply(Housing housing)
+    private async Task ApplyAsync(Housing housing)
     {
-        HostDTO owner = await HostInterface.GetHostByHousingId(selectedHousing.HousingId);
+        HostDTO owner = await HostInterface.GetHostByHousingIdAsync(selectedHousing.HousingId);
         if (owner.ErrorMessage.Equals(""))
         {
             ownerEmail = owner.Host.Email;
@@ -155,7 +155,6 @@
             color = "red";
         }
         
-        //ownerEmail = "owneremail@gmail.com";
         selectedHousing = housing;
         Console.WriteLine("Selected housing changed to " + selectedHousing.Address.City + ", " + selectedHousing.Address.HouseNumber);
         showModal = true;

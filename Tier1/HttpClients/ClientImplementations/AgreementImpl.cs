@@ -15,7 +15,7 @@ public class AgreementImpl:AgreementInterface
         Client = client;
     }
 
-    public async Task<RequestAgreementDTO> RequestAgreement(RequestAgreementDTO dto)
+    public async Task<RequestAgreementDTO> RequestAgreementAsync(RequestAgreementDTO dto)
     {
         HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements", dto);
                
@@ -33,7 +33,7 @@ public class AgreementImpl:AgreementInterface
                return agreement;
     }
 
-    public async Task<RespondAgreementDTO> RespondToAgreement(RespondAgreementDTO dto)
+    public async Task<RespondAgreementDTO> RespondToAgreementAsync(RespondAgreementDTO dto)
     {
         HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements/respond", dto);
                
@@ -51,7 +51,7 @@ public class AgreementImpl:AgreementInterface
         return agreement;
     }
 
-    public async Task<AgreementsByHostDTO> GetAllRequestsByHostDTO(AgreementsByHostDTO dto)
+    public async Task<AgreementsByHostDTO> GetAllRequestsByHostDTOAsync(AgreementsByHostDTO dto)
     {
         HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements/host", dto);
                

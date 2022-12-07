@@ -33,7 +33,7 @@ public class HousingImpl:HousingInterface
         return housingCreated;
     }
 
-    public async Task<HousingListDTO> GetAvailableHousing()
+    public async Task<HousingListDTO> GetAvailableHousingAsync()
     {
         HttpResponseMessage message = await client.GetAsync("/api/housing");
         
@@ -52,7 +52,7 @@ public class HousingImpl:HousingInterface
         return housingCreated;
     }
 
-    public async Task<HousingDTO> RemoveHousing(HousingIdDTO dto)
+    public async Task<HousingDTO> RemoveHousingAsync(HousingIdDTO dto)
     {
         HttpResponseMessage created = await client.PostAsJsonAsync("/api/housing/delete", dto);
         string result = await created.Content.ReadAsStringAsync();
@@ -70,9 +70,9 @@ public class HousingImpl:HousingInterface
         return housingDeleted;
     }
 
-    public async Task<HousingListDTO> GetHousingByHostId(string ownerEmail)
+    public async Task<HousingListDTO> GetHousingByHostIdAsync(string ownerEmail)
     {
-        HttpResponseMessage created = await client.GetAsync($"/api/housing  /{ownerEmail}");
+        HttpResponseMessage created = await client.GetAsync($"/api/housing/{ownerEmail}");
         string result = await created.Content.ReadAsStringAsync();
         
         if (!created.IsSuccessStatusCode)

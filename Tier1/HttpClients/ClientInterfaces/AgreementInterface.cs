@@ -5,7 +5,7 @@ namespace HttpClients.ClientInterfaces;
 
 public interface AgreementInterface
 {
-    Task<RequestAgreementDTO> RequestAgreement(RequestAgreementDTO dto);
-    Task<RespondAgreementDTO> RespondToAgreement(RespondAgreementDTO dto);
-    Task<AgreementsByHostDTO> GetAllRequestsByHostDTO(AgreementsByHostDTO dto);
+    Task<RequestAgreementDTO> RequestAgreementAsync(RequestAgreementDTO dto);
+    Task<RespondAgreementDTO> RespondToAgreementAsync(RespondAgreementDTO dto);
+    Task<AgreementsByHostDTO> GetAllRequestsByHostDTOAsync(AgreementsByHostDTO dto);
 }
