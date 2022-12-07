@@ -8,4 +8,5 @@ public interface RefugeeDaoInterface {
 
     Refugee createRefugee (Refugee refugee);
     Optional<Refugee> getRefugeeByEmail (String email);
+    void deleteAccount(String email);
 }

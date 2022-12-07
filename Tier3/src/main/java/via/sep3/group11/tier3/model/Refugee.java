@@ -44,9 +44,11 @@ public class Refugee {
     @Column(name = "dob")
     private LocalDate dateOfBirth;
 
-    @OneToOne
-    @JoinColumn(name = "address")
-    private Address address;
+    @Column(name = "familySize")
+    private int familySize;
+
+    @Column(name = "description")
+    private String description;
 
     public Refugee() {}
 
@@ -64,10 +66,6 @@ public class Refugee {
 
     public String getEmail() {
         return email;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public String getFirstName() {

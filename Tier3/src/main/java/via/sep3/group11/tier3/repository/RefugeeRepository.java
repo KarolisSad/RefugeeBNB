@@ -10,4 +10,5 @@ import via.sep3.group11.tier3.model.Refugee;
  * @author Group 11
  */
 public interface RefugeeRepository extends JpaRepository<Refugee, String> {
+    void deleteByEmail(String email);
 }

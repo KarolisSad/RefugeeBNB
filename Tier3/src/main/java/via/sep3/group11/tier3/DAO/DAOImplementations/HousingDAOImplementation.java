@@ -98,4 +98,9 @@ public class HousingDAOImplementation implements HousingDaoInterface {
     public void removeHousing(long housingId) {
         repository.deleteById(housingId);
     }
+
+    @Override
+    public List<Housing> getAllHousingByHostId(String email) {
+        return repository.findAllByHost_Email(email);
+    }
 }
