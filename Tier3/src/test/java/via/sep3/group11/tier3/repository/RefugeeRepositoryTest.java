@@ -24,7 +24,7 @@ class RefugeeRepositoryTest {
     void deleteExistingHost() {
         // given
         String email = "Bob@gmail.com";
-        Refugee host = new Refugee(
+        Refugee refugee = new Refugee(
                 email,
                 "Bob",
                 "",
@@ -34,7 +34,7 @@ class RefugeeRepositoryTest {
                 'M',
                 new Date(01,01,1999)
         );
-        underTest.save(host);
+        underTest.save(refugee);
         assertThat(underTest.findById("Bob@gmail.com")).isNotEmpty();
         // when
         underTest.deleteByEmail(email);

@@ -159,23 +159,23 @@
 //        System.out.println("Finished setting up refugees");
 //
 //        housing = new Housing(
-//                1,
+//                1,2,
 //                new Address("housing", "Horsens", "Ryesgade", "4F", "1.02", "8700")
 //        );
 //        housing1 = new Housing(
-//                1,
+//                1,2,
 //                new Address("housing1", "Horsens", "Ryesgade", "4F", "1.02", "8700")
 //        );
 //        housing2 = new Housing(
-//                1,
+//                1,2,
 //                new Address("housing2", "Horsens", "Ryesgade", "4F", "1.02", "8700")
 //        );
 //        housing3 = new Housing(
-//                1,
+//                1,2,
 //                new Address("housing3", "Horsens", "Ryesgade", "4F", "1.02", "8700")
 //        );
 //        housing4 = new Housing(
-//                1,
+//                1,2,
 //                new Address("housing4", "Horsens", "Ryesgade", "4F", "1.02", "8700")
 //        );
 //
