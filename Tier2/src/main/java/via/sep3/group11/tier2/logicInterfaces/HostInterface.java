@@ -36,5 +36,6 @@ public interface HostInterface {
      */
     HostDTO loginHost(LoginDTO dto) throws ValidationException;
     HostDTO getHostByHousingId (long housingId);
+    HostDTO deleteAccount(String email);
 }
 

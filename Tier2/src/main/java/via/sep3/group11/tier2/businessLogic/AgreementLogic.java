@@ -90,7 +90,7 @@ public class AgreementLogic implements AgreementInterface {
             return new AgreementDTO(agreement.get(), "");
         }
     }
-
+            //Todo above: when removing an agreement, first get housing and set available to true again.. maybe this would be easier if we allow remove method from data tier to return the removed object?
     @Override
     public AgreementListDTO getAllRequestsByHost(AgreementsByHostDTO dto) {
         List<Agreement> a = agreementDAO.getAgreementsByHostId(dto.getHostEmail());
@@ -102,7 +102,7 @@ public class AgreementLogic implements AgreementInterface {
     {
         Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
         Housing dummyHousing = new Housing(1,new Address("DummyData","DummyData","DummyData","DummyData","DummyData","DummyData"),false);
-        Refugee dummyRefugee = new Refugee("DummyRefugee@gmail.com","DummyRefugee",'O',"DummyRefugee","DummyRefugee","DummyRefugee","DummyRefugee",new Date(01,01,2021));
+        Refugee dummyRefugee = new Refugee("DummyRefugee@gmail.com","DummyRefugee",'O',"DummyRefugee","DummyRefugee","DummyRefugee","DummyRefugee",new Date(01,01,2021), 5, "DummyDummyDummyDummyDummyDummyDummy");
         return new Agreement(9999L,dummyHost,dummyHousing,dummyRefugee,false);
     }
 }

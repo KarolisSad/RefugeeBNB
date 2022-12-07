@@ -34,5 +34,6 @@ public interface RefugeeInterface {
      * @throws ValidationException if no refugee corresponding to the email in the dto is found, or if the password and email given does not match.
      */
     RefugeeDTO loginRefugee(LoginDTO dto) throws ValidationException;
+    RefugeeDTO deleteAccount(String email);
 }
 
