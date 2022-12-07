@@ -49,4 +49,9 @@ public class RefugeeDAOImplementation implements RefugeeDaoInterface {
     public Optional<Refugee> getRefugeeByEmail(String email) {
         return repository.findById(email);
     }
+
+    @Override
+    public void deleteAccount(String email) {
+
+    }
 }

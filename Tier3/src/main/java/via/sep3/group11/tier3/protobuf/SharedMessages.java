@@ -65,10 +65,10 @@ public final class SharedMessages {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_GId_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_Empty_descriptor;
+    internal_static_GEmpty_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_Empty_fieldAccessorTable;
+      internal_static_GEmpty_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -107,8 +107,8 @@ public final class SharedMessages {
       "Details\030\003 \001(\0132\r.GHostDetails\022$\n\007housing\030" +
       "\004 \001(\0132\023.GHousingWithStatus\022\032\n\007refugee\030\005 " +
       "\001(\0132\t.GRefugee\022\016\n\006status\030\006 \001(\010\"\021\n\003GId\022\n\n" +
-      "\002id\030\001 \001(\003\"\007\n\005EmptyB#\n\037via.sep3.group11.t" +
-      "ier3.protobufP\001b\006proto3"
+      "\002id\030\001 \001(\003\"\010\n\006GEmptyB#\n\037via.sep3.group11." +
+      "tier3.protobufP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -174,11 +174,11 @@ public final class SharedMessages {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GId_descriptor,
         new java.lang.String[] { "Id", });
-    internal_static_Empty_descriptor =
+    internal_static_GEmpty_descriptor =
       getDescriptor().getMessageTypes().get(10);
-    internal_static_Empty_fieldAccessorTable = new
+    internal_static_GEmpty_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_Empty_descriptor,
+        internal_static_GEmpty_descriptor,
         new java.lang.String[] { });
   }
 

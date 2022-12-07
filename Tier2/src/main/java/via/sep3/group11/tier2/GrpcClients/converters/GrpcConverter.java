@@ -1,5 +1,4 @@
 package via.sep3.group11.tier2.GrpcClients.converters;
-
 import via.sep3.group11.tier2.protobuf.*;
 import via.sep3.group11.tier2.shared.domain.*;
 
@@ -189,3 +188,4 @@ public class GrpcConverter {
                 .setStatus(agreement.isAccepted()).build();
     }
 }
+

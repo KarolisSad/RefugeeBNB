@@ -23,11 +23,12 @@ public final class RefugeeOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rRefugee.proto\032\024SharedMessages.proto2Y\n" +
+      "\n\rRefugee.proto\032\024SharedMessages.proto2|\n" +
       "\007Refugee\022%\n\rcreateRefugee\022\t.GRefugee\032\t.G" +
       "Refugee\022\'\n\021getRefugeeByEmail\022\007.GEmail\032\t." +
-      "GRefugeeB#\n\037via.sep3.group11.tier2.proto" +
-      "bufP\001b\006proto3"
+      "GRefugee\022!\n\rdeleteAccount\022\007.GEmail\032\007.GEm" +
+      "ptyB#\n\037via.sep3.group11.tier2.protobufP\001" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

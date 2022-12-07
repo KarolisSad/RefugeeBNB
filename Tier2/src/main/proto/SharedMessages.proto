@@ -87,4 +87,4 @@ message GId{
   int64 id = 1;
 }
 
-message Empty {}
+message GEmpty {}

@@ -63,7 +63,6 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
 
             return agreementRepository.save(agreement);
         }
-
         return null;
     }
 
@@ -83,12 +82,12 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
     }
 
     @Override
-    public List<Agreement> getAllPendingAgreements(String hostEmail) {
-        return agreementRepository.findAgreementsByAcceptedIsFalseAndHost_Email(hostEmail);
+    public List<Agreement> getAllAgreementsByHousingId(long housingId) {
+        return agreementRepository.findAgreementsByHousing_HousingId(housingId);
     }
 
     @Override
-    public List<Agreement> getAllAgreementsByHousingId(long housingId) {
-        return agreementRepository.findAgreementsByHousing_HousingId(housingId);
+    public Optional<Agreement> getAgreementByRefugeeEmail(String email) {
+        return Optional.empty();
     }
 }

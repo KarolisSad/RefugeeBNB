@@ -4,25 +4,25 @@
 package via.sep3.group11.tier3.protobuf;
 
 /**
- * Protobuf type {@code Empty}
+ * Protobuf type {@code GEmpty}
  */
-public final class Empty extends
+public final class GEmpty extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:Empty)
-    EmptyOrBuilder {
+    // @@protoc_insertion_point(message_implements:GEmpty)
+    GEmptyOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use Empty.newBuilder() to construct.
-  private Empty(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use GEmpty.newBuilder() to construct.
+  private GEmpty(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private Empty() {
+  private GEmpty() {
   }
 
   @java.lang.Override
   @SuppressWarnings({"unused"})
   protected java.lang.Object newInstance(
       UnusedPrivateParameter unused) {
-    return new Empty();
+    return new GEmpty();
   }
 
   @java.lang.Override
@@ -30,7 +30,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private Empty(
+  private GEmpty(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -71,15 +71,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_Empty_descriptor;
+    return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_GEmpty_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_Empty_fieldAccessorTable
+    return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_GEmpty_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            via.sep3.group11.tier3.protobuf.Empty.class, via.sep3.group11.tier3.protobuf.Empty.Builder.class);
+            via.sep3.group11.tier3.protobuf.GEmpty.class, via.sep3.group11.tier3.protobuf.GEmpty.Builder.class);
   }
 
   private byte memoizedIsInitialized = -1;
@@ -115,10 +115,10 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof via.sep3.group11.tier3.protobuf.Empty)) {
+    if (!(obj instanceof via.sep3.group11.tier3.protobuf.GEmpty)) {
       return super.equals(obj);
     }
-    via.sep3.group11.tier3.protobuf.Empty other = (via.sep3.group11.tier3.protobuf.Empty) obj;
+    via.sep3.group11.tier3.protobuf.GEmpty other = (via.sep3.group11.tier3.protobuf.GEmpty) obj;
 
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
@@ -136,69 +136,69 @@ private static final long serialVersionUID = 0L;
     return hash;
   }
 
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(byte[] data)
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(java.io.InputStream input)
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseDelimitedFrom(java.io.InputStream input)
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseDelimitedFrom(
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static via.sep3.group11.tier3.protobuf.Empty parseFrom(
+  public static via.sep3.group11.tier3.protobuf.GEmpty parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -211,7 +211,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(via.sep3.group11.tier3.protobuf.Empty prototype) {
+  public static Builder newBuilder(via.sep3.group11.tier3.protobuf.GEmpty prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -227,26 +227,26 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code Empty}
+   * Protobuf type {@code GEmpty}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:Empty)
-      via.sep3.group11.tier3.protobuf.EmptyOrBuilder {
+      // @@protoc_insertion_point(builder_implements:GEmpty)
+      via.sep3.group11.tier3.protobuf.GEmptyOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_Empty_descriptor;
+      return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_GEmpty_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_Empty_fieldAccessorTable
+      return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_GEmpty_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              via.sep3.group11.tier3.protobuf.Empty.class, via.sep3.group11.tier3.protobuf.Empty.Builder.class);
+              via.sep3.group11.tier3.protobuf.GEmpty.class, via.sep3.group11.tier3.protobuf.GEmpty.Builder.class);
     }
 
-    // Construct using via.sep3.group11.tier3.protobuf.Empty.newBuilder()
+    // Construct using via.sep3.group11.tier3.protobuf.GEmpty.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -270,17 +270,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_Empty_descriptor;
+      return via.sep3.group11.tier3.protobuf.SharedMessages.internal_static_GEmpty_descriptor;
     }
 
     @java.lang.Override
-    public via.sep3.group11.tier3.protobuf.Empty getDefaultInstanceForType() {
-      return via.sep3.group11.tier3.protobuf.Empty.getDefaultInstance();
+    public via.sep3.group11.tier3.protobuf.GEmpty getDefaultInstanceForType() {
+      return via.sep3.group11.tier3.protobuf.GEmpty.getDefaultInstance();
     }
 
     @java.lang.Override
-    public via.sep3.group11.tier3.protobuf.Empty build() {
-      via.sep3.group11.tier3.protobuf.Empty result = buildPartial();
+    public via.sep3.group11.tier3.protobuf.GEmpty build() {
+      via.sep3.group11.tier3.protobuf.GEmpty result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -288,8 +288,8 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public via.sep3.group11.tier3.protobuf.Empty buildPartial() {
-      via.sep3.group11.tier3.protobuf.Empty result = new via.sep3.group11.tier3.protobuf.Empty(this);
+    public via.sep3.group11.tier3.protobuf.GEmpty buildPartial() {
+      via.sep3.group11.tier3.protobuf.GEmpty result = new via.sep3.group11.tier3.protobuf.GEmpty(this);
       onBuilt();
       return result;
     }
@@ -328,16 +328,16 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof via.sep3.group11.tier3.protobuf.Empty) {
-        return mergeFrom((via.sep3.group11.tier3.protobuf.Empty)other);
+      if (other instanceof via.sep3.group11.tier3.protobuf.GEmpty) {
+        return mergeFrom((via.sep3.group11.tier3.protobuf.GEmpty)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(via.sep3.group11.tier3.protobuf.Empty other) {
-      if (other == via.sep3.group11.tier3.protobuf.Empty.getDefaultInstance()) return this;
+    public Builder mergeFrom(via.sep3.group11.tier3.protobuf.GEmpty other) {
+      if (other == via.sep3.group11.tier3.protobuf.GEmpty.getDefaultInstance()) return this;
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
       return this;
@@ -353,11 +353,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      via.sep3.group11.tier3.protobuf.Empty parsedMessage = null;
+      via.sep3.group11.tier3.protobuf.GEmpty parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (via.sep3.group11.tier3.protobuf.Empty) e.getUnfinishedMessage();
+        parsedMessage = (via.sep3.group11.tier3.protobuf.GEmpty) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -379,41 +379,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:Empty)
+    // @@protoc_insertion_point(builder_scope:GEmpty)
   }
 
-  // @@protoc_insertion_point(class_scope:Empty)
-  private static final via.sep3.group11.tier3.protobuf.Empty DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:GEmpty)
+  private static final via.sep3.group11.tier3.protobuf.GEmpty DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new via.sep3.group11.tier3.protobuf.Empty();
+    DEFAULT_INSTANCE = new via.sep3.group11.tier3.protobuf.GEmpty();
   }
 
-  public static via.sep3.group11.tier3.protobuf.Empty getDefaultInstance() {
+  public static via.sep3.group11.tier3.protobuf.GEmpty getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<Empty>
-      PARSER = new com.google.protobuf.AbstractParser<Empty>() {
+  private static final com.google.protobuf.Parser<GEmpty>
+      PARSER = new com.google.protobuf.AbstractParser<GEmpty>() {
     @java.lang.Override
-    public Empty parsePartialFrom(
+    public GEmpty parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new Empty(input, extensionRegistry);
+      return new GEmpty(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<Empty> parser() {
+  public static com.google.protobuf.Parser<GEmpty> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<Empty> getParserForType() {
+  public com.google.protobuf.Parser<GEmpty> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public via.sep3.group11.tier3.protobuf.Empty getDefaultInstanceForType() {
+  public via.sep3.group11.tier3.protobuf.GEmpty getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

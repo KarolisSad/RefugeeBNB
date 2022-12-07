@@ -8,13 +8,13 @@ service Agreement{
   rpc addAgreement(GAgreement) returns (GAgreement);
   rpc updateAgreement(GAgreement) returns (GAgreement);
   rpc getAgreementById(GId) returns (GAgreement);
-  rpc getAgreementByHostId(GEmail) returns (getAllPendingAgreementsResponse);
-  rpc deleteAgreement(GId) returns (Empty);
-  rpc getAllPendingAgreements(GEmail) returns (getAllPendingAgreementsResponse);
-  rpc getAllAgreementByHousingId(GId) returns (getAllPendingAgreementsResponse);
+  rpc getAgreementByHostId(GEmail) returns (GAgreementList);
+  rpc deleteAgreement(GId) returns (GEmpty);
+  rpc getAllAgreementByHousingId (GId) returns (GAgreementList);
+  rpc getAgreementByRefugeeId(GEmail) returns (GAgreement);
 }
 
-message getAllPendingAgreementsResponse
+message GAgreementList
 {
   repeated GAgreement agreements = 1;
 }

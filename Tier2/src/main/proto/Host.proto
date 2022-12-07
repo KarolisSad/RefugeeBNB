@@ -8,5 +8,6 @@ service Host{
   rpc CreateHost(GHost) returns (GHost);
   rpc GetHostByEmail(GEmail) returns (GHost);
   rpc getHostByHousingId(GId) returns (GHost);
+  rpc deleteAccount (GEmail) returns (GEmpty);
 }
 

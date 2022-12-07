@@ -107,6 +107,37 @@ public final class HostGrpc {
     return getGetHostByHousingIdMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail,
+      via.sep3.group11.tier2.protobuf.GEmpty> getDeleteAccountMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "deleteAccount",
+      requestType = via.sep3.group11.tier2.protobuf.GEmail.class,
+      responseType = via.sep3.group11.tier2.protobuf.GEmpty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail,
+      via.sep3.group11.tier2.protobuf.GEmpty> getDeleteAccountMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier2.protobuf.GEmail, via.sep3.group11.tier2.protobuf.GEmpty> getDeleteAccountMethod;
+    if ((getDeleteAccountMethod = HostGrpc.getDeleteAccountMethod) == null) {
+      synchronized (HostGrpc.class) {
+        if ((getDeleteAccountMethod = HostGrpc.getDeleteAccountMethod) == null) {
+          HostGrpc.getDeleteAccountMethod = getDeleteAccountMethod =
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier2.protobuf.GEmail, via.sep3.group11.tier2.protobuf.GEmpty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "deleteAccount"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.GEmail.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier2.protobuf.GEmpty.getDefaultInstance()))
+              .setSchemaDescriptor(new HostMethodDescriptorSupplier("deleteAccount"))
+              .build();
+        }
+      }
+    }
+    return getDeleteAccountMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -176,6 +207,13 @@ public final class HostGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetHostByHousingIdMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void deleteAccount(via.sep3.group11.tier2.protobuf.GEmail request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GEmpty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteAccountMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -199,6 +237,13 @@ public final class HostGrpc {
                 via.sep3.group11.tier2.protobuf.GId,
                 via.sep3.group11.tier2.protobuf.GHost>(
                   this, METHODID_GET_HOST_BY_HOUSING_ID)))
+          .addMethod(
+            getDeleteAccountMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                via.sep3.group11.tier2.protobuf.GEmail,
+                via.sep3.group11.tier2.protobuf.GEmpty>(
+                  this, METHODID_DELETE_ACCOUNT)))
           .build();
     }
   }
@@ -240,6 +285,14 @@ public final class HostGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetHostByHousingIdMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void deleteAccount(via.sep3.group11.tier2.protobuf.GEmail request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GEmpty> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteAccountMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -275,6 +328,13 @@ public final class HostGrpc {
     public via.sep3.group11.tier2.protobuf.GHost getHostByHousingId(via.sep3.group11.tier2.protobuf.GId request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetHostByHousingIdMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public via.sep3.group11.tier2.protobuf.GEmpty deleteAccount(via.sep3.group11.tier2.protobuf.GEmail request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteAccountMethod(), getCallOptions(), request);
     }
   }
 
@@ -315,11 +375,20 @@ public final class HostGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetHostByHousingIdMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier2.protobuf.GEmpty> deleteAccount(
+        via.sep3.group11.tier2.protobuf.GEmail request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteAccountMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_HOST = 0;
   private static final int METHODID_GET_HOST_BY_EMAIL = 1;
   private static final int METHODID_GET_HOST_BY_HOUSING_ID = 2;
+  private static final int METHODID_DELETE_ACCOUNT = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -349,6 +418,10 @@ public final class HostGrpc {
         case METHODID_GET_HOST_BY_HOUSING_ID:
           serviceImpl.getHostByHousingId((via.sep3.group11.tier2.protobuf.GId) request,
               (io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GHost>) responseObserver);
+          break;
+        case METHODID_DELETE_ACCOUNT:
+          serviceImpl.deleteAccount((via.sep3.group11.tier2.protobuf.GEmail) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier2.protobuf.GEmpty>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -414,6 +487,7 @@ public final class HostGrpc {
               .addMethod(getCreateHostMethod())
               .addMethod(getGetHostByEmailMethod())
               .addMethod(getGetHostByHousingIdMethod())
+              .addMethod(getDeleteAccountMethod())
               .build();
         }
       }
