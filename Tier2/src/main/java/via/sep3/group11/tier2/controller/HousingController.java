@@ -61,9 +61,11 @@ public class HousingController {
         }
     }
 
-   @DeleteMapping("/housing")
+    @CrossOrigin
+    @PostMapping("/housing/delete")
     public ResponseEntity<HousingDTO> removeHousing(@RequestBody HousingIdDTO dto) {
         try {
+            System.out.println(dto.getHousingId());
             HousingDTO remove = housingInterface.removeHousing(dto);
             return new ResponseEntity<>(remove, HttpStatus.OK);
         } catch (Exception e) {

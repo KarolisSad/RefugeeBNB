@@ -83,7 +83,7 @@ public class GrpcConverter {
                 .setLastName(refugee.getLastName())
                 .setDateOfBirth(dateToGrpc(refugee.getDateOfBirth()))
                 .setFamilySize(refugee.getFamilySize())
-                .setAbout(refugee.getAbout()).build();
+                .setAbout(refugee.getDescription()).build();
     }
 
     public static GAddress addressToGrpc(Address address) {

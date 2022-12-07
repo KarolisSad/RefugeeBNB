@@ -17,6 +17,7 @@ public class AgreementImpl:AgreementInterface
 
     public async Task<RequestAgreementDTO> RequestAgreementAsync(RequestAgreementDTO dto)
     {
+        Console.WriteLine(dto.HostEmail);
         HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements", dto);
                
                string content = await responseMessage.Content.ReadAsStringAsync();

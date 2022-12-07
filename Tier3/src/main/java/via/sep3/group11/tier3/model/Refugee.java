@@ -52,7 +52,7 @@ public class Refugee {
 
     public Refugee() {}
 
-    public Refugee(String email, String firstName, String middleName, String lastName, String password, String nationality, char gender, via.sep3.group11.tier3.model.Date dateOfBirth) {
+    public Refugee(String email, String firstName, String middleName, String lastName, String password, String nationality, char gender, Date dateOfBirth, int familySize, String description) {
         this.email = email;
         this.firstName = firstName;
         this.middleName = middleName;
@@ -61,8 +61,9 @@ public class Refugee {
         this.nationality = nationality;
         this.gender = gender;
         this.dateOfBirth = convertDateObjectToLocalDate(dateOfBirth);
+        this.familySize = familySize;
+        this.description = description;
     }
-
 
     public String getEmail() {
         return email;
@@ -94,5 +95,13 @@ public class Refugee {
 
     public Date getDateOfBirth() {
         return convertLocalDateToDateObject(dateOfBirth);
+    }
+
+    public int getFamilySize() {
+        return familySize;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

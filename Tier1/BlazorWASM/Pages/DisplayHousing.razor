@@ -124,10 +124,9 @@
 
     private async void ConfirmAsync()
     {
-
         RequestAgreementDTO dto = await AgreementInterface.RequestAgreementAsync(new RequestAgreementDTO(MenuService.RefugeeLogged,ownerEmail, selectedHousing,"" ));
-        
-        
+
+
         if (dto.ErrorMessage.Equals(""))
         {
             showModal = false;
@@ -143,6 +142,8 @@
 
     private async Task ApplyAsync(Housing housing)
     {
+        selectedHousing = housing;
+
         HostDTO owner = await HostInterface.GetHostByHousingIdAsync(selectedHousing.HousingId);
         if (owner.ErrorMessage.Equals(""))
         {
@@ -155,7 +156,6 @@
             color = "red";
         }
         
-        selectedHousing = housing;
         Console.WriteLine("Selected housing changed to " + selectedHousing.Address.City + ", " + selectedHousing.Address.HouseNumber);
         showModal = true;
     }

@@ -65,7 +65,7 @@ public class HousingLogic implements HousingInterface {
 
     @Override
     public HousingListDTO getHousingByHostId(String email) {
-        List<Housing> housingList = housingDAO.getHousingByHostId(email); //TODO
+        List<Housing> housingList = housingDAO.getAllHousingByHostId(email); //TODO
 
         if (housingList.isEmpty()) {
             return new HousingListDTO(housingList, "No housing found for " + email);

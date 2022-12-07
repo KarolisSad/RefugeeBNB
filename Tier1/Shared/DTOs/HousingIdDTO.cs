@@ -2,9 +2,9 @@
 
 public class HousingIdDTO
 {
-    public long HousingId;
-    public string HostEmail;
-    public string ErrorMessage;
+    public long HousingId { get; }
+    public string HostEmail { get; }
+    public string ErrorMessage { get; }
 
     public HousingIdDTO(long housingId, string hostEmail, string errorMessage)
     {

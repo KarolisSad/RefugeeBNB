@@ -23,11 +23,13 @@ public class AgreementController {
     @PostMapping(value ="/agreements",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<AgreementDTO> requestAgreement(@RequestBody RequestAgreementDTO dto){
         try {
+            System.out.println(dto);
            AgreementDTO created = agreementInterface.requestAgreement(dto);
            return new ResponseEntity<>(created, HttpStatus.CREATED);
         }
         catch (Exception e) {
-
+            System.out.println(e.getMessage());
+            e.printStackTrace();
             return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

@@ -10,7 +10,6 @@ import via.sep3.group11.tier3.repository.HousingRepository;
 import java.util.List;
 import java.util.Optional;
 
-import static via.sep3.group11.tier3.model.Date.convertDateObjectToLocalDate;
 import static via.sep3.group11.tier3.model.Date.convertLocalDateToDateObject;
 
 /**
@@ -87,12 +86,7 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
     }
 
     @Override
-    public Optional<Agreement> getAgreementByRefugeeEmail(String email) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Agreement getAgreementByRefugeeEmail(String refugeeEmail) {
+    public Optional<Agreement> getAgreementByRefugeeEmail(String refugeeEmail) {
         return agreementRepository.findAgreementByRefugee_Email(refugeeEmail);
     }
 }

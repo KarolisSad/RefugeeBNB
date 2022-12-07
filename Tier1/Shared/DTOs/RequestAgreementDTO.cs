@@ -4,10 +4,10 @@ namespace Shared.DTOs;
 
 public class RequestAgreementDTO
 {
-    public string RefugeeEmail;
-    public string HostEmail;
-    public Housing Housing;
-    public string ErrorMessage;
+    public string RefugeeEmail { get; }
+    public string HostEmail { get; }
+    public Housing Housing { get; }
+    public string ErrorMessage { get; }
 
     public RequestAgreementDTO(string refugeeEmail, string hostEmail, Housing housing, string errorMessage)
     {

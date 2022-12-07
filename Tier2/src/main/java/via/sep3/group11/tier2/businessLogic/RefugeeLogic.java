@@ -49,7 +49,15 @@ public class RefugeeLogic implements RefugeeInterface {
     @Override
     public RefugeeDTO registerRefugee(RefugeeRegisterDTO dto) {
         try {
-            Refugee toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth(), dto.getFamilySize(), dto.getDescription());
+            //TODO JUST FOR TESTING
+
+            Refugee toRegister;
+            if (dto.getDescription() == null) {
+                toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth(), 1, "");
+            }
+            else {
+                toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth(), dto.getFamilySize(), dto.getDescription());
+            }
             // refugee check
             Optional<Refugee> existing = refugeeDAO.getRefugeeByEmail(toRegister.getEmail());
             // if no refugee found - create
