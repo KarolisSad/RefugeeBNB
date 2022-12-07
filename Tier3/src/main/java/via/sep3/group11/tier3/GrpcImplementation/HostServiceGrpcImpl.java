@@ -10,6 +10,9 @@ import via.sep3.group11.tier3.protobuf.*;
 import javax.annotation.Resource;
 import java.util.Optional;
 
+import static via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter.hostDetailsFromGrpc;
+import static via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter.hostToGrpc;
+
 @GRpcService
 public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
 
@@ -62,6 +65,14 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
     @Override
     public void deleteAccount(GEmail request, StreamObserver<GEmpty> responseObserver) {
         hostDaoInterface.deleteAccount(request.getEmail());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updateInformation(GHostDetails request, StreamObserver<GHost> responseObserver) {
+
+        Host hostResponse = hostDaoInterface.updateInformation(hostDetailsFromGrpc(request));
+        responseObserver.onNext(hostToGrpc(hostResponse));
         responseObserver.onCompleted();
     }
 }

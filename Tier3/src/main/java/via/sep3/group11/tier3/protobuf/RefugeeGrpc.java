@@ -107,6 +107,37 @@ public final class RefugeeGrpc {
     return getDeleteAccountMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GRefugee,
+      via.sep3.group11.tier3.protobuf.GRefugee> getUpdateInformationMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "updateInformation",
+      requestType = via.sep3.group11.tier3.protobuf.GRefugee.class,
+      responseType = via.sep3.group11.tier3.protobuf.GRefugee.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GRefugee,
+      via.sep3.group11.tier3.protobuf.GRefugee> getUpdateInformationMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GRefugee, via.sep3.group11.tier3.protobuf.GRefugee> getUpdateInformationMethod;
+    if ((getUpdateInformationMethod = RefugeeGrpc.getUpdateInformationMethod) == null) {
+      synchronized (RefugeeGrpc.class) {
+        if ((getUpdateInformationMethod = RefugeeGrpc.getUpdateInformationMethod) == null) {
+          RefugeeGrpc.getUpdateInformationMethod = getUpdateInformationMethod =
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier3.protobuf.GRefugee, via.sep3.group11.tier3.protobuf.GRefugee>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "updateInformation"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier3.protobuf.GRefugee.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier3.protobuf.GRefugee.getDefaultInstance()))
+              .setSchemaDescriptor(new RefugeeMethodDescriptorSupplier("updateInformation"))
+              .build();
+        }
+      }
+    }
+    return getUpdateInformationMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -176,6 +207,13 @@ public final class RefugeeGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteAccountMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void updateInformation(via.sep3.group11.tier3.protobuf.GRefugee request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GRefugee> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateInformationMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -199,6 +237,13 @@ public final class RefugeeGrpc {
                 via.sep3.group11.tier3.protobuf.GEmail,
                 via.sep3.group11.tier3.protobuf.GEmpty>(
                   this, METHODID_DELETE_ACCOUNT)))
+          .addMethod(
+            getUpdateInformationMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                via.sep3.group11.tier3.protobuf.GRefugee,
+                via.sep3.group11.tier3.protobuf.GRefugee>(
+                  this, METHODID_UPDATE_INFORMATION)))
           .build();
     }
   }
@@ -240,6 +285,14 @@ public final class RefugeeGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDeleteAccountMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void updateInformation(via.sep3.group11.tier3.protobuf.GRefugee request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GRefugee> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateInformationMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -275,6 +328,13 @@ public final class RefugeeGrpc {
     public via.sep3.group11.tier3.protobuf.GEmpty deleteAccount(via.sep3.group11.tier3.protobuf.GEmail request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDeleteAccountMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public via.sep3.group11.tier3.protobuf.GRefugee updateInformation(via.sep3.group11.tier3.protobuf.GRefugee request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateInformationMethod(), getCallOptions(), request);
     }
   }
 
@@ -315,11 +375,20 @@ public final class RefugeeGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDeleteAccountMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.GRefugee> updateInformation(
+        via.sep3.group11.tier3.protobuf.GRefugee request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateInformationMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_REFUGEE = 0;
   private static final int METHODID_GET_REFUGEE_BY_EMAIL = 1;
   private static final int METHODID_DELETE_ACCOUNT = 2;
+  private static final int METHODID_UPDATE_INFORMATION = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -349,6 +418,10 @@ public final class RefugeeGrpc {
         case METHODID_DELETE_ACCOUNT:
           serviceImpl.deleteAccount((via.sep3.group11.tier3.protobuf.GEmail) request,
               (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GEmpty>) responseObserver);
+          break;
+        case METHODID_UPDATE_INFORMATION:
+          serviceImpl.updateInformation((via.sep3.group11.tier3.protobuf.GRefugee) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GRefugee>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -414,6 +487,7 @@ public final class RefugeeGrpc {
               .addMethod(getCreateRefugeeMethod())
               .addMethod(getGetRefugeeByEmailMethod())
               .addMethod(getDeleteAccountMethod())
+              .addMethod(getUpdateInformationMethod())
               .build();
         }
       }
