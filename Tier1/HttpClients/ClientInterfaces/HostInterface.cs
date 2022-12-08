@@ -14,4 +14,6 @@ public interface HostInterface
 
     Task<HostDTO> UpdateInformation(HostUpdateDTO dto);
 
+    Task<HostDTO> GetHost(string email);
+
 }

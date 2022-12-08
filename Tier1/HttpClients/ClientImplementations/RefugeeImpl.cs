@@ -88,4 +88,22 @@ public class RefugeeImpl:RefugeeInterface
         
         return refugee;
     }
+
+    public async Task<RefugeeDTO> GetRefugee(string email)
+    {
+        HttpResponseMessage responseMessage = await client.GetAsync($"/api/refugee/{email}");
+        
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+        
+        RefugeeDTO refugee = JsonSerializer.Deserialize<RefugeeDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return refugee;    
+    }
 }

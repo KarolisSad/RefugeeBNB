@@ -11,10 +11,8 @@ public class RefugeeUpdateDTO
     public string? LastName { get; }
     public int? FamilySize { get; }
     public string? Description { get; }
-    public string? ErrorMessage { get; }
 
-
-    public RefugeeUpdateDTO(string email, string? password, char? gender, string? nationality, string? firstName, string? middleName, string? lastName, int? familySize, string? description, string? errorMessage)
+    public RefugeeUpdateDTO(string email, string? password, char? gender, string? nationality, string? firstName, string? middleName, string? lastName, int? familySize, string? description)
     {
         Email = email;
         Password = password;
@@ -25,6 +23,5 @@ public class RefugeeUpdateDTO
         LastName = lastName;
         FamilySize = familySize;
         Description = description;
-        ErrorMessage = errorMessage;
     }
 }

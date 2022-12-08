@@ -19,48 +19,46 @@ import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 @RequestMapping("/api")
 public class HostController {
     /**
+     * Host controller
      *
-     *  Host controller
      * @author Group 11
      * @version 28/11/22
      */
 
     HostInterface hostLogic;
 
-    public HostController(HostInterface hostLogic)
-    {
+    public HostController(HostInterface hostLogic) {
         this.hostLogic = hostLogic;
     }
 
     /**
-     *  Creates a host!
+     * Creates a host!
+     *
      * @param host
      * @return
      */
     @CrossOrigin
-    @PostMapping(value ="/host",produces ={MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/host", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<HostDTO> createHost(@RequestBody HostRegisterDTO host) {
 
-        try{
+        try {
             HostDTO created = hostLogic.registerHost(host);
             return new ResponseEntity<>(created, HttpStatus.CREATED);
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("ERROR: " + e.getMessage());
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
 
-
         //return new ResponseEntity<>(host, HttpStatus.CREATED);
-     // return new ResponseEntity<HostDTO>(new HostDTO(new Host(host.getFirstName(), host.getEmail(), host.getPassword(), host.getGender(), host.getNationality(), host.getMiddleName(), host.getLastName(), host.getDateOfBirth()), ""), HttpStatus.CREATED);
+        // return new ResponseEntity<HostDTO>(new HostDTO(new Host(host.getFirstName(), host.getEmail(), host.getPassword(), host.getGender(), host.getNationality(), host.getMiddleName(), host.getLastName(), host.getDateOfBirth()), ""), HttpStatus.CREATED);
         //return new ResponseEntity<>(new Host(host.getFirstName(), host.getEmail(), host.getPassword(), host.getGender(), host.getNationality(), host.getMiddleName(), host.getLastName(), host.getDateOfBirth()), HttpStatus.CREATED);
     }
 
     /**
      * Gets host by email!!!!
+     *
      * @param
      * @return
      */
@@ -74,13 +72,13 @@ public class HostController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/host/{housingId}")
-    public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable ("housingId") long housingId) {
+    public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable("housingId") long housingId) {
         try {
             HostDTO hostById = hostLogic.getHostByHousingId(housingId);
             return new ResponseEntity<>(hostById, HttpStatus.OK);
-        }
-         catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -92,10 +90,7 @@ public class HostController {
         try {
             HostDTO host = hostLogic.deleteAccount(email);
             return new ResponseEntity<>(host, HttpStatus.OK);
-        }
-
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -114,5 +109,19 @@ public class HostController {
         }
     }
 
+@GetMapping("/host/{email}")
+    public ResponseEntity<HostDTO> getHost(@PathVariable("email") String email){
+        try {
+            HostDTO host = hostLogic.getHostById(email);
+            return new ResponseEntity<>(host, HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
      */
+
+
 }

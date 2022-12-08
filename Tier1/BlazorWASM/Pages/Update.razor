@@ -90,7 +90,7 @@
 
         if (MenuService.Host)
         {
-            HostDTO host = await HostInterface.UpdateInformation(new HostUpdateDTO(MenuService.HostLogged, password, gender[0], nationality, firstName, middleName, lastName, ""));
+            HostDTO host = await HostInterface.UpdateInformation(new HostUpdateDTO(MenuService.HostLogged, password, gender[0], nationality, firstName, middleName, lastName));
             if (host.ErrorMessage.Equals(""))
             {
                 Console.WriteLine("We updated a host.");
@@ -107,7 +107,7 @@
         }
         else if (MenuService.Refugee)
         {
-            RefugeeDTO refugee = await RefugeeInterface.UpdateInformation(new RefugeeUpdateDTO(MenuService.RefugeeLogged, password, gender[0], nationality, firstName, middleName, lastName, familysize, description, ""));
+            RefugeeDTO refugee = await RefugeeInterface.UpdateInformation(new RefugeeUpdateDTO(MenuService.RefugeeLogged, password, gender[0], nationality, firstName, middleName, lastName, familysize, description));
             if (refugee.ErrorMessage.Equals(""))
             {
                 Clear();
@@ -159,11 +159,32 @@
         Console.WriteLine($"Description changed to {str}");
     }
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        RefugeeDTO dto = await RefugeeInterface.GetRefugee();
+        if (MenuService.Refugee)
+        {
+            RefugeeDTO dto = await RefugeeInterface.GetRefugee(MenuService.RefugeeLogged);
+            familysize = dto.Refugee.FamilySize;
+            description = dto.Refugee.Description;
+            nationality = dto.Refugee.Nationality;
+            gender = dto.Refugee.Gender.ToString();
+            firstName = dto.Refugee.FirstName;
+            middleName = dto.Refugee.MiddleName;
+            lastName = dto.Refugee.LastName;
+        }else if (MenuService.Host)
+        {
+            HostDTO dto = await HostInterface.GetHost(MenuService.HostLogged);
+            nationality = dto.Host.Nationality;
+            gender = dto.Host.Gender.ToString();
+            firstName = dto.Host.FirstName;
+            middleName = dto.Host.MiddleName;
+            lastName = dto.Host.LastName;
+        }
         
         
+        
+        
+
     }
 
 }

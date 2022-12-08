@@ -9,9 +9,8 @@ public class HostUpdateDTO
     public string? FirstName { get; }
     public string? MiddleName { get;  }
     public string? LastName { get; }
-    public string ErrorMessage { get; }
 
-    public HostUpdateDTO(string email, string? password, char? gender, string? nationality, string? firstName, string? middleName, string? lastName, string errorMessage)
+    public HostUpdateDTO(string email, string? password, char? gender, string? nationality, string? firstName, string? middleName, string? lastName)
     {
         Email = email;
         Password = password;
@@ -20,6 +19,5 @@ public class HostUpdateDTO
         FirstName = firstName;
         MiddleName = middleName;
         LastName = lastName;
-        ErrorMessage = errorMessage;
     }
 }

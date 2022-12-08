@@ -105,5 +105,17 @@ public class RefugeeController {
         }
     }
 
+@GetMapping("/refugee/{email}")
+    public ResponseEntity<RefugeeDTO> getHost(@PathVariable("email") String email){
+        try {
+            RefugeeDTO refugee = refugeeInterface.getHostById(email);
+            return new ResponseEntity<>(refugee, HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
      */
 }
