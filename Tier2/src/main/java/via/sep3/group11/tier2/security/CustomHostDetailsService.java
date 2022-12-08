@@ -14,7 +14,7 @@ import via.sep3.group11.tier2.shared.domain.Host;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+/*
 @Service
 public class CustomHostDetailsService implements UserDetailsService {
 
@@ -30,13 +30,16 @@ public class CustomHostDetailsService implements UserDetailsService {
         Host host = hostCommunicationInterface.getHostByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with id: " + username + " not found."));
 
-        return new User(host.getEmail(), host.getPassword(), mapRoleToAuthorities());
+        return new User(host.getEmail(), host.getPassword(), mapRoleToAuthorities("HOST"));
     }
 
 
-    private Collection<GrantedAuthority> mapRoleToAuthorities() {
+    private Collection<GrantedAuthority> mapRoleToAuthorities(String role) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("HOST"));
+        authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
 }
+
+
+ */

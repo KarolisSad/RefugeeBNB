@@ -67,12 +67,10 @@ public class AuthLogic implements AuthInterface {
 
     @Override
     public String login(LoginDTO loginDTO) {
-        System.out.println("Trying to login: " + loginDTO.getEmail());
-        Authentication authentication =
-                authManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(),
-                        loginDTO.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
+            Authentication authentication =
+                    authManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(),
+                            loginDTO.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         return "Login success!";
     }
 }

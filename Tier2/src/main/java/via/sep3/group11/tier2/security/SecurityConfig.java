@@ -15,14 +15,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private CustomRefugeeDetailsService refugeeDetailsService;
-    private CustomHostDetailsService hostDetailsService;
+    private CustomUserDetailsService userDetailsService;
 
     @Autowired
-    public SecurityConfig(CustomRefugeeDetailsService refugeeDetailsService,
-                          CustomHostDetailsService hostDetailsService) {
-        this.refugeeDetailsService = refugeeDetailsService;
-        this.hostDetailsService = hostDetailsService;
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     //The filterchain intercepts requests before they hit controllers.

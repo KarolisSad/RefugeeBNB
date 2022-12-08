@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,6 +52,7 @@ public class AuthController {
             return new ResponseEntity<>(authInterface.registerHost(hostRegisterDTO), HttpStatus.OK);
         }
         catch (Exception e) {
+
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -61,8 +63,10 @@ public class AuthController {
         try {
             return new ResponseEntity<>(authInterface.login(loginDTO), HttpStatus.OK);
         }
+        catch (BadCredentialsException be) {
+            return new ResponseEntity<>("Email and/or password incorrect.", HttpStatus.BAD_REQUEST);
+        }
         catch (Exception e) {
-            System.out.println("fuck... " + e.getMessage());
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

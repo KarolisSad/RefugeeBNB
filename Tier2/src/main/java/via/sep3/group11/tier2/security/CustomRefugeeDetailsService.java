@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/*
 @Service
 public class CustomRefugeeDetailsService implements UserDetailsService {
 
@@ -29,7 +30,7 @@ public class CustomRefugeeDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Refugee refugee = refugeeCommunicationInterface.getRefugeeByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User with id: " + username + " not found."));
-
+        System.out.println(refugee.getEmail() + " found");
         return new User(refugee.getEmail(), refugee.getPassword(), mapRoleToAuthorities());
     }
 
@@ -40,3 +41,5 @@ public class CustomRefugeeDetailsService implements UserDetailsService {
         return authorities;
     }
 }
+
+ */
