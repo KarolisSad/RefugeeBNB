@@ -13,10 +13,13 @@ public class RefugeeRegisterDTO
     public string LastName{ get; }
     public Date DateOfBirth { get; }
 
+    public int FamilySize { get; }
+
+    public string Description { get;}
     public string ErrorMessage { get; }
 
     public RefugeeRegisterDTO(string email, string password, char gender, string nationality,
-        string firstName, string middleName, string lastName, Date dateOfBirth,
+        string firstName, string middleName, string lastName, Date dateOfBirth, int familySize, string description,
         string errorMessage)
     {
         Email = email;
@@ -27,6 +30,8 @@ public class RefugeeRegisterDTO
         MiddleName = middleName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;
+        FamilySize = familySize;
+        Description = description;
         ErrorMessage = errorMessage;
     }
     
