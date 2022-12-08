@@ -86,6 +86,7 @@ public class RefugeeController {
         }
     }
 
+    /*
     @CrossOrigin
     @PatchMapping("/refugee")
     public ResponseEntity<RefugeeDTO> updateInformation(@RequestBody RefugeeUpdateDTO refugeeUpdateDTO) {
@@ -100,5 +101,7 @@ public class RefugeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+     */
 
 }

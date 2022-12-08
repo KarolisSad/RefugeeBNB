@@ -100,6 +100,7 @@ public class HostController {
         }
     }
 
+    /*
     @PatchMapping("/host")
     public ResponseEntity<HostDTO> updateInformation(@RequestBody HostUpdateDTO hostUpdateDTO) {
         try {
@@ -109,5 +110,7 @@ public class HostController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+     */
 
 }

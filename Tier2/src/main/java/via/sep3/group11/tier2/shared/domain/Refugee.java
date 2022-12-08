@@ -1,5 +1,8 @@
 package via.sep3.group11.tier2.shared.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import java.util.Optional;
@@ -11,6 +14,9 @@ import static via.sep3.group11.tier2.shared.domain.ValidationHelper.*;
  * @version 27/11-2022
  * @author Group 11
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Refugee {
     private String email;
     private String password;
@@ -23,6 +29,8 @@ public class Refugee {
     private int familySize;
     private String description;
 
+
+    /*
     public Refugee(String email, String password, char gender, String nationality,
                    String firstName, String middleName, String lastName, Date dateOfBirth, int familySize, String description) {
         this.email = email;
@@ -76,6 +84,8 @@ public class Refugee {
     public String getDescription() {
         return description;
     }
+
+     */
 
     //                          GRAVE OF GREAT CODE :(
 

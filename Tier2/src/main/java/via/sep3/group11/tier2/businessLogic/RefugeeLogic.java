@@ -5,6 +5,7 @@ import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInte
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
+import via.sep3.group11.tier2.shared.DTOs.NewRefugeeRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
 import via.sep3.group11.tier2.shared.domain.Agreement;

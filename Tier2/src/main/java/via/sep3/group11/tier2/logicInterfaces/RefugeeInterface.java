@@ -2,6 +2,7 @@ package via.sep3.group11.tier2.logicInterfaces;
 
 
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
+import via.sep3.group11.tier2.shared.DTOs.NewRefugeeRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
 import via.sep3.group11.tier2.shared.domain.Refugee;
