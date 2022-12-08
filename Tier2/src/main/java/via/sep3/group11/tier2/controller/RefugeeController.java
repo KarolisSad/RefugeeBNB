@@ -86,4 +86,19 @@ public class RefugeeController {
         }
     }
 
+    @CrossOrigin
+    @PatchMapping("/refugee")
+    public ResponseEntity<RefugeeDTO> updateInformation(@RequestBody RefugeeUpdateDTO refugeeUpdateDTO) {
+        try {
+
+            RefugeeDTO refugee = refugeeInterface.updateInformation(loginDTO);
+            return new ResponseEntity<>(refugee, HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
