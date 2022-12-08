@@ -46,6 +46,8 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
     @Override
     public void deleteAccount(GEmail request, StreamObserver<GEmpty> responseObserver) {
         refugeeDao.deleteAccount(request.getEmail());
+        // Todo added this onNext statement to prevent Grpc Warning on each call.
+        responseObserver.onNext(GEmpty.newBuilder().build());
         responseObserver.onCompleted();
     }
 }

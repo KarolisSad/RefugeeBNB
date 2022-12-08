@@ -62,6 +62,8 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
     @Override
     public void deleteAccount(GEmail request, StreamObserver<GEmpty> responseObserver) {
         hostDaoInterface.deleteAccount(request.getEmail());
+        // Todo added this onNext statement to prevent Grpc Warning on each call.
+        responseObserver.onNext(GEmpty.newBuilder().build());
         responseObserver.onCompleted();
     }
 }
