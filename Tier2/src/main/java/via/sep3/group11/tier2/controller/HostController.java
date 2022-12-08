@@ -99,4 +99,15 @@ public class HostController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping("/host/update")
+    public ResponseEntity<HostDTO> updateInformation(@RequestBody HostUpdateDTO hostUpdateDTO) {
+        try {
+            HostDTO host = hostLogic.updateInformation(hostUpdateDTO);
+            return new ResponseEntity<>(host, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
