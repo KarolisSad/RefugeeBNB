@@ -89,7 +89,7 @@ public class RefugeeController {
     }
 
     @CrossOrigin
-    @PostMapping("/refugee/update")
+    @PatchMapping("/refugee")
     public ResponseEntity<RefugeeDTO> updateInformation(@RequestBody RefugeeUpdateDTO refugeeUpdateDTO) {
         try {
 

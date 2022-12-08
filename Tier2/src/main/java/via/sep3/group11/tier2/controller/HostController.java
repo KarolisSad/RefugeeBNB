@@ -100,7 +100,7 @@ public class HostController {
         }
     }
 
-    @PostMapping("/host/update")
+    @PatchMapping("/host")
     public ResponseEntity<HostDTO> updateInformation(@RequestBody HostUpdateDTO hostUpdateDTO) {
         try {
             HostDTO host = hostLogic.updateInformation(hostUpdateDTO);
