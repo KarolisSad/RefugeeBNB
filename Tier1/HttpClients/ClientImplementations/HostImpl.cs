@@ -93,4 +93,22 @@ public class HostImpl:HostInterface
         
         return host;
     }
+
+    public async Task<HostDTO> UpdateInformation(HostUpdateDTO dto)
+    {
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync($"/api/host/update", dto);
+        
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return host;
+    }
 }

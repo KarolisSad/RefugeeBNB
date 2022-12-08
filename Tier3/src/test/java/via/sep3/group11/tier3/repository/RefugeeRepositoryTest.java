@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
 class RefugeeRepositoryTest {
-
+/*
     @Autowired
     private RefugeeRepository underTest;
 
@@ -43,4 +43,6 @@ class RefugeeRepositoryTest {
         //then
         assertThat(underTest.findById(email)).isEmpty();
     }
+
+ */
 }

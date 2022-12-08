@@ -69,4 +69,23 @@ public class RefugeeImpl:RefugeeInterface
         
         return refugee;
     }
+
+    public async Task<RefugeeDTO> UpdateInformation(RefugeeUpdateDTO dto)
+    {
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync($"/api/refugee/update", dto);
+        
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            Console.WriteLine(content);
+            throw new Exception(content);
+        }
+
+        RefugeeDTO refugee = JsonSerializer.Deserialize<RefugeeDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return refugee;
+    }
 }

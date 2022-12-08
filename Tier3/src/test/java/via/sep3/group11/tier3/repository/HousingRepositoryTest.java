@@ -15,7 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
 class HousingRepositoryTest {
-
+/*
     @Autowired
     private HousingRepository underTest;
     @Autowired
@@ -65,4 +65,6 @@ class HousingRepositoryTest {
         //then
         assertThat(underTest.findAllByHost_Email("Bob@gmail.com").size() == 2).isTrue();
     }
+
+ */
 }

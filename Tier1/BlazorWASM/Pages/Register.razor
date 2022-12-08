@@ -64,6 +64,18 @@
                 <label for="dateOfBirth">Date of birth:</label>
                 <input type="date" id="dateOfBirth" name="dateofBirth" @bind="date">
             </p>
+            
+            @if (personType.Contains("refugee"))
+                        {
+                            <p>
+                                <RadzenLabel Component="familySize" Text="Family Size"/>
+                                <RadzenNumeric TValue="int" Min="1" Max="50" @bind-Value=@familysize  />
+                            </p>
+                            <p>
+                                <RadzenLabel Component="description" Text="Additional Information"/>
+                                <RadzenTextArea @bind-Value=@description TValue="string" Change=@DescriptionChange />
+                            </p>
+                        }
 
             <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@CreateAsync"/>
 
@@ -89,6 +101,8 @@
     private string firstName = "";
     private string middleName = "";
     private string lastName = "";
+    private int familysize = 0;
+    private string description = "";
     DateOnly date = new DateOnly(2011, 11, 11);
 
     public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
@@ -123,7 +137,7 @@
             }
         else if (personType.Contains("refugee"))
         {
-            RefugeeDTO refugee = await refugeeClient.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
+            RefugeeDTO refugee = await refugeeClient.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth, familysize, description, ""));
                 if (refugee.ErrorMessage.Equals(""))
                 {
                     Clear();
@@ -173,7 +187,7 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         nationality = (string)str;
-        Console.WriteLine($"Value changed to {str}");
+        Console.WriteLine($"Nationality changed to {str}");
     }
 
 
@@ -181,7 +195,14 @@
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         gender = (string)str;
-        Console.WriteLine($"Value changed to {str}");
+        Console.WriteLine($"Gender changed to {str}");
+    }
+
+    private void DescriptionChange(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        description = (string)str;
+        Console.WriteLine($"Description changed to {str}");
     }
 
 }

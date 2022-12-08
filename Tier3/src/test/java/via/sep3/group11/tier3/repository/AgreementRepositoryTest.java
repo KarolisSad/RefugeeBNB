@@ -17,6 +17,7 @@ import static via.sep3.group11.tier3.model.Date.convertLocalDateToDateObject;
 @DataJpaTest
 class AgreementRepositoryTest {
 
+    /*
     @Autowired
     private AgreementRepository underTest;
     @Autowired
@@ -98,4 +99,6 @@ class AgreementRepositoryTest {
     @Disabled
     void findAgreementsByHousing_HousingId() {
     }
+
+     */
 }

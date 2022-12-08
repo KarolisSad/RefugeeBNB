@@ -12,4 +12,6 @@ public interface HostInterface
     
     Task<HostDTO> DeleteAccountAsync(string email);
 
+    Task<HostDTO> UpdateInformation(HostUpdateDTO dto);
+
 }
