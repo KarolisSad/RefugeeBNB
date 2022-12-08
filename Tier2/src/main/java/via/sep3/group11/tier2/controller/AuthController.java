@@ -11,20 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import via.sep3.group11.tier2.logicInterfaces.AuthInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
-import via.sep3.group11.tier2.shared.DTOs.NewRefugeeRegisterDTO;
-import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private AuthenticationManager authenticationManager;
     private AuthInterface authInterface;
 
     @Autowired
-    public AuthController(AuthenticationManager authenticationManager,
-                          AuthInterface authInterface) {
-        this.authenticationManager = authenticationManager;
+    public AuthController(AuthInterface authInterface) {
         this.authInterface = authInterface;
     }
 
@@ -41,6 +37,35 @@ public class AuthController {
         catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping("register/host")
+    public ResponseEntity<String> registerHost(@RequestBody NewHostRegisterDTO hostRegisterDTO) {
+        try {
+            if (authInterface.existsByEmail(hostRegisterDTO.getEmail())) {
+                return new ResponseEntity<>(
+                        "User with email: " + hostRegisterDTO.getEmail() + " already exists.",
+                        HttpStatus.BAD_REQUEST);
+            }
+
+            return new ResponseEntity<>(authInterface.registerHost(hostRegisterDTO), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @PostMapping("login")
+    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
+        try {
+            return new ResponseEntity<>(authInterface.login(loginDTO), HttpStatus.OK);
+        }
+        catch (Exception e) {
+            System.out.println("fuck... " + e.getMessage());
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 
