@@ -3,15 +3,12 @@ package via.sep3.group11.tier2.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import via.sep3.group11.tier2.logicInterfaces.AuthInterface;
-import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
 import via.sep3.group11.tier2.shared.DTOs.*;
 
 @RestController
@@ -33,7 +30,7 @@ public class AuthController {
                         "User with email: " + refugeeRegisterDTO.getEmail() + " already exists.",
                         HttpStatus.BAD_REQUEST);
             }
-            return new ResponseEntity<>(authInterface.newRegisterRefugee(refugeeRegisterDTO), HttpStatus.CREATED);
+            return new ResponseEntity<>(authInterface.registerRefugee(refugeeRegisterDTO), HttpStatus.CREATED);
         }
         catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
@@ -59,15 +56,12 @@ public class AuthController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
         try {
             return new ResponseEntity<>(authInterface.login(loginDTO), HttpStatus.OK);
         }
-        catch (BadCredentialsException be) {
-            return new ResponseEntity<>("Email and/or password incorrect.", HttpStatus.BAD_REQUEST);
-        }
         catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

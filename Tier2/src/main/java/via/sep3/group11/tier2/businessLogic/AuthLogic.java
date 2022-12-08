@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.AuthInterface;
+import via.sep3.group11.tier2.security.JWTGenerator;
+import via.sep3.group11.tier2.shared.DTOs.AuthResponseDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.DTOs.NewHostRegisterDTO;
 import via.sep3.group11.tier2.shared.DTOs.NewRefugeeRegisterDTO;
@@ -23,20 +25,23 @@ public class AuthLogic implements AuthInterface {
     private HostCommunicationInterface hostCommunicationInterface;
     private PasswordEncoder passwordEncoder;
     private AuthenticationManager authManager;
+    private JWTGenerator jwtGenerator;
 
     @Autowired
     public AuthLogic(RefugeeCommunicationInterface refugeeCommunication,
                      HostCommunicationInterface hostCommunicationInterface,
-                     PasswordEncoder passwordEncoder, AuthenticationManager authManager) {
+                     PasswordEncoder passwordEncoder, AuthenticationManager authManager,
+                     JWTGenerator jwtGenerator) {
         this.refugeeCommunication = refugeeCommunication;
         this.hostCommunicationInterface = hostCommunicationInterface;
         this.passwordEncoder = passwordEncoder;
         this.authManager = authManager;
+        this.jwtGenerator = jwtGenerator;
     }
 
 
     @Override
-    public String newRegisterRefugee(NewRefugeeRegisterDTO dto) {
+    public String registerRefugee(NewRefugeeRegisterDTO dto) {
 
 
         Refugee toRegister = new Refugee(dto.getEmail(), passwordEncoder.encode(dto.getPassword()),
@@ -66,11 +71,13 @@ public class AuthLogic implements AuthInterface {
     }
 
     @Override
-    public String login(LoginDTO loginDTO) {
+    public AuthResponseDTO login(LoginDTO loginDTO) {
             Authentication authentication =
                     authManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(),
                             loginDTO.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        return "Login success!";
+            String token = jwtGenerator.generateToken(authentication);
+
+            return new AuthResponseDTO(token);
     }
 }
