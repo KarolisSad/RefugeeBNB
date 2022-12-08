@@ -10,6 +10,9 @@ import via.sep3.group11.tier3.protobuf.*;
 import javax.annotation.Resource;
 import java.util.Optional;
 
+import static via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter.hostDetailsFromGrpc;
+import static via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter.hostToGrpc;
+
 @GRpcService
 public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
 
@@ -64,6 +67,14 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
         hostDaoInterface.deleteAccount(request.getEmail());
         // Todo added this onNext statement to prevent Grpc Warning on each call.
         responseObserver.onNext(GEmpty.newBuilder().build());
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updateInformation(GHostDetails request, StreamObserver<GHost> responseObserver) {
+
+        Host hostResponse = hostDaoInterface.updateInformation(hostDetailsFromGrpc(request));
+        responseObserver.onNext(hostToGrpc(hostResponse));
         responseObserver.onCompleted();
     }
 }

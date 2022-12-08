@@ -138,6 +138,37 @@ public final class HostGrpc {
     return getDeleteAccountMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GHostDetails,
+      via.sep3.group11.tier3.protobuf.GHost> getUpdateInformationMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "updateInformation",
+      requestType = via.sep3.group11.tier3.protobuf.GHostDetails.class,
+      responseType = via.sep3.group11.tier3.protobuf.GHost.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GHostDetails,
+      via.sep3.group11.tier3.protobuf.GHost> getUpdateInformationMethod() {
+    io.grpc.MethodDescriptor<via.sep3.group11.tier3.protobuf.GHostDetails, via.sep3.group11.tier3.protobuf.GHost> getUpdateInformationMethod;
+    if ((getUpdateInformationMethod = HostGrpc.getUpdateInformationMethod) == null) {
+      synchronized (HostGrpc.class) {
+        if ((getUpdateInformationMethod = HostGrpc.getUpdateInformationMethod) == null) {
+          HostGrpc.getUpdateInformationMethod = getUpdateInformationMethod =
+              io.grpc.MethodDescriptor.<via.sep3.group11.tier3.protobuf.GHostDetails, via.sep3.group11.tier3.protobuf.GHost>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "updateInformation"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier3.protobuf.GHostDetails.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  via.sep3.group11.tier3.protobuf.GHost.getDefaultInstance()))
+              .setSchemaDescriptor(new HostMethodDescriptorSupplier("updateInformation"))
+              .build();
+        }
+      }
+    }
+    return getUpdateInformationMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -214,6 +245,13 @@ public final class HostGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteAccountMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void updateInformation(via.sep3.group11.tier3.protobuf.GHostDetails request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHost> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateInformationMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -244,6 +282,13 @@ public final class HostGrpc {
                 via.sep3.group11.tier3.protobuf.GEmail,
                 via.sep3.group11.tier3.protobuf.GEmpty>(
                   this, METHODID_DELETE_ACCOUNT)))
+          .addMethod(
+            getUpdateInformationMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                via.sep3.group11.tier3.protobuf.GHostDetails,
+                via.sep3.group11.tier3.protobuf.GHost>(
+                  this, METHODID_UPDATE_INFORMATION)))
           .build();
     }
   }
@@ -293,6 +338,14 @@ public final class HostGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getDeleteAccountMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void updateInformation(via.sep3.group11.tier3.protobuf.GHostDetails request,
+        io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHost> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateInformationMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -335,6 +388,13 @@ public final class HostGrpc {
     public via.sep3.group11.tier3.protobuf.GEmpty deleteAccount(via.sep3.group11.tier3.protobuf.GEmail request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getDeleteAccountMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public via.sep3.group11.tier3.protobuf.GHost updateInformation(via.sep3.group11.tier3.protobuf.GHostDetails request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateInformationMethod(), getCallOptions(), request);
     }
   }
 
@@ -383,12 +443,21 @@ public final class HostGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getDeleteAccountMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<via.sep3.group11.tier3.protobuf.GHost> updateInformation(
+        via.sep3.group11.tier3.protobuf.GHostDetails request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateInformationMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_HOST = 0;
   private static final int METHODID_GET_HOST_BY_EMAIL = 1;
   private static final int METHODID_GET_HOST_BY_HOUSING_ID = 2;
   private static final int METHODID_DELETE_ACCOUNT = 3;
+  private static final int METHODID_UPDATE_INFORMATION = 4;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -422,6 +491,10 @@ public final class HostGrpc {
         case METHODID_DELETE_ACCOUNT:
           serviceImpl.deleteAccount((via.sep3.group11.tier3.protobuf.GEmail) request,
               (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GEmpty>) responseObserver);
+          break;
+        case METHODID_UPDATE_INFORMATION:
+          serviceImpl.updateInformation((via.sep3.group11.tier3.protobuf.GHostDetails) request,
+              (io.grpc.stub.StreamObserver<via.sep3.group11.tier3.protobuf.GHost>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -488,6 +561,7 @@ public final class HostGrpc {
               .addMethod(getGetHostByEmailMethod())
               .addMethod(getGetHostByHousingIdMethod())
               .addMethod(getDeleteAccountMethod())
+              .addMethod(getUpdateInformationMethod())
               .build();
         }
       }
