@@ -80,8 +80,8 @@ public class HostImpl:HostInterface
     
     public async Task<HostDTO> DeleteAccountAsync(string email)
     {
-        Console.WriteLine("TRYING TO DELETE:_ " + email);
         HttpResponseMessage responseMessage = await client.DeleteAsync($"/api/host/delete/{email}");
+        Console.WriteLine(responseMessage.ToString());
         
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)

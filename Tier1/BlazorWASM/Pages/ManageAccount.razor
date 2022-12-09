@@ -9,16 +9,24 @@
 @inject AuthInterface authService;
 @inject NavigationManager navMgr;
 
+<AuthorizeView>
+    <Authorized>
+        <div class="card">
+            <div class="form-group field">
+                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
+                <br/>
+        
+                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+                <label style="color: @color">@resultMsg</label>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <RadzenText>NOT AUTHORIZED</RadzenText>
+    </NotAuthorized>
+</AuthorizeView>
 
-<div class="card">
-    <div class="form-group field">
-        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
-        <br/>
 
-        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
-        <label style="color: @color">@resultMsg</label>
-    </div>
-</div>
 
 
 @code {
@@ -35,13 +43,17 @@
     private async void DeleteAccountAsync()
     {
         string email = authService.GetAuthAsync().Result.Claims.First().Value;
-        Console.WriteLine(email);
 
         if (authService.GetAuthAsync().Result.Claims.Any(claim => claim.Value.Equals("HOST")))
         {
+            Console.WriteLine("TRYING TO DELETE HOST");
+
+            try
+            {
+                HostDTO dto = await HostInterface.DeleteAccountAsync(email);
+
+     
             
-            
-            HostDTO dto = await HostInterface.DeleteAccountAsync(email);
             if (dto.ErrorMessage.Equals(null))
             {
                 resultMsg = dto.ErrorMessage;
@@ -51,6 +63,12 @@
             {
                 resultMsg = "You have deleted your account";
                 color = "green";
+            }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("CRASH!: " + e);
+                throw;
             }
             
         }

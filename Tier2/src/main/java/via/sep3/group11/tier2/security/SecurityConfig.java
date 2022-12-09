@@ -32,6 +32,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 .csrf().disable() // Disable csrf-tokens as we are using JWT instead.
                 .exceptionHandling()
                 .authenticationEntryPoint(authEntryPoint) // add jwt authentication entry-point
