@@ -21,34 +21,30 @@ public class AuthController {
     }
 
     @PostMapping("register/refugee")
-    public ResponseEntity<String> registerRefugee(@RequestBody NewRefugeeRegisterDTO refugeeRegisterDTO) {
+    public ResponseEntity<RefugeeDTO> registerRefugee(@RequestBody NewRefugeeRegisterDTO refugeeRegisterDTO) {
         try {
             if (authInterface.existsByEmail(refugeeRegisterDTO.getEmail())) {
-                return new ResponseEntity<>(
-                        "User with email: " + refugeeRegisterDTO.getEmail() + " already exists.",
+                return new ResponseEntity<>(new RefugeeDTO(null, "Email already in use."),
                         HttpStatus.BAD_REQUEST);
             }
             return new ResponseEntity<>(authInterface.registerRefugee(refugeeRegisterDTO), HttpStatus.CREATED);
         }
         catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new RefugeeDTO(null, e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("register/host")
-    public ResponseEntity<String> registerHost(@RequestBody NewHostRegisterDTO hostRegisterDTO) {
+    public ResponseEntity<HostDTO> registerHost(@RequestBody NewHostRegisterDTO hostRegisterDTO) {
         try {
             if (authInterface.existsByEmail(hostRegisterDTO.getEmail())) {
-                return new ResponseEntity<>(
-                        "User with email: " + hostRegisterDTO.getEmail() + " already exists.",
+                return new ResponseEntity<>(new HostDTO(null, "Email already in use."),
                         HttpStatus.BAD_REQUEST);
             }
-
-            return new ResponseEntity<>(authInterface.registerHost(hostRegisterDTO), HttpStatus.OK);
+            return new ResponseEntity<>(authInterface.registerHost(hostRegisterDTO), HttpStatus.CREATED);
         }
         catch (Exception e) {
-
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(new HostDTO(null, e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

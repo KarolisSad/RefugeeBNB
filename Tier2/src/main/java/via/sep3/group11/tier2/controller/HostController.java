@@ -90,6 +90,7 @@ public class HostController {
     @DeleteMapping("/host/delete/{email}")
     public ResponseEntity<HostDTO> deleteAccount(@PathVariable("email") String email) {
         try {
+            System.out.println("CALLED DELETE!");
             HostDTO host = hostLogic.deleteAccount(email);
             return new ResponseEntity<>(host, HttpStatus.OK);
         }

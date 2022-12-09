@@ -11,10 +11,7 @@ import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.AuthInterface;
 import via.sep3.group11.tier2.security.JWTGenerator;
-import via.sep3.group11.tier2.shared.DTOs.AuthResponseDTO;
-import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
-import via.sep3.group11.tier2.shared.DTOs.NewHostRegisterDTO;
-import via.sep3.group11.tier2.shared.DTOs.NewRefugeeRegisterDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Refugee;
 
@@ -41,7 +38,7 @@ public class AuthLogic implements AuthInterface {
 
 
     @Override
-    public String registerRefugee(NewRefugeeRegisterDTO dto) {
+    public RefugeeDTO registerRefugee(NewRefugeeRegisterDTO dto) {
 
 
         Refugee toRegister = new Refugee(dto.getEmail(), passwordEncoder.encode(dto.getPassword()),
@@ -49,19 +46,19 @@ public class AuthLogic implements AuthInterface {
                 dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth(),
                 dto.getFamilySize(), dto.getDescription());
 
-        refugeeCommunication.createRefugee(toRegister);
-        return "Registration successful";
+        Refugee created = refugeeCommunication.createRefugee(toRegister);
+        return new RefugeeDTO(created, "");
     }
 
     @Override
-    public String registerHost(NewHostRegisterDTO dto) {
+    public HostDTO registerHost(NewHostRegisterDTO dto) {
 
         Host toRegister = new Host(dto.getFirstName(), dto.getEmail(), passwordEncoder.encode(dto.getPassword()),
                 dto.getGender(), dto.getNationality(),
                 dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
 
-        hostCommunicationInterface.createHost(toRegister);
-        return "Registration successful";
+        Host created = hostCommunicationInterface.createHost(toRegister);
+        return new HostDTO(created, "");
     }
 
     @Override

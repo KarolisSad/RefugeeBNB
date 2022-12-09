@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 @Configuration
 @EnableWebSecurity
@@ -34,9 +36,9 @@ public class SecurityConfig {
         http
                 .cors().and()
                 .csrf().disable() // Disable csrf-tokens as we are using JWT instead.
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint) // add jwt authentication entry-point
-            .and()
+               // .exceptionHandling()
+               // .authenticationEntryPoint(authEntryPoint) // add jwt authentication entry-point
+            //.and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // make sessions stateless, as we are using jwt
             .and()
@@ -53,7 +55,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated() // Any other request must be authenticated
                 .and()
                 .httpBasic(); // Use http
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+       // http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -74,6 +76,24 @@ public class SecurityConfig {
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
     }
+
+    /*
+    @Bean
+    public HttpFirewall configureFirewall() {
+        StrictHttpFirewall strictHttpFirewall = new StrictHttpFirewall();
+        strictHttpFirewall
+                .setAllowedHeaderNames((header) -> true);
+        strictHttpFirewall
+                .setAllowedHeaderValues((header) -> true);
+        strictHttpFirewall
+                .setAllowedParameterNames((parameter) -> true);
+        strictHttpFirewall
+                .setUnsafeAllowAnyHttpMethod(true);
+
+        return strictHttpFirewall;
+    }
+
+     */
 }
 
 

@@ -11,13 +11,14 @@ public class JwtAuthImpl : AuthInterface
 {
 
     private readonly HttpClient client;
+    public static string? Jwt { get; private set; } = "";
+
 
     public JwtAuthImpl(HttpClient client)
     {
         this.client = client;
     }
 
-    public static string? Jwt { get; private set; } = "";
     
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!;
 
@@ -34,6 +35,7 @@ public class JwtAuthImpl : AuthInterface
 
         string token = responseContent;
         Jwt = token;
+        //client.DefaultRequestHeaders.Add("Authorization", $"Bearer: {Jwt}");
 
         ClaimsPrincipal claimsPrincipal = CreateClaimsPrincipal();
         
@@ -48,12 +50,12 @@ public class JwtAuthImpl : AuthInterface
         return Task.CompletedTask;
     }
 
-    public Task RegisterHostAsync(HostRegisterDTO dto)
+    public Task<HostDTO> RegisterHostAsync(HostRegisterDTO dto)
     {
         throw new NotImplementedException();
     }
 
-    public Task RegisterRefugeeAsync(RefugeeRegisterDTO dto)
+    public Task<RefugeeDTO> RegisterRefugeeAsync(RefugeeRegisterDTO dto)
     {
         throw new NotImplementedException();
     }

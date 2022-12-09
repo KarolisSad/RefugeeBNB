@@ -21,9 +21,6 @@
             </div>
         </div>
     </Authorized>
-    <NotAuthorized>
-        <RadzenText>NOT AUTHORIZED</RadzenText>
-    </NotAuthorized>
 </AuthorizeView>
 
 
@@ -46,11 +43,13 @@
 
         if (authService.GetAuthAsync().Result.Claims.Any(claim => claim.Value.Equals("HOST")))
         {
-            Console.WriteLine("TRYING TO DELETE HOST");
+            Console.WriteLine("TRYING TO DELETE HOST: " + email);
 
             try
             {
+                
                 HostDTO dto = await HostInterface.DeleteAccountAsync(email);
+                Console.WriteLine(dto.Host.Email);
 
      
             

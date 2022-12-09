@@ -13,9 +13,18 @@ public class HostImpl:HostInterface
 
     private readonly HttpClient client;
 
+
     public HostImpl(HttpClient client)
     {
         this.client = client;
+             string[] jwtStrings = JwtAuthImpl.Jwt.Split("\"");
+        string token = jwtStrings[3];
+        if (token.Contains("\""))
+        {
+            token.Remove(token.Length);
+        }
+
+        client.DefaultRequestHeaders.Add("Authorization", token);
     }
 
     /*

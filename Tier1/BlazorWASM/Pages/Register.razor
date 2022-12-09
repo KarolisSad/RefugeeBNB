@@ -2,12 +2,8 @@
 @using HttpClients.ClientInterfaces
 @using global::Shared.Domain
 @using System.Collections.ObjectModel
-@using System.Text.Json
 @using global::Shared.DTOs
-@using System.Collections
-@inject HostInterface hostClient;
-@inject RefugeeInterface refugeeClient;
-
+@inject AuthInterface authService;
 
 <h3>Register</h3>
 
@@ -101,13 +97,14 @@
 
     private async Task CreateAsync()
     {
-        /*
+        
         resultMsg = "";
         Date dateOfBirth = new Date(date.Day, date.Month, date.Year);
 
         if (personType.Contains("host"))
         {
-            HostDTO host = await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
+            
+            HostDTO host = await authService.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
                 if (host.ErrorMessage.Equals(""))
                 {
                     Console.WriteLine("We created a host.");
@@ -124,7 +121,7 @@
             }
         else if (personType.Contains("refugee"))
         {
-            RefugeeDTO refugee = await refugeeClient.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
+            RefugeeDTO refugee = await authService.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
                 if (refugee.ErrorMessage.Equals(""))
                 {
                     Clear();
@@ -140,7 +137,7 @@
                 }
                 
         }
-        */
+        
     }
 
     private void Clear()

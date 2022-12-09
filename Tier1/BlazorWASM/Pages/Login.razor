@@ -20,13 +20,13 @@
 
                 <p>
                     <RadzenLabel Component="Email" Text="Email"/>
-                    <RadzenTextBox Name="Email" @bind-Value=@email/>
+                    <RadzenTextBox Name="Email" @bind-Value=@email></RadzenTextBox>
                     <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
 
                 </p>
                 <p>
                     <RadzenLabel Component="Password" Text="Password"/>
-                    <RadzenPassword @bind-Value=@password/>
+                    <RadzenPassword @bind-Value=@password></RadzenPassword>
                     <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
                 </p>
 
@@ -65,19 +65,19 @@
             await authService.LoginAsync(new LoginDTO(email, password));
 
             Claim role = authService.GetAuthAsync().Result.Claims.First(claim => claim.Type.Equals("Role"));
+            Console.WriteLine("Logged in as: " + role.Value);
+            
+            /*
             if (role.Value.Equals("HOST"))
             {
                 navMgr.NavigateTo("/");
-                resultMsg = "LOGGED IN AS HOST!";
             }
             if (role.Value.Equals("REFUGEE"))
             {
                 resultMsg = "LOGGED IN AS REFUGEE!";
 
             }
-
-            //Console.WriteLine(authService.GetAuthAsync());
-            //navMgr.NavigateTo("/");
+            */
         }
         catch (Exception e)
         {
