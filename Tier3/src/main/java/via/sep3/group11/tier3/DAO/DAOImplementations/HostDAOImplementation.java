@@ -71,4 +71,12 @@ public class HostDAOImplementation implements HostDaoInterface {
         //hostRepository.deleteHostByEmail(email);
     }
 
+    @Override
+    public Host updateInformation(Host host) {
+        if (hostRepository.findById(host.getEmail()).isPresent()) {
+            return hostRepository.save(host);
+        }
+        return null;
+    }
+
 }
