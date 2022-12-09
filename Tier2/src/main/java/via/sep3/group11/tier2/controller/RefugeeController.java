@@ -9,6 +9,7 @@ import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
+import via.sep3.group11.tier2.shared.DTOs.RefugeeUpdateDTO;
 import via.sep3.group11.tier2.shared.domain.Refugee;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
@@ -91,7 +92,7 @@ public class RefugeeController {
     public ResponseEntity<RefugeeDTO> updateInformation(@RequestBody RefugeeUpdateDTO refugeeUpdateDTO) {
         try {
 
-            RefugeeDTO refugee = refugeeInterface.updateInformation(loginDTO);
+            RefugeeDTO refugee = refugeeInterface.updateInformation(refugeeUpdateDTO);
             return new ResponseEntity<>(refugee, HttpStatus.OK);
         }
 
