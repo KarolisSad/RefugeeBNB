@@ -15,6 +15,7 @@ public class RefugeeImpl:RefugeeInterface
         this.client = client;
     }
 
+    /*
     public async Task<RefugeeDTO> RegisterRefugeeAsync(RefugeeRegisterDTO dto)
     {
         HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/refugee", dto);
@@ -50,6 +51,7 @@ public class RefugeeImpl:RefugeeInterface
         
         return refugee;
     }
+    */
 
     public async Task<RefugeeDTO> DeleteAccountAsync(string email)
     {

@@ -66,8 +66,8 @@ public class AuthLogic implements AuthInterface {
 
     @Override
     public boolean existsByEmail(String email) {
-        return (refugeeCommunication.getRefugeeByEmail(email).isPresent() ||
-                hostCommunicationInterface.getHostByEmail(email).isPresent());
+        return (isHost(email) ||
+                isRefugee(email));
     }
 
     @Override
@@ -76,8 +76,23 @@ public class AuthLogic implements AuthInterface {
                     authManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(),
                             loginDTO.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            String token = jwtGenerator.generateToken(authentication);
+
+            String role = "";
+            if (isHost(loginDTO.getEmail())) {
+                role = "HOST";
+            } else if (isRefugee(loginDTO.getEmail())) {
+                role = "REFUGEE";
+            }
+        String token = jwtGenerator.generateToken(authentication, role);
 
             return new AuthResponseDTO(token);
+    }
+
+    private boolean isHost(String email) {
+        return hostCommunicationInterface.getHostByEmail(email).isPresent();
+    }
+
+    private boolean isRefugee(String email) {
+        return refugeeCommunication.getRefugeeByEmail(email).isPresent();
     }
 }

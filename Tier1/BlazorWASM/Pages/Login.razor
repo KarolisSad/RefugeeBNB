@@ -1,61 +1,91 @@
 ﻿@page "/Login"
 @using HttpClients.ClientInterfaces
 @using System.Collections.ObjectModel
+@using System.Security.Claims
 @using global::Shared.Domain
 @using global::Shared.DTOs
 @using LogicForPages
 @inject HostInterface HostInterface;
 @inject RefugeeInterface RefugeeInterface;
 @inject NavigationManager navMgr;
-@inject MenuService MenuService;
+@inject AuthInterface authService;
 
 
-<h3>Login</h3>
-<div class="card">
-    <div class="form-group field">
-        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@OnLogin>
-            <p>
-                <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange"/>
-            </p>
 
-            <p>
-                <RadzenLabel Component="Email" Text="Email"/>
-                <RadzenTextBox Name="Email" @bind-Value=@email />
-                <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
+    <h3>Login</h3>
+    <div class="card">
+        <div class="form-group field">
+            <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="LoginDTO" Submit=@OnLogin>
 
-            </p>
-            <p>
-                <RadzenLabel Component="Password" Text="Password"/>
-                <RadzenPassword @bind-Value=@password />
-                <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
-            </p>
 
-            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Login" Click="@OnLogin"/>
-            <label style="color: @color">@resultMsg</label>
-        </RadzenTemplateForm>
+                <p>
+                    <RadzenLabel Component="Email" Text="Email"/>
+                    <RadzenTextBox Name="Email" @bind-Value=@email/>
+                    <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
+
+                </p>
+                <p>
+                    <RadzenLabel Component="Password" Text="Password"/>
+                    <RadzenPassword @bind-Value=@password/>
+                    <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
+                </p>
+
+                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Login" Click="@OnLogin"/>
+                <label style="color: @color">@resultMsg</label>
+            </RadzenTemplateForm>
+        </div>
     </div>
-</div>
+
 
 
 @code {
 
+    private string email { get; set; }
+    private string password { get; set; }
+    /*
     class Person
     {
     }
-    private string email { get; set; }
-    private string password { get; set; }
+
 
     private string personType = "";
 
     public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
+    */
     private string resultMsg = "";
-    private string color = "";
+    private string color = "GREEN";
     
 
 
     private async void OnLogin()
     {
-    
+        resultMsg = "";
+        try
+        {
+            await authService.LoginAsync(new LoginDTO(email, password));
+
+            Claim role = authService.GetAuthAsync().Result.Claims.First(claim => claim.Type.Equals("Role"));
+            if (role.Value.Equals("HOST"))
+            {
+                navMgr.NavigateTo("/");
+                resultMsg = "LOGGED IN AS HOST!";
+            }
+            if (role.Value.Equals("REFUGEE"))
+            {
+                resultMsg = "LOGGED IN AS REFUGEE!";
+
+            }
+
+            //Console.WriteLine(authService.GetAuthAsync());
+            //navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+    /*
      if (personType.Contains("host"))
         {
             HostDTO hostDto = await HostInterface.LoginHostAsync(new LoginDTO(email, password));
@@ -107,15 +137,18 @@
             }
             
         }
+        
         else
         {
             color = "red";
             resultMsg = "Make sure you let us know if you are a host or a refuge.";
         }
         
+        */
+
     }
 
-
+/*
     private void OnChange(object value)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
@@ -130,6 +163,6 @@
 
         Console.WriteLine($"Value changed to {str}");
     }
-    
+    */
 
 }

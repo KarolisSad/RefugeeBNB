@@ -3,6 +3,7 @@ package via.sep3.group11.tier2.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,6 +27,7 @@ public class SecurityConfig {
         this.authEntryPoint = authEntryPoint;
     }
 
+    // Todo probably some filtering errors here. Test everything :-)
     //The filterchain intercepts requests before they hit controllers.
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -33,14 +35,20 @@ public class SecurityConfig {
                 .csrf().disable() // Disable csrf-tokens as we are using JWT instead.
                 .exceptionHandling()
                 .authenticationEntryPoint(authEntryPoint) // add jwt authentication entry-point
-                .and()
+            .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // make sessions stateless, as we are using jwt
-                .and()
+            .and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll() // All auth endpoints requests are allowed for everyone.
-                .antMatchers("/api/refugee/**").hasRole("REFUGEE")
-                .antMatchers("/api/host/**").hasRole("HOST")
+                .antMatchers("/api/refugee/**").hasAuthority("REFUGEE") // Only refugees have access to anything under /refugee
+                .antMatchers("/api/host/**").hasAuthority("HOST") // Only hosts have access to anything under /host
+                .antMatchers(HttpMethod.GET, "api/host/**").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/housing").hasAuthority("HOST") // Only hosts can post housing
+                .antMatchers(HttpMethod.POST, "/api/housing/delete").hasAuthority("HOST") // Only hosts can delete housing
+                .antMatchers(HttpMethod.POST, "/api/agreements").hasAuthority("REFUGEE") // Only refugees can request agreements
+                .antMatchers(HttpMethod.POST, "/api/agreements/respond").hasAuthority("HOST") // Only Hosts can update agreements
+                .antMatchers(HttpMethod.POST, "/api/agreements/host").hasAuthority("HOST") // Only Hosts can see all their own requests
                 .anyRequest().authenticated() // Any other request must be authenticated
                 .and()
                 .httpBasic(); // Use http
@@ -49,28 +57,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    //TODO USER ROLES??? NEEDED???? IN DATABASE CHECK VIDEO "REGISTER"
-
-    // IN MEMORY -> TO BE DELETED!
-    /*
-    @Bean
-    public UserDetailsService users() {
-        UserDetails host = User.builder()
-                .username("host")
-                .password("password")
-                .roles("HOST")
-                .build();
-
-        UserDetails refugee = User.builder()
-                .username("refugee")
-                .password("password")
-                .roles("REFUGEE")
-                .build();
-
-        return new InMemoryUserDetailsManager(host, refugee);
-    }
-
-     */
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)

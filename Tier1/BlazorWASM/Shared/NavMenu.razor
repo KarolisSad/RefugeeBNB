@@ -1,6 +1,9 @@
 ﻿@using global::Shared.Domain
 @using System.Dynamic
+@using System.Security.Claims
+@using HttpClients.ClientInterfaces
 @using LogicForPages
+@inject AuthInterface authService;
 @inject MenuService MenuService;
 @implements IDisposable;
 
@@ -21,52 +24,60 @@
             </NavLink>
         </div>
 
-        @if (!MenuService.Host && !MenuService.Refugee)
-        {
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/Register" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Register
-                </NavLink>
-            </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/Login" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Login
-                </NavLink>
-            </div>
-        }
+        <!-- IF NOT LOGGED IN -->
+        <AuthorizeView>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/Register" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Register
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/Login" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </NotAuthorized>
 
-        @if (MenuService.Host)
-        {
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/AddHousing" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Add Housing
-                </NavLink>
-            </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/ManageHousingHost" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> My Housing
-                </NavLink>
-            </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/ManageAccount" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> My Account
-                </NavLink>
-            </div>
-        }
 
-        @if (MenuService.Refugee)
-        {
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/DisplayHousing" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Display Housing
-                </NavLink>
-            </div>
-            <div class="nav-item px-3">
-                <NavLink class="nav-link" href="/ManageAccount" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> My Account
-                </NavLink>
-            </div>
-        }
+            <!-- HOST -->
+            <Authorized>
+                @if (@context.User.Claims.Any(claim => claim.Value.Equals("HOST")))
+                {
+                    <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/AddHousing" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Add Housing
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/ManageHousingHost" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> My Housing
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/ManageAccount" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> My Account
+                    </NavLink>
+                </div>
+                }
+
+                <!-- REFUGEE -->
+                @if (@context.User.Claims.Any(claim => claim.Value.Equals("REFUGEE")))
+                {
+                    <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/DisplayHousing" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Display Housing
+                    </NavLink>
+                </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/ManageAccount" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> My Account
+                        </NavLink>
+                    </div>
+                }
+            </Authorized>
+        </AuthorizeView>
+        
 
 
     </nav>
@@ -83,6 +94,7 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+    
 
     protected override void OnInitialized()
     {

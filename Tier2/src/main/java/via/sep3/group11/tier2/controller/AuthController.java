@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import via.sep3.group11.tier2.logicInterfaces.AuthInterface;
 import via.sep3.group11.tier2.shared.DTOs.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/auth")
 public class AuthController {
 
@@ -58,9 +56,16 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
         try {
-            return new ResponseEntity<>(authInterface.login(loginDTO), HttpStatus.OK);
+            System.out.println("LOGIN CALLED!");
+            AuthResponseDTO response = authInterface.login(loginDTO);
+            System.out.println("RESPONSE: " + response);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        catch (BadCredentialsException be) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

@@ -13,8 +13,7 @@ import java.util.Date;
 public class JWTGenerator {
 
 
-
-    public String generateToken(Authentication authentication) {
+    public String generateToken(Authentication authentication, String role) {
         String username = authentication.getName();
         Date currentDate = new Date();
         Date expiryDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
@@ -23,6 +22,7 @@ public class JWTGenerator {
                 .setSubject(username)
                 .setIssuedAt(currentDate)
                 .setExpiration(expiryDate)
+                .claim("Role", role)
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.JWT_SECRET)
                 .compact();
 
@@ -34,6 +34,8 @@ public class JWTGenerator {
                 .setSigningKey(SecurityConstants.JWT_SECRET)
                 .parseClaimsJws(token)
                 .getBody();
+
+        System.out.println("TEST: " + claims.getSubject());
         return claims.getSubject();
     }
 

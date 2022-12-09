@@ -18,6 +18,7 @@ public class HostImpl:HostInterface
         this.client = client;
     }
 
+    /*
     public async Task<HostDTO> RegisterHostAsync(HostRegisterDTO host)
     {
         //Console.WriteLine(JsonSerializer.Deserialize<HostRegisterDTO>(host.));
@@ -53,6 +54,7 @@ public class HostImpl:HostInterface
         
         return host;
     }
+    */
 
     public async Task<HostDTO> GetHostByHousingIdAsync(long housingId)
     {
@@ -78,6 +80,7 @@ public class HostImpl:HostInterface
     
     public async Task<HostDTO> DeleteAccountAsync(string email)
     {
+        Console.WriteLine("TRYING TO DELETE:_ " + email);
         HttpResponseMessage responseMessage = await client.DeleteAsync($"/api/host/delete/{email}");
         
         string content = await responseMessage.Content.ReadAsStringAsync();

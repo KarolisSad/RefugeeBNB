@@ -2,10 +2,12 @@
 @using LogicForPages
 @using HttpClients.ClientInterfaces
 @using global::Shared.DTOs
+@using System.Security.Claims
 <h3>ManageAccount</h3>
-@inject MenuService MenuService;
 @inject RefugeeInterface RefugeeInterface;
 @inject HostInterface HostInterface;
+@inject AuthInterface authService;
+@inject NavigationManager navMgr;
 
 
 <div class="card">
@@ -24,17 +26,22 @@
     private string resultMsg = "";
     private string color = "";
 
-    private void Logout()
+    private async void Logout()
     {
-        MenuService.Host = false;
-        MenuService.Refugee = false;
+        await authService.LogoutAsync();
+        navMgr.NavigateTo("/");
     }
 
     private async void DeleteAccountAsync()
     {
-        if (MenuService.Host)
+        string email = authService.GetAuthAsync().Result.Claims.First().Value;
+        Console.WriteLine(email);
+
+        if (authService.GetAuthAsync().Result.Claims.Any(claim => claim.Value.Equals("HOST")))
         {
-            HostDTO dto = await HostInterface.DeleteAccountAsync(MenuService.HostLogged);
+            
+            
+            HostDTO dto = await HostInterface.DeleteAccountAsync(email);
             if (dto.ErrorMessage.Equals(null))
             {
                 resultMsg = dto.ErrorMessage;
@@ -45,12 +52,13 @@
                 resultMsg = "You have deleted your account";
                 color = "green";
             }
-        }
-        else if (MenuService.Refugee)
-        {
-            Console.WriteLine(MenuService.RefugeeLogged);
             
-            RefugeeDTO dto = await RefugeeInterface.DeleteAccountAsync(MenuService.RefugeeLogged);
+        }
+        
+        else if (authService.GetAuthAsync().Result.Claims.Any(claim => claim.Value.Equals("REFUGEE")))
+        {
+            
+            RefugeeDTO dto = await RefugeeInterface.DeleteAccountAsync(email);
             if (dto.ErrorMessage.Equals(null))
             {
                 //todo change to nav manager go to main page with no user logged in.
@@ -62,12 +70,16 @@
                 resultMsg = "You have deleted your account";
                 color = "green";
             }
+         
         }
         else
         {
             resultMsg = "No one is currently logged in";
             color = "red";
         }
+       
+        
     }
+    
 
 }
