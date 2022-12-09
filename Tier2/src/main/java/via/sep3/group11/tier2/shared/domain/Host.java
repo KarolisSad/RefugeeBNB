@@ -69,7 +69,30 @@ public class Host {
         return dateOfBirth;
     }
 
-    //                          GRAVE OF GREAT CODE :(
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+//                          GRAVE OF GREAT CODE :(
 
 
 //    /**

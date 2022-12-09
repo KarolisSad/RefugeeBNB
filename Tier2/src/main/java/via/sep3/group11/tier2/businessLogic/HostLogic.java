@@ -145,4 +145,33 @@ public class HostLogic implements HostInterface {
         return new HostDTO(null, "");
     }
 
+    @Override
+    public HostDTO updateInformation(HostUpdateDTO dto) {
+        Optional<Host> host = hostDAO.getHostByEmail(dto.getEmail());
+        if(host.isEmpty())
+        {
+            return new HostDTO(null, "The host with the given email does not exist.");
+        }
+        else {
+            host.get().setFirstName(dto.getFirstName());
+            host.get().setMiddleName(dto.getMiddleName());
+            host.get().setLastName(dto.getLastName());
+            host.get().setPassword(dto.getPassword());
+            host.get().setGender(dto.getGender());
+            host.get().setNationality(dto.getNationality());
+
+            hostDAO.updateInformation(host.get());
+            return new HostDTO(host.get(), "");
+        }
+    }
+
+    @Override
+    public HostDTO getHostById(String email) {
+        Optional<Host> host = hostDAO.getHostByEmail(email);
+        if (host.isEmpty()) {
+            return new HostDTO(null, "Host with this email can not be found.");
+        }
+        return new HostDTO(hostDAO.getHostByEmail(email).get(), "");
+    }
+
 }

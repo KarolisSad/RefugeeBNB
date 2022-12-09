@@ -4,11 +4,10 @@ import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
-import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
-import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
-import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
 import via.sep3.group11.tier2.shared.domain.Agreement;
 import via.sep3.group11.tier2.shared.domain.Date;
+import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Refugee;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
@@ -129,6 +128,37 @@ public class RefugeeLogic implements RefugeeInterface {
         System.out.println("Refugee with email: " + email + " deleted");
 
         return new RefugeeDTO(null, "");
+    }
+
+    @Override
+    public RefugeeDTO updateInformation(RefugeeUpdateDTO dto) {
+        Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(dto.getEmail());
+        if(refugee.isEmpty())
+        {
+            return new RefugeeDTO(null, "The host with the given email does not exist.");
+        }
+        else {
+            refugee.get().setFirstName(dto.getFirstName());
+            refugee.get().setMiddleName(dto.getMiddleName());
+            refugee.get().setLastName(dto.getLastName());
+            refugee.get().setPassword(dto.getPassword());
+            refugee.get().setGender(dto.getGender());
+            refugee.get().setNationality(dto.getNationality());
+            refugee.get().setFamilySize(dto.getFamilySize());
+            refugee.get().setDescription(dto.getDescription());
+
+            refugeeDAO.updateInformation(refugee.get());
+            return new RefugeeDTO(refugee.get(), "");
+        }
+    }
+
+    @Override
+    public RefugeeDTO getRefugeeById(String email) {
+        Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(email);
+        if (refugee.isEmpty()) {
+            return new RefugeeDTO(null, "Refugee with this email can not be found.");
+        }
+        return new RefugeeDTO(refugeeDAO.getRefugeeByEmail(email).get(), "");
     }
 
 }
