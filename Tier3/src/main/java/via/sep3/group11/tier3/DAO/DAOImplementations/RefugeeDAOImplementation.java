@@ -56,4 +56,12 @@ public class RefugeeDAOImplementation implements RefugeeDaoInterface {
         repository.deleteById(email);
         //repository.deleteByEmail(email);
     }
+
+    @Override
+    public Refugee updateInformation(Refugee refugee) {
+        if (repository.findById(refugee.getEmail()).isPresent()) {
+            return repository.save(refugee);
+        }
+        return null;
+    }
 }
