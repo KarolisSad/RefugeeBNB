@@ -15,7 +15,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 /*
 @DataJpaTest
 class HousingRepositoryTest {
-
+/*
     @Autowired
     private HousingRepository underTest;
     @Autowired
@@ -67,4 +67,5 @@ class HousingRepositoryTest {
     }
 
  */
-//}
+}
+

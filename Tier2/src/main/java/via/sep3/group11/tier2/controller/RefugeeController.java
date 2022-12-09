@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
@@ -13,6 +14,8 @@ import via.sep3.group11.tier2.shared.DTOs.RefugeeUpdateDTO;
 import via.sep3.group11.tier2.shared.domain.Refugee;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
+
+import java.sql.Ref;
 
 @RestController
 @CrossOrigin
@@ -102,4 +105,31 @@ public class RefugeeController {
         }
     }
 
+    /*
+    @PostMapping("/refugee/update")
+    public ResponseEntity<RefugeeDTO> updateAccount(@RequestBody RefugeeUpdateDTO dto) {
+        try {
+            RefugeeDTO refugee = refugeeInterface.updateAccount(dto);
+            return new ResponseEntity<>(refugee, HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+@GetMapping("/refugee/{email}")
+    public ResponseEntity<RefugeeDTO> getHost(@PathVariable("email") String email){
+        try {
+            RefugeeDTO refugee = refugeeInterface.getHostById(email);
+            return new ResponseEntity<>(refugee, HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+     */
 }

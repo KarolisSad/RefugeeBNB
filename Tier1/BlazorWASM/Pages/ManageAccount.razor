@@ -6,14 +6,16 @@
 @inject MenuService MenuService;
 @inject RefugeeInterface RefugeeInterface;
 @inject HostInterface HostInterface;
+@inject NavigationManager NavigationManager;
 
 
 <div class="card">
     <div class="form-group field">
-        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
-        <br/>
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
 
-        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+        
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Update personal information" Click="@Update"/>
         <label style="color: @color">@resultMsg</label>
     </div>
 </div>
@@ -68,6 +70,11 @@
             resultMsg = "No one is currently logged in";
             color = "red";
         }
+    }
+
+    private void Update()
+    {
+        NavigationManager.NavigateTo("/Update");
     }
 
 }
