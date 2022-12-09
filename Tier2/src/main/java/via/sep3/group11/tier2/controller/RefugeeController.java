@@ -90,6 +90,7 @@ public class RefugeeController {
         }
     }
 
+    /*
     @CrossOrigin
     @PatchMapping("/refugee")
     public ResponseEntity<RefugeeDTO> updateInformation(@RequestBody RefugeeUpdateDTO refugeeUpdateDTO) {
@@ -105,11 +106,13 @@ public class RefugeeController {
         }
     }
 
-    /*
+     */
+
+
     @PostMapping("/refugee/update")
     public ResponseEntity<RefugeeDTO> updateAccount(@RequestBody RefugeeUpdateDTO dto) {
         try {
-            RefugeeDTO refugee = refugeeInterface.updateAccount(dto);
+            RefugeeDTO refugee = refugeeInterface.updateInformation(dto);
             return new ResponseEntity<>(refugee, HttpStatus.OK);
         }
 
@@ -118,11 +121,12 @@ public class RefugeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 @GetMapping("/refugee/{email}")
-    public ResponseEntity<RefugeeDTO> getHost(@PathVariable("email") String email){
+    public ResponseEntity<RefugeeDTO> getRefugee(@PathVariable("email") String email){
         try {
-            RefugeeDTO refugee = refugeeInterface.getHostById(email);
+            RefugeeDTO refugee = refugeeInterface.getRefugeeById(email);
             return new ResponseEntity<>(refugee, HttpStatus.OK);
         }
 
@@ -131,5 +135,5 @@ public class RefugeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-     */
+
 }

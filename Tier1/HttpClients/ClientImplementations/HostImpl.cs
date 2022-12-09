@@ -57,7 +57,7 @@ public class HostImpl:HostInterface
     public async Task<HostDTO> GetHostByHousingIdAsync(long housingId)
     {
         Console.WriteLine("HousingID: " + housingId);
-        HttpResponseMessage responseMessage = await client.GetAsync($"/api/host/{housingId}");
+        HttpResponseMessage responseMessage = await client.GetAsync($"/api/host/housing/{housingId}");
         Console.WriteLine(responseMessage);
         
         string content = await responseMessage.Content.ReadAsStringAsync();

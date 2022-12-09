@@ -74,8 +74,15 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
     public void updateInformation(GHostDetails request, StreamObserver<GHost> responseObserver) {
 
         Host hostResponse = hostDaoInterface.updateInformation(hostDetailsFromGrpc(request));
-        responseObserver.onNext(hostToGrpc(hostResponse));
-        responseObserver.onCompleted();
+
+        if (hostResponse == null) {
+            responseObserver.onNext(GHost.newBuilder().build());
+            responseObserver.onCompleted();
+        }
+        else {
+            responseObserver.onNext(hostToGrpc(hostResponse));
+            responseObserver.onCompleted();
+        }
     }
 }
 

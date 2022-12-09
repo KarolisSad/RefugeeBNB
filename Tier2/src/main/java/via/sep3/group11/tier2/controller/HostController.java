@@ -70,7 +70,7 @@ public class HostController {
         }
     }
 
-    @GetMapping("/host/{housingId}")
+    @GetMapping("/host/housing/{housingId}")
     public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable("housingId") long housingId) {
         try {
             HostDTO hostById = hostLogic.getHostByHousingId(housingId);
@@ -92,11 +92,11 @@ public class HostController {
         }
     }
 
-    /*
+
     @PostMapping("/host/update")
     public ResponseEntity<HostDTO> updateAccount(@RequestBody HostUpdateDTO dto) {
         try {
-            HostDTO host = hostLogic.updateAccount(dto);
+            HostDTO host = hostLogic.updateInformation(dto);
             return new ResponseEntity<>(host, HttpStatus.OK);
         }
 
@@ -106,12 +106,14 @@ public class HostController {
         }
     }
     
-    */
+
 
 @GetMapping("/host/{email}")
     public ResponseEntity<HostDTO> getHost(@PathVariable("email") String email){
         try {
+            System.out.println("Recieved email: " + email);
             HostDTO host = hostLogic.getHostById(email);
+            System.out.println("Found host: " + host.getHost());
             return new ResponseEntity<>(host, HttpStatus.OK);
         }
 
@@ -121,7 +123,7 @@ public class HostController {
         }
     }
      
-
+/*
     @PatchMapping("/host")
     public ResponseEntity<HostDTO> updateInformation(@RequestBody HostUpdateDTO hostUpdateDTO) {
         try {
@@ -131,6 +133,8 @@ public class HostController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+ */
 
 
 }
