@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
-import via.sep3.group11.tier2.shared.DTOs.HostDTO;
-import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
-import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
-import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
@@ -108,6 +105,8 @@ public class HostController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    */
 
 @GetMapping("/host/{email}")
     public ResponseEntity<HostDTO> getHost(@PathVariable("email") String email){
@@ -121,7 +120,17 @@ public class HostController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-     */
+     
+
+    @PatchMapping("/host")
+    public ResponseEntity<HostDTO> updateInformation(@RequestBody HostUpdateDTO hostUpdateDTO) {
+        try {
+            HostDTO host = hostLogic.updateInformation(hostUpdateDTO);
+            return new ResponseEntity<>(host, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }

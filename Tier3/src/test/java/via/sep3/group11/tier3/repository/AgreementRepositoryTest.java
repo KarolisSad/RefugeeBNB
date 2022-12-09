@@ -13,7 +13,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static via.sep3.group11.tier3.model.Date.convertLocalDateToDateObject;
-
+/*
 @DataJpaTest
 class AgreementRepositoryTest {
 
@@ -99,6 +99,7 @@ class AgreementRepositoryTest {
     @Disabled
     void findAgreementsByHousing_HousingId() {
     }
+
 
      */
 }

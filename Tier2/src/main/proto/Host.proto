@@ -9,5 +9,6 @@ service Host{
   rpc GetHostByEmail(GEmail) returns (GHost);
   rpc getHostByHousingId(GId) returns (GHost);
   rpc deleteAccount (GEmail) returns (GEmpty);
+  rpc updateInformation(GHostDetails) returns (GHost);
 }
 

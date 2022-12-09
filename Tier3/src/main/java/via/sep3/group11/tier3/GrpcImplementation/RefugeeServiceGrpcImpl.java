@@ -13,6 +13,9 @@ import via.sep3.group11.tier3.DAO.DAOInterfaces.RefugeeDaoInterface;
 import javax.annotation.Resource;
 import java.util.Optional;
 
+import static via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter.refugeeFromGrpc;
+import static via.sep3.group11.tier3.GrpcImplementation.converters.GrpcConverter.refugeeToGrpc;
+
 @GRpcService
 public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
 
@@ -21,7 +24,7 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
 
     @Override
     public void createRefugee(GRefugee request, StreamObserver<GRefugee> responseObserver) {
-        Refugee convertedRequest = GrpcConverter.refugeeFromGrpc(request);
+        Refugee convertedRequest = refugeeFromGrpc(request);
         Refugee dataResponse = refugeeDao.createRefugee(convertedRequest);
         GRefugee response = GrpcConverter.refugeeToGrpc(dataResponse);
         responseObserver.onNext(response);
@@ -46,6 +49,15 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
     @Override
     public void deleteAccount(GEmail request, StreamObserver<GEmpty> responseObserver) {
         refugeeDao.deleteAccount(request.getEmail());
+        // Todo added this onNext statement to prevent Grpc Warning on each call.
+        responseObserver.onNext(GEmpty.newBuilder().build());
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updateInformation(GRefugee request, StreamObserver<GRefugee> responseObserver) {
+    Refugee refugeeResponse = refugeeDao.updateInformation(refugeeFromGrpc(request));
+    responseObserver.onNext(refugeeToGrpc(refugeeResponse));
+    responseObserver.onCompleted();
     }
 }

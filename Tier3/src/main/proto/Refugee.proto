@@ -8,4 +8,5 @@ service Refugee {
   rpc createRefugee(GRefugee) returns (GRefugee);
   rpc getRefugeeByEmail(GEmail) returns (GRefugee);
   rpc deleteAccount(GEmail) returns (GEmpty);
+  rpc updateInformation(GRefugee) returns (GRefugee);
 }

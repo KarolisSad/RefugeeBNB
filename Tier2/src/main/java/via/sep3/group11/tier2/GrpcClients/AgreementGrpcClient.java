@@ -127,9 +127,18 @@ public class AgreementGrpcClient implements AgreementCommunicationInterface {
         try{
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GAgreement response = channel.getAgreementStub().withDeadlineAfter(1, TimeUnit.SECONDS).getAgreementByRefugeeId(request);
+
+
+            if (!response.hasRefugee()) {
+                return Optional.empty();
+            }
+
+            //Todo was not working because of this. The Grpc response was not null - it was empty.
+/*
             if (response == null){
                 return Optional.empty();
             }
+ */
             return Optional.of(GrpcConverter.agreementWithIdFromGrpc(response));
         }
         catch (StatusRuntimeException e)

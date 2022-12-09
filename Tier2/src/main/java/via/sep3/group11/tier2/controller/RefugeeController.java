@@ -10,6 +10,7 @@ import via.sep3.group11.tier2.shared.DTOs.HostDTO;
 import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
 import via.sep3.group11.tier2.shared.DTOs.RefugeeRegisterDTO;
+import via.sep3.group11.tier2.shared.DTOs.RefugeeUpdateDTO;
 import via.sep3.group11.tier2.shared.domain.Refugee;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
@@ -79,9 +80,22 @@ public class RefugeeController {
     @DeleteMapping("/refugee/delete/{email}")
     public ResponseEntity<RefugeeDTO> deleteAccount(@PathVariable("email") String email) {
         try {
-            System.out.println("Trying to delete: " + email);
             RefugeeDTO refugee = refugeeInterface.deleteAccount(email);
-            System.out.println(refugee);
+            return new ResponseEntity<>(refugee, HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @CrossOrigin
+    @PatchMapping("/refugee")
+    public ResponseEntity<RefugeeDTO> updateInformation(@RequestBody RefugeeUpdateDTO refugeeUpdateDTO) {
+        try {
+
+            RefugeeDTO refugee = refugeeInterface.updateInformation(refugeeUpdateDTO);
             return new ResponseEntity<>(refugee, HttpStatus.OK);
         }
 

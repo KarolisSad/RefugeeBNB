@@ -1,16 +1,18 @@
 package via.sep3.group11.tier2.GrpcClients;
+
 import io.grpc.StatusRuntimeException;
 import org.lognet.springboot.grpc.GRpcService;
 import via.sep3.group11.tier2.GrpcClients.connections.Channel;
 import via.sep3.group11.tier2.GrpcClients.converters.GrpcConverter;
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
-import via.sep3.group11.tier2.protobuf.GEmail;
-import via.sep3.group11.tier2.protobuf.GHost;
-import via.sep3.group11.tier2.protobuf.GId;
+import via.sep3.group11.tier2.protobuf.*;
 import via.sep3.group11.tier2.shared.domain.Host;
+
 import javax.annotation.Resource;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+
+import static via.sep3.group11.tier2.GrpcClients.converters.GrpcConverter.*;
 
 @GRpcService
 public class HostGrpcClient implements HostCommunicationInterface {
@@ -23,14 +25,11 @@ public class HostGrpcClient implements HostCommunicationInterface {
         try {
             GHost request = GrpcConverter.hostToGrpc(host);
             GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).createHost(request);
-            if (response == null)
-            {
+            if (response == null) {
                 return null;
             }
-            return GrpcConverter.hostFromGrpc(response);
-        }
-        catch (StatusRuntimeException e)
-        {
+            return hostFromGrpc(response);
+        } catch (StatusRuntimeException e) {
             reestablishConnection();
             return null;
         }
@@ -41,14 +40,11 @@ public class HostGrpcClient implements HostCommunicationInterface {
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).getHostByEmail(request);
-            if (response.getEmail().isEmpty())
-            {
+            if (response.getEmail().isEmpty()) {
                 return Optional.empty();
             }
-            return Optional.of(GrpcConverter.hostFromGrpc(response));
-        }
-        catch (StatusRuntimeException e)
-        {
+            return Optional.of(hostFromGrpc(response));
+        } catch (StatusRuntimeException e) {
             reestablishConnection();
             return null;
         }
@@ -62,10 +58,8 @@ public class HostGrpcClient implements HostCommunicationInterface {
             if (response == null) {
                 return Optional.empty();
             }
-            return Optional.of(GrpcConverter.hostFromGrpc(response));
-        }
-        catch (StatusRuntimeException e)
-        {
+            return Optional.of(hostFromGrpc(response));
+        } catch (StatusRuntimeException e) {
             reestablishConnection();
             return null;
         }
@@ -76,10 +70,21 @@ public class HostGrpcClient implements HostCommunicationInterface {
         try {
             GEmail request = GEmail.newBuilder().setEmail(email).build();
             channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).deleteAccount(request);
-        }
-        catch (StatusRuntimeException e)
-        {
+        } catch (StatusRuntimeException e) {
             reestablishConnection();
+        }
+    }
+
+    @Override
+    public Host updateInformation(Host host) {
+
+        try {
+            GHostDetails request = hostDetailsToGrpc(host);
+            GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).updateInformation(request);
+            return hostFromGrpc(response);
+        } catch (StatusRuntimeException e) {
+            reestablishConnection();
+            return null;
         }
     }
 

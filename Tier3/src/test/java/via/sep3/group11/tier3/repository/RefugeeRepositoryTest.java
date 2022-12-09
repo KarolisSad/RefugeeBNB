@@ -8,7 +8,7 @@ import via.sep3.group11.tier3.model.Date;
 import via.sep3.group11.tier3.model.Refugee;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+/*
 @DataJpaTest
 class RefugeeRepositoryTest {
 /*
@@ -46,3 +46,4 @@ class RefugeeRepositoryTest {
 
  */
 }
+

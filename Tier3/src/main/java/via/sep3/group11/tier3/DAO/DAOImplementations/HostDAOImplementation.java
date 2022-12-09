@@ -38,9 +38,7 @@ public class HostDAOImplementation implements HostDaoInterface {
     @Override
     public Host createHost(Host host) {
 
-        System.out.println("TEEST GENDER BEFORE ADDING: " + host.getGender());
         Host newHost = hostRepository.save(host);
-        System.out.println("TEEST GENDER ADDING ADDING: " + newHost.getGender());
 
         return hostRepository.save(host);
     }

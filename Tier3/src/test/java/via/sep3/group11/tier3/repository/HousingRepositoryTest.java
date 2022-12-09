@@ -12,7 +12,7 @@ import via.sep3.group11.tier3.model.Housing;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
+/*
 @DataJpaTest
 class HousingRepositoryTest {
 /*
@@ -68,3 +68,4 @@ class HousingRepositoryTest {
 
  */
 }
+
