@@ -18,46 +18,7 @@ public class HostImpl:HostInterface
     public HostImpl(HttpClient client)
     {
         this.client = client;
-        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer ", JwtAuthImpl.Jwt);
     }
-
-    /*
-    public async Task<HostDTO> RegisterHostAsync(HostRegisterDTO host)
-    {
-        //Console.WriteLine(JsonSerializer.Deserialize<HostRegisterDTO>(host.));
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/host", host);
-        string content = await responseMessage.Content.ReadAsStringAsync();
-        if (!responseMessage.IsSuccessStatusCode)
-        {
-            throw new Exception(content);
-        }
-
-        HostDTO result = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-        
-        return result;
-    }
-
-    public async Task<HostDTO> LoginHostAsync(LoginDTO dto)
-    {
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/host/login", dto);
-        
-        string content = await responseMessage.Content.ReadAsStringAsync();
-        if (!responseMessage.IsSuccessStatusCode)
-        {
-            throw new Exception(content);
-        }
-
-        HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-        
-        return host;
-    }
-    */
 
     public async Task<HostDTO> GetHostByHousingIdAsync(long housingId)
     {
@@ -96,6 +57,11 @@ public class HostImpl:HostInterface
         {
             PropertyNameCaseInsensitive = true
         })!;
+        
+        if (!host.ErrorMessage.Equals(""))
+        {
+            throw new Exception(host.ErrorMessage);
+        }
         
         return host;
     }

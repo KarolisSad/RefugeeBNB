@@ -4,6 +4,8 @@
 @using System.Collections.ObjectModel
 @using global::Shared.DTOs
 @inject AuthInterface authService;
+@inject DialogService dialogService;
+@inject NavigationManager navMgr;
 
 <h3>Register</h3>
 
@@ -11,19 +13,28 @@
     <div class="form-group field">
 
         <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@CreateAsync>
+            
+            <p>
+                <RadzenLabel Component="PersonType" Text="Who are you?"/>
+                
+                <RadzenRadioButtonList TValue="int?" Change=@((args) => OnChange(args.Value))>
+                    <Items>
+                        <RadzenRadioButtonListItem Text="Host" Value="1" TValue="int?" />
+                        <RadzenRadioButtonListItem Text="Refugee" Value="2" TValue="int?" />
+                    </Items>
+                </RadzenRadioButtonList>
+            </p>
+            
             <p>
                 <RadzenLabel Component="Email" Text="Email"/>
-                <RadzenTextBox Name="Email" @bind-Value=@email />
-                <RadzenEmailValidator Component="Email" Text="Enter email" />
-                <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
+                <RadzenTextBox Name="Email" @bind-Value=@email></RadzenTextBox>
 
             </p>
             <p>
                 <RadzenLabel Component="Password" Text="Password"/>
                 <RadzenPassword @bind-Value=@password />
-                <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
             </p>
-            
+
             <p>
                 <RadzenLabel Component="Nationality" Text="Nationality"/>
                 <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
@@ -32,7 +43,6 @@
             <p>
                 <RadzenLabel Component="FirstName" Text="First name"/>
                 <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
-                <RadzenRequiredValidator Component="FirstName" Text="First name is required!"/>
             </p>
 
             <p>
@@ -43,18 +53,13 @@
             <p>
                 <RadzenLabel Component="LastName" Text="Last name"/>
                 <RadzenTextBox Name="LastName" @bind-Value=@lastName />
-                <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
             </p>
-            
+
             <p>
                 <RadzenLabel Component="Gender" Text="Gender"/>
                 <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange"/>
             </p>
 
-            <p>
-                <RadzenLabel Component="PersonType" Text="Who are you?"/>
-                <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange"/>
-            </p>
 
             <p>
                 <label for="dateOfBirth">Date of birth:</label>
@@ -65,7 +70,10 @@
 
         </RadzenTemplateForm>
 
-        <label style="color: @color">@resultMsg</label>
+        @if (showAlert)
+        {
+            <RadzenAlert AlertStyle=@alertStyle AllowClose="false">@resultMsg</RadzenAlert>
+        }
     </div>
 </div>
 
@@ -87,10 +95,11 @@
     private string lastName = "";
     DateOnly date = new DateOnly(2011, 11, 11);
 
-    public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
     public Collection<string> Nationalities = new Collection<string>() { "Danish", "Lithuanian", "Polish", "English", "French", "Ukrainian", "German", "Other" };
     public Collection<string> GenderCollection = new Collection<string>() { "Female", "Male", "Other" };
 
+    private bool showAlert;
+    private AlertStyle alertStyle;
     private string resultMsg = "";
 
     private string color = "";
@@ -101,45 +110,72 @@
         resultMsg = "";
         Date dateOfBirth = new Date(date.Day, date.Month, date.Year);
 
-        if (personType.Contains("host"))
+        try
         {
+            CheckValues();
             
-            HostDTO host = await authService.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
-                if (host.ErrorMessage.Equals(""))
-                {
-                    Console.WriteLine("We created a host.");
-                    Clear();
-                    resultMsg = "User successfully created";
-                    color = "green";
-                }
-                else
-                {
-                    Console.WriteLine(host.ErrorMessage);
-                    resultMsg = host.ErrorMessage;
-                    color = "red";
-                }
+            if (personType.Contains("host"))
+            {
+
+                HostDTO host = await authService.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
             }
-        else if (personType.Contains("refugee"))
-        {
-            RefugeeDTO refugee = await authService.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
-                if (refugee.ErrorMessage.Equals(""))
-                {
-                    Clear();
-                    resultMsg = "User successfully created";
-                    color = "green";
-                    Console.WriteLine("We created a refugee.");
-                }
-                else
-                {
-                    Console.WriteLine(refugee.ErrorMessage);
-                    resultMsg = refugee.ErrorMessage;
-                    color = "red";
-                }
-                
+            else if (personType.Contains("refugee"))
+            {
+                RefugeeDTO refugee = await authService.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
+            }
+            
+            Clear();
+            var dialogResult = await dialogService.Alert("Registration complete. Click proceed to go to login", "Success", new AlertOptions { OkButtonText = "Go to login" });
+            if (dialogResult.HasValue && dialogResult.Value)
+            {
+                navMgr.NavigateTo("/Login");
+            }
+
         }
-        
+        catch (Exception e)
+        {
+            showAlert = true;
+            resultMsg = e.Message;
+            alertStyle = AlertStyle.Danger;
+        }
+
     }
 
+    private void CheckValues()
+    {
+        if (string.IsNullOrWhiteSpace(personType))
+        {
+            throw new Exception("Please select which type of account to register for");
+        }
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            throw new Exception("Email must be set");
+        }
+        if (!email.Contains(".") || !email.Contains("@"))
+        {
+            throw new Exception("Please enter a valid email");
+        }
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            throw new Exception("Password must be set");
+        }
+        if (string.IsNullOrWhiteSpace(nationality))
+        {
+            throw new Exception("Please select a nationality");
+        }
+        if (string.IsNullOrWhiteSpace(firstName))
+        {
+            throw new Exception("First name must be set");
+        }
+        if (string.IsNullOrWhiteSpace(lastName))
+        {
+            throw new Exception("Last name must be set");
+        }
+        if (string.IsNullOrWhiteSpace(gender))
+        {
+            throw new Exception("Please select a gender");
+        }
+    }
     private void Clear()
     {
         email = "";
@@ -151,36 +187,33 @@
         middleName = "";
         lastName = "";
         date = new DateOnly(2011, 11, 11);
+        showAlert = false;
     }
-
-    private void OnChange(object value)
+    private void OnChange(int value)
     {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-        if (str.Equals("I am a Host."))
+        Console.WriteLine("Value changed to: " + value);
+
+        if (value == 1)
         {
             personType = "host";
         }
-        else
+        if (value == 2)
         {
             personType = "refugee";
         }
-
-        Console.WriteLine($"Value changed to {str}");
     }
-
     private void ChangeNationality(object value)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         nationality = (string)str;
         Console.WriteLine($"Value changed to {str}");
     }
-
-
     private void GenderChange(object value)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         gender = (string)str;
         Console.WriteLine($"Value changed to {str}");
     }
+    
 
 }

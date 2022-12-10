@@ -1,9 +1,9 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Net;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using System.Text;
 using System.Text.Json;
 using HttpClients.ClientInterfaces;
+using Shared.Domain;
 using Shared.DTOs;
 
 namespace HttpClients;
@@ -31,6 +31,11 @@ public class JwtAuthImpl : AuthInterface
 
         if (!responseMessage.IsSuccessStatusCode)
         {
+            if (responseMessage.StatusCode == HttpStatusCode.BadRequest)
+            {
+                throw new Exception("Error in username or password.");
+            }
+
             throw new Exception(responseContent);
         }
 
@@ -40,7 +45,6 @@ public class JwtAuthImpl : AuthInterface
                 PropertyNameCaseInsensitive = true
             })!;
         
-        Console.WriteLine("DTO: " + responseDto.AccessToken);
 
         string token = responseDto.AccessToken;
         Jwt = token;
@@ -60,14 +64,55 @@ public class JwtAuthImpl : AuthInterface
         return Task.CompletedTask;
     }
 
-    public Task<HostDTO> RegisterHostAsync(HostRegisterDTO dto)
+    public async Task<HostDTO> RegisterHostAsync(HostRegisterDTO dto)
     {
-        throw new NotImplementedException();
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync<HostRegisterDTO>("/api/auth/register/host", dto);
+        string content = await responseMessage.Content.ReadAsStringAsync();
+
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            if (responseMessage.StatusCode == HttpStatusCode.BadRequest)
+            {
+                throw new Exception("Email already in use.");
+            }
+
+            throw new Exception(content);
+        }
+
+        HostDTO result = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+
+        return result;
     }
 
-    public Task<RefugeeDTO> RegisterRefugeeAsync(RefugeeRegisterDTO dto)
+    public async Task<RefugeeDTO> RegisterRefugeeAsync(RefugeeRegisterDTO dto)
     {
-        throw new NotImplementedException();
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync<RefugeeRegisterDTO>("/api/auth/register/refugee", dto);
+        string content = await responseMessage.Content.ReadAsStringAsync();
+
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            if (responseMessage.StatusCode == HttpStatusCode.BadRequest)
+            {
+                throw new Exception("Email already in use.");
+            }
+
+            throw new Exception(content);
+        }
+
+        RefugeeDTO result = JsonSerializer.Deserialize<RefugeeDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+
+        if (!result.ErrorMessage.Equals(""))
+        {
+            throw new Exception(result.ErrorMessage);
+        }
+
+        return result;
     }
 
     public Task<ClaimsPrincipal> GetAuthAsync()

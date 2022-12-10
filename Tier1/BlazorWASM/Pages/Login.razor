@@ -34,6 +34,11 @@
                 <label style="color: @color">@resultMsg</label>
             </RadzenTemplateForm>
         </div>
+        
+        @if (ShowAlert)
+        {
+            <RadzenAlert AlertStyle="AlertStyle.Danger" AllowClose="false">@alertText</RadzenAlert>
+        }
     </div>
 
 
@@ -42,127 +47,56 @@
 
     private string email { get; set; }
     private string password { get; set; }
-    /*
-    class Person
-    {
-    }
-
-
-    private string personType = "";
-
-    public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
-    */
+   
     private string resultMsg = "";
     private string color = "GREEN";
+
+    private bool ShowAlert = false;
+    private string alertText = "";
     
 
 
-    private async void OnLogin()
+    private async Task OnLogin()
     {
+        ShowAlert = false;
+        alertText = "";
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+        {
+            ShowAlert = true;
+            alertText = "Email and password fields must be filled!";
+            
+            return;
+        }
+
+        try
+        {
+            await DoLogin();
+        }
+        catch (Exception e)
+        {
+            ShowAlert = true;
+            alertText = e.Message;
+        }
+        
+        
         resultMsg = "";
+      
+    }
+
+    private async Task DoLogin()
+    {
         try
         {
             await authService.LoginAsync(new LoginDTO(email, password));
 
             Claim role = authService.GetAuthAsync().Result.Claims.First(claim => claim.Type.Equals("Role"));
             Console.WriteLine("Logged in as: " + role.Value);
-            
-            /*
-            if (role.Value.Equals("HOST"))
-            {
-                navMgr.NavigateTo("/");
-            }
-            if (role.Value.Equals("REFUGEE"))
-            {
-                resultMsg = "LOGGED IN AS REFUGEE!";
-
-            }
-            */
+            navMgr.NavigateTo("/");
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
-            throw;
+            ShowAlert = true;
+            alertText = e.Message;
         }
-
-    /*
-     if (personType.Contains("host"))
-        {
-            HostDTO hostDto = await HostInterface.LoginHostAsync(new LoginDTO(email, password));
-            if (hostDto.ErrorMessage.Equals(""))
-            {
-                Console.WriteLine("Host has logged in: " + email + ", " + password);
-                navMgr.NavigateTo("/");
-                
-                //changing Singeton values
-                MenuService.Host = true;
-                MenuService.Refugee = false;
-                MenuService.HostLogged = email;
-                MenuService.RefugeeLogged = "";
-                    
-                color = "green";
-                resultMsg = "You have logged in";
-            }
-            else
-            {
-                Console.WriteLine(hostDto.ErrorMessage);
-                resultMsg = hostDto.ErrorMessage;
-                color = "red";
-            }
-            
-        }
-        else if (personType.Contains("refugee"))
-        {
-            RefugeeDTO refugee = await RefugeeInterface.LoginRefugeeAsync(new LoginDTO(email, password));
-            if (refugee.ErrorMessage.Equals(""))
-            {
-                Console.WriteLine("Refugee has logged in: " + email);
-                navMgr.NavigateTo("/");
-                
-                //changing singleton values
-                MenuService.Host = false;
-                MenuService.Refugee = true;
-                MenuService.HostLogged = "";
-                MenuService.RefugeeLogged = email;
-                
-                
-                color = "green";
-                resultMsg = "You have logged in";
-            }
-            else
-            {
-                Console.WriteLine(refugee.ErrorMessage);
-                resultMsg = refugee.ErrorMessage;
-                color = "red";
-            }
-            
-        }
-        
-        else
-        {
-            color = "red";
-            resultMsg = "Make sure you let us know if you are a host or a refuge.";
-        }
-        
-        */
-
     }
-
-/*
-    private void OnChange(object value)
-    {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-        if (str.Equals("I am a Host."))
-        {
-            personType = "host";
-        }
-        else
-        {
-            personType = "refugee";
-        }
-
-        Console.WriteLine($"Value changed to {str}");
-    }
-    */
-
 }

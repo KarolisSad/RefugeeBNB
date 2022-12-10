@@ -1,22 +1,18 @@
 ﻿@page "/ManageAccount"
-@using LogicForPages
 @using HttpClients.ClientInterfaces
 @using global::Shared.DTOs
-@using System.Security.Claims
 <h3>ManageAccount</h3>
 @inject RefugeeInterface RefugeeInterface;
 @inject HostInterface HostInterface;
 @inject AuthInterface authService;
 @inject NavigationManager navMgr;
+@inject DialogService dialogService;
 
 <AuthorizeView>
     <Authorized>
         <div class="card">
             <div class="form-group field">
-                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
-                <RadzenText>Name @context.User.Claims.First(a => a.Type.Equals("name"))</RadzenText>
-                <RadzenText >"Auth Type @context.User.Identity.AuthenticationType"</RadzenText>
-                <RadzenText >IsAuth @context.User.Identity.IsAuthenticated.ToString()</RadzenText>
+                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@((args) => DeleteButtonClicked())"/>
                 <br/>
         
                 <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
@@ -40,32 +36,18 @@
         navMgr.NavigateTo("/");
     }
 
-    private async void DeleteAccountAsync()
+    private async Task DeleteAccountAsync()
     {
         string email = authService.GetAuthAsync().Result.Claims.First().Value;
+        
 
         if (authService.GetAuthAsync().Result.Claims.Any(claim => claim.Value.Equals("HOST")))
         {
-            Console.WriteLine("TRYING TO DELETE HOST: " + email);
-
             try
             {
-                
                 HostDTO dto = await HostInterface.DeleteAccountAsync(email);
-                Console.WriteLine(dto.Host.Email);
-
-     
-            
-            if (dto.ErrorMessage.Equals(null))
-            {
-                resultMsg = dto.ErrorMessage;
-                color = "red";
-            }
-            else
-            {
-                resultMsg = "You have deleted your account";
-                color = "green";
-            }
+                await authService.LogoutAsync();
+                navMgr.NavigateTo("/");
             }
             catch (Exception e)
             {
@@ -77,19 +59,20 @@
         
         else if (authService.GetAuthAsync().Result.Claims.Any(claim => claim.Value.Equals("REFUGEE")))
         {
+
+            try
+            {
+                RefugeeDTO dto = await RefugeeInterface.DeleteAccountAsync(email);
+                await authService.LogoutAsync();
+                navMgr.NavigateTo("/");
+            }
             
-            RefugeeDTO dto = await RefugeeInterface.DeleteAccountAsync(email);
-            if (dto.ErrorMessage.Equals(null))
+            catch (Exception e)
             {
-                //todo change to nav manager go to main page with no user logged in.
-                resultMsg = dto.ErrorMessage;
-                color = "red";
+                Console.WriteLine("CRASH!: " + e);
+                throw;
             }
-            else
-            {
-                resultMsg = "You have deleted your account";
-                color = "green";
-            }
+
          
         }
         else
@@ -100,6 +83,23 @@
        
         
     }
+
+    private async void DeleteButtonClicked()
+    {
+        var areYouSureResult = await dialogService.Confirm("Are you sure you want to delete your account?\nThis action cannot be undone.", "Confirm deletion of account", new ConfirmOptions { OkButtonText = "Delete account", CancelButtonText = "Cancel" });
+        if (areYouSureResult.HasValue && areYouSureResult.Value)
+        {
+            try
+            {
+                await DeleteAccountAsync();
+            }
+            catch (Exception e)
+            {
+               await dialogService.Alert(e.Message, "ERROR");
+            }
+        }
+    }
+    
     
 
 }

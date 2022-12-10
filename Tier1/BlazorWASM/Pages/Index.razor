@@ -1,7 +1,15 @@
 ﻿@page "/"
+@using HttpClients.ClientInterfaces
+@inject AuthInterface authService; 
 
 <PageTitle>Index</PageTitle>
 
 <h1>Welcome to Refugee BnB.</h1>
+<AuthorizeView>
+    <Authorized>
+        <RadzenText> Currently logged in as: </RadzenText>
+        <RadzenText>@authService.GetAuthAsync().Result.Claims.First().Value</RadzenText>
+    </Authorized>
+</AuthorizeView>
 
 
