@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using HttpClients.ClientInterfaces;
@@ -17,14 +18,7 @@ public class HostImpl:HostInterface
     public HostImpl(HttpClient client)
     {
         this.client = client;
-             string[] jwtStrings = JwtAuthImpl.Jwt.Split("\"");
-        string token = jwtStrings[3];
-        if (token.Contains("\""))
-        {
-            token.Remove(token.Length);
-        }
-
-        client.DefaultRequestHeaders.Add("Authorization", token);
+        //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer ", JwtAuthImpl.Jwt);
     }
 
     /*
@@ -89,8 +83,8 @@ public class HostImpl:HostInterface
     
     public async Task<HostDTO> DeleteAccountAsync(string email)
     {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
         HttpResponseMessage responseMessage = await client.DeleteAsync($"/api/host/delete/{email}");
-        Console.WriteLine(responseMessage.ToString());
         
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)

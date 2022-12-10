@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.header.Header;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -18,12 +19,17 @@ public class JWTGenerator {
         Date currentDate = new Date();
         Date expiryDate = new Date(currentDate.getTime() + SecurityConstants.JWT_EXPIRATION);
 
+
         String token = Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(currentDate)
                 .setExpiration(expiryDate)
                 .claim("Role", role)
+                .setAudience("SEP3BlazorWASM")
+                .setIssuer("SEP3Tier2")
+                .claim("name", username)
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.JWT_SECRET)
+                .setHeaderParam("typ", "JWT")
                 .compact();
 
         return token;

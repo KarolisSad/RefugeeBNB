@@ -36,9 +36,9 @@ public class SecurityConfig {
         http
                 .cors().and()
                 .csrf().disable() // Disable csrf-tokens as we are using JWT instead.
-               // .exceptionHandling()
-               // .authenticationEntryPoint(authEntryPoint) // add jwt authentication entry-point
-            //.and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authEntryPoint) // add jwt authentication entry-point
+            .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // make sessions stateless, as we are using jwt
             .and()
@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated() // Any other request must be authenticated
                 .and()
                 .httpBasic(); // Use http
-       // http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

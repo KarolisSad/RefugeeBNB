@@ -9,7 +9,7 @@ public interface AuthInterface
     //Task<string> RegisterRefugeeAsync(RefugeeRegisterDTO dto);
     //Task<AuthResponseDTO> LoginAsync(LoginDTO dto);
 
-    public Task LoginAsync(LoginDTO dto);
+    public Task<AuthResponseDTO> LoginAsync(LoginDTO dto);
     public Task LogoutAsync();
     public Task<HostDTO> RegisterHostAsync(HostRegisterDTO dto);
     public Task<RefugeeDTO> RegisterRefugeeAsync(RefugeeRegisterDTO dto);

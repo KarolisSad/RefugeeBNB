@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
@@ -23,7 +24,7 @@ public class JwtAuthImpl : AuthInterface
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!;
 
 
-    public async Task LoginAsync(LoginDTO dto)
+    public async Task<AuthResponseDTO> LoginAsync(LoginDTO dto)
     {
         HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/auth/login", dto);
         string responseContent = await responseMessage.Content.ReadAsStringAsync();
@@ -33,13 +34,22 @@ public class JwtAuthImpl : AuthInterface
             throw new Exception(responseContent);
         }
 
-        string token = responseContent;
+        AuthResponseDTO responseDto = JsonSerializer.Deserialize<AuthResponseDTO>(responseContent,
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            })!;
+        
+        Console.WriteLine("DTO: " + responseDto.AccessToken);
+
+        string token = responseDto.AccessToken;
         Jwt = token;
-        //client.DefaultRequestHeaders.Add("Authorization", $"Bearer: {Jwt}");
 
         ClaimsPrincipal claimsPrincipal = CreateClaimsPrincipal();
         
         OnAuthStateChanged.Invoke(claimsPrincipal);
+
+        return responseDto;
     }
 
     public Task LogoutAsync()
@@ -100,9 +110,10 @@ public class JwtAuthImpl : AuthInterface
 
         IEnumerable<Claim> claims = ParseClaimsFromJwt(Jwt);
 
-        ClaimsIdentity identity = new(claims, "jwt");
+        ClaimsIdentity identity = new(claims, "JWT");
 
         ClaimsPrincipal principal = new(identity);
+        
         return principal;
     }
 }
