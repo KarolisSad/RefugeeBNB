@@ -6,6 +6,7 @@
 @inject AuthInterface authService;
 @inject DialogService dialogService;
 @inject NavigationManager navMgr;
+@inject TooltipService tooltipService;
 
 <h3>Register</h3>
 
@@ -65,7 +66,24 @@
                 <label for="dateOfBirth">Date of birth:</label>
                 <input type="date" id="dateOfBirth" name="dateofBirth" @bind="date">
             </p>
+            
+            @if (isRefugee)
+            {
+                <p>
+                <RadzenLabel Component="About" Text="Description" MouseEnter=
+                             "@(args => ShowTooltip(args, "This field is intended for you to write information which might be of relevance to hosts.",
+                                                new TooltipOptions(){ Position = TooltipPosition.Left, Duration = 10000}))" Class="me-1 mb-1" />
+                    <RadzenTextArea @bind-Value="about"></RadzenTextArea>
+                </p>
 
+                <p>
+                    <RadzenLabel Component="familySize" Text="Family Size" MouseEnter=
+                            "@(args => ShowTooltip(args, "Including yourself",
+                                               new TooltipOptions(){ Position = TooltipPosition.Left, Duration = 10000}))" Class="me-1 mb-1" />
+                    <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@familySize />
+                    <RadzenRequiredValidator Component="capacity" Text="capacity name is required!"/>
+                </p>
+            }
             <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@CreateAsync"/>
 
         </RadzenTemplateForm>
@@ -74,7 +92,7 @@
         {
             <RadzenAlert AlertStyle=@alertStyle AllowClose="false">@resultMsg</RadzenAlert>
         }
-    </div>
+</div>
 </div>
 
 
@@ -93,6 +111,8 @@
     private string firstName = "";
     private string middleName = "";
     private string lastName = "";
+    private string about = "";
+    private int familySize = 1;
     DateOnly date = new DateOnly(2011, 11, 11);
 
     public Collection<string> Nationalities = new Collection<string>() { "Danish", "Lithuanian", "Polish", "English", "French", "Ukrainian", "German", "Other" };
@@ -101,6 +121,9 @@
     private bool showAlert;
     private AlertStyle alertStyle;
     private string resultMsg = "";
+    private bool isRefugee = false;
+
+    private ElementReference reference;
 
     private string color = "";
 
@@ -117,11 +140,13 @@
             if (personType.Contains("host"))
             {
 
-                HostDTO host = await authService.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
+                HostDTO host = await authService.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0],
+                    nationality, firstName, middleName, lastName, dateOfBirth));
             }
             else if (personType.Contains("refugee"))
             {
-                RefugeeDTO refugee = await authService.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
+                RefugeeDTO refugee = await authService.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0],
+                    nationality, firstName, middleName, lastName, dateOfBirth, familySize, about));
             }
             
             Clear();
@@ -175,6 +200,14 @@
         {
             throw new Exception("Please select a gender");
         }
+
+        if (isRefugee)
+        {
+            if (familySize < 1)
+            {
+                throw new Exception("Family size must be at least 1");
+            }
+        }
     }
     private void Clear()
     {
@@ -187,6 +220,8 @@
         middleName = "";
         lastName = "";
         date = new DateOnly(2011, 11, 11);
+        familySize = 1;
+        about = "";
         showAlert = false;
     }
     private void OnChange(int value)
@@ -196,10 +231,12 @@
         if (value == 1)
         {
             personType = "host";
+            isRefugee = false;
         }
         if (value == 2)
         {
             personType = "refugee";
+            isRefugee = true;
         }
     }
     private void ChangeNationality(object value)
@@ -214,6 +251,11 @@
         gender = (string)str;
         Console.WriteLine($"Value changed to {str}");
     }
+    private void ShowTooltip(ElementReference elementReference,  string text,TooltipOptions options = null)
+        => tooltipService.Open(elementReference, text, options);
+
+
+
     
 
 }

@@ -53,11 +53,9 @@ public class AuthController {
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginDTO loginDTO) {
         try {
             AuthResponseDTO response = authInterface.login(loginDTO);
-            System.out.println("RESPONSE: " + response);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
         catch (BadCredentialsException be) {
-            System.out.println("BAD REQUEST");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         catch (Exception e) {

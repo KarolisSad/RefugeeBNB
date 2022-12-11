@@ -1,7 +1,6 @@
 ﻿@page "/ManageAccount"
 @using HttpClients.ClientInterfaces
 @using global::Shared.DTOs
-<h3>ManageAccount</h3>
 @inject RefugeeInterface RefugeeInterface;
 @inject HostInterface HostInterface;
 @inject AuthInterface authService;
@@ -11,15 +10,26 @@
 <AuthorizeView>
     <Authorized>
         <div class="card">
+            <div class="row">
+                <RadzenText TextAlign="TextAlign.Center" TextStyle="TextStyle.H4">Manage Account</RadzenText>
+            </div>
             <div class="form-group field">
-                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@((args) => DeleteButtonClicked())"/>
-                <br/>
-        
-                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+                <div class="row p-2">
+                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@((args) => DeleteButtonClicked())"/>
+                </div>
+                <div class="row p-2">
+                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+                </div>
                 <label style="color: @color">@resultMsg</label>
             </div>
         </div>
     </Authorized>
+    <NotAuthorized>
+        <RadzenCard>
+            <RadzenText>You need to be logged in to view this page.</RadzenText>
+            <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+        </RadzenCard>
+    </NotAuthorized>
 </AuthorizeView>
 
 

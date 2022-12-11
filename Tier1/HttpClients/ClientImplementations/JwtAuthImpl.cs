@@ -20,7 +20,14 @@ public class JwtAuthImpl : AuthInterface
         this.client = client;
     }
 
-    
+
+    public string GetEmail()
+    {
+        Task<ClaimsPrincipal> principal = GetAuthAsync();
+        
+        return principal.Result.Claims.First().Value;
+    }
+
     public Action<ClaimsPrincipal> OnAuthStateChanged { get; set; } = null!;
 
 

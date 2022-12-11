@@ -1,9 +1,6 @@
 ﻿using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
 using HttpClients.ClientInterfaces;
-using Shared.Domain;
 using Shared.DTOs;
 
 namespace HttpClients.ClientImplementations;

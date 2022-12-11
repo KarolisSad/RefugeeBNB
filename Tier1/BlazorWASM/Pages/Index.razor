@@ -4,12 +4,24 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Welcome to Refugee BnB.</h1>
+<RadzenCard>
+    <div class="row p-2">
+        <RadzenText TextStyle="TextStyle.H4" TextAlign="TextAlign.Center">Welcome to Refugee BnB</RadzenText>
+    </div>
+    
 <AuthorizeView>
     <Authorized>
         <RadzenText> Currently logged in as: </RadzenText>
-        <RadzenText>@authService.GetAuthAsync().Result.Claims.First().Value</RadzenText>
+        <RadzenText>@authService.GetEmail()</RadzenText>
     </Authorized>
+    <NotAuthorized>
+    <div class="row p-2">
+                <RadzenText TextStyle="TextStyle.Body1">Our goal is to make it easier to connect refugees and possible hosts all over the world!</RadzenText>
+            </div>
+        
+    </NotAuthorized>
 </AuthorizeView>
+</RadzenCard>
+
 
 

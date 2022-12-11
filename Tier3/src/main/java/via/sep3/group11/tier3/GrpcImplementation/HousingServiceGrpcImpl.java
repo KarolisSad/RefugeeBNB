@@ -68,6 +68,7 @@ public class HousingServiceGrpcImpl extends HousingGrpc.HousingImplBase {
     @Override
     public void removeHousing(GId request, StreamObserver<GEmpty> responseObserver) {
         housingDaoInterface.removeHousing(request.getId());
+        responseObserver.onNext(GEmpty.newBuilder().build());
         responseObserver.onCompleted();
     }
 

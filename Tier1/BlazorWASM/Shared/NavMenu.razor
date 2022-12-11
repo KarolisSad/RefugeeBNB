@@ -40,41 +40,48 @@
             </NotAuthorized>
 
 
-            <!-- HOST -->
+          
             <Authorized>
+
+                <!-- HOST -->
                 @if (@context.User.Claims.Any(claim => claim.Value.Equals("HOST")))
                 {
                     <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="/AddHousing" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Add Housing
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="/ManageHousingHost" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> My Housing
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="/ManageAccount" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> My Account
-                    </NavLink>
-                </div>
-                }
-
-                <!-- REFUGEE -->
-                @if (@context.User.Claims.Any(claim => claim.Value.Equals("REFUGEE")))
-                {
+                        <NavLink class="nav-link" href="/AddHousing" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> Add Housing
+                        </NavLink>
+                    </div>
                     <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="/DisplayHousing" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Display Housing
-                    </NavLink>
-                </div>
+                        <NavLink class="nav-link" href="/ManageHousingHost" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> My Housing
+                        </NavLink>
+                    </div>
                     <div class="nav-item px-3">
                         <NavLink class="nav-link" href="/ManageAccount" Match="NavLinkMatch.All">
                             <span class="oi oi-home" aria-hidden="true"></span> My Account
                         </NavLink>
                     </div>
                 }
+
+                <!-- REFUGEE -->
+                @if (@context.User.Claims.Any(claim => claim.Value.Equals("REFUGEE")))
+                {
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/DisplayHousing" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> Display Housing
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="/ManageAccount" Match="NavLinkMatch.All">
+                            <span class="oi oi-home" aria-hidden="true"></span> My Account
+                        </NavLink>
+                    </div>
+                }
+                
+                <div class="nav-item px-3">
+                    <RadzenText TextStyle="TextStyle.Body2" Style="color: #d7d7d7">My information: </RadzenText>
+                    <RadzenText TextStyle="TextStyle.Caption" Style="color: #d7d7d7">@authService.GetAuthAsync().Result.Claims.First().Value</RadzenText>
+                </div>
             </Authorized>
         </AuthorizeView>
         
