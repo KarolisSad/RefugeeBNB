@@ -53,7 +53,6 @@ public class HostLogic implements HostInterface {
     @Override
     public HostDTO registerHost(HostRegisterDTO dto) {
             Host toRegister = new Host(dto.getFirstName(), dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
-        System.out.println("TEST: " + toRegister.getGender());
 
 
         // host check

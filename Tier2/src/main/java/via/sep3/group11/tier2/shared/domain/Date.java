@@ -1,5 +1,6 @@
 package via.sep3.group11.tier2.shared.domain;
 
+import lombok.Data;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 /**
@@ -7,6 +8,7 @@ import via.sep3.group11.tier2.shared.exceptions.ValidationException;
  * @version 27/11-2022
  * @author Group 11
  */
+@Data
 public class Date {
     private int day;
     private int month;

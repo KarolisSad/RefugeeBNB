@@ -1,8 +1,6 @@
-﻿using System.Net.Http.Json;
-using System.Text;
+﻿using System.Net.Http.Headers;
 using System.Text.Json;
 using HttpClients.ClientInterfaces;
-using Shared.Domain;
 using Shared.DTOs;
 
 namespace HttpClients.ClientImplementations;
@@ -13,46 +11,27 @@ public class HostImpl:HostInterface
 
     private readonly HttpClient client;
 
+
     public HostImpl(HttpClient client)
     {
         this.client = client;
     }
 
-    public async Task<HostDTO> RegisterHostAsync(HostRegisterDTO host)
+    public async Task<HostDTO> GetHostByHousingIdAsync(long housingId)
     {
-        //Console.WriteLine(JsonSerializer.Deserialize<HostRegisterDTO>(host.));
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/host", host);
-        string content = await responseMessage.Content.ReadAsStringAsync();
-        if (!responseMessage.IsSuccessStatusCode)
-        {
-            throw new Exception(content);
-        }
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
 
-        HostDTO result = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
+        try
         {
-            PropertyNameCaseInsensitive = true
-        })!;
+            HttpResponseMessage responseMessage = await client.GetAsync($"/api/host/{housingId}");
         
-        return result;
-    }
-
-    public async Task<HostDTO> LoginHostAsync(LoginDTO dto)
-    {
-        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/host/login", dto);
+            string content = await responseMessage.Content.ReadAsStringAsync();
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                throw new Exception("CRASH NOT SUCCESSCODE: " + content);
+            }
         
-        string content = await responseMessage.Content.ReadAsStringAsync();
-        if (!responseMessage.IsSuccessStatusCode)
-        {
-            throw new Exception(content);
-        }
-
-        HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
         
-        return host;
-    }
 
     public async Task<HostDTO> GetHostByHousingIdAsync(long housingId)
     {
@@ -60,24 +39,24 @@ public class HostImpl:HostInterface
         HttpResponseMessage responseMessage = await client.GetAsync($"/api/host/housing/{housingId}");
         Console.WriteLine(responseMessage);
         
-        string content = await responseMessage.Content.ReadAsStringAsync();
-        if (!responseMessage.IsSuccessStatusCode)
-        {
-            throw new Exception(content);
-        }
-        
-        
-
         HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
         {
-            PropertyNameCaseInsensitive = true
+          PropertyNameCaseInsensitive = true
         })!;
         
-        return host;
+            return host;                
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("CRASH" + e);
+            throw;
+        }
+       
     }
     
     public async Task<HostDTO> DeleteAccountAsync(string email)
     {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
         HttpResponseMessage responseMessage = await client.DeleteAsync($"/api/host/delete/{email}");
         
         string content = await responseMessage.Content.ReadAsStringAsync();
@@ -90,6 +69,11 @@ public class HostImpl:HostInterface
         {
             PropertyNameCaseInsensitive = true
         })!;
+        
+        if (!host.ErrorMessage.Equals(""))
+        {
+            throw new Exception(host.ErrorMessage);
+        }
         
         return host;
     }
