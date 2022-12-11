@@ -43,8 +43,8 @@ public class HousingImpl:HousingInterface
 
     public async Task<HousingListDTO> GetAvailableHousingAsync()
     {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
         HttpResponseMessage message = await client.GetAsync("/api/housing");
-        
         string result = await message.Content.ReadAsStringAsync();
         
         if (!message.IsSuccessStatusCode)
@@ -62,6 +62,7 @@ public class HousingImpl:HousingInterface
 
     public async Task<HousingDTO> RemoveHousingAsync(HousingIdDTO dto)
     {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
         HttpResponseMessage created = await client.PostAsJsonAsync("/api/housing/delete", dto);
         string result = await created.Content.ReadAsStringAsync();
         

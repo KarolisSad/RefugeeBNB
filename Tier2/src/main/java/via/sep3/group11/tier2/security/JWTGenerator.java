@@ -41,7 +41,6 @@ public class JWTGenerator {
                 .parseClaimsJws(token)
                 .getBody();
 
-        System.out.println("TEST: " + claims.getSubject());
         return claims.getSubject();
     }
 

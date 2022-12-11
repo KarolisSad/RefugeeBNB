@@ -45,8 +45,9 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll() // All auth endpoints requests are allowed for everyone.
                 .antMatchers("/api/refugee/**").hasAuthority("REFUGEE") // Only refugees have access to anything under /refugee
-                .antMatchers("/api/host/**").hasAuthority("HOST") // Only hosts have access to anything under /host
                 .antMatchers(HttpMethod.GET, "api/host/**").authenticated()
+                .antMatchers(HttpMethod.POST, "api/hosts/**").hasAuthority("HOST")
+                .antMatchers(HttpMethod.DELETE, "api/hosts/**").hasAuthority("HOST")
                 .antMatchers(HttpMethod.POST, "/api/housing").hasAuthority("HOST") // Only hosts can post housing
                 .antMatchers(HttpMethod.POST, "/api/housing/delete").hasAuthority("HOST") // Only hosts can delete housing
                 .antMatchers(HttpMethod.POST, "/api/agreements").hasAuthority("REFUGEE") // Only refugees can request agreements

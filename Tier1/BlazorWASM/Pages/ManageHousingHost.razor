@@ -6,7 +6,7 @@
 @inject AuthInterface authService;
 @inject DialogService dialogService;
 
-
+<PageTitle>My Housing</PageTitle>
 
 <AuthorizeView>
     <Authorized>
@@ -20,34 +20,48 @@
                             <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">House</RadzenText>
                         </div>
                         <div class="row d-flex">
-                            <div class="col-lg-2 col-lg-">
+                            <div class="col-lg">
                                 <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
                                 <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.Country)</RadzenText>
                             </div>
-                            <div class="col-lg-2 ">
+                            <div class="col ">
                                 <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
                                 <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.City)</RadzenText>
                             </div>
-                            <div class="col-lg-2 ">
+                            <div class="col ">
                                 <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
                                 <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.StreetName)</RadzenText>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col">
                                 <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
                                 <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.HouseNumber)</RadzenText>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col">
                                 <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
                                 <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address?.RoomNumber)</RadzenText>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col">
                                 <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
                                 <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.PostCode)</RadzenText>
                             </div>
+                            <div class="col">
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Available</RadzenText>
+                                @if (@housing.Available)
+                                {
+                                    <RadzenIcon Icon="check_circle_outline" IconStyle="IconStyle.Success"></RadzenIcon>
+                                }
+                                else
+                                {
+                                    <RadzenIcon Icon="highlight_off" IconStyle="IconStyle.Danger"></RadzenIcon>
+                                }
+                            </div>
                         </div>
-                        <div>
-                            <button class="applyBtn" @onclick="args => DeleteAsync(housing)">Delete</button>
-                        </div>
+                        @if (@housing.Available)
+                        {
+                            <div>
+                                <button class="applyBtn" @onclick="args => DeleteAsync(housing)">Delete</button>
+                            </div>
+                        }
                     </RadzenCard>
                 </Template>
             </RadzenDataList>

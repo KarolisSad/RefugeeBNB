@@ -10,90 +10,125 @@
 
 <h3>Register</h3>
 
-<div class="card">
+<RadzenCard class="d-flex">
     <div class="form-group field">
-
+    
         <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@CreateAsync>
             
-            <p>
-                <RadzenLabel Component="PersonType" Text="Who are you?"/>
-                
-                <RadzenRadioButtonList TValue="int?" Change=@((args) => OnChange(args.Value))>
-                    <Items>
-                        <RadzenRadioButtonListItem Text="Host" Value="1" TValue="int?" />
-                        <RadzenRadioButtonListItem Text="Refugee" Value="2" TValue="int?" />
-                    </Items>
-                </RadzenRadioButtonList>
-            </p>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <RadzenLabel Component="PersonType" Text="Who are you?"/>
+                </div>
+                <div class="col">
+                    <RadzenRadioButtonList TValue="int?" Change=@((args) => OnChange(args.Value))>
+                        <Items>
+                            <RadzenRadioButtonListItem Text="Host" Value="1" TValue="int?"/>
+                            <RadzenRadioButtonListItem Text="Refugee" Value="2" TValue="int?"/>
+                        </Items>
+                    </RadzenRadioButtonList>
+                </div>
+            </div>
             
-            <p>
-                <RadzenLabel Component="Email" Text="Email"/>
-                <RadzenTextBox Name="Email" @bind-Value=@email></RadzenTextBox>
-
-            </p>
-            <p>
-                <RadzenLabel Component="Password" Text="Password"/>
-                <RadzenPassword @bind-Value=@password />
-            </p>
-
-            <p>
-                <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="FirstName" Text="First name"/>
-                <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
-            </p>
-
-            <p>
-                <RadzenLabel Component="MiddleName" Text="Middle name"/>
-                <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
-            </p>
-
-            <p>
-                <RadzenLabel Component="LastName" Text="Last name"/>
-                <RadzenTextBox Name="LastName" @bind-Value=@lastName />
-            </p>
-
-            <p>
-                <RadzenLabel Component="Gender" Text="Gender"/>
-                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange"/>
-            </p>
-
-
-            <p>
-                <label for="dateOfBirth">Date of birth:</label>
-                <input type="date" id="dateOfBirth" name="dateofBirth" @bind="date">
-            </p>
-            
+            <div class="row p-2">
+                <div class="col-4">
+                    <RadzenLabel Component="Email" Text="Email"/>
+                </div>
+                <div class="col">
+                    <RadzenTextBox Name="Email" @bind-Value=@email></RadzenTextBox>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <RadzenLabel Component="Password" Text="Password"/>
+                </div>
+                <div class="col">
+                     <RadzenPassword @bind-Value=@password />
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <RadzenLabel Component="Nationality" Text="Nationality"/>
+                </div>
+                <div class="col">
+                    <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                    <RadzenLabel Component="FirstName" Text="First name"/>
+                </div>
+                <div class="col">
+                     <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <RadzenLabel Component="MiddleName" Text="Middle name"/>
+                </div>
+                <div class="col">
+                     <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <RadzenLabel Component="LastName" Text="Last name"/>
+                </div>
+                <div class="col">
+                     <RadzenTextBox Name="LastName" @bind-Value=@lastName />
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                    <RadzenLabel Component="Gender" Text="Gender"/>
+                </div>
+                <div class="col">
+                     <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange"/>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <label for="dateOfBirth">Date of birth:</label>
+                </div>
+                <div class="col">
+                    <input type="date" id="dateOfBirth" name="dateofBirth" @bind="date">
+                </div>
+            </div>
             @if (isRefugee)
             {
-                <p>
-                <RadzenLabel Component="About" Text="Description" MouseEnter=
-                             "@(args => ShowTooltip(args, "This field is intended for you to write information which might be of relevance to hosts.",
-                                                new TooltipOptions(){ Position = TooltipPosition.Left, Duration = 10000}))" Class="me-1 mb-1" />
-                    <RadzenTextArea @bind-Value="about"></RadzenTextArea>
-                </p>
+                <div class="row p-2">
+                    <div class="col-4">
+                        <RadzenLabel Component="About" Text="Description" MouseEnter=
+                                     "@(args => ShowTooltip(args, "This field is intended for you to write information which might be of relevance to hosts.", new TooltipOptions() { Position = TooltipPosition.Left, Duration = 10000 }))" Class="me-1 mb-1"/>
+                    </div>
+                    <div class="col">
+                         <RadzenTextArea @bind-Value="about" Cols="22" Rows="10"></RadzenTextArea>
+                    </div>
+                </div>
 
-                <p>
-                    <RadzenLabel Component="familySize" Text="Family Size" MouseEnter=
-                            "@(args => ShowTooltip(args, "Including yourself",
-                                               new TooltipOptions(){ Position = TooltipPosition.Left, Duration = 10000}))" Class="me-1 mb-1" />
-                    <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@familySize />
-                    <RadzenRequiredValidator Component="capacity" Text="capacity name is required!"/>
-                </p>
+                <div class="row p-2">
+                    <div class="col-4">
+                        <RadzenLabel Component="familySize" Text="Family Size" MouseEnter=
+                                     "@(args => ShowTooltip(args, "Including yourself", new TooltipOptions() { Position = TooltipPosition.Left, Duration = 10000 }))" Class="me-1 mb-1"/>
+                    </div>
+                    <div class="col">
+                        <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@familySize />
+                        <RadzenRequiredValidator Component="capacity" Text="capacity name is required!"/>
+                    </div>
+                </div>
             }
-            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@CreateAsync"/>
-
+            <div class="row p-2">
+                 <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@CreateAsync"/>
+            </div>
+            
         </RadzenTemplateForm>
+    
+            @if (showAlert)
+            {
+                <RadzenAlert AlertStyle=@alertStyle AllowClose="false">@resultMsg</RadzenAlert>
+            }
+    </div>
+</RadzenCard>
 
-        @if (showAlert)
-        {
-            <RadzenAlert AlertStyle=@alertStyle AllowClose="false">@resultMsg</RadzenAlert>
-        }
-</div>
-</div>
 
 
 @code {
