@@ -1,5 +1,6 @@
 package via.sep3.group11.tier2.businessLogic;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
@@ -26,14 +27,18 @@ public class RefugeeLogic implements RefugeeInterface {
 
     private RefugeeCommunicationInterface refugeeDAO;
     private AgreementCommunicationInterface agreementCommunicationInterface;
+    private PasswordEncoder passwordEncoder;
+
 
     /**
      * Constructor used to inject the DAO needed for communicating with the data-tier.
      * @param refugeeDAO: Data Access Object used access Refugee information from the Data-tier.
      */
-    public RefugeeLogic(RefugeeCommunicationInterface refugeeDAO, AgreementCommunicationInterface agreementCommunicationInterface) {
+    public RefugeeLogic(RefugeeCommunicationInterface refugeeDAO, AgreementCommunicationInterface agreementCommunicationInterface, PasswordEncoder passwordEncoder) {
         this.refugeeDAO = refugeeDAO;
         this.agreementCommunicationInterface = agreementCommunicationInterface;
+        this.passwordEncoder = passwordEncoder;
+
     }
 
     /**
@@ -132,23 +137,46 @@ public class RefugeeLogic implements RefugeeInterface {
 
     @Override
     public RefugeeDTO updateInformation(RefugeeUpdateDTO dto) {
+
+        System.out.println("DTO SIZE CHECK: " + dto.getFamilySize());
         Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(dto.getEmail());
         if(refugee.isEmpty())
         {
-            return new RefugeeDTO(null, "The host with the given email does not exist.");
+            return new RefugeeDTO(null, "The refugee with the given email does not exist.");
         }
         else {
-            refugee.get().setFirstName(dto.getFirstName());
-            refugee.get().setMiddleName(dto.getMiddleName());
-            refugee.get().setLastName(dto.getLastName());
-            refugee.get().setPassword(dto.getPassword());
-            refugee.get().setGender(dto.getGender());
-            refugee.get().setNationality(dto.getNationality());
-            refugee.get().setFamilySize(dto.getFamilySize());
-            refugee.get().setDescription(dto.getDescription());
 
-            refugeeDAO.updateInformation(refugee.get());
-            return new RefugeeDTO(refugee.get(), "");
+            Refugee toBeUpdated = refugee.get();
+
+            if (!dto.getFirstName().isBlank()) {
+                toBeUpdated.setFirstName(dto.getFirstName());
+                System.out.println("UPDATING FIRST NAME");
+            }
+
+            toBeUpdated.setMiddleName(dto.getMiddleName());
+            System.out.println("UPDATING MIDDLE NAME");
+
+            if (!dto.getLastName().isBlank()) {
+                toBeUpdated.setLastName(dto.getLastName());
+                System.out.println("UPDATING LAST NAME");
+            }
+            if (!dto.getPassword().isBlank()) {
+                toBeUpdated.setPassword(passwordEncoder.encode(dto.getPassword()));
+                System.out.println("UPDATING PASSWORD");
+            }
+            toBeUpdated.setGender(dto.getGender());
+            System.out.println("UPDATING GENDER");
+            if (!dto.getNationality().isBlank()) {
+                toBeUpdated.setNationality(dto.getNationality());
+                System.out.println("UPDATING NATIONALITY");
+            }
+            if (!dto.getDescription().isBlank()) {
+                toBeUpdated.setDescription(dto.getDescription());
+            }
+            toBeUpdated.setFamilySize(dto.getFamilySize());
+
+           Refugee updated = refugeeDAO.updateInformation(toBeUpdated);
+            return new RefugeeDTO(updated, "");
         }
     }
 

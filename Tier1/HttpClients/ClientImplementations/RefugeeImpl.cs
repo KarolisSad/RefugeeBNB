@@ -38,6 +38,7 @@ public class RefugeeImpl:RefugeeInterface
 
     public async Task<RefugeeDTO> UpdateInformation(RefugeeUpdateDTO dto)
     {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
         HttpResponseMessage responseMessage = await client.PostAsJsonAsync($"/api/refugee/update", dto);
         
         string content = await responseMessage.Content.ReadAsStringAsync();
@@ -57,6 +58,7 @@ public class RefugeeImpl:RefugeeInterface
 
     public async Task<RefugeeDTO> GetRefugee(string email)
     {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
         HttpResponseMessage responseMessage = await client.GetAsync($"/api/refugee/{email}");
         
         string content = await responseMessage.Content.ReadAsStringAsync();

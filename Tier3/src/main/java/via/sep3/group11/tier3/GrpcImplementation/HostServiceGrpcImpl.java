@@ -70,7 +70,7 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
         responseObserver.onCompleted();
     }
 
-    /*
+
     @Override
     public void updateInformation(GHostDetails request, StreamObserver<GHost> responseObserver) {
 
@@ -85,7 +85,5 @@ public class HostServiceGrpcImpl extends HostGrpc.HostImplBase {
             responseObserver.onCompleted();
         }
     }
-
-     */
 }
 

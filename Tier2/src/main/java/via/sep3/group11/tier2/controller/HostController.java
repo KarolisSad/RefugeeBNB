@@ -29,7 +29,7 @@ public class HostController {
     }
 
 
-    @GetMapping("/host/{housingId}")
+    @GetMapping("/host/housing/{housingId}")
     public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable ("housingId") long housingId) {
         try {
             System.out.println("GEtting host by hoiuse id");
@@ -70,9 +70,7 @@ public class HostController {
 @GetMapping("/host/{email}")
     public ResponseEntity<HostDTO> getHost(@PathVariable("email") String email){
         try {
-            System.out.println("Recieved email: " + email);
             HostDTO host = hostLogic.getHostById(email);
-            System.out.println("Found host: " + host.getHost());
             return new ResponseEntity<>(host, HttpStatus.OK);
         }
 

@@ -286,15 +286,10 @@
         gender = (string)str;
         Console.WriteLine($"Gender changed to {str}");
     }
-
-    private void DescriptionChange(object value)
-    {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-        description = (string)str;
-        Console.WriteLine($"Description changed to {str}");
-    }
     private void ShowTooltip(ElementReference elementReference,  string text,TooltipOptions options = null)
         => tooltipService.Open(elementReference, text, options);
+    
+
 
 
 
