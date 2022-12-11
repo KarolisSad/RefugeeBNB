@@ -73,9 +73,6 @@ public class AgreementLogic implements AgreementInterface {
             //Update housing
             Optional<Housing> updatedHousing = housingDAO.getHousingById(agreement.get().getHousing().getHousingId());
             updatedHousing.get().setAvailable(false);
-            System.out.println("Should be false - before sending: " + updatedHousing.get().isAvailable());
-            Housing test = housingDAO.updateHousing(updatedHousing.get());
-            System.out.println("Should be false - after sending: " + test.isAvailable());
 
             // todo delete all requests for this housing
 

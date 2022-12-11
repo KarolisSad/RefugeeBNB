@@ -57,9 +57,17 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
     /*
     @Override
     public void updateInformation(GRefugee request, StreamObserver<GRefugee> responseObserver) {
+
     Refugee refugeeResponse = refugeeDao.updateInformation(refugeeFromGrpc(request));
-    responseObserver.onNext(refugeeToGrpc(refugeeResponse));
-    responseObserver.onCompleted();
+
+        if (refugeeResponse == null) {
+            responseObserver.onNext(GRefugee.newBuilder().build());
+            responseObserver.onCompleted();
+        }
+        else {
+            responseObserver.onNext(refugeeToGrpc(refugeeResponse));
+            responseObserver.onCompleted();
+        }
     }
 
      */

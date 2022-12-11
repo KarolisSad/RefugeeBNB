@@ -11,4 +11,5 @@ public interface HostDaoInterface {
     Optional<Host> getHostByEmail(String email);
     Optional<Host> getHostByHousingId(long id);
     void deleteAccount(String email);
+    Host updateInformation(Host host);
 }

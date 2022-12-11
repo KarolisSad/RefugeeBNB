@@ -1,0 +1,190 @@
+﻿@page "/Update"
+@using System.Collections.ObjectModel
+@using global::Shared.Domain
+@using global::Shared.DTOs
+@using HttpClients.ClientInterfaces
+@using LogicForPages
+@inject HostInterface HostInterface;
+@inject RefugeeInterface RefugeeInterface;
+@inject MenuService MenuService;
+<h3>Update</h3>
+
+<div class="card">
+    <div class="form-group field">
+
+        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@UpdateAsync>
+            <p>
+                <RadzenLabel Component="Password" Text="Password"/>
+                <RadzenPassword @bind-Value=@password />
+            </p>
+
+            <p>
+                <RadzenLabel Component="Nationality" Text="Nationality"/>
+                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
+            </p>
+
+            <p>
+                <RadzenLabel Component="FirstName" Text="First name"/>
+                <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
+            </p>
+
+            <p>
+                <RadzenLabel Component="MiddleName" Text="Middle name"/>
+                <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
+            </p>
+
+            <p>
+                <RadzenLabel Component="LastName" Text="Last name"/>
+                <RadzenTextBox Name="LastName" @bind-Value=@lastName />
+            </p>
+
+            <p>
+                <RadzenLabel Component="Gender" Text="Gender"/>
+                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange"/>
+            </p>
+            @if (MenuService.Refugee)
+            {
+                <p>
+                    <RadzenLabel Component="familySize" Text="Family Size"/>
+                    <RadzenNumeric TValue="int" Min="1" Max="50" @bind-Value=@familysize  />
+                </p>
+                <p>
+                    <RadzenLabel Component="description" Text="Additional Information"/>
+                    <RadzenTextArea @bind-Value=@description TValue="string" Change=@DescriptionChange />
+                </p>
+            }
+            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@UpdateAsync"/>
+
+        </RadzenTemplateForm>
+
+        <label style="color: @color">@resultMsg</label>
+    </div>
+</div>
+
+
+@code {
+
+    class Person
+    {
+    }
+
+    private string password = "";
+    private string nationality = "";
+    private string gender = "";
+    private string firstName = "";
+    private string middleName = "";
+    private string lastName = "";
+    private int familysize = 0;
+    private string description = "";
+
+    public Collection<string> Nationalities = new Collection<string>() { "Danish", "Lithuanian", "Polish", "English", "French", "Ukrainian", "German", "Other" };
+    public Collection<string> GenderCollection = new Collection<string>() { "Female", "Male", "Other" };
+
+    private string resultMsg = "";
+
+    private string color = "";
+
+    private async Task UpdateAsync()
+    {
+        resultMsg = "";
+
+        if (MenuService.Host)
+        {
+            HostDTO host = await HostInterface.UpdateInformation(new HostUpdateDTO(MenuService.HostLogged, password, gender[0], nationality, firstName, middleName, lastName));
+            if (host.ErrorMessage.Equals(""))
+            {
+                Console.WriteLine("We updated a host.");
+                Clear();
+                resultMsg = "User successfully updated";
+                color = "green";
+            }
+            else
+            {
+                Console.WriteLine(host.ErrorMessage);
+                resultMsg = host.ErrorMessage;
+                color = "red";
+            }
+        }
+        else if (MenuService.Refugee)
+        {
+            RefugeeDTO refugee = await RefugeeInterface.UpdateInformation(new RefugeeUpdateDTO(MenuService.RefugeeLogged, password, gender[0], nationality, firstName, middleName, lastName, familysize, description));
+            if (refugee.ErrorMessage.Equals(""))
+            {
+                Clear();
+                resultMsg = "User successfully created";
+                color = "green";
+                Console.WriteLine("We created a refugee.");
+            }
+            else
+            {
+                Console.WriteLine(refugee.ErrorMessage);
+                resultMsg = refugee.ErrorMessage;
+                color = "red";
+            }
+        }
+    }
+
+    private void Clear()
+    {
+        password = "";
+        nationality = "";
+        gender = "";
+        firstName = "";
+        middleName = "";
+        lastName = "";
+        familysize = 0;
+        description = "";
+    }
+
+
+    private void ChangeNationality(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        nationality = (string)str;
+        Console.WriteLine($"Nationality changed to {str}");
+    }
+
+
+    private void GenderChange(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        gender = (string)str;
+        Console.WriteLine($"Gender changed to {str}");
+    }
+
+    private void DescriptionChange(object value)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        description = (string)str;
+        Console.WriteLine($"Description changed to {str}");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (MenuService.Refugee)
+        {
+            RefugeeDTO dto = await RefugeeInterface.GetRefugee(MenuService.RefugeeLogged);
+            familysize = dto.Refugee.FamilySize;
+            description = dto.Refugee.Description;
+            nationality = dto.Refugee.Nationality;
+            gender = dto.Refugee.Gender.ToString();
+            firstName = dto.Refugee.FirstName;
+            middleName = dto.Refugee.MiddleName;
+            lastName = dto.Refugee.LastName;
+        }else if (MenuService.Host)
+        {
+            HostDTO dto = await HostInterface.GetHost(MenuService.HostLogged);
+            nationality = dto.Host.Nationality;
+            gender = dto.Host.Gender.ToString();
+            firstName = dto.Host.FirstName;
+            middleName = dto.Host.MiddleName;
+            lastName = dto.Host.LastName;
+        }
+        
+        
+        
+        
+
+    }
+
+}

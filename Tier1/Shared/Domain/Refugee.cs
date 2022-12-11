@@ -12,8 +12,12 @@ public class Refugee
     
     public Date DateOfBirth { get; set; }
 
+    public int FamilySize { get; set; }
+
+    public string Description { get; set; }
+
     public Refugee(string email, string password, char gender, string nationality,
-        string firstName, string middleName, string lastName, Date dateOfBirth)
+        string firstName, string middleName, string lastName, Date dateOfBirth, int familySize, string description)
     {
         Email = email;
         Password = password;
@@ -23,6 +27,8 @@ public class Refugee
         MiddleName = middleName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;
+        FamilySize = familySize;
+        Description = description;
     }
 
     public Refugee()

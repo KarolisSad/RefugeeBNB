@@ -33,10 +33,16 @@ public class HostImpl:HostInterface
         
         
 
-            HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            })!;
+    public async Task<HostDTO> GetHostByHousingIdAsync(long housingId)
+    {
+        Console.WriteLine("HousingID: " + housingId);
+        HttpResponseMessage responseMessage = await client.GetAsync($"/api/host/housing/{housingId}");
+        Console.WriteLine(responseMessage);
+        
+        HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
+        {
+          PropertyNameCaseInsensitive = true
+        })!;
         
             return host;                
         }
@@ -70,5 +76,40 @@ public class HostImpl:HostInterface
         }
         
         return host;
+    }
+
+    public async Task<HostDTO> UpdateInformation(HostUpdateDTO dto)
+    {
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync($"/api/host/update", dto);
+        
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        HostDTO host = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return host;
+    }
+
+    public async Task<HostDTO> GetHost(string email)
+    {
+        HttpResponseMessage responseMessage = await client.GetAsync($"/api/host/{email}");
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        HostDTO result = JsonSerializer.Deserialize<HostDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        
+        return result;
     }
 }

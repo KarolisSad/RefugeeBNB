@@ -2,9 +2,9 @@
 
 public class RespondAgreementDTO
 {
-    public long AgreementId;
-    public bool Accepted;
-    public string ErrorMessage;
+    public long AgreementId { get; }
+    public bool Accepted { get; }
+    public string ErrorMessage { get; }
 
     public RespondAgreementDTO(long agreementId, bool accepted, string errorMessage)
     {

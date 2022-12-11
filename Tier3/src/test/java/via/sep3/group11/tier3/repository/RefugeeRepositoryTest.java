@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 /*
 @DataJpaTest
 class RefugeeRepositoryTest {
-
+/*
     @Autowired
     private RefugeeRepository underTest;
 
@@ -45,4 +45,5 @@ class RefugeeRepositoryTest {
     }
 
  */
-//}
+}
+

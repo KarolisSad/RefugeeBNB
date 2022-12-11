@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
-import via.sep3.group11.tier2.shared.DTOs.HostDTO;
-import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
-import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
-import via.sep3.group11.tier2.shared.DTOs.RefugeeDTO;
+import via.sep3.group11.tier2.shared.DTOs.*;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
@@ -19,18 +16,18 @@ import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 @RequestMapping("/api")
 public class HostController {
     /**
+     * Host controller
      *
-     *  Host controller
      * @author Group 11
      * @version 28/11/22
      */
 
     HostInterface hostLogic;
 
-    public HostController(HostInterface hostLogic)
-    {
+    public HostController(HostInterface hostLogic) {
         this.hostLogic = hostLogic;
     }
+
 
     @GetMapping("/host/{housingId}")
     public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable ("housingId") long housingId) {
@@ -38,8 +35,7 @@ public class HostController {
             System.out.println("GEtting host by hoiuse id");
             HostDTO hostById = hostLogic.getHostByHousingId(housingId);
             return new ResponseEntity<>(hostById, HttpStatus.OK);
-        }
-         catch (Exception e){
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
@@ -50,6 +46,17 @@ public class HostController {
         try {
             HostDTO host = hostLogic.deleteAccount(email);
             return new ResponseEntity<>(host, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @PostMapping("/host/update")
+    public ResponseEntity<HostDTO> updateAccount(@RequestBody HostUpdateDTO dto) {
+        try {
+            HostDTO host = hostLogic.updateInformation(dto);
+            return new ResponseEntity<>(host, HttpStatus.OK);
         }
 
         catch (Exception e)
@@ -57,8 +64,25 @@ public class HostController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
 
-    /*
+
+@GetMapping("/host/{email}")
+    public ResponseEntity<HostDTO> getHost(@PathVariable("email") String email){
+        try {
+            System.out.println("Recieved email: " + email);
+            HostDTO host = hostLogic.getHostById(email);
+            System.out.println("Found host: " + host.getHost());
+            return new ResponseEntity<>(host, HttpStatus.OK);
+        }
+
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+     
+/*
     @PatchMapping("/host")
     public ResponseEntity<HostDTO> updateInformation(@RequestBody HostUpdateDTO hostUpdateDTO) {
         try {
@@ -69,6 +93,6 @@ public class HostController {
         }
     }
 
-     */
+ */
 
 }

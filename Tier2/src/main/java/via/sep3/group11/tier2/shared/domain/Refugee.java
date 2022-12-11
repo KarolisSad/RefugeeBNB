@@ -61,6 +61,38 @@ public class Refugee {
         return nationality;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setFamilySize(int familySize) {
+        this.familySize = familySize;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getFirstName() {
         return firstName;
     }

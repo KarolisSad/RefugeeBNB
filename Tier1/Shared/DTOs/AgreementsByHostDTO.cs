@@ -2,8 +2,8 @@
 
 public class AgreementsByHostDTO
 {
-    public string HostEmail;
-    public string ErrorMessage;
+    public string HostEmail { get; }
+    public string ErrorMessage { get; }
 
     public AgreementsByHostDTO(string hostEmail, string errorMessage)
     {

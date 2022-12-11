@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="92a9b22e-8e14-4e8d-a9bf-eda79962cfb2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/shared/DTOs/HostUpdateDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/shared/DTOs/RefugeeUpdateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/businessLogic/AgreementLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/businessLogic/AgreementLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/businessLogic/HostLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/businessLogic/HostLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/businessLogic/RefugeeLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/businessLogic/RefugeeLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/controller/HostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/controller/HostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/controller/RefugeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/controller/RefugeeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/logicInterfaces/HostInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/logicInterfaces/HostInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/logicInterfaces/RefugeeInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/logicInterfaces/RefugeeInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/shared/domain/Host.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Tier2/src/main/java/via/sep3/group11/tier2/shared/domain/Host.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2IeZu5FK2akhGBYfPe16CQK0Qvd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/justi/OneDrive/Documents/GitHub/Sep-3/Tier1"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="92a9b22e-8e14-4e8d-a9bf-eda79962cfb2" name="Changes" comment="" />
+      <created>1670544228927</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1670544228927</updated>
+      <workItem from="1670544230666" duration="97000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
