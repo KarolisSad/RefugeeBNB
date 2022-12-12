@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@inject NavigationManager NavigationManager;
 <PageTitle>Index</PageTitle>
 
 <h1>RefugeeBnB, accomodation assistance for war refugees</h1>
@@ -12,10 +12,13 @@
         <div class="description">We will find you a temporary home, sign up and you will be taken care of..</div>
     </div>
     <div class="provide-help">
-        <NavLink class="nav-link" href="/Register" Match="NavLinkMatch.All">
-            <span class="reglink" aria-hidden="true"></span>Register
-        </NavLink>
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Register" Click="@Register"/>
     </div>
 </div>
 
-
+@code{
+private void Register()
+{
+NavigationManager.NavigateTo("/Register");
+}
+}

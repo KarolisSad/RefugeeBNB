@@ -7,8 +7,15 @@
 @inject RefugeeInterface RefugeeInterface;
 @inject HostInterface HostInterface;
 @inject NavigationManager NavigationManager;
-
-
+<div class="help">
+    <div class="help-text">
+        <div class="firstname">First name:</div>
+        <div class="middlename">Middle name:</div>
+        <div class="lastname">Last name:</div>
+        <div class="nationality">Nationality:</div>
+        <div class="nationality">Gender:</div>
+    </div>
+</div>
 <div class="help">
     <div class="help-text">
         <div class="help-title">Logging out?</div>
@@ -24,7 +31,7 @@
         <div class="description"></div>
     </div>
     <div class="provide-help">
-        <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 18px" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Update personal information" Click="@Update"/>
     </div>
 </div>
 <div class="help">
@@ -33,7 +40,7 @@
         <div class="description"></div>
     </div>
     <div class="provide-help">
-         <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Update personal information" Click="@Update"/>
+         <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 18px" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
     </div>
 </div>
 
