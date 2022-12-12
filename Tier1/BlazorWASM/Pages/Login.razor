@@ -10,11 +10,12 @@
 @inject MenuService MenuService;
 
 
-<h3>Login</h3>
+<h3>Log in</h3>
 <div class="card">
     <div class="form-group field">
         <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@OnLogin>
             <p>
+                <RadzenLabel Text="Who are you?"/>
                 <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange"/>
             </p>
 

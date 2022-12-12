@@ -1,0 +1,49 @@
+﻿h1{
+    justify-content: center;
+    display: flex;
+    margin-bottom: 3rem;
+    font-family: poppins,Arial,sans-serif;
+    font-weight: bold;
+}
+p{
+    font-family: poppins, Arial, sans-serif;
+    font-size: ;
+}
+.help{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #d4c9c0;
+    border-radius: 10px;
+    padding: 30px;
+}
+.help .help-text {
+    width: 60%;
+}
+.help .help-text .help-title {
+    color: #38364c;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 18px;
+}
+.help .help-text .help-description {
+    font-size: 18px;
+    line-height: 22px;
+    color: #38364c;
+}
+.provide-help {
+    display: block;
+    width: 40%;
+    border-radius: 7px;
+    background: #497f79;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    margin-left: 50px;
+}

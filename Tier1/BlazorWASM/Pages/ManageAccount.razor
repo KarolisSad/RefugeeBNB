@@ -2,21 +2,38 @@
 @using LogicForPages
 @using HttpClients.ClientInterfaces
 @using global::Shared.DTOs
-<h3>ManageAccount</h3>
+<h3>Manage your account</h3>
 @inject MenuService MenuService;
 @inject RefugeeInterface RefugeeInterface;
 @inject HostInterface HostInterface;
 @inject NavigationManager NavigationManager;
 
 
-<div class="card">
-    <div class="form-group field">
-        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
-
-        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
-        
-        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Update personal information" Click="@Update"/>
-        <label style="color: @color">@resultMsg</label>
+<div class="help">
+    <div class="help-text">
+        <div class="help-title">Logging out?</div>
+        <div class="description"></div>
+    </div>
+    <div class="provide-help">
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+    </div>
+</div>
+<div class="help">
+    <div class="help-text">
+        <div class="help-title">Update your account:</div>
+        <div class="description"></div>
+    </div>
+    <div class="provide-help">
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 18px" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
+    </div>
+</div>
+<div class="help">
+    <div class="help-text">
+        <div class="help-title">Delete your account:</div>
+        <div class="description"></div>
+    </div>
+    <div class="provide-help">
+         <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Update personal information" Click="@Update"/>
     </div>
 </div>
 
