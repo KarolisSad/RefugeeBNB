@@ -1,117 +1,124 @@
 ﻿@page "/ManageHousingHost"
-@using System.Collections.ObjectModel
 @using global::Shared.Domain
 @using global::Shared.DTOs
 @using HttpClients.ClientInterfaces
-@using LogicForPages
-@using UIComponents
 @inject HousingInterface HousingInterface
-@inject MenuService MenuService;
+@inject AuthInterface authService;
+@inject DialogService dialogService;
 
+<PageTitle>My Housing</PageTitle>
 
-
-<h3>ManageHousingHost</h3>
-
-
-
-
-    @foreach (Housing housing in myHousing)
-{
-    <div class="card" style="width: 700px">
-        <div class="col-lg-12 product-title">
-            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">House</RadzenText>
+<AuthorizeView>
+    <Authorized>
+        
+        <div class="card" style="width: 700px">
+            <RadzenText TextAlign="TextAlign.Center" TextStyle="TextStyle.H4">My Housing</RadzenText>
+            <RadzenDataList WrapItems="true" AllowPaging="true" Data="@myHousing" TItem="Housing" PageSize="5" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+                <Template Context="housing">
+                    <RadzenCard Style="width: 100%;" class="p-2">
+                        <div class="col-lg-12 product-title">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">House</RadzenText>
+                        </div>
+                        <div class="row d-flex">
+                            <div class="col-lg">
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
+                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.Country)</RadzenText>
+                            </div>
+                            <div class="col ">
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
+                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.City)</RadzenText>
+                            </div>
+                            <div class="col ">
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
+                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.StreetName)</RadzenText>
+                            </div>
+                            <div class="col">
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
+                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.HouseNumber)</RadzenText>
+                            </div>
+                            <div class="col">
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
+                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address?.RoomNumber)</RadzenText>
+                            </div>
+                            <div class="col">
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
+                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.PostCode)</RadzenText>
+                            </div>
+                            <div class="col">
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Available</RadzenText>
+                                @if (@housing.Available)
+                                {
+                                    <RadzenIcon Icon="check_circle_outline" IconStyle="IconStyle.Success"></RadzenIcon>
+                                }
+                                else
+                                {
+                                    <RadzenIcon Icon="highlight_off" IconStyle="IconStyle.Danger"></RadzenIcon>
+                                }
+                            </div>
+                        </div>
+                        @if (@housing.Available)
+                        {
+                            <div>
+                                <button class="applyBtn" @onclick="args => DeleteAsync(housing)">Delete</button>
+                            </div>
+                        }
+                    </RadzenCard>
+                </Template>
+            </RadzenDataList>
+            <RadzenAlert AlertStyle=@alertStyle Visible="@showAlert">@resultMsg</RadzenAlert>
         </div>
-        <div >
-            <div class="row d-flex">
-                <div class="col-lg-2 col-lg-">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.Country)</RadzenText>
-                </div>
-                <div class="col-lg-2 ">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.City)</RadzenText>
-                </div>
-                <div class="col-lg-2 ">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.StreetName)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.HouseNumber)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address?.RoomNumber)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.PostCode)</RadzenText>
-                </div>
-            </div>
-            <div>
-                <button class="applyBtn" @onclick="args => DeleteAsync(housing)">Delete</button>
-            </div>
-        </div>
-    </div>
-}
-
-<label style="color: @color">@resultMsg</label>
-
-<label style="color: @color">@resultMsg</label>
+    </Authorized>
+    <NotAuthorized>
+        <RadzenCard>
+            <RadzenText>You need to be logged in to view this page.</RadzenText>
+            <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+        </RadzenCard>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     private List<Housing> myHousing = new List<Housing>();
     private string resultMsg = "";
     private string color = "";
+    private bool showAlert = false;
+    private AlertStyle alertStyle;
 
     protected override async Task OnInitializedAsync()
     {
-        
-        HousingListDTO dto = await HousingInterface.GetHousingByHostIdAsync(MenuService.HostLogged);
-        Console.WriteLine(dto.HousingList.Count);
-        if (dto.ErrorMessage.Equals(""))
-        {
-            myHousing = dto.HousingList;
-            resultMsg = "";
-        }
-        else
-        {
-            resultMsg = dto.ErrorMessage;
-            color = "red";
-            if (dto.HousingList.Count == 0)
-            {
-                resultMsg = "There is no available housing.";
-                color = "red";
-            }
-        }
-        
-        
-        
-    /*
-        myHousing = new List<Housing>()
-        {
-            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"), true),
-            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"), true),
-            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"), true)
-        };
-        
-        */
+       await base.OnInitializedAsync();
+        await UpdateList();
     }
     
-    private async void DeleteAsync(Housing housing)
+    private async Task DeleteAsync(Housing housing)
     {
-        HousingDTO deletedHousing = await HousingInterface.RemoveHousingAsync(new HousingIdDTO(housing.HousingId, MenuService.HostLogged, ""));
+        try
+        {
+            HousingDTO deletedHousing = await HousingInterface.RemoveHousingAsync(new HousingIdDTO(housing.HousingId, authService.GetEmail(), ""));
+            await UpdateList();
 
-        if (deletedHousing.ErrorMessage.Equals(""))
-        {
-            resultMsg = "Chosen Accommodation got deleted";
-            color = "green";
+            await dialogService.Alert("Housing deleted successfully");
         }
-        else
+        catch (Exception e)
         {
-            resultMsg = deletedHousing.ErrorMessage;
-            color = "red";
+            await dialogService.Alert(e.Message, "Error");
         }
+    }
+
+    private async Task UpdateList()
+    {
+        showAlert = false;
+        try
+        {
+            HousingListDTO dto = await HousingInterface.GetHousingByHostIdAsync(authService.GetEmail());
+            myHousing = dto.HousingList;
+        }
+        catch (Exception e)
+        {
+            alertStyle = AlertStyle.Warning;
+            showAlert = true;
+            resultMsg = e.Message;
+        }
+
 
     }
 

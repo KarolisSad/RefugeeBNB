@@ -1,12 +1,16 @@
 ﻿@page "/Update"
 @using System.Collections.ObjectModel
+@using System.Security.Claims
 @using global::Shared.Domain
 @using global::Shared.DTOs
 @using HttpClients.ClientInterfaces
 @using LogicForPages
 @inject HostInterface HostInterface;
 @inject RefugeeInterface RefugeeInterface;
-@inject MenuService MenuService;
+@inject AuthInterface authService;
+@inject DialogService dialogService;
+@inject NavigationManager navMgr;
+
 <h3>Update</h3>
 
 <div class="card">
@@ -22,6 +26,7 @@
 
             <p>
                 <RadzenLabel Component="Nationality" Text="Nationality"/>
+                <RadzenDropDown TValue="string" @bind-Value="@nationality"  AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
                 <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" Value="@nationality" />
             </p>
 
@@ -47,9 +52,11 @@
 
             <p>
                 <RadzenLabel Component="Gender" Text="Gender"/>
+                <RadzenDropDown TValue="string" @bind-Value="gender"  Data=@(GenderCollection) Change="@GenderChange"/>
+
                 <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange" Value="gender" />
             </p>
-            @if (MenuService.Refugee)
+            @if (isRefugee)
             {
                 <p>
                     <RadzenLabel Component="familySize" Text="Family Size"/>
@@ -93,15 +100,28 @@
 
     private string color = "";
 
+    private bool isRefugee = false;
+
     private async Task UpdateAsync()
     {
         resultMsg = "";
 
-        if (MenuService.Host)
+        if (!isRefugee)
         {
-            HostDTO host = await HostInterface.UpdateInformation(new HostUpdateDTO(MenuService.HostLogged, password, gender[0], nationality, firstName, middleName, lastName));
+            HostDTO host = await HostInterface.UpdateInformation(new HostUpdateDTO(authService.GetEmail(), password, gender[0], nationality, firstName, middleName, lastName));
             if (host.ErrorMessage.Equals(""))
             {
+                resultMsg = "User updated successfully.";
+                Clear();
+                var dialog = await dialogService.Alert(resultMsg, "Success", new AlertOptions
+                {
+                    OkButtonText = "Proceed"
+                });
+
+                if (dialog.HasValue && dialog.Value)
+                {
+                    navMgr.NavigateTo("/");
+                }
                 Console.WriteLine("We updated a host.");
                 resultMsg = "User successfully updated";
                 color = "green";
@@ -113,11 +133,23 @@
                 color = "red";
             }
         }
-        else if (MenuService.Refugee)
+        else 
         {
-            RefugeeDTO refugee = await RefugeeInterface.UpdateInformation(new RefugeeUpdateDTO(MenuService.RefugeeLogged, password, gender[0], nationality, firstName, middleName, lastName, familysize, description));
+            RefugeeDTO refugee = await RefugeeInterface.UpdateInformation(new RefugeeUpdateDTO(authService.GetEmail(), password, gender[0], nationality, firstName, middleName, lastName, familysize, description));
             if (refugee.ErrorMessage.Equals(""))
             {
+                resultMsg = "User updated successfully.";
+                Clear();
+                var dialog = await dialogService.Alert(resultMsg, "Success", new AlertOptions
+                {
+                    OkButtonText = "Proceed"
+                });
+
+                if (dialog.HasValue && dialog.Value)
+                {
+                    navMgr.NavigateTo("/");
+                }
+
                 resultMsg = "User successfully created";
                 color = "green";
                 Console.WriteLine("We created a refugee.");
@@ -158,8 +190,19 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (MenuService.Refugee)
+        Claim role = authService.GetAuthAsync().Result.Claims.First(claim => claim.Type.Equals("Role"));
+        Console.WriteLine("Role: " + role);
+
+        if (role.Value.Equals("REFUGEE"))
         {
+            isRefugee = true;
+        }
+        
+        
+        if (isRefugee)
+        {
+            RefugeeDTO dto = await RefugeeInterface.GetRefugee(authService.GetEmail());
+
             RefugeeDTO dto = await RefugeeInterface.GetRefugee(MenuService.RefugeeLogged);
             password = dto.Refugee.Password;
             familysize = dto.Refugee.FamilySize;
@@ -178,8 +221,10 @@
             firstName = dto.Refugee.FirstName;
             middleName = dto.Refugee.MiddleName;
             lastName = dto.Refugee.LastName;
-        }else if (MenuService.Host)
+        }else
         {
+            HostDTO dto = await HostInterface.GetHost(authService.GetEmail());
+
             HostDTO dto = await HostInterface.GetHost(MenuService.HostLogged);
             password = dto.Host.Password;
             nationality = dto.Host.Nationality;
@@ -197,11 +242,6 @@
             middleName = dto.Host.MiddleName;
             lastName = dto.Host.LastName;
         }
-        
-        
-        
-        
-
     }
 
 }
