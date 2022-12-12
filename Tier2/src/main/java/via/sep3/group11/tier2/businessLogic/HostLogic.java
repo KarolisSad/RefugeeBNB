@@ -1,17 +1,18 @@
 package via.sep3.group11.tier2.businessLogic;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
-import via.sep3.group11.tier2.shared.DTOs.*;
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
+import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
+import via.sep3.group11.tier2.shared.DTOs.HostUpdateDTO;
+import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.domain.Agreement;
-import via.sep3.group11.tier2.shared.domain.Date;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Housing;
-import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
-import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +21,7 @@ import java.util.Optional;
  * Class implementing HostInterface.
  * Class is implemented with @Service-annotation to mark it as a Spring-component.
  * @see via.sep3.group11.tier2.logicInterfaces.HostInterface
- * @version 27/11-2022
+ * @version 12-12-2022
  * @author Group 11
  */
 @Service
@@ -29,16 +30,20 @@ public class HostLogic implements HostInterface {
     private HostCommunicationInterface hostDAO;
     private HousingCommunicationInterface housingDAO;
     private AgreementCommunicationInterface agreementCommunicationInterface;
+    private PasswordEncoder passwordEncoder;
 
     /**
-     * Simple constructor used to inject the two DAO's needed for communicating with the data-tier.
+     *
+     * All-argument constructor used to inject the two DAO's needed for communicating with the data-tier.
      * @param hostDAO: Data Access Object used for accessing Host-information in the data-tier.
      * @param housingDAO: Data Access Object used for accessing Housing-information in the data-tier.
+     * @param agreementCommunicationInterface Data Access Object used for accessing Agreement-information in the data-tier.
      */
-    public HostLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO, AgreementCommunicationInterface agreementCommunicationInterface) {
+    public HostLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO, AgreementCommunicationInterface agreementCommunicationInterface, PasswordEncoder passwordEncoder) {
         this.hostDAO = hostDAO;
         this.housingDAO = housingDAO;
         this.agreementCommunicationInterface = agreementCommunicationInterface;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -47,14 +52,10 @@ public class HostLogic implements HostInterface {
      * @see Host for documentation of set methods.
      * @param dto: a Domain Transfer Object containing all relevant attributes needed to create a new Host.
      * @return An object representation of the newly created Host-entry in the data-tier.
-     * @throws NotUniqueException: If a host-entry with an identical email is already present in the data-tier.
-     * @throws ValidationException: If any of the validation checks on the values ion the DTO fails.
      */
     @Override
     public HostDTO registerHost(HostRegisterDTO dto) {
             Host toRegister = new Host(dto.getFirstName(), dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
-        System.out.println("TEST: " + toRegister.getGender());
-
 
         // host check
             Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
@@ -63,8 +64,6 @@ public class HostLogic implements HostInterface {
         return existing.map
                 (host -> new HostDTO(toRegister, "Host with email " + host.getEmail() + " already exists."))
                 .orElseGet(() -> new HostDTO(hostDAO.createHost(toRegister), ""));
-
-
     }
 
     /**
@@ -74,17 +73,14 @@ public class HostLogic implements HostInterface {
      * If such a Host is found, it is verified that the password given in the DTO matches the password stored.
      * @param dto: A domain transfer object containing the email and password of the host trying to log in.
      * @return An object representation of the logged in host gotten from the Data-tier.
-     * @throws ValidationException if any of the validation specified above fails.
      */
     @Override
     public HostDTO loginHost(LoginDTO dto) {
-            Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
-
         // host check
         Optional<Host> host = hostDAO.getHostByEmail(dto.getEmail());
         if (host.isEmpty())
         {
-            return new HostDTO(dummyHost, "Host with email " + host.get().getEmail() + " doesn't exist.");
+            return new HostDTO(null, "Host with email " + host.get().getEmail() + " doesn't exist.");
         }
 
         // username & password check
@@ -92,23 +88,38 @@ public class HostLogic implements HostInterface {
         {
             return new HostDTO(host.get(),"");
         }
-            return new HostDTO(dummyHost,"Password is incorrect");
+            return new HostDTO(null,"Password is incorrect");
     }
 
+    /**
+     * Implementation of method used to find a host by housing id as the method implies.
+     * In the method, the housing referenced in the methods argument is placed in a new object
+     * and is checked if it is empty. If empty a HostDTO is returned that only contain the error message
+     * otherwise we return HostDTO that fulfils the initial argument with the error message set to empty.
+     * @param housingId housing ID that is used as a reference to find a host.
+     * @return HostDTO
+     */
     @Override
     public HostDTO getHostByHousingId(long housingId) {
-        Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
-
-        System.out.println("getHostByID Test: " + housingId);
-        // housing check
         Optional<Housing> housing = housingDAO.getHousingById(housingId);
         if (housing.isEmpty())
         {
-            return new HostDTO(dummyHost,"This housing no longer exists.");
+            return new HostDTO(null,"This housing no longer exists.");
         }
         return new HostDTO(hostDAO.getHostByHousingId(housingId).get(),"");
     }
 
+    /**
+     * Implementation of the method used to delete a host account
+     * In the method, new host object is created where the referenced object from the given email
+     * address is put in. In order to check if the account exists, the object is checked if empty and
+     * if yes a DTO with only an error is sent.
+     * If the host object is not empty, there may be agreements and housing associated with the host, therefore
+     * a check is done through all agreements and if there are any accepted (active), a new DTO is sent with an error message
+     * otherwise we remove any pending agreements and housing and finally the host.
+     * @param email the email of the host that is required to be deleted.
+     * @return HostDTO
+     */
     @Override
     public HostDTO deleteAccount(String email) {
 
@@ -120,7 +131,7 @@ public class HostLogic implements HostInterface {
 
         // If host is existing - get lists of agreements and housings.
         List<Agreement> agreementList = agreementCommunicationInterface.getAgreementsByHostId(email);
-        List<Housing> housingList = housingDAO.getAllHousingByHostId(email); //TODO
+        List<Housing> housingList = housingDAO.getAllHousingByHostId(email);
 
         // if any agreement is accepted - do not delete, instead return a dto with error message.
         for (Agreement a : agreementList) {
@@ -140,11 +151,22 @@ public class HostLogic implements HostInterface {
         }
 
         // delete host entity
-        hostDAO.deleteAccount(email); //TODO
+        hostDAO.deleteAccount(email);
 
         return new HostDTO(null, "");
     }
 
+    /**
+     * Implementation of the method used to update host personal information.
+     * In the method, new host object is created where the referenced object from the given email
+     * address is put in. In order to check if the account exists, the object is checked if empty and
+     * if yes a DTO with only an error is sent.
+     * If the dto is not empty there is multiple checks made in order to make sure that needed personal data
+     * is not empty and if so an error message is sent
+     * otherwise new data is set.
+     * @param dto a DTO object that contains new updated data
+     * @return HostDTO
+     */
     @Override
     public HostDTO updateInformation(HostUpdateDTO dto) {
         Optional<Host> host = hostDAO.getHostByEmail(dto.getEmail());
@@ -152,26 +174,51 @@ public class HostLogic implements HostInterface {
         {
             return new HostDTO(null, "The host with the given email does not exist.");
         }
-        else {
-            host.get().setFirstName(dto.getFirstName());
-            host.get().setMiddleName(dto.getMiddleName());
-            host.get().setLastName(dto.getLastName());
-            host.get().setPassword(dto.getPassword());
-            host.get().setGender(dto.getGender());
-            host.get().setNationality(dto.getNationality());
 
-            hostDAO.updateInformation(host.get());
-            return new HostDTO(host.get(), "");
+            Host toBeUpdated = host.get();
+            if (!dto.getFirstName().isBlank()) {
+                toBeUpdated.setFirstName(dto.getFirstName());
+                System.out.println("UPDATING FIRST NAME");
+            }
+
+            toBeUpdated.setMiddleName(dto.getMiddleName());
+            System.out.println("UPDATING MIDDLE NAME");
+
+            if (!dto.getLastName().isBlank()) {
+                toBeUpdated.setLastName(dto.getLastName());
+                System.out.println("UPDATING LAST NAME");
+            }
+            if (!dto.getPassword().isBlank()) {
+                toBeUpdated.setPassword(passwordEncoder.encode(dto.getPassword()));
+                System.out.println("UPDATING PASSWORD");
+            }
+            toBeUpdated.setGender(dto.getGender());
+            System.out.println("UPDATING GENDER");
+            if (!dto.getNationality().isBlank()) {
+                toBeUpdated.setNationality(dto.getNationality());
+                System.out.println("UPDATING NATIONALITY");
+            }
+
+            Host updated = hostDAO.updateInformation(toBeUpdated);
+
+            return new HostDTO(updated, "");
         }
-    }
 
+    /**
+     * Implementation of method used to find a host by hosts email as the method implies.
+     * In the method, the host with referenced email in the methods argument is placed in a new object
+     * and is checked if it is empty. If empty a HostDTO is returned that only contain the error message
+     * otherwise we return HostDTO that fulfils the initial argument with the error message set to empty.
+     * @param email hosts email that is used as a reference to find a host.
+     * @return HostDTO
+     */
     @Override
     public HostDTO getHostById(String email) {
         Optional<Host> host = hostDAO.getHostByEmail(email);
         if (host.isEmpty()) {
             return new HostDTO(null, "Host with this email can not be found.");
         }
-        return new HostDTO(hostDAO.getHostByEmail(email).get(), "");
+        return new HostDTO(host.get(), "");
     }
 
 }

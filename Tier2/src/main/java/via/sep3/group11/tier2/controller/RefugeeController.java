@@ -123,7 +123,7 @@ public class RefugeeController {
     }
 
 
-@GetMapping("/refugee/{email}")
+    @GetMapping("/refugee/{email}")
     public ResponseEntity<RefugeeDTO> getRefugee(@PathVariable("email") String email){
         try {
             RefugeeDTO refugee = refugeeInterface.getRefugeeById(email);
@@ -135,5 +135,4 @@ public class RefugeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }

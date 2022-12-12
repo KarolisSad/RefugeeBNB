@@ -28,51 +28,11 @@ public class HostController {
         this.hostLogic = hostLogic;
     }
 
-    /**
-     * Creates a host!
-     *
-     * @param host
-     * @return
-     */
-    @CrossOrigin
-    @PostMapping(value = "/host", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<HostDTO> createHost(@RequestBody HostRegisterDTO host) {
-
-        try {
-            HostDTO created = hostLogic.registerHost(host);
-            return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-
-        //return new ResponseEntity<>(host, HttpStatus.CREATED);
-        // return new ResponseEntity<HostDTO>(new HostDTO(new Host(host.getFirstName(), host.getEmail(), host.getPassword(), host.getGender(), host.getNationality(), host.getMiddleName(), host.getLastName(), host.getDateOfBirth()), ""), HttpStatus.CREATED);
-        //return new ResponseEntity<>(new Host(host.getFirstName(), host.getEmail(), host.getPassword(), host.getGender(), host.getNationality(), host.getMiddleName(), host.getLastName(), host.getDateOfBirth()), HttpStatus.CREATED);
-    }
-
-    /**
-     * Gets host by email!!!!
-     *
-     * @param
-     * @return
-     */
-
-    @PostMapping("/host/login")
-    public ResponseEntity<HostDTO> loginHost(@RequestBody LoginDTO loginDTO) {
-        try {
-            HostDTO host = hostLogic.loginHost(loginDTO);
-            return new ResponseEntity<>(host, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 
     @GetMapping("/host/housing/{housingId}")
-    public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable("housingId") long housingId) {
+    public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable ("housingId") long housingId) {
         try {
+            System.out.println("GEtting host by hoiuse id");
             HostDTO hostById = hostLogic.getHostByHousingId(housingId);
             return new ResponseEntity<>(hostById, HttpStatus.OK);
         } catch (Exception e) {
@@ -80,7 +40,6 @@ public class HostController {
         }
 
     }
-
 
     @DeleteMapping("/host/delete/{email}")
     public ResponseEntity<HostDTO> deleteAccount(@PathVariable("email") String email) {
@@ -111,9 +70,7 @@ public class HostController {
 @GetMapping("/host/{email}")
     public ResponseEntity<HostDTO> getHost(@PathVariable("email") String email){
         try {
-            System.out.println("Recieved email: " + email);
             HostDTO host = hostLogic.getHostById(email);
-            System.out.println("Found host: " + host.getHost());
             return new ResponseEntity<>(host, HttpStatus.OK);
         }
 
@@ -135,6 +92,5 @@ public class HostController {
     }
 
  */
-
 
 }

@@ -60,6 +60,7 @@ public class RefugeeDAOImplementation implements RefugeeDaoInterface {
     @Override
     public Refugee updateInformation(Refugee refugee) {
         if (repository.findById(refugee.getEmail()).isPresent()) {
+            System.out.println("UPDATING!");
             return repository.save(refugee);
         }
         return null;

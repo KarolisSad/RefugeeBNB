@@ -3,68 +3,75 @@
 @using System.Collections.ObjectModel
 @using HttpClients.ClientInterfaces
 @inject HousingInterface HousingInterface;
-
-<h3>AddHousing</h3>
-
-<div class="card">
-    <div class="form-group field">
-
-        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@Create>
-            <p>
-                <RadzenLabel Component="Email" Text="Email"/>
-                <RadzenTextBox Name="Email" @bind-Value=@hostEmail />
-                <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
-
-            </p>
-
-            <p>
-                <RadzenLabel Component="country" Text="Country"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Countries) Change="@ChangeCountry"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="city" Text="City"/>
-                <RadzenTextBox Name="city" @bind-Value=@city />
-                <RadzenRequiredValidator Component="city" Text="city is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="streetName" Text="Street name"/>
-                <RadzenTextBox Name="streetName" @bind-Value=@streetName />
-                <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="houseNumber" Text="House number"/>
-                <RadzenTextBox Name="houseNumber" @bind-Value=@houseNumber />
-                <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="roomNumber" Text="Room number"/>
-                <RadzenTextBox Name="roomNumber" @bind-Value=@roomNumber />
-            </p>
-
-            <p>
-                <RadzenLabel Component="postCode" Text="Post code"/>
-                <RadzenTextBox Name="postCode" @bind-Value=@postCode />
-                <RadzenRequiredValidator Component="postCode" Text="postCode name is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="capacity" Text="Capacity"/>
-                <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@capacity />
-                <RadzenRequiredValidator Component="capacity" Text="capacity name is required!"/>
-            </p>
+@inject AuthInterface authService;
+@inject DialogService dialogService;
+@inject NavigationManager navMgr;
 
 
-            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@Create"/>
+<AuthorizeView>
+    <Authorized>
+        <div class="card">
+            <div class="form-group field">
 
-        </RadzenTemplateForm>
+                <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@Create Context="templateContext">
+                    <p>
+                        <RadzenLabel Component="country" Text="Country"/>
+                        <RadzenDropDown @bind-Value="@country" TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Countries) Change="@ChangeCountry"/>
+                    </p>
 
-        <label style="color: @color">@resultMsg</label>
-    </div>
-</div>
+                    <p>
+                        <RadzenLabel Component="city" Text="City"/>
+                        <RadzenTextBox Name="city" @bind-Value=@city />
+                        <RadzenRequiredValidator Component="city" Text="city is required!"/>
+                    </p>
+
+                    <p>
+                        <RadzenLabel Component="streetName" Text="Street name"/>
+                        <RadzenTextBox Name="streetName" @bind-Value=@streetName />
+                        <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
+                    </p>
+
+                    <p>
+                        <RadzenLabel Component="houseNumber" Text="House number"/>
+                        <RadzenTextBox Name="houseNumber" @bind-Value=@houseNumber />
+                        <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
+                    </p>
+
+                    <p>
+                        <RadzenLabel Component="roomNumber" Text="Room number"/>
+                        <RadzenTextBox Name="roomNumber" @bind-Value=@roomNumber />
+                    </p>
+
+                    <p>
+                        <RadzenLabel Component="postCode" Text="Post code"/>
+                        <RadzenTextBox Name="postCode" @bind-Value=@postCode />
+                        <RadzenRequiredValidator Component="postCode" Text="postCode name is required!"/>
+                    </p>
+
+                    <p>
+                        <RadzenLabel Component="capacity" Text="Capacity"/>
+                        <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@capacity />
+                        <RadzenRequiredValidator Component="capacity" Text="capacity name is required!"/>
+                    </p>
+
+
+                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@Create"/>
+
+                </RadzenTemplateForm>
+
+                <RadzenAlert Visible="@showAlert" AlertStyle="AlertStyle.Danger">@resultMsg</RadzenAlert>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+         <RadzenCard>
+                    <RadzenText>You need to be logged in as a Host to view this page.</RadzenText>
+                    <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+                </RadzenCard>
+    </NotAuthorized>
+</AuthorizeView>
+
+
 
 @code {
 
@@ -72,6 +79,7 @@
     {
     }
 
+    
     private string country = "";
     private string city = "";
     private string streetName = "";
@@ -83,28 +91,73 @@
     private string resultMsg = "";
     private string color = "";
 
+    private bool showAlert = false;
+
     public Collection<string> Countries = new Collection<string>() { "Denmark", "Lithuania", "Poland", "France", "Germany", "Ukraine", "Other" };
 
 
     private async Task Create()
     {
         resultMsg = "";
+        showAlert = false;
+        hostEmail = authService.GetEmail();
+
+        try
+        {
+            CheckValues();
         
-            HousingDTO housing = await HousingInterface.AddHousingAsync(new HousingCreationDTO(country, city, streetName, houseNumber, roomNumber, postCode, capacity, hostEmail));
-            if (housing.ErrorMessage.Equals(""))
+            HousingDTO housing = await HousingInterface.AddHousingAsync
+                (new HousingCreationDTO(country, city, streetName, houseNumber,
+                    roomNumber, postCode, capacity, hostEmail));
+            
+            Clear();
+            var dialogResult = await dialogService.Confirm("Housing added. Choose next action below.", "Success", new ConfirmOptions
             {
-                Console.WriteLine("We added a housing to: " + hostEmail);
-                Clear();
-                resultMsg = "User successfully created";
-                color = "green";
-            }
-            else
+                OkButtonText = "Go to overview of added housing",
+                CancelButtonText = "Add more housing"
+            });
+            if (dialogResult.HasValue && dialogResult.Value)
             {
-                Console.WriteLine(housing.ErrorMessage);
-                resultMsg = housing.ErrorMessage;
-                color = "red";
+                navMgr.NavigateTo("/ManageHousingHost");
             }
-        
+        }
+        catch (Exception e)
+        {
+            showAlert = true;
+            resultMsg = e.Message;
+        }
+    }
+
+    private void CheckValues()
+    {
+        if (string.IsNullOrWhiteSpace(country))
+        {
+            throw new Exception("Country must be set");
+        }
+        if (string.IsNullOrWhiteSpace(city))
+        {
+            throw new Exception("City must be set");
+        }
+        if (string.IsNullOrWhiteSpace(streetName))
+        {
+            throw new Exception("Street name must be set");
+        }
+        if (string.IsNullOrWhiteSpace(houseNumber))
+        {
+            throw new Exception("House number must be set");
+        }
+        if (string.IsNullOrWhiteSpace(postCode))
+        {
+            throw new Exception("Post code must be set");
+        }
+        if (capacity < 1)
+        {
+            throw new Exception("Capacity must be at least 1");
+        }
+        if (string.IsNullOrWhiteSpace(hostEmail))
+        {
+            throw new Exception("Host email must be set");
+        }
     }
 
     private void Clear()
@@ -115,7 +168,7 @@
         houseNumber = "";
         roomNumber = "";
         postCode = "";
-        capacity = 0;
+        capacity = 1;
         hostEmail = "";
     }
 
@@ -125,6 +178,11 @@
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         country = (string)str;
         Console.WriteLine($"Value changed to {str}");
+    }
+
+    protected override void OnInitialized()
+    {
+        country = "Denmark";
     }
 
 }

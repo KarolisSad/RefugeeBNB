@@ -8,10 +8,23 @@
 @inject HousingInterface HousingInterface
 @inject AgreementInterface AgreementInterface
 @inject HostInterface HostInterface;
-@inject MenuService MenuService;
+@inject AuthInterface authService;
+@inject NavigationManager navMgr;
+<PageTitle>Available Housing</PageTitle>
 
+<AuthorizeView>
+    <Authorized>
+        
+    </Authorized>
+    <NotAuthorized>
+      <RadzenCard>
+          <RadzenText>You need to be logged in to view this page.</RadzenText>
+          <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+      </RadzenCard>  
+    </NotAuthorized>
+</AuthorizeView>
 
-<h3>DisplayHousing</h3>
+<h3>Display Housing</h3>
 
 
 
@@ -110,22 +123,13 @@
             }
         }
         
-        
-    /*
-        allHousing = new Collection<Housing>()
-        {
-            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069")),
-            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069")),
-            new Housing(3, new Address("Poland", "Poznan", "Topolowa", "5", "", "62-069"))
-        };
-        */
     }
 
 
     private async void ConfirmAsync()
     {
-        RequestAgreementDTO dto = await AgreementInterface.RequestAgreementAsync(new RequestAgreementDTO(MenuService.RefugeeLogged,ownerEmail, selectedHousing,"" ));
-
+        RequestAgreementDTO dto = await AgreementInterface.RequestAgreementAsync(new RequestAgreementDTO(authService.GetEmail(),ownerEmail, selectedHousing,"" ));
+        navMgr.NavigateTo("/");
 
         if (dto.ErrorMessage.Equals(""))
         {
@@ -144,17 +148,31 @@
     {
         selectedHousing = housing;
 
-        HostDTO owner = await HostInterface.GetHostByHousingIdAsync(selectedHousing.HousingId);
-        if (owner.ErrorMessage.Equals(""))
+        Console.WriteLine("Trying to get owner for house: " + housing.HousingId);
+
+        try
         {
-            ownerEmail = owner.Host.Email;
-            resultMsg = "";
+            HostDTO owner = await HostInterface.GetHostByHousingIdAsync(selectedHousing.HousingId);
+            Console.WriteLine("ERROR: " + owner.ErrorMessage);
+            if (owner.ErrorMessage.Equals(""))
+            {
+                Console.WriteLine("GOT HOST EMAIL: " + ownerEmail);
+                ownerEmail = owner.Host.Email;
+                Console.WriteLine("GOT HOST EMAIL: " + ownerEmail);
+                resultMsg = "";
+            }
+            else
+            {
+                resultMsg = owner.ErrorMessage;
+                color = "red";
+            }
         }
-        else
+        catch (Exception e)
         {
-            resultMsg = owner.ErrorMessage;
-            color = "red";
+            Console.WriteLine(e);
+            throw;
         }
+        
         
         Console.WriteLine("Selected housing changed to " + selectedHousing.Address.City + ", " + selectedHousing.Address.HouseNumber);
         showModal = true;

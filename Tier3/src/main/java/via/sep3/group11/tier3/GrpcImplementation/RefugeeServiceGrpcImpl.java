@@ -54,6 +54,7 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
         responseObserver.onCompleted();
     }
 
+
     @Override
     public void updateInformation(GRefugee request, StreamObserver<GRefugee> responseObserver) {
 
@@ -68,4 +69,5 @@ public class RefugeeServiceGrpcImpl extends RefugeeGrpc.RefugeeImplBase {
             responseObserver.onCompleted();
         }
     }
+
 }

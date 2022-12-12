@@ -11,6 +11,13 @@ import via.sep3.group11.tier2.shared.domain.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class implementing AgreementInterface.
+ * Class is implemented with @Service-annotation to mark it as a Spring-component.
+ * @see via.sep3.group11.tier2.logicInterfaces.HostInterface
+ * @version 12-12-2022
+ * @author Group 11
+ */
 @Service
 public class AgreementLogic implements AgreementInterface {
 
@@ -19,6 +26,13 @@ public class AgreementLogic implements AgreementInterface {
     private AgreementCommunicationInterface agreementDAO;
     private RefugeeCommunicationInterface refugeeDAO;
 
+    /**
+     * All-argument constructor used to inject the three DAO's needed for communicating with the data-tier.
+     * @param hostDAO: Data Access Object used for accessing Host-information in the data-tier.
+     * @param housingDAO: Data Access Object used for accessing Housing-information in the data-tier.
+     * @param agreementDAO Data Access Object used for accessing Agreement-information in the data-tier.
+     * @param refugeeDAO Data Access Object used for accessing Refugee-information in the data-tier.
+     */
     public AgreementLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO, AgreementCommunicationInterface agreementDAO, RefugeeCommunicationInterface refugeeDAO) {
         this.hostDAO = hostDAO;
         this.housingDAO = housingDAO;
@@ -26,26 +40,32 @@ public class AgreementLogic implements AgreementInterface {
         this.refugeeDAO = refugeeDAO;
     }
 
+    /**
+     * Implementation of a method that is meant to request housing by the refugee and creation of the agreement.
+     * In the method, the given dto in an argument contains a host reference and using that a host object is created to check if the given
+     * host is not empty otherwise the error message inside a dto is sent. Likewise, is done with a housing as well as
+     * the housing is checked if it's available. If the checks are passed a new argument is created and sent to the database.
+     * @param dto agreement dto that contains reference to host, refugee, housing and an error message that is initially set to empty string.
+     * @return AgreementDTO
+     */
     @Override
     public AgreementDTO requestAgreement(RequestAgreementDTO dto) {
-        Agreement dummyAgreement = dummyAgreement();
-
         // Host check
         Optional<Host> host = hostDAO.getHostByEmail(dto.getHostEmail());
         if (host.isEmpty())
         {
-            return new AgreementDTO(dummyAgreement, "Owner of this housing deactivated his account and this housing is no longer available");
+            return new AgreementDTO(null, "Owner of this housing deactivated his account and this housing is no longer available");
         }
         // Housing check
         Optional<Housing> housing = housingDAO.getHousingById(dto.getHousing().getHousingId());
 
         if (housing.isEmpty())
         {
-            return new AgreementDTO(dummyAgreement, "This housing is no longer listed.");
+            return new AgreementDTO(null, "This housing is no longer listed.");
         }
         if (!housing.get().isAvailable())
         {
-            return new AgreementDTO(dummyAgreement, "This housing is already reserved.");
+            return new AgreementDTO(null, "This housing is already reserved.");
         }
         Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(dto.getRefugeeEmail());
 
@@ -55,26 +75,28 @@ public class AgreementLogic implements AgreementInterface {
         return new AgreementDTO(createdAgreement,"");
     }
 
+    /**
+     * Implementation of a method that is meant to respond to a request for a new agreement with either accepted or not status.
+     * In the method, a new agreement object is created that contains a referenced object from RequestAgreementDTO. A isEmpty check
+     * is made as well as isAccepted and if it's not empty and accepted the agreement status is changed and saved in the database.
+     * otherwise the agreement is deleted.
+     * @param dto an object that contains agreement Id, status and error message set to empty string.
+     * @return AgreementDTO
+     */
     @Override
     public AgreementDTO respondToAgreement(RespondAgreementDTO dto) {
-        Agreement dummyAgreement = dummyAgreement();
-
         // Agreement check
         Optional<Agreement> agreement = agreementDAO.getAgreementById(dto.getAgreementID());
         if (agreement.isEmpty())
         {
-            System.out.println("agreement is empty");
-            return new AgreementDTO(dummyAgreement,"This agreement no longer exists");
+            return new AgreementDTO(null,"This agreement no longer exists");
         }
-
-
-        if (dto.isAccepted())
+        else if (dto.isAccepted())
         {
             //Update housing
             Optional<Housing> updatedHousing = housingDAO.getHousingById(agreement.get().getHousing().getHousingId());
             updatedHousing.get().setAvailable(false);
-
-            // todo delete all requests for this housing
+            housingDAO.updateHousing(updatedHousing.get());
 
             // Update agreement
             agreement.get().setAccepted(true);
@@ -84,22 +106,25 @@ public class AgreementLogic implements AgreementInterface {
         else {
             // Delete agreement
             agreementDAO.deleteAgreement(agreement.get().getAgreementId());
+            //todo check for testing
+            Optional <Housing> housing = housingDAO.getHousingById(agreement.get().getHousing().getHousingId());
+            housing.get().setAvailable(true);
+
+            housingDAO.updateHousing(housing.get());
             return new AgreementDTO(agreement.get(), "");
         }
     }
-            //Todo above: when removing an agreement, first get housing and set available to true again.. maybe this would be easier if we allow remove method from data tier to return the removed object?
+
+    /**
+     * Implementation of a method that is meant to get all agreements that are pending status of not accepted.
+     * In the method, a new agreement list is created that has a reference to a specific host email.
+     * @param dto dto that contains host email and error message
+     * @return
+     */
     @Override
     public AgreementListDTO getAllRequestsByHost(AgreementsByHostDTO dto) {
         List<Agreement> a = agreementDAO.getAgreementsByHostId(dto.getHostEmail());
         AgreementListDTO agreementListDTO = new AgreementListDTO(a, "");
         return agreementListDTO;
-    }
-
-    public Agreement dummyAgreement()
-    {
-        Host dummyHost = new Host("dummyHost","dummyHost@gmail.com","DummyHost", 'O',"DummyHost","DummyHost","DummyHost", new Date(01,01,2021));
-        Housing dummyHousing = new Housing(1,new Address("DummyData","DummyData","DummyData","DummyData","DummyData","DummyData"),false);
-        Refugee dummyRefugee = new Refugee("DummyRefugee@gmail.com","DummyRefugee",'O',"DummyRefugee","DummyRefugee","DummyRefugee","DummyRefugee",new Date(01,01,2021), 5, "DummyDummyDummyDummyDummyDummyDummy");
-        return new Agreement(9999L,dummyHost,dummyHousing,dummyRefugee,false);
     }
 }

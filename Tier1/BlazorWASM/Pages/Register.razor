@@ -2,88 +2,133 @@
 @using HttpClients.ClientInterfaces
 @using global::Shared.Domain
 @using System.Collections.ObjectModel
-@using System.Text.Json
 @using global::Shared.DTOs
-@using System.Collections
-@inject HostInterface hostClient;
-@inject RefugeeInterface refugeeClient;
-
+@inject AuthInterface authService;
+@inject DialogService dialogService;
+@inject NavigationManager navMgr;
+@inject TooltipService tooltipService;
 
 <h3>Register</h3>
 
-<div class="card">
+<RadzenCard class="d-flex">
     <div class="form-group field">
-
+    
         <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@CreateAsync>
-            <p>
-                <RadzenLabel Component="Email" Text="Email"/>
-                <RadzenTextBox Name="Email" @bind-Value=@email />
-                <RadzenEmailValidator Component="Email" Text="Enter email" />
-                <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
-
-            </p>
-            <p>
-                <RadzenLabel Component="Password" Text="Password"/>
-                <RadzenPassword @bind-Value=@password />
-                <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
-            </p>
             
-            <p>
-                <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="FirstName" Text="First name"/>
-                <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
-                <RadzenRequiredValidator Component="FirstName" Text="First name is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="MiddleName" Text="Middle name"/>
-                <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
-            </p>
-
-            <p>
-                <RadzenLabel Component="LastName" Text="Last name"/>
-                <RadzenTextBox Name="LastName" @bind-Value=@lastName />
-                <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
-            </p>
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <RadzenLabel Component="PersonType" Text="Who are you?"/>
+                </div>
+                <div class="col">
+                    <RadzenRadioButtonList TValue="int?" Change=@((args) => OnChange(args.Value))>
+                        <Items>
+                            <RadzenRadioButtonListItem Text="Host" Value="1" TValue="int?"/>
+                            <RadzenRadioButtonListItem Text="Refugee" Value="2" TValue="int?"/>
+                        </Items>
+                    </RadzenRadioButtonList>
+                </div>
+            </div>
             
-            <p>
-                <RadzenLabel Component="Gender" Text="Gender"/>
-                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="PersonType" Text="Who are you?"/>
-                <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange"/>
-            </p>
-
-            <p>
-                <label for="dateOfBirth">Date of birth:</label>
-                <input type="date" id="dateOfBirth" name="dateofBirth" @bind="date">
-            </p>
-            
-            @if (personType.Contains("refugee"))
-                        {
-                            <p>
-                                <RadzenLabel Component="familySize" Text="Family Size"/>
-                                <RadzenNumeric TValue="int" Min="1" Max="50" @bind-Value=@familysize  />
-                            </p>
-                            <p>
-                                <RadzenLabel Component="description" Text="Additional Information"/>
-                                <RadzenTextArea @bind-Value=@description TValue="string" Change=@DescriptionChange />
-                            </p>
-                        }
-
-            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@CreateAsync"/>
+            <div class="row p-2">
+                <div class="col-4">
+                    <RadzenLabel Component="Email" Text="Email"/>
+                </div>
+                <div class="col">
+                    <RadzenTextBox Name="Email" @bind-Value=@email></RadzenTextBox>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <RadzenLabel Component="Password" Text="Password"/>
+                </div>
+                <div class="col">
+                     <RadzenPassword @bind-Value=@password />
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <RadzenLabel Component="Nationality" Text="Nationality"/>
+                </div>
+                <div class="col">
+                    <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                    <RadzenLabel Component="FirstName" Text="First name"/>
+                </div>
+                <div class="col">
+                     <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <RadzenLabel Component="MiddleName" Text="Middle name"/>
+                </div>
+                <div class="col">
+                     <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <RadzenLabel Component="LastName" Text="Last name"/>
+                </div>
+                <div class="col">
+                     <RadzenTextBox Name="LastName" @bind-Value=@lastName />
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                    <RadzenLabel Component="Gender" Text="Gender"/>
+                </div>
+                <div class="col">
+                     <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange"/>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-4">
+                     <label for="dateOfBirth">Date of birth:</label>
+                </div>
+                <div class="col">
+                    <input type="date" id="dateOfBirth" name="dateofBirth" @bind="date">
+                </div>
+            </div>
+            @if (isRefugee)
+            {
+                <div class="row p-2">
+                    <div class="col-4">
+                        <RadzenLabel Component="About" Text="Description" MouseEnter=
+                                     "@(args => ShowTooltip(args, "This field is intended for you to write information which might be of relevance to hosts.", new TooltipOptions() { Position = TooltipPosition.Left, Duration = 10000 }))" Class="me-1 mb-1"/>
+                    </div>
+                    <div class="col">
+                         <RadzenTextArea @bind-Value="about" Cols="22" Rows="10"></RadzenTextArea>
+                    </div>
+                </div>
+                
+                <div class="row p-2">
+                    <div class="col-4">
+                        <RadzenLabel Component="familySize" Text="Family Size" MouseEnter=
+                                     "@(args => ShowTooltip(args, "Including yourself", new TooltipOptions() { Position = TooltipPosition.Left, Duration = 10000 }))" Class="me-1 mb-1"/>
+                    </div>
+                    <div class="col">
+                        <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@familySize />
+                        <RadzenRequiredValidator Component="capacity" Text="capacity name is required!"/>
+                    </div>
+                </div>
+            }
+            <div class="row p-2">
+                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@CreateAsync"/>
+            </div>
 
         </RadzenTemplateForm>
-
-        <label style="color: @color">@resultMsg</label>
+    
+            @if (showAlert)
+            {
+                <RadzenAlert AlertStyle=@alertStyle AllowClose="false">@resultMsg</RadzenAlert>
+            }
     </div>
-</div>
+</RadzenCard>
+
 
 
 @code {
@@ -101,60 +146,104 @@
     private string firstName = "";
     private string middleName = "";
     private string lastName = "";
-    private int familysize = 0;
-    private string description = "";
+    private string about = "";
+    private int familySize = 1;
     DateOnly date = new DateOnly(2011, 11, 11);
 
-    public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
     public Collection<string> Nationalities = new Collection<string>() { "Danish", "Lithuanian", "Polish", "English", "French", "Ukrainian", "German", "Other" };
     public Collection<string> GenderCollection = new Collection<string>() { "Female", "Male", "Other" };
 
+    private bool showAlert;
+    private AlertStyle alertStyle;
     private string resultMsg = "";
+    private bool isRefugee = false;
+
+    private ElementReference reference;
 
     private string color = "";
 
     private async Task CreateAsync()
     {
+        
         resultMsg = "";
         Date dateOfBirth = new Date(date.Day, date.Month, date.Year);
 
-        if (personType.Contains("host"))
+        try
         {
-            HostDTO host = await hostClient.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth));
-                if (host.ErrorMessage.Equals(""))
-                {
-                    Console.WriteLine("We created a host.");
-                    Clear();
-                    resultMsg = "User successfully created";
-                    color = "green";
-                }
-                else
-                {
-                    Console.WriteLine(host.ErrorMessage);
-                    resultMsg = host.ErrorMessage;
-                    color = "red";
-                }
+            CheckValues();
+            
+            if (personType.Contains("host"))
+            {
+
+                HostDTO host = await authService.RegisterHostAsync(new HostRegisterDTO(email, password, gender[0],
+                    nationality, firstName, middleName, lastName, dateOfBirth));
             }
-        else if (personType.Contains("refugee"))
-        {
-            RefugeeDTO refugee = await refugeeClient.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0], nationality, firstName, middleName, lastName, dateOfBirth, familysize, description, ""));
-                if (refugee.ErrorMessage.Equals(""))
-                {
-                    Clear();
-                    resultMsg = "User successfully created";
-                    color = "green";
-                    Console.WriteLine("We created a refugee.");
-                }
-                else
-                {
-                    Console.WriteLine(refugee.ErrorMessage);
-                    resultMsg = refugee.ErrorMessage;
-                    color = "red";
-                }
-                
+            else if (personType.Contains("refugee"))
+            {
+                RefugeeDTO refugee = await authService.RegisterRefugeeAsync(new RefugeeRegisterDTO(email, password, gender[0],
+                    nationality, firstName, middleName, lastName, dateOfBirth, familySize, about));
+            }
+            
+            Clear();
+            var dialogResult = await dialogService.Alert("Registration complete. Click proceed to go to login", "Success", new AlertOptions { OkButtonText = "Go to login" });
+            if (dialogResult.HasValue && dialogResult.Value)
+            {
+                navMgr.NavigateTo("/Login");
+            }
+
         }
+        catch (Exception e)
+        {
+            showAlert = true;
+            resultMsg = e.Message;
+            alertStyle = AlertStyle.Danger;
+        }
+
     }
 
+    private void CheckValues()
+    {
+        if (string.IsNullOrWhiteSpace(personType))
+        {
+            throw new Exception("Please select which type of account to register for");
+        }
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            throw new Exception("Email must be set");
+        }
+        if (!email.Contains(".") || !email.Contains("@"))
+        {
+            throw new Exception("Please enter a valid email");
+        }
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            throw new Exception("Password must be set");
+        }
+        if (string.IsNullOrWhiteSpace(nationality))
+        {
+            throw new Exception("Please select a nationality");
+        }
+        if (string.IsNullOrWhiteSpace(firstName))
+        {
+            throw new Exception("First name must be set");
+        }
+        if (string.IsNullOrWhiteSpace(lastName))
+        {
+            throw new Exception("Last name must be set");
+        }
+        if (string.IsNullOrWhiteSpace(gender))
+        {
+            throw new Exception("Please select a gender");
+        }
+
+        if (isRefugee)
+        {
+            if (familySize < 1)
+            {
+                throw new Exception("Family size must be at least 1");
+            }
+        }
+    }
     private void Clear()
     {
         email = "";
@@ -166,43 +255,51 @@
         middleName = "";
         lastName = "";
         date = new DateOnly(2011, 11, 11);
+        familySize = 1;
+        about = "";
+        showAlert = false;
     }
-
-    private void OnChange(object value)
+    private void OnChange(int value)
     {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-        if (str.Equals("I am a Host."))
+        Console.WriteLine("Value changed to: " + value);
+
+        if (value == 1)
         {
             personType = "host";
+            isRefugee = false;
         }
-        else
+        if (value == 2)
         {
             personType = "refugee";
+            isRefugee = true;
         }
-
-        Console.WriteLine($"Value changed to {str}");
     }
-
     private void ChangeNationality(object value)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         nationality = (string)str;
         Console.WriteLine($"Nationality changed to {str}");
     }
-
-
     private void GenderChange(object value)
     {
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         gender = (string)str;
         Console.WriteLine($"Gender changed to {str}");
     }
+    private void ShowTooltip(ElementReference elementReference,  string text,TooltipOptions options = null)
+        => tooltipService.Open(elementReference, text, options);
+    
 
-    private void DescriptionChange(object value)
+
+
+
+    
+
+    protected override void OnInitialized()
     {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-        description = (string)str;
-        Console.WriteLine($"Description changed to {str}");
+        personType = "host";
+        nationality = "Danish";
+        gender = "Female";
     }
 
 }
