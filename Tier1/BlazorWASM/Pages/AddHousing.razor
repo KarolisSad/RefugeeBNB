@@ -72,68 +72,6 @@
 </AuthorizeView>
 
 
-<h3>Add Housing</h3>
-
-<div class="card">
-    <div class="form-group field">
-
-        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Data="@model" Submit=@Create>
-            <p>
-                <RadzenLabel Component="Email" Text="Email"/>
-                <RadzenTextBox Name="Email" @bind-Value=@hostEmail />
-                <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
-
-            </p>
-
-            <p>
-                <RadzenLabel Component="country" Text="Country"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Countries) Change="@ChangeCountry" Value="Countries.First()"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="city" Text="City"/>
-                <RadzenTextBox Name="city" @bind-Value=@city />
-                <RadzenRequiredValidator Component="city" Text="city is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="streetName" Text="Street name"/>
-                <RadzenTextBox Name="streetName" @bind-Value=@streetName />
-                <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="houseNumber" Text="House number"/>
-                <RadzenTextBox Name="houseNumber" @bind-Value=@houseNumber />
-                <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="roomNumber" Text="Room number"/>
-                <RadzenTextBox Name="roomNumber" @bind-Value=@roomNumber />
-            </p>
-
-            <p>
-                <RadzenLabel Component="postCode" Text="Post code"/>
-                <RadzenTextBox Name="postCode" @bind-Value=@postCode />
-                <RadzenRequiredValidator Component="postCode" Text="postCode name is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="capacity" Text="Capacity"/>
-                <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@capacity />
-                <RadzenRequiredValidator Component="capacity" Text="capacity name is required!"/>
-            </p>
-
-
-            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@Create"/>
-
-        </RadzenTemplateForm>
-
-        <label style="color: @color">@resultMsg</label>
-    </div>
-</div>
-
 
 @code {
 
@@ -141,7 +79,6 @@
     {
     }
 
-    Person model = new Person();
     
     private string country = "";
     private string city = "";

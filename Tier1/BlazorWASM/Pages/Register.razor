@@ -117,58 +117,9 @@
                 </div>
             }
             <div class="row p-2">
-                 <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@CreateAsync"/>
+                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@CreateAsync"/>
             </div>
-            <p>
-                <RadzenLabel Component="Email" Text="Email"/>
-                <RadzenTextBox Name="Email" @bind-Value=@email />
-                <RadzenEmailValidator Component="Email" Text="Enter email" />
-                <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
 
-            </p>
-            <p>
-                <RadzenLabel Component="Password" Text="Password"/>
-                <RadzenPassword Name="Password" @bind-Value=@password />
-                <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
-            </p>
-            
-            <p>
-                <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" Value="Nationalities.First()"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="FirstName" Text="First name"/>
-                <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
-                <RadzenRequiredValidator Component="FirstName" Text="First name is required!"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="MiddleName" Text="Middle name"/>
-                <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
-            </p>
-
-            <p>
-                <RadzenLabel Component="LastName" Text="Last name"/>
-                <RadzenTextBox Name="LastName" @bind-Value=@lastName />
-                <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
-            </p>
-            
-            <p>
-                <RadzenLabel Component="Gender" Text="Gender"/>
-                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange" Value="GenderCollection.First()"/>
-            </p>
-
-            <p>
-                <RadzenLabel Component="PersonType" Text="Who are you?"/>
-                <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange" Value="PersonTypeCollection.First()"/>
-            </p>
-
-            <p>
-                <label for="dateOfBirth">Date of birth:</label>
-                <input type="date" id="dateOfBirth" name="dateofBirth" @bind="date">
-            </p>
-            
         </RadzenTemplateForm>
     
             @if (showAlert)

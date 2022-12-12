@@ -7,6 +7,10 @@
 @inject MenuService MenuService;
 @implements IDisposable;
 
+
+<!-- IF NOT LOGGED IN -->
+
+
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">RefugeeBnB</a>
@@ -16,28 +20,30 @@
     </div>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
+    <nav class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <nav class="flex-column">
+            <AuthorizeView>
+        <NotAuthorized>
+                <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="fa fa-home m-lg-2" aria-hidden="true"></span> Home
             </NavLink>
         </div>
 
-        <!-- IF NOT LOGGED IN -->
-        <AuthorizeView>
-            <NotAuthorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="/Register" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Register
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="/Login" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Login
-                    </NavLink>
-                </div>
-            </NotAuthorized>
+
+            
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/Register" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Register
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/Login" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Login
+            </NavLink>
+        </div>
+    
+        </NotAuthorized>
 
 
           
@@ -78,17 +84,13 @@
                     </div>
                 }
                 
-                <div class="nav-item px-3">
-                    <RadzenText TextStyle="TextStyle.Body2" Style="color: #d7d7d7">My information: </RadzenText>
-                    <RadzenText TextStyle="TextStyle.Caption" Style="color: #d7d7d7">@authService.GetAuthAsync().Result.Claims.First().Value</RadzenText>
-                </div>
             </Authorized>
-        </AuthorizeView>
+            </AuthorizeView>
+  </nav>
+      </nav>
+    
         
 
-
-    </nav>
-</div>
 
 @code {
 

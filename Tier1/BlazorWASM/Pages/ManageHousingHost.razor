@@ -12,44 +12,6 @@
 <h3>Manage Housing Host</h3>
 
 
-
-
-    @foreach (Housing housing in myHousing)
-{
-    <div class="card" style="width: 700px">
-        <div class="col-lg-12 product-title">
-            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">House</RadzenText>
-        </div>
-        <div >
-            <div class="row d-flex">
-                <div class="col-lg-2 col-lg-">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Country</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.Country)</RadzenText>
-                </div>
-                <div class="col-lg-2 ">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">City</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.City)</RadzenText>
-                </div>
-                <div class="col-lg-2 ">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Street</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.StreetName)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.HouseNumber)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address?.RoomNumber)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Post code</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.PostCode)</RadzenText>
-                </div>
-            </div>
-            <div>
-                <button class="applyBtn" @onclick="args => DeleteAsync(housing)">Delete</button>
-            </div>
 <AuthorizeView>
     <Authorized>
         
@@ -127,10 +89,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-       await base.OnInitializedAsync();
+        await base.OnInitializedAsync();
         await UpdateList();
     }
-    
+
     private async Task DeleteAsync(Housing housing)
     {
         try
@@ -164,4 +126,5 @@
 
     }
 
+}
 }

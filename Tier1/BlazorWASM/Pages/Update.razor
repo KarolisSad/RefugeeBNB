@@ -26,7 +26,6 @@
 
             <p>
                 <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenDropDown TValue="string" @bind-Value="@nationality"  AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
                 <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" Value="@nationality" />
             </p>
 
@@ -53,8 +52,6 @@
             <p>
                 <RadzenLabel Component="Gender" Text="Gender"/>
                 <RadzenDropDown TValue="string" @bind-Value="gender"  Data=@(GenderCollection) Change="@GenderChange"/>
-
-                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange" Value="gender" />
             </p>
             @if (isRefugee)
             {
@@ -112,7 +109,6 @@
             if (host.ErrorMessage.Equals(""))
             {
                 resultMsg = "User updated successfully.";
-                Clear();
                 var dialog = await dialogService.Alert(resultMsg, "Success", new AlertOptions
                 {
                     OkButtonText = "Proceed"
@@ -139,7 +135,6 @@
             if (refugee.ErrorMessage.Equals(""))
             {
                 resultMsg = "User updated successfully.";
-                Clear();
                 var dialog = await dialogService.Alert(resultMsg, "Success", new AlertOptions
                 {
                     OkButtonText = "Proceed"
@@ -202,9 +197,7 @@
         if (isRefugee)
         {
             RefugeeDTO dto = await RefugeeInterface.GetRefugee(authService.GetEmail());
-
-            RefugeeDTO dto = await RefugeeInterface.GetRefugee(MenuService.RefugeeLogged);
-            password = dto.Refugee.Password;
+            password = "";
             familysize = dto.Refugee.FamilySize;
             description = dto.Refugee.Description;
             nationality = dto.Refugee.Nationality;
@@ -224,9 +217,7 @@
         }else
         {
             HostDTO dto = await HostInterface.GetHost(authService.GetEmail());
-
-            HostDTO dto = await HostInterface.GetHost(MenuService.HostLogged);
-            password = dto.Host.Password;
+            password = "";
             nationality = dto.Host.Nationality;
             if (dto.Host.Gender.ToString().Equals("F"))
             {
