@@ -48,9 +48,10 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
      */
     @Override
     public Agreement updateAgreement(Agreement agreement) {
+        Agreement updated = agreementRepository.save(agreement);
         if (agreementRepository.findById(agreement.getAgreementId()).isPresent()) {
             deletePendingAgreements(agreement.getHost().getEmail());
-            return agreementRepository.save(agreement);
+            return updated;
         }
         return null;
     }

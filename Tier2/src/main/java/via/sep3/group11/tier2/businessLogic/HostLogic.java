@@ -6,13 +6,13 @@ import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInte
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.logicInterfaces.HostInterface;
-import via.sep3.group11.tier2.shared.DTOs.*;
+import via.sep3.group11.tier2.shared.DTOs.HostDTO;
+import via.sep3.group11.tier2.shared.DTOs.HostRegisterDTO;
+import via.sep3.group11.tier2.shared.DTOs.HostUpdateDTO;
+import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.domain.Agreement;
-import via.sep3.group11.tier2.shared.domain.Date;
 import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Housing;
-import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
-import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import java.util.List;
 import java.util.Optional;
@@ -203,7 +203,6 @@ public class HostLogic implements HostInterface {
 
             return new HostDTO(updated, "");
         }
-    }
 
     /**
      * Implementation of method used to find a host by hosts email as the method implies.
