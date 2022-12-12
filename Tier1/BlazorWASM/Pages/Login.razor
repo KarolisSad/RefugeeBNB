@@ -1,136 +1,108 @@
 ﻿@page "/Login"
 @using HttpClients.ClientInterfaces
 @using System.Collections.ObjectModel
+@using System.Security.Claims
 @using global::Shared.Domain
 @using global::Shared.DTOs
 @using LogicForPages
 @inject HostInterface HostInterface;
 @inject RefugeeInterface RefugeeInterface;
 @inject NavigationManager navMgr;
+
 @inject MenuService MenuService;
+@inject AuthInterface authService;
 
 
-<h3>Log in</h3>
-<div class="card">
-    <div class="form-group field">
-        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@OnLogin>
-            <p>
+
+    <h3>Login</h3>
+    <div class="card">
+        <div class="form-group field">
+            <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="LoginDTO" Submit=@OnLogin>
+             <p>
                 <RadzenLabel Text="Who are you?"/>
                 <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange"/>
             </p>
 
-            <p>
-                <RadzenLabel Component="Email" Text="Email"/>
-                <RadzenTextBox Name="Email" @bind-Value=@email />
-                <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
 
-            </p>
-            <p>
-                <RadzenLabel Component="Password" Text="Password"/>
-                <RadzenPassword @bind-Value=@password />
-                <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
-            </p>
+                <p>
+                    <RadzenLabel Component="Email" Text="Email"/>
+                    <RadzenTextBox Name="Email" @bind-Value=@email></RadzenTextBox>
+                    <RadzenRequiredValidator Component="Email" Text="Email is required!"/>
 
-            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Login" Click="@OnLogin"/>
-            <label style="color: @color">@resultMsg</label>
-        </RadzenTemplateForm>
+                </p>
+                <p>
+                    <RadzenLabel Component="Password" Text="Password"/>
+                    <RadzenPassword @bind-Value=@password></RadzenPassword>
+                    <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
+                </p>
+
+                <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Login" Click="@OnLogin"/>
+                <label style="color: @color">@resultMsg</label>
+            </RadzenTemplateForm>
+        </div>
+        
+        @if (ShowAlert)
+        {
+            <RadzenAlert AlertStyle="AlertStyle.Danger" AllowClose="false">@alertText</RadzenAlert>
+        }
     </div>
-</div>
+
 
 
 @code {
 
-    class Person
-    {
-    }
     private string email { get; set; }
     private string password { get; set; }
-
-    private string personType = "";
-
-    public Collection<string> PersonTypeCollection = new Collection<string>() { "I am a Host.", "I am a Refugee." };
+   
     private string resultMsg = "";
-    private string color = "";
+    private string color = "GREEN";
+
+    private bool ShowAlert = false;
+    private string alertText = "";
     
 
 
-    private async void OnLogin()
+    private async Task OnLogin()
     {
-    
-     if (personType.Contains("host"))
+        ShowAlert = false;
+        alertText = "";
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
-            HostDTO hostDto = await HostInterface.LoginHostAsync(new LoginDTO(email, password));
-            if (hostDto.ErrorMessage.Equals(""))
-            {
-                Console.WriteLine("Host has logged in: " + email + ", " + password);
-                navMgr.NavigateTo("/");
-                
-                //changing Singeton values
-                MenuService.Host = true;
-                MenuService.Refugee = false;
-                MenuService.HostLogged = email;
-                MenuService.RefugeeLogged = "";
-                    
-                color = "green";
-                resultMsg = "You have logged in";
-            }
-            else
-            {
-                Console.WriteLine(hostDto.ErrorMessage);
-                resultMsg = hostDto.ErrorMessage;
-                color = "red";
-            }
+            ShowAlert = true;
+            alertText = "Email and password fields must be filled!";
             
+            return;
         }
-        else if (personType.Contains("refugee"))
+
+        try
         {
-            RefugeeDTO refugee = await RefugeeInterface.LoginRefugeeAsync(new LoginDTO(email, password));
-            if (refugee.ErrorMessage.Equals(""))
-            {
-                Console.WriteLine("Refugee has logged in: " + email);
-                navMgr.NavigateTo("/");
-                
-                //changing singleton values
-                MenuService.Host = false;
-                MenuService.Refugee = true;
-                MenuService.HostLogged = "";
-                MenuService.RefugeeLogged = email;
-                
-                
-                color = "green";
-                resultMsg = "You have logged in";
-            }
-            else
-            {
-                Console.WriteLine(refugee.ErrorMessage);
-                resultMsg = refugee.ErrorMessage;
-                color = "red";
-            }
-            
+            await DoLogin();
         }
-        else
+        catch (Exception e)
         {
-            color = "red";
-            resultMsg = "Make sure you let us know if you are a host or a refuge.";
+            ShowAlert = true;
+            alertText = e.Message;
         }
         
+        
+        resultMsg = "";
+      
     }
 
-
-    private void OnChange(object value)
+    private async Task DoLogin()
     {
-        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-        if (str.Equals("I am a Host."))
+        try
         {
-            personType = "host";
-        }
-        else
-        {
-            personType = "refugee";
-        }
+            await authService.LoginAsync(new LoginDTO(email, password));
 
-        Console.WriteLine($"Value changed to {str}");
+            Claim role = authService.GetAuthAsync().Result.Claims.First(claim => claim.Type.Equals("Role"));
+            Console.WriteLine("Logged in as: " + role.Value);
+            navMgr.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            ShowAlert = true;
+            alertText = e.Message;
+        }
     }
-    
-
 }

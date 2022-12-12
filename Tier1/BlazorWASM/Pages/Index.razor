@@ -1,4 +1,5 @@
 ﻿@page "/"
+
 @inject NavigationManager NavigationManager;
 <PageTitle>Index</PageTitle>
 
@@ -15,6 +16,35 @@
         <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Register" Click="@Register"/>
     </div>
 </div>
+
+// the other approach
+
+@using HttpClients.ClientInterfaces
+@inject AuthInterface authService; 
+
+<PageTitle>Index</PageTitle>
+
+<RadzenCard>
+    <div class="row p-2">
+        <RadzenText TextStyle="TextStyle.H4" TextAlign="TextAlign.Center">Welcome to Refugee BnB</RadzenText>
+    </div>
+    
+<AuthorizeView>
+    <Authorized>
+        <RadzenText> Currently logged in as: </RadzenText>
+        <RadzenText>@authService.GetEmail()</RadzenText>
+    </Authorized>
+    <NotAuthorized>
+    <div class="row p-2">
+                <RadzenText TextStyle="TextStyle.Body1">Our goal is to make it easier to connect refugees and possible hosts all over the world!</RadzenText>
+            </div>
+        
+    </NotAuthorized>
+</AuthorizeView>
+</RadzenCard>
+
+
+
 
 @code{
 private void Register()

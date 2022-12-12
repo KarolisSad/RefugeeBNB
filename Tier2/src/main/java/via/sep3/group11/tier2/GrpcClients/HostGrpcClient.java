@@ -79,8 +79,12 @@ public class HostGrpcClient implements HostCommunicationInterface {
     public Host updateInformation(Host host) {
 
         try {
+            System.out.println("UPDATE CALLED GRPC");
             GHostDetails request = hostDetailsToGrpc(host);
+            System.out.println("REQUEST MADE GRPC");
             GHost response = channel.getHostStub().withDeadlineAfter(1, TimeUnit.SECONDS).updateInformation(request);
+            System.out.println("RESPONSE GOTTEN GRPC");
+            System.out.println(response);
             return hostFromGrpc(response);
         } catch (StatusRuntimeException e) {
             reestablishConnection();

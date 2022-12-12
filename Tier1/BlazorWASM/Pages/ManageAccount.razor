@@ -1,7 +1,7 @@
 ﻿@page "/ManageAccount"
-@using LogicForPages
 @using HttpClients.ClientInterfaces
 @using global::Shared.DTOs
+
 <h3>Manage your account</h3>
 @inject MenuService MenuService;
 @inject RefugeeInterface RefugeeInterface;
@@ -41,6 +41,49 @@
     </div>
     <div class="provide-help">
          <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 18px" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
+
+@inject RefugeeInterface RefugeeInterface;
+@inject HostInterface HostInterface;
+@inject AuthInterface authService;
+@inject NavigationManager navMgr;
+@inject DialogService dialogService;
+
+<AuthorizeView>
+    <Authorized>
+        <div class="card">
+            <div class="row">
+                <RadzenText TextAlign="TextAlign.Center" TextStyle="TextStyle.H4">Manage Account</RadzenText>
+            </div>
+            <div class="form-group field">
+                <div class="row p-2">
+                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Update personal information" Click="@Update"/>
+                </div>
+                <div class="row p-2">
+                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@((args) => DeleteButtonClicked())"/>
+                </div>
+                <div class="row p-2">
+                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+                </div>
+                <label style="color: @color">@resultMsg</label>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <RadzenCard>
+            <RadzenText>You need to be logged in to view this page.</RadzenText>
+            <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+        </RadzenCard>
+    </NotAuthorized>
+</AuthorizeView>
+
+<div class="card">
+    <div class="form-group field">
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
+
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+        
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21;" ButtonType="ButtonType.Submit" Text="Update personal information" Click="@Update"/>
+        <label style="color: @color">@resultMsg</label>
     </div>
 </div>
 
@@ -50,55 +93,81 @@
     private string resultMsg = "";
     private string color = "";
 
-    private void Logout()
+    private async void Logout()
     {
-        MenuService.Host = false;
-        MenuService.Refugee = false;
+        await authService.LogoutAsync();
+        navMgr.NavigateTo("/");
     }
 
-    private async void DeleteAccountAsync()
+    private async Task DeleteAccountAsync()
     {
-        if (MenuService.Host)
+        string email = authService.GetAuthAsync().Result.Claims.First().Value;
+        
+
+        if (authService.GetAuthAsync().Result.Claims.Any(claim => claim.Value.Equals("HOST")))
         {
-            HostDTO dto = await HostInterface.DeleteAccountAsync(MenuService.HostLogged);
-            if (dto.ErrorMessage.Equals(null))
+            try
             {
-                resultMsg = dto.ErrorMessage;
-                color = "red";
+                HostDTO dto = await HostInterface.DeleteAccountAsync(email);
+                await authService.LogoutAsync();
+                navMgr.NavigateTo("/");
             }
-            else
+            catch (Exception e)
             {
-                resultMsg = "You have deleted your account";
-                color = "green";
+                Console.WriteLine("CRASH!: " + e);
+                throw;
             }
-        }
-        else if (MenuService.Refugee)
-        {
-            Console.WriteLine(MenuService.RefugeeLogged);
             
-            RefugeeDTO dto = await RefugeeInterface.DeleteAccountAsync(MenuService.RefugeeLogged);
-            if (dto.ErrorMessage.Equals(null))
+        }
+        
+        else if (authService.GetAuthAsync().Result.Claims.Any(claim => claim.Value.Equals("REFUGEE")))
+        {
+
+            try
             {
-                //todo change to nav manager go to main page with no user logged in.
-                resultMsg = dto.ErrorMessage;
-                color = "red";
+                RefugeeDTO dto = await RefugeeInterface.DeleteAccountAsync(email);
+                await authService.LogoutAsync();
+                navMgr.NavigateTo("/");
             }
-            else
+            
+            catch (Exception e)
             {
-                resultMsg = "You have deleted your account";
-                color = "green";
+                Console.WriteLine("CRASH!: " + e);
+                throw;
             }
+
+         
         }
         else
         {
             resultMsg = "No one is currently logged in";
             color = "red";
         }
+       
+        
     }
+
+    private async void DeleteButtonClicked()
+    {
+        var areYouSureResult = await dialogService.Confirm("Are you sure you want to delete your account?\nThis action cannot be undone.", "Confirm deletion of account", new ConfirmOptions { OkButtonText = "Delete account", CancelButtonText = "Cancel" });
+        if (areYouSureResult.HasValue && areYouSureResult.Value)
+        {
+            try
+            {
+                await DeleteAccountAsync();
+            }
+            catch (Exception e)
+            {
+               await dialogService.Alert(e.Message, "ERROR");
+            }
+        }
+    }
+    
+    
 
     private void Update()
     {
-        NavigationManager.NavigateTo("/Update");
+        navMgr.NavigateTo("/Update");
     }
 
 }
