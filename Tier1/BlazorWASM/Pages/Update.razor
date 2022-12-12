@@ -12,35 +12,42 @@
 <div class="card">
     <div class="form-group field">
 
-        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@UpdateAsync>
+        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Data="model" Submit=@UpdateAsync>
             <p>
                 <RadzenLabel Component="Password" Text="Password"/>
-                <RadzenPassword @bind-Value=@password />
+                <RadzenPassword Name="Password" @bind-Value=@password />
+                <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
+
             </p>
 
             <p>
                 <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" @bind-Value="@nationality" />
+                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" Value="@nationality" />
             </p>
 
             <p>
                 <RadzenLabel Component="FirstName" Text="First name"/>
                 <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
+                <RadzenRequiredValidator Component="FirstName" Text="First name is required!"/>
+
             </p>
 
             <p>
                 <RadzenLabel Component="MiddleName" Text="Middle name"/>
                 <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
+                
             </p>
 
             <p>
                 <RadzenLabel Component="LastName" Text="Last name"/>
                 <RadzenTextBox Name="LastName" @bind-Value=@lastName />
+                                <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
+
             </p>
 
             <p>
                 <RadzenLabel Component="Gender" Text="Gender"/>
-                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange" @bind-Value="gender" />
+                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange" Value="gender" />
             </p>
             @if (MenuService.Refugee)
             {
@@ -64,9 +71,11 @@
 
 @code {
 
-    class Person
+    public class Person
     {
     }
+
+    Person model = new Person();
 
     private string password = "";
     private string nationality = "";
@@ -94,7 +103,6 @@
             if (host.ErrorMessage.Equals(""))
             {
                 Console.WriteLine("We updated a host.");
-                Clear();
                 resultMsg = "User successfully updated";
                 color = "green";
             }
@@ -110,7 +118,6 @@
             RefugeeDTO refugee = await RefugeeInterface.UpdateInformation(new RefugeeUpdateDTO(MenuService.RefugeeLogged, password, gender[0], nationality, firstName, middleName, lastName, familysize, description));
             if (refugee.ErrorMessage.Equals(""))
             {
-                Clear();
                 resultMsg = "User successfully created";
                 color = "green";
                 Console.WriteLine("We created a refugee.");
@@ -124,17 +131,7 @@
         }
     }
 
-    private void Clear()
-    {
-        password = "";
-        nationality = "";
-        gender = "";
-        firstName = "";
-        middleName = "";
-        lastName = "";
-        familysize = 0;
-        description = "";
-    }
+   
 
 
     private void ChangeNationality(object value)
@@ -186,7 +183,16 @@
             HostDTO dto = await HostInterface.GetHost(MenuService.HostLogged);
             password = dto.Host.Password;
             nationality = dto.Host.Nationality;
-            gender = dto.Host.Gender.ToString();
+            if (dto.Host.Gender.ToString().Equals("F"))
+            {
+                gender = "Female";
+            }
+            else if (dto.Host.Gender.ToString().Equals("M"))
+            {
+                gender = "Male";
+            }else{
+                gender = "Other";
+            }
             firstName = dto.Host.FirstName;
             middleName = dto.Host.MiddleName;
             lastName = dto.Host.LastName;
