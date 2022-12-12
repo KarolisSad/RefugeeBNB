@@ -9,7 +9,7 @@
 <div class="card">
     <div class="form-group field">
 
-        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@Create>
+        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Data="@model" Submit=@Create>
             <p>
                 <RadzenLabel Component="Email" Text="Email"/>
                 <RadzenTextBox Name="Email" @bind-Value=@hostEmail />
@@ -19,7 +19,7 @@
 
             <p>
                 <RadzenLabel Component="country" Text="Country"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Countries) Change="@ChangeCountry"/>
+                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Countries) Change="@ChangeCountry" Value="Countries.First()"/>
             </p>
 
             <p>
@@ -72,6 +72,8 @@
     {
     }
 
+    Person model = new Person();
+    
     private string country = "";
     private string city = "";
     private string streetName = "";
@@ -125,6 +127,11 @@
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         country = (string)str;
         Console.WriteLine($"Value changed to {str}");
+    }
+
+    protected override void OnInitialized()
+    {
+        country = "Denmark";
     }
 
 }
