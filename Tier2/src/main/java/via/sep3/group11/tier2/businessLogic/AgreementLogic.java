@@ -96,6 +96,7 @@ public class AgreementLogic implements AgreementInterface {
             //Update housing
             Optional<Housing> updatedHousing = housingDAO.getHousingById(agreement.get().getHousing().getHousingId());
             updatedHousing.get().setAvailable(false);
+            housingDAO.updateHousing(updatedHousing.get());
 
             // Update agreement
             agreement.get().setAccepted(true);

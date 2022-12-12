@@ -37,10 +37,7 @@ public class AgreementController {
     @PostMapping(value ="/agreements/respond",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<AgreementDTO> respondToAgreement(@RequestBody RespondAgreementDTO dto){
         try{
-            //todo fix
-            System.out.println("DTO ID: " + dto.getAgreementID());
             AgreementDTO respond = agreementInterface.respondToAgreement(dto);
-            System.out.println("Respond ID: " + respond.getAgreement().getAgreementId());
             return new ResponseEntity<>(respond,HttpStatus.CREATED);
         }
         catch (Exception e){

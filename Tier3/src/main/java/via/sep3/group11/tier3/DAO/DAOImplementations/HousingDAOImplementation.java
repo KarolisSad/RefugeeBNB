@@ -80,14 +80,12 @@ public class HousingDAOImplementation implements HousingDaoInterface {
     @Override
     public Housing updateHousing(Housing housing) {
         if (repository.findById(housing.getHousingId()).isPresent()) {
-
             return repository.save(housing);
         }
 
         return null;
     }
 
-    //TODO seems to work - but test when changing status!!
     @Override
     public List<Housing> getAvailableHousing() {
 
