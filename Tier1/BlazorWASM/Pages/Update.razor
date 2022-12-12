@@ -16,35 +16,45 @@
 <div class="card">
     <div class="form-group field">
 
-        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@UpdateAsync>
+        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Data="model" Submit=@UpdateAsync>
             <p>
                 <RadzenLabel Component="Password" Text="Password"/>
-                <RadzenPassword @bind-Value=@password />
+                <RadzenPassword Name="Password" @bind-Value=@password />
+                <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
+
             </p>
 
             <p>
                 <RadzenLabel Component="Nationality" Text="Nationality"/>
                 <RadzenDropDown TValue="string" @bind-Value="@nationality"  AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
+                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" Value="@nationality" />
             </p>
 
             <p>
                 <RadzenLabel Component="FirstName" Text="First name"/>
                 <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
+                <RadzenRequiredValidator Component="FirstName" Text="First name is required!"/>
+
             </p>
 
             <p>
                 <RadzenLabel Component="MiddleName" Text="Middle name"/>
                 <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
+                
             </p>
 
             <p>
                 <RadzenLabel Component="LastName" Text="Last name"/>
                 <RadzenTextBox Name="LastName" @bind-Value=@lastName />
+                                <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
+
             </p>
 
             <p>
                 <RadzenLabel Component="Gender" Text="Gender"/>
                 <RadzenDropDown TValue="string" @bind-Value="gender"  Data=@(GenderCollection) Change="@GenderChange"/>
+
+                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange" Value="gender" />
             </p>
             @if (isRefugee)
             {
@@ -68,9 +78,11 @@
 
 @code {
 
-    class Person
+    public class Person
     {
     }
+
+    Person model = new Person();
 
     private string password = "";
     private string nationality = "";
@@ -110,6 +122,9 @@
                 {
                     navMgr.NavigateTo("/");
                 }
+                Console.WriteLine("We updated a host.");
+                resultMsg = "User successfully updated";
+                color = "green";
             }
             else
             {
@@ -134,6 +149,10 @@
                 {
                     navMgr.NavigateTo("/");
                 }
+
+                resultMsg = "User successfully created";
+                color = "green";
+                Console.WriteLine("We created a refugee.");
             }
             else
             {
@@ -144,17 +163,7 @@
         }
     }
 
-    private void Clear()
-    {
-        password = "";
-        nationality = "";
-        gender = "";
-        firstName = "";
-        middleName = "";
-        lastName = "";
-        familysize = 0;
-        description = "";
-    }
+   
 
 
     private void ChangeNationality(object value)
@@ -193,18 +202,42 @@
         if (isRefugee)
         {
             RefugeeDTO dto = await RefugeeInterface.GetRefugee(authService.GetEmail());
+
+            RefugeeDTO dto = await RefugeeInterface.GetRefugee(MenuService.RefugeeLogged);
+            password = dto.Refugee.Password;
             familysize = dto.Refugee.FamilySize;
             description = dto.Refugee.Description;
             nationality = dto.Refugee.Nationality;
-            gender = dto.Refugee.Gender.ToString();
+            if (dto.Refugee.Gender.ToString().Equals("F"))
+            {
+                gender = "Female";
+            }
+            else if (dto.Refugee.Gender.ToString().Equals("M"))
+            {
+                gender = "Male";
+            }else{
+                gender = "Other";
+            }
             firstName = dto.Refugee.FirstName;
             middleName = dto.Refugee.MiddleName;
             lastName = dto.Refugee.LastName;
         }else
         {
             HostDTO dto = await HostInterface.GetHost(authService.GetEmail());
+
+            HostDTO dto = await HostInterface.GetHost(MenuService.HostLogged);
+            password = dto.Host.Password;
             nationality = dto.Host.Nationality;
-            gender = dto.Host.Gender.ToString();
+            if (dto.Host.Gender.ToString().Equals("F"))
+            {
+                gender = "Female";
+            }
+            else if (dto.Host.Gender.ToString().Equals("M"))
+            {
+                gender = "Male";
+            }else{
+                gender = "Other";
+            }
             firstName = dto.Host.FirstName;
             middleName = dto.Host.MiddleName;
             lastName = dto.Host.LastName;
