@@ -24,13 +24,13 @@
             </p>
             <p>
                 <RadzenLabel Component="Password" Text="Password"/>
-                <RadzenPassword @bind-Value=@password />
+                <RadzenPassword Name="Password" @bind-Value=@password />
                 <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
             </p>
             
             <p>
                 <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
+                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" Value="Nationalities.First()"/>
             </p>
 
             <p>
@@ -52,12 +52,12 @@
             
             <p>
                 <RadzenLabel Component="Gender" Text="Gender"/>
-                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange"/>
+                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange" Value="GenderCollection.First()"/>
             </p>
 
             <p>
                 <RadzenLabel Component="PersonType" Text="Who are you?"/>
-                <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange"/>
+                <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange" Value="PersonTypeCollection.First()"/>
             </p>
 
             <p>
@@ -203,6 +203,13 @@
         var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
         description = (string)str;
         Console.WriteLine($"Description changed to {str}");
+    }
+
+    protected override void OnInitialized()
+    {
+        personType = "host";
+        nationality = "Danish";
+        gender = "Female";
     }
 
 }
