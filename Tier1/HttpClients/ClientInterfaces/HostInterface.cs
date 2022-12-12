@@ -5,8 +5,8 @@ namespace HttpClients.ClientInterfaces;
 
 public interface HostInterface
 {
-    Task<HostDTO> RegisterHostAsync(HostRegisterDTO dto);
-    Task<HostDTO> LoginHostAsync(LoginDTO dto);
+   // Task<HostDTO> RegisterHostAsync(HostRegisterDTO dto);
+    //Task<HostDTO> LoginHostAsync(LoginDTO dto);
 
     Task<HostDTO> GetHostByHousingIdAsync(long housingId);
     

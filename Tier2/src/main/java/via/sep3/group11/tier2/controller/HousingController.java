@@ -22,11 +22,9 @@ public class HousingController {
      * @author Group 11
      * @version 28/11/22
      */
-    HostInterface hostInterface;
     HousingInterface housingInterface;
 
-    public HousingController(HostInterface hostInterface, HousingInterface housingInterface) {
-        this.hostInterface = hostInterface; //todo never used???
+    public HousingController(HousingInterface housingInterface) {
         this.housingInterface = housingInterface;
     }
 
@@ -36,7 +34,6 @@ public class HousingController {
      * @param housing
      * @return
      */
-    @CrossOrigin
     @PostMapping(value = "/housing", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<HousingDTO> addHousing(@RequestBody HousingCreationDTO housing) {
         try {
@@ -45,10 +42,6 @@ public class HousingController {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
-        //return new ResponseEntity<>(new HousingDTO(new Housing(1,new Address("DummyData","DummyData","DummyData","DummyData","DummyData","DummyData"),false), ""), HttpStatus.CREATED);
-
     }
 
     @GetMapping("/housing")
@@ -61,11 +54,9 @@ public class HousingController {
         }
     }
 
-    @CrossOrigin
     @PostMapping("/housing/delete")
     public ResponseEntity<HousingDTO> removeHousing(@RequestBody HousingIdDTO dto) {
         try {
-            System.out.println(dto.getHousingId());
             HousingDTO remove = housingInterface.removeHousing(dto);
             return new ResponseEntity<>(remove, HttpStatus.OK);
         } catch (Exception e) {

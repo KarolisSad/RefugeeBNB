@@ -1,5 +1,6 @@
 package via.sep3.group11.tier2.businessLogic;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface;
@@ -29,6 +30,7 @@ public class HostLogic implements HostInterface {
     private HostCommunicationInterface hostDAO;
     private HousingCommunicationInterface housingDAO;
     private AgreementCommunicationInterface agreementCommunicationInterface;
+    private PasswordEncoder passwordEncoder;
 
     /**
      *
@@ -37,10 +39,11 @@ public class HostLogic implements HostInterface {
      * @param housingDAO: Data Access Object used for accessing Housing-information in the data-tier.
      * @param agreementCommunicationInterface Data Access Object used for accessing Agreement-information in the data-tier.
      */
-    public HostLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO, AgreementCommunicationInterface agreementCommunicationInterface) {
+    public HostLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO, AgreementCommunicationInterface agreementCommunicationInterface, PasswordEncoder passwordEncoder) {
         this.hostDAO = hostDAO;
         this.housingDAO = housingDAO;
         this.agreementCommunicationInterface = agreementCommunicationInterface;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -171,22 +174,34 @@ public class HostLogic implements HostInterface {
         {
             return new HostDTO(null, "The host with the given email does not exist.");
         }
-        else if (dto.getFirstName().isEmpty() ||
-                dto.getLastName().isEmpty() ||
-                dto.getPassword().isEmpty() ||
-                dto.getNationality().isEmpty()) {
-            return new HostDTO(null, "Please fill in all the necessary fields");
-        }
-        else {
-            host.get().setFirstName(dto.getFirstName());
-            host.get().setLastName(dto.getLastName());
-            host.get().setPassword(dto.getPassword());
-            host.get().setMiddleName(dto.getMiddleName());
-            host.get().setGender(dto.getGender());
-            host.get().setNationality(dto.getNationality());
 
-            hostDAO.updateInformation(host.get());
-            return new HostDTO(host.get(), "");
+            Host toBeUpdated = host.get();
+            if (!dto.getFirstName().isBlank()) {
+                toBeUpdated.setFirstName(dto.getFirstName());
+                System.out.println("UPDATING FIRST NAME");
+            }
+
+            toBeUpdated.setMiddleName(dto.getMiddleName());
+            System.out.println("UPDATING MIDDLE NAME");
+
+            if (!dto.getLastName().isBlank()) {
+                toBeUpdated.setLastName(dto.getLastName());
+                System.out.println("UPDATING LAST NAME");
+            }
+            if (!dto.getPassword().isBlank()) {
+                toBeUpdated.setPassword(passwordEncoder.encode(dto.getPassword()));
+                System.out.println("UPDATING PASSWORD");
+            }
+            toBeUpdated.setGender(dto.getGender());
+            System.out.println("UPDATING GENDER");
+            if (!dto.getNationality().isBlank()) {
+                toBeUpdated.setNationality(dto.getNationality());
+                System.out.println("UPDATING NATIONALITY");
+            }
+
+            Host updated = hostDAO.updateInformation(toBeUpdated);
+
+            return new HostDTO(updated, "");
         }
     }
 

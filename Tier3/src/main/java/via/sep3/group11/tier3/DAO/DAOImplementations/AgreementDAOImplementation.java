@@ -32,12 +32,7 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
     @Override
     public Agreement addAgreement(Agreement agreement) {
 
-        System.out.println("Agreement: " + agreement);
-
-        System.out.println("Test getting housing id:;" + agreement.getHousing().getHousingId());
         Optional<Housing> housing = housingRepo.findById(agreement.getHousing().getHousingId());
-
-
         Agreement newAgreement = new Agreement(convertLocalDateToDateObject(agreement.getDate()),
                 agreement.getRefugee(), housing.get(), agreement.getHost());
 
