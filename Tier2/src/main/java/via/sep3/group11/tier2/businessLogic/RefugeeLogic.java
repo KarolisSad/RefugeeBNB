@@ -1,5 +1,4 @@
 package via.sep3.group11.tier2.businessLogic;
-
 import org.springframework.stereotype.Service;
 import via.sep3.group11.tier2.CommunicationInterfaces.AgreementCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
@@ -11,14 +10,13 @@ import via.sep3.group11.tier2.shared.domain.Host;
 import via.sep3.group11.tier2.shared.domain.Refugee;
 import via.sep3.group11.tier2.shared.exceptions.NotUniqueException;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
-
 import java.util.Optional;
 
 /**
  * Class implementing RefugeeInterface
- * Class is implented with @Service-annotation to mark it as a Spring-component.
+ * Class is implemented with @Service-annotation to mark it as a Spring-component.
  * @see via.sep3.group11.tier2.logicInterfaces.RefugeeInterface
- * @version 27/11-2022
+ * @version 12-12-2022
  * @author Group 11
  */
 @Service
@@ -28,8 +26,9 @@ public class RefugeeLogic implements RefugeeInterface {
     private AgreementCommunicationInterface agreementCommunicationInterface;
 
     /**
-     * Constructor used to inject the DAO needed for communicating with the data-tier.
+     * All-argument constructor used to inject the DAOs needed for communicating with the data-tier.
      * @param refugeeDAO: Data Access Object used access Refugee information from the Data-tier.
+     * @param agreementCommunicationInterface Data Access Object used for accessing Agreement-information in the data-tier.
      */
     public RefugeeLogic(RefugeeCommunicationInterface refugeeDAO, AgreementCommunicationInterface agreementCommunicationInterface) {
         this.refugeeDAO = refugeeDAO;
@@ -48,8 +47,6 @@ public class RefugeeLogic implements RefugeeInterface {
     @Override
     public RefugeeDTO registerRefugee(RefugeeRegisterDTO dto) {
         try {
-            //TODO JUST FOR TESTING
-
             Refugee toRegister;
             if (dto.getDescription() == null) {
                 toRegister = new Refugee(dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getFirstName(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth(), 1, "");
@@ -100,6 +97,14 @@ public class RefugeeLogic implements RefugeeInterface {
         return new RefugeeDTO(dummyRefugee,"Password is incorrect");
     }
 
+    /**
+     * Implementation of the method is meant for deleting refugee from the database.
+     * New object is created to house the refugee that needs to be deleted. isEmpty check is done as well as
+     * it is checked if refugee is part of active agreement, if so an error message is shown, otherwise
+     * the refugee is deleted from the database.
+     * @param email refugee email
+     * @return RefugeeDTO
+     */
     @Override
     public RefugeeDTO deleteAccount(String email) {
 
@@ -112,7 +117,7 @@ public class RefugeeLogic implements RefugeeInterface {
         // Check if refugee is part of any agreements. If yes, check if agreement is pending or accepted. If pending -> remove it, else unable to delete.
 
 
-        Optional<Agreement> existingAgreement = agreementCommunicationInterface.getAgreementByRefugeeEmail(email); //TODO
+        Optional<Agreement> existingAgreement = agreementCommunicationInterface.getAgreementByRefugeeEmail(email);
 
         if (existingAgreement.isPresent()) {
             if (existingAgreement.get().isAccepted()) {
@@ -124,18 +129,29 @@ public class RefugeeLogic implements RefugeeInterface {
         }
 
         refugeeDAO.deleteAccount(email);
-
-        System.out.println("Refugee with email: " + email + " deleted");
-
         return new RefugeeDTO(null, "");
     }
 
+    /**
+     * Implementation of the method is meant to change the allowed refugee information.
+     * In the method object is created with the refugee object that needs to be updated and isEmpty check
+     * is done in order to make sure that the correct id is being passed. If so a check is done to make sure that
+     * fields that are required to be filled are. If so the data is updated, otherwise error messages are displayed.
+     * @param dto dto with new data that refugee wants to change with.
+     * @return RefugeeDTO
+     */
     @Override
     public RefugeeDTO updateInformation(RefugeeUpdateDTO dto) {
         Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(dto.getEmail());
         if(refugee.isEmpty())
         {
             return new RefugeeDTO(null, "The host with the given email does not exist.");
+        }
+        else if (dto.getFirstName().isEmpty() ||
+                dto.getLastName().isEmpty() ||
+                dto.getPassword().isEmpty() ||
+                dto.getNationality().isEmpty()) {
+            return new RefugeeDTO(null, "Please fill in all the necessary fields");
         }
         else {
             refugee.get().setFirstName(dto.getFirstName());
@@ -152,13 +168,20 @@ public class RefugeeLogic implements RefugeeInterface {
         }
     }
 
+    /**
+     * Implementation of the method is meant to return a refugee by email.
+     * New object is created with the needed refugee object, isEmpty check is done and if passed
+     * refugee dto object is returned otherwise an error message is displayed.
+     * @param email refugee email
+     * @return RefugeeDTO
+     */
     @Override
     public RefugeeDTO getRefugeeById(String email) {
         Optional<Refugee> refugee = refugeeDAO.getRefugeeByEmail(email);
         if (refugee.isEmpty()) {
             return new RefugeeDTO(null, "Refugee with this email can not be found.");
         }
-        return new RefugeeDTO(refugeeDAO.getRefugeeByEmail(email).get(), "");
+        return new RefugeeDTO(refugee.get(), "");
     }
 
 }
