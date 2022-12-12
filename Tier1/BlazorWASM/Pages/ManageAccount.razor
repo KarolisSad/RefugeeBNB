@@ -1,6 +1,47 @@
 ﻿@page "/ManageAccount"
 @using HttpClients.ClientInterfaces
 @using global::Shared.DTOs
+
+<h3>Manage your account</h3>
+@inject MenuService MenuService;
+@inject RefugeeInterface RefugeeInterface;
+@inject HostInterface HostInterface;
+@inject NavigationManager NavigationManager;
+<div class="help">
+    <div class="help-text">
+        <div class="firstname">First name:</div>
+        <div class="middlename">Middle name:</div>
+        <div class="lastname">Last name:</div>
+        <div class="nationality">Nationality:</div>
+        <div class="nationality">Gender:</div>
+    </div>
+</div>
+<div class="help">
+    <div class="help-text">
+        <div class="help-title">Logging out?</div>
+        <div class="description"></div>
+    </div>
+    <div class="provide-help">
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+    </div>
+</div>
+<div class="help">
+    <div class="help-text">
+        <div class="help-title">Update your account:</div>
+        <div class="description"></div>
+    </div>
+    <div class="provide-help">
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Update personal information" Click="@Update"/>
+    </div>
+</div>
+<div class="help">
+    <div class="help-text">
+        <div class="help-title">Delete your account:</div>
+        <div class="description"></div>
+    </div>
+    <div class="provide-help">
+         <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 18px" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@DeleteAccountAsync"/>
+
 @inject RefugeeInterface RefugeeInterface;
 @inject HostInterface HostInterface;
 @inject AuthInterface authService;

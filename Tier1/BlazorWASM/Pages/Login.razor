@@ -8,6 +8,8 @@
 @inject HostInterface HostInterface;
 @inject RefugeeInterface RefugeeInterface;
 @inject NavigationManager navMgr;
+
+@inject MenuService MenuService;
 @inject AuthInterface authService;
 
 
@@ -16,6 +18,10 @@
     <div class="card">
         <div class="form-group field">
             <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="LoginDTO" Submit=@OnLogin>
+             <p>
+                <RadzenLabel Text="Who are you?"/>
+                <RadzenDropDown TValue="string" Data=@(PersonTypeCollection) Change="@OnChange"/>
+            </p>
 
 
                 <p>

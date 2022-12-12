@@ -1,4 +1,24 @@
 ﻿@page "/"
+
+@inject NavigationManager NavigationManager;
+<PageTitle>Index</PageTitle>
+
+<h1>RefugeeBnB, accomodation assistance for war refugees</h1>
+<p>A place for refugees to find temporary home,</p>
+<p>Due to the current ongoing war crisis in the world, thousands of people are left without home, and we are willing to help. This website is dedicated for
+    helping refugees that are seeking for a safe shelter.</p>
+<div class="help">
+    <div class="help-text">
+        <div class="help-title">Fleeing war?</div>
+        <div class="description">We will find you a temporary home, sign up and you will be taken care of..</div>
+    </div>
+    <div class="provide-help">
+        <RadzenButton Style="color: white; font-weight: bold; background-color: #386761; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Register" Click="@Register"/>
+    </div>
+</div>
+
+// the other approach
+
 @using HttpClients.ClientInterfaces
 @inject AuthInterface authService; 
 
@@ -25,3 +45,10 @@
 
 
 
+
+@code{
+private void Register()
+{
+NavigationManager.NavigateTo("/Register");
+}
+}
