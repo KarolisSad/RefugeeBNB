@@ -20,7 +20,7 @@
 
             <p>
                 <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality"/>
+                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" @bind-Value="@nationality" />
             </p>
 
             <p>
@@ -40,7 +40,7 @@
 
             <p>
                 <RadzenLabel Component="Gender" Text="Gender"/>
-                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange"/>
+                <RadzenDropDown TValue="string" Data=@(GenderCollection) Change="@GenderChange" @bind-Value="gender" />
             </p>
             @if (MenuService.Refugee)
             {
@@ -164,16 +164,27 @@
         if (MenuService.Refugee)
         {
             RefugeeDTO dto = await RefugeeInterface.GetRefugee(MenuService.RefugeeLogged);
+            password = dto.Refugee.Password;
             familysize = dto.Refugee.FamilySize;
             description = dto.Refugee.Description;
             nationality = dto.Refugee.Nationality;
-            gender = dto.Refugee.Gender.ToString();
+            if (dto.Refugee.Gender.ToString().Equals("F"))
+            {
+                gender = "Female";
+            }
+            else if (dto.Refugee.Gender.ToString().Equals("M"))
+            {
+                gender = "Male";
+            }else{
+                gender = "Other";
+            }
             firstName = dto.Refugee.FirstName;
             middleName = dto.Refugee.MiddleName;
             lastName = dto.Refugee.LastName;
         }else if (MenuService.Host)
         {
             HostDTO dto = await HostInterface.GetHost(MenuService.HostLogged);
+            password = dto.Host.Password;
             nationality = dto.Host.Nationality;
             gender = dto.Host.Gender.ToString();
             firstName = dto.Host.FirstName;
