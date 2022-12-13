@@ -1,0 +1,99 @@
+﻿@page "/Agreement"
+@using HttpClients.ClientInterfaces
+@using global::Shared.Domain
+@using global::Shared.DTOs
+@inject AuthInterface authService;
+@inject AgreementInterface agreementService;
+
+<PageTitle>My Agreement</PageTitle>
+
+<AuthorizeView>
+    <NotAuthorized>
+        <RadzenCard>
+            <RadzenText>You need to be logged in to view this page.</RadzenText>
+            <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+        </RadzenCard>  
+    </NotAuthorized>
+    
+    <Authorized>
+        <h3>Agreement</h3>
+        
+        @if (agreement != null)
+        {
+             <div class="card" style="width: 840px">
+            <div class="col-lg-12 product-title">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">Agreement</RadzenText>
+            </div>
+        <div >
+        <div class="row d-flex">
+            <div class="col-lg-2 col-lg-">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Date</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@date</RadzenText>
+            </div>
+            <div class="col-lg-2 ">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">First name</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@hostFirstName</RadzenText>
+            </div>
+            <div class="col-lg-2 ">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Last name</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@hostLastName</RadzenText>
+            </div>
+            <div class="col-lg-2 ">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Nationality</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@street</RadzenText>
+            </div>
+            <div class="col-lg-2 ">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Housing ID</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@houseNumber</RadzenText>
+            </div>
+            <div class="col-lg-2">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@city</RadzenText>
+            </div>
+            <div class="col-lg-2">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@country</RadzenText>
+            </div>
+        </div>
+        </div>
+    </div>
+        }
+        <div>
+            <RadzenText>@resultMessage</RadzenText>
+        </div>
+       
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    Date date;
+    string hostFirstName;
+    string hostLastName;
+    string street;
+    string houseNumber;
+    string city;
+    string country;
+    string resultMessage;
+    Agreement? agreement;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            AgreementDTO dto = await agreementService.GetAgreementByRefugeeEmail(authService.GetEmail());
+            agreement = dto.Agreement;
+            date = agreement.Date;
+            hostFirstName = agreement.Host.FirstName;
+            hostLastName = agreement.Host.LastName;
+            street = agreement.Housing.Address.StreetName;
+            houseNumber = agreement.Housing.Address.HouseNumber;
+            city = agreement.Housing.Address.City;
+            country = agreement.Housing.Address.Country;
+        }
+        catch (Exception e)
+        {
+            resultMessage = e.Message;
+        }
+    }
+
+}

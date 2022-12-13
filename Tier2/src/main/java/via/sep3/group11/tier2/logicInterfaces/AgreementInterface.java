@@ -9,4 +9,5 @@ public interface AgreementInterface {
     AgreementDTO requestAgreement(RequestAgreementDTO dto);
     AgreementDTO respondToAgreement(RespondAgreementDTO dto);
     AgreementListDTO getAllRequestsByHost(AgreementsByHostDTO dto);
+    AgreementDTO getAgreementByRefugeeEmail(String refugeeEmail);
 }

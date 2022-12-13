@@ -2,7 +2,6 @@
 @using HttpClients.ClientInterfaces
 @using global::Shared.DTOs
 
-<h3>Manage your account</h3>
 @inject RefugeeInterface RefugeeInterface;
 @inject HostInterface HostInterface;
 @inject NavigationManager NavigationManager;
@@ -13,23 +12,59 @@
 
 <AuthorizeView>
     <Authorized>
-        <div class="card">
-            <div class="row">
-                <RadzenText TextAlign="TextAlign.Center" TextStyle="TextStyle.H4">Manage Account</RadzenText>
+        <h3>Manage your account</h3>
+        @if (@context.User.Claims.Any(claim => claim.Value.Equals("HOST")))
+        {
+            <div class="help">
+                <div class="help-text">
+                    <div class="help-title">Currently logged in as a host:</div>
+                    <div class="description"></div>
+                </div>
+                <div class="provide-help">
+                    <RadzenText>@authService.GetEmail()</RadzenText>
+                </div>
             </div>
-            <div class="form-group field">
-                <div class="row p-2">
-                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Update personal information" Click="@Update"/>
+        }
+        @if (@context.User.Claims.Any(claim => claim.Value.Equals("REFUGEE")))
+        {
+            <div class="help">
+                <div class="help-text">
+                    <div class="help-title">Currently logged in as a refugee:</div>
+                    <div class="description"></div>
                 </div>
-                <div class="row p-2">
-                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Delete my account" Click="@((args) => DeleteButtonClicked())"/>
+                <div class="provide-help">
+                    <RadzenText>@authService.GetEmail()</RadzenText>
                 </div>
-                <div class="row p-2">
-                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+            </div>
+        }
+        <div class="help">
+                <div class="help-text">
+                    <div class="help-title">Log out:</div>
+                    <div class="description"></div>
                 </div>
-                <label style="color: @color">@resultMsg</label>
+                <div class="provide-help">
+                    <RadzenButton Style="color:white; font-weight: bold; background-color: #455dc7; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Logout" Click="@Logout"/>
+                </div>
+        </div>
+        <div class="help">
+            <div class="help-text">
+                <div class="help-title">Update your account:</div>
+                <div class="description"></div>
+            </div>
+            <div class="provide-help">
+                <RadzenButton Style="color:white; font-weight: bold; background-color: #455dc7; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Update" Click="@Update"/>
             </div>
         </div>
+        <div class="help">
+            <div class="help-text">
+                <div class="help-title">Delete your account:</div>
+                <div class="description"></div>
+            </div>
+            <div class="provide-help">
+                <RadzenButton Style="color:white; font-weight: bold; background-color: #455dc7; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Delete" Click="@DeleteButtonClicked"/>
+            </div>
+        </div>
+
     </Authorized>
     <NotAuthorized>
         <RadzenCard>

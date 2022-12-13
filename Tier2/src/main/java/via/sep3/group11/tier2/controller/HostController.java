@@ -32,7 +32,6 @@ public class HostController {
     @GetMapping("/host/housing/{housingId}")
     public ResponseEntity<HostDTO> getHostByHousingId(@PathVariable ("housingId") long housingId) {
         try {
-            System.out.println("GEtting host by hoiuse id");
             HostDTO hostById = hostLogic.getHostByHousingId(housingId);
             return new ResponseEntity<>(hostById, HttpStatus.OK);
         } catch (Exception e) {

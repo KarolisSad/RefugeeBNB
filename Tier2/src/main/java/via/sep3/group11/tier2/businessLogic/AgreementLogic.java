@@ -86,7 +86,7 @@ public class AgreementLogic implements AgreementInterface {
     @Override
     public AgreementDTO respondToAgreement(RespondAgreementDTO dto) {
         // Agreement check
-        Optional<Agreement> agreement = agreementDAO.getAgreementById(dto.getAgreementID());
+        Optional<Agreement> agreement = agreementDAO.getAgreementById(dto.getAgreementId());
         if (agreement.isEmpty())
         {
             return new AgreementDTO(null,"This agreement no longer exists");
@@ -126,5 +126,16 @@ public class AgreementLogic implements AgreementInterface {
         List<Agreement> a = agreementDAO.getAgreementsByHostId(dto.getHostEmail());
         AgreementListDTO agreementListDTO = new AgreementListDTO(a, "");
         return agreementListDTO;
+    }
+
+    @Override
+    public AgreementDTO getAgreementByRefugeeEmail(String refugeeEmail) {
+        Optional<Agreement> agreement = agreementDAO.getAgreementByRefugeeEmail(refugeeEmail);
+
+        if (agreement.isPresent()) {
+            return new AgreementDTO(agreement.get(), "");
+        }
+
+        return new AgreementDTO(null, "No confirmed agreement found");
     }
 }

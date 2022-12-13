@@ -1,71 +1,159 @@
 @page "/Agreements"
 @using global::Shared.Domain
-@using System.Collections.ObjectModel
-@using Microsoft.AspNetCore.Components
+@using global::Shared.DTOs
+@using HttpClients.ClientInterfaces
+@inject AgreementInterface AgreementInterface
+@inject AuthInterface authService;
+@inject DialogService dialogService;
 
-<h3>Agreements</h3>
-@foreach (Agreement agreement in allAgreements)
-{
-    <div class="card" style="width: 840px">
-        <div class="col-lg-12 product-title">
-            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">Agreement</RadzenText>
-        </div>
-        <div >
-            <div class="row d-flex">
-                <div class="col-lg-2 col-lg-">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Date</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Date)</RadzenText>
+<PageTitle>Agreements</PageTitle>
+
+<AuthorizeView>
+    <NotAuthorized>
+      <RadzenCard>
+          <RadzenText>You need to be logged in to view this page.</RadzenText>
+          <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+      </RadzenCard>  
+    </NotAuthorized>
+
+    <Authorized>
+        
+        <h3>Agreements</h3>
+
+        @foreach (Agreement agreement in myAgreements)
+        {
+            <div class="card" style="width: 840px">
+                <div class="col-lg-12 product-title">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-color-secondary">Agreement</RadzenText>
                 </div>
-                <div class="col-lg-2 ">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">First name</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Refugee.FirstName)</RadzenText>
-                </div>
-                <div class="col-lg-2 ">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Last name</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Refugee.LastName)</RadzenText>
-                </div>
-                <div class="col-lg-2 ">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Nationality</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Refugee.Nationality)</RadzenText>
-                </div>
-                <div class="col-lg-2 ">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Housing ID</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Housing.HousingId)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Host.FirstName)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Host.LastName)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Host.Nationality)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Accepted)</RadzenText>
-                </div>
-                <div class="col-lg-2">
-                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
-                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.AgreementId)</RadzenText>
+                <div >
+                    <div class="row d-flex">
+                        <div class="col-lg-2 col-lg-">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Date</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Date)</RadzenText>
+                        </div>
+                        <div class="col-lg-2 ">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">First name</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Refugee.FirstName)</RadzenText>
+                        </div>
+                        <div class="col-lg-2 ">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Last name</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Refugee.LastName)</RadzenText>
+                        </div>
+                        <div class="col-lg-2 ">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Nationality</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Refugee.Nationality)</RadzenText>
+                        </div>
+                        <div class="col-lg-2 ">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Housing ID</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Housing.HousingId)</RadzenText>
+                        </div>
+                        <div class="col-lg-2">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Host.FirstName)</RadzenText>
+                        </div>
+                        <div class="col-lg-2">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Host.LastName)</RadzenText>
+                        </div>
+                        <div class="col-lg-2">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Host.Nationality)</RadzenText>
+                        </div>
+                        <div class="col-lg-2">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.Accepted)</RadzenText>
+                        </div>
+                        <div class="col-lg-2">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.AgreementId)</RadzenText>
+                        </div>
+                        <div class="col-lg-2">
+                            <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Status</RadzenText>
+                            @if (@agreement.Accepted)
+                            {
+                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">Accepted</RadzenText>
+                            }
+                            else
+                            {
+                                <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">Pending</RadzenText>
+                            }
+                        </div>
+                    </div>
+                    @if (agreement.Accepted)
+                    {
+                        <button class="applyBtn" @onclick="args => DeclineAsync(agreement.AgreementId)">Cancel agreement</button>
+                    }
+                    else
+                    {
+                        <button class="applyBtn" @onclick="args => ConfirmAsync(agreement.AgreementId)">Accept</button>
+                        <button class="applyBtn" @onclick="args => DeclineAsync(agreement.AgreementId)">Decline</button>
+                    }
+
                 </div>
             </div>
-        </div>
-    </div>
-}
 
+        }
+    </Authorized>
+</AuthorizeView>
 @code {
-    private Collection<Agreement> allAgreements;
+    private List<Agreement> myAgreements = new List<Agreement>();
+    private string resultMsg = "";
+    private string color = "";
+    private bool showAlert = false;
+    private AlertStyle alertStyle;
 
-    protected override async void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        allAgreements = new Collection<Agreement>()
+        await base.OnInitializedAsync();
+        await UpdateList();
+    }
+
+    private async Task UpdateList()
+    {
+        showAlert = false;
+        try
         {
-            new Agreement()
-        };
+            AgreementListDTO dto = await AgreementInterface.GetAllRequestsByHostDTOAsync(new AgreementsByHostDTO(authService.GetEmail(), ""));
+            myAgreements = dto.AgreementList;
+        }
+        catch (Exception e)
+        {
+            alertStyle = AlertStyle.Warning;
+            showAlert = true;
+            resultMsg = e.Message;
+        }
+    }
+    private async Task ConfirmAsync(long agreementId)
+    {
+    RespondAgreementDTO dto = await AgreementInterface.RespondToAgreementAsync(new RespondAgreementDTO(agreementId,true,""));
+        if (dto.ErrorMessage.Equals(""))
+        {
+            resultMsg = "";
+            color = "red";
+        }
+
+        await UpdateList();
+
+        await dialogService.Alert("Agreement confirmed");
+    }
+    private async Task DeclineAsync(long agreementId)
+    {
+        RespondAgreementDTO dto = await AgreementInterface.RespondToAgreementAsync(new RespondAgreementDTO(agreementId,false,""));
+        if (dto.ErrorMessage.Equals(""))
+        {
+            resultMsg = "";
+        }
+        else
+        {
+            resultMsg = dto.ErrorMessage;
+            color = "red";
+        }
+
+        await UpdateList();
+        
+        await dialogService.Alert("Agreement cancelled");
+
     }
 
 }

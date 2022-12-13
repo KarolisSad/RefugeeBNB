@@ -1,18 +1,18 @@
 package via.sep3.group11.tier2.shared.DTOs;
 
 public class RespondAgreementDTO {
-    private long agreementID;
+    private long agreementId;
     private boolean accepted;
     private String errorMessage;
 
-    public RespondAgreementDTO(long agreementID, boolean accepted, String errorMessage) {
-        this.agreementID = agreementID;
+    public RespondAgreementDTO(long agreementId, boolean accepted, String errorMessage) {
+        this.agreementId = agreementId;
         this.accepted = accepted;
         this.errorMessage = errorMessage;
     }
 
-    public long getAgreementID() {
-        return agreementID;
+    public long getAgreementId() {
+        return agreementId;
     }
 
     public boolean isAccepted() {
@@ -21,5 +21,14 @@ public class RespondAgreementDTO {
 
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    @Override
+    public String toString() {
+        return "RespondAgreementDTO{" +
+                "agreementID=" + agreementId +
+                ", accepted=" + accepted +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
     }
 }

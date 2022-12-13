@@ -7,5 +7,6 @@ public interface AgreementInterface
 {
     Task<RequestAgreementDTO> RequestAgreementAsync(RequestAgreementDTO dto);
     Task<RespondAgreementDTO> RespondToAgreementAsync(RespondAgreementDTO dto);
-    Task<AgreementsByHostDTO> GetAllRequestsByHostDTOAsync(AgreementsByHostDTO dto);
+    Task<AgreementListDTO> GetAllRequestsByHostDTOAsync(AgreementsByHostDTO dto);
+    Task<AgreementDTO> GetAgreementByRefugeeEmail(string refugeeEmail);
 }

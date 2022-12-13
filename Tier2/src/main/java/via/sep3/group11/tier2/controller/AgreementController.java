@@ -23,13 +23,10 @@ public class AgreementController {
     @PostMapping(value ="/agreements",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<AgreementDTO> requestAgreement(@RequestBody RequestAgreementDTO dto){
         try {
-            System.out.println(dto);
            AgreementDTO created = agreementInterface.requestAgreement(dto);
            return new ResponseEntity<>(created, HttpStatus.CREATED);
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
             return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -54,6 +51,17 @@ public class AgreementController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @GetMapping("/agreements/refugee/{refugeeEmail}")
+    public ResponseEntity<AgreementDTO> getAgreementByRefugeeEmail(@PathVariable("refugeeEmail") String refugeeEmail) {
+        try {
+            AgreementDTO agreement = agreementInterface.getAgreementByRefugeeEmail(refugeeEmail);
+            return new ResponseEntity<>(agreement, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
