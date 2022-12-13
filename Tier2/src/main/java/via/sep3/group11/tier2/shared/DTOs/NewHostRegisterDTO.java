@@ -1,8 +1,10 @@
 package via.sep3.group11.tier2.shared.DTOs;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import via.sep3.group11.tier2.shared.domain.Date;
 
+@AllArgsConstructor
 @Data
 public class NewHostRegisterDTO {
 

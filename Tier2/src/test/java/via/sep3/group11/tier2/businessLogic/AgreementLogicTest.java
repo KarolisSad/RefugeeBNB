@@ -231,8 +231,8 @@ class AgreementLogicTest {
         AgreementDTO result = underTest.respondToAgreement(respondAgreementDTO);
         // verify
         verify(agreementCommunicationInterface).getAgreementById(pendingAgreement1.getAgreementId());
-        verify(housingCommunicationInterface, never()).getHousingById(pendingAgreement1.getAgreementId());
-        verify(housingCommunicationInterface, never()).updateHousing(any());
+        verify(housingCommunicationInterface).getHousingById(pendingAgreement1.getAgreementId());
+        verify(housingCommunicationInterface).updateHousing(any());
         verify(agreementCommunicationInterface, never()).updateAgreement(any());
         verify(agreementCommunicationInterface).deleteAgreement(anyLong());
         assertFalse(result.getAgreement().isAccepted());

@@ -80,7 +80,7 @@ public class HostLogic implements HostInterface {
         Optional<Host> host = hostDAO.getHostByEmail(dto.getEmail());
         if (host.isEmpty())
         {
-            return new HostDTO(null, "Host with email " + host.get().getEmail() + " doesn't exist.");
+            return new HostDTO(null, "Host with email " + dto.getEmail() + " doesn't exist.");
         }
 
         // username & password check

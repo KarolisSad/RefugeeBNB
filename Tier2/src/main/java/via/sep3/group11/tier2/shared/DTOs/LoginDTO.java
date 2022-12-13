@@ -1,5 +1,6 @@
 package via.sep3.group11.tier2.shared.DTOs;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Data;
  * @author Group 11
  *
  */
+@AllArgsConstructor
 @Data
 public class LoginDTO {
 

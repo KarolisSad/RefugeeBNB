@@ -201,7 +201,19 @@ public class Address {
         this.postCode = postCode;
     }
 
-    //    /**
+    @Override
+    public String toString() {
+        return "Address{" +
+                "addressId=" + addressId +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", streetName='" + streetName + '\'' +
+                ", houseNumber='" + houseNumber + '\'' +
+                ", roomNumber='" + roomNumber + '\'' +
+                ", postCode='" + postCode + '\'' +
+                '}';
+    }
+//    /**
 //     * Setter-method used for validating the string given as argument and then setting the objects variable to this.
 //     * Validation of the string is done by calling the SimpleValidateString-method and passing the string-value and the name of the variable as arguments.
 //     * @param postCode: String representation of the post code of the address.
