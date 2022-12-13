@@ -79,9 +79,21 @@ public class HousingDAOImplementation implements HousingDaoInterface {
      */
     @Override
     public Housing updateHousing(Housing housing) {
+
+        Optional<Housing> existing = repository.findById(housing.getHousingId());
+        if (existing.isPresent()) {
+            Housing toUpdate = existing.get();
+            Host host = toUpdate.host;
+            toUpdate = housing;
+            toUpdate.host = host;
+
+            repository.save(toUpdate);
+        }
+        /*
         if (repository.findById(housing.getHousingId()).isPresent()) {
             return repository.save(housing);
         }
+         */
 
         return null;
     }

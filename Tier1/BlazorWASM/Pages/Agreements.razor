@@ -4,6 +4,7 @@
 @using HttpClients.ClientInterfaces
 @inject AgreementInterface AgreementInterface
 @inject AuthInterface authService;
+@inject DialogService dialogService;
 
 <PageTitle>Agreements</PageTitle>
 
@@ -66,9 +67,28 @@
                     <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Host</RadzenText>
                     <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.AgreementId)</RadzenText>
                 </div>
+                <div class="col-lg-2">
+                    <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Status</RadzenText>
+                    @if (@agreement.Accepted)
+                    {
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">Accepted</RadzenText>
+                    }
+                    else
+                    {
+                    <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">Pending</RadzenText>
+                    } 
+                </div>
             </div>
-            <button class="applyBtn" @onclick="args => ConfirmAsync(agreement.AgreementId)">Confirm</button>
-            <button class="applyBtn" @onclick="args => DeclineAsync(agreement.AgreementId)">Decline</button>
+            @if (agreement.Accepted)
+            {
+                <button class="applyBtn" @onclick="args => DeclineAsync(agreement.AgreementId)">Cancel agreement</button>
+            }
+            else
+            {
+                <button class="applyBtn" @onclick="args => ConfirmAsync(agreement.AgreementId)">Accept</button>
+                <button class="applyBtn" @onclick="args => DeclineAsync(agreement.AgreementId)">Decline</button>                
+            }
+
         </div>
     </div>
     
@@ -103,7 +123,7 @@
             resultMsg = e.Message;
         }
     }
-    private async void ConfirmAsync(long agreementId)
+    private async Task ConfirmAsync(long agreementId)
     {
     RespondAgreementDTO dto = await AgreementInterface.RespondToAgreementAsync(new RespondAgreementDTO(agreementId,true,""));
         if (dto.ErrorMessage.Equals(""))
@@ -111,8 +131,12 @@
             resultMsg = "";
             color = "red";
         }
+
+        await UpdateList();
+
+        await dialogService.Alert("Agreement confirmed");
     }
-    private async void DeclineAsync(long agreementId)
+    private async Task DeclineAsync(long agreementId)
     {
         RespondAgreementDTO dto = await AgreementInterface.RespondToAgreementAsync(new RespondAgreementDTO(agreementId,false,""));
         if (dto.ErrorMessage.Equals(""))
@@ -124,6 +148,11 @@
             resultMsg = dto.ErrorMessage;
             color = "red";
         }
+
+        await UpdateList();
+        
+        await dialogService.Alert("Agreement cancelled");
+
     }
 
 }

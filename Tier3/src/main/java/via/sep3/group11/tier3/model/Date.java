@@ -50,8 +50,6 @@ import java.time.LocalDate;
         }
 
     public static LocalDate convertDateObjectToLocalDate(Date date) {
-        System.out.println("Trying to convert: " + date);
-        System.out.println("LocalDate: " + LocalDate.of(date.getYear(), date.getMonth(), date.getDay()));
         return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }
 

@@ -86,7 +86,7 @@ public class AgreementLogic implements AgreementInterface {
     @Override
     public AgreementDTO respondToAgreement(RespondAgreementDTO dto) {
         // Agreement check
-        Optional<Agreement> agreement = agreementDAO.getAgreementById(dto.getAgreementID());
+        Optional<Agreement> agreement = agreementDAO.getAgreementById(dto.getAgreementId());
         if (agreement.isEmpty())
         {
             return new AgreementDTO(null,"This agreement no longer exists");
