@@ -1,5 +1,6 @@
 package via.sep3.group11.tier2.shared.domain;
 
+import via.sep3.group11.tier2.shared.DTOs.LoginDTO;
 import via.sep3.group11.tier2.shared.exceptions.ValidationException;
 
 import java.util.List;
@@ -92,7 +93,22 @@ public class Host {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-//                          GRAVE OF GREAT CODE :(
+
+    @Override
+    public String toString() {
+        return "Host{" +
+                "firstName='" + firstName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                ", nationality='" + nationality + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", housingList=" + housingList +
+                '}';
+    }
+    //                          GRAVE OF GREAT CODE :(
 
 
 //    /**

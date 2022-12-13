@@ -23,7 +23,7 @@ public interface RefugeeInterface {
      * @throws NotUniqueException: If the host specified by the DTO is already present in the Data tier.
      * @throws ValidationException: If any of the information in the DTO fails validation.
      */
-    RefugeeDTO registerRefugee(RefugeeRegisterDTO dto) throws NotUniqueException, ValidationException;
+    RefugeeDTO registerRefugee(RefugeeRegisterDTO dto);
     /**
      * Method used to login an already existing refugee.
      * The implementation of this should validate the information in the DTO, and return an object representation of the refugee logging in.
@@ -31,7 +31,7 @@ public interface RefugeeInterface {
      * @return An object representation of the refugee logged in.
      * @throws ValidationException if no refugee corresponding to the email in the dto is found, or if the password and email given does not match.
      */
-    RefugeeDTO loginRefugee(LoginDTO dto) throws ValidationException;
+    RefugeeDTO loginRefugee(LoginDTO dto);
     RefugeeDTO deleteAccount(String email);
     RefugeeDTO updateInformation(RefugeeUpdateDTO dto);
     RefugeeDTO getRefugeeById(String email);

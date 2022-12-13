@@ -15,7 +15,6 @@ import via.sep3.group11.tier2.CommunicationInterfaces.HostCommunicationInterface
 import via.sep3.group11.tier2.CommunicationInterfaces.HousingCommunicationInterface;
 import via.sep3.group11.tier2.CommunicationInterfaces.RefugeeCommunicationInterface;
 import via.sep3.group11.tier2.Tier2Application;
-import via.sep3.group11.tier2.logicInterfaces.HostInterface;
 import via.sep3.group11.tier2.logicInterfaces.RefugeeInterface;
 import via.sep3.group11.tier2.shared.DTOs.*;
 import via.sep3.group11.tier2.shared.domain.*;
