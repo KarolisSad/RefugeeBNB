@@ -36,6 +36,7 @@ public class AgreementImpl:AgreementInterface
 
     public async Task<RespondAgreementDTO> RespondToAgreementAsync(RespondAgreementDTO dto)
     {
+        Console.Write("hello");
         HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements/respond", dto);
                
         string content = await responseMessage.Content.ReadAsStringAsync();
@@ -52,8 +53,9 @@ public class AgreementImpl:AgreementInterface
         return agreement;
     }
 
-    public async Task<AgreementsByHostDTO> GetAllRequestsByHostDTOAsync(AgreementsByHostDTO dto)
+    public async Task<AgreementListDTO> GetAllRequestsByHostDTOAsync(AgreementsByHostDTO dto)
     {
+        Console.Write("HEY");
         HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements/host", dto);
                
         string content = await responseMessage.Content.ReadAsStringAsync();
@@ -62,7 +64,7 @@ public class AgreementImpl:AgreementInterface
             throw new Exception(content);
         }
        
-        AgreementsByHostDTO agreements = JsonSerializer.Deserialize<AgreementsByHostDTO>(content, new JsonSerializerOptions
+        AgreementListDTO agreements = JsonSerializer.Deserialize<AgreementListDTO>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;

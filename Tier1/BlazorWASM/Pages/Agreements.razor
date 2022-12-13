@@ -7,19 +7,23 @@
 
 <PageTitle>Agreements</PageTitle>
 
+@* <AuthorizeView> *@
+@*     <Authorized> *@
+        
+    
 <AuthorizeView>
     <Authorized>
         
     </Authorized>
     <NotAuthorized>
-        <RadzenCard>
-            <RadzenText>You need to be logged in to view this page.</RadzenText>
-            <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
-        </RadzenCard>  
+      <RadzenCard>
+          <RadzenText>You need to be logged in to view this page.</RadzenText>
+          <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+      </RadzenCard>  
     </NotAuthorized>
 </AuthorizeView>
 
-<h3>Agreements</h3>
+    <h3>Agreements</h3>
 
 @foreach (Agreement agreement in myAgreements)
 {
@@ -70,12 +74,19 @@
                     <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.AgreementId)</RadzenText>
                 </div>
             </div>
-            <button class="applyBtn" @onclick="args => Confirm(agreement.AgreementId)">Apply for</button>
-            <button class="applyBtn" @onclick="args => Decline(agreement.AgreementId)">Apply for</button>
+            <button class="applyBtn" @onclick="args => Confirm(agreement.AgreementId)">Confirm</button>
+            <button class="applyBtn" @onclick="args => Decline(agreement.AgreementId)">Decline</button>
         </div>
     </div>
-}
-
+}  
+<!--</Authorized> * *-->
+@*   <NotAuthorized> *@
+@*         <RadzenCard> *@
+@*             <RadzenText>You need to be logged in to view this page.</RadzenText> *@
+@*             <RadzenImage Path="images/unauthorized.jpg"></RadzenImage> *@
+@*         </RadzenCard>   *@
+@*     </NotAuthorized> *@
+@* </AuthorizeView> *@
 @code {
     private List<Agreement> myAgreements = new List<Agreement>();
     private string resultMsg = "";
@@ -94,8 +105,8 @@
         showAlert = false;
         try
         {
-            AgreementsByHostDTO dto = await AgreementInterface.GetAllRequestsByHostDTOAsync(new AgreementsByHostDTO(authService.GetEmail(), ""));
-            myAgreements.Add();
+            AgreementListDTO dto = await AgreementInterface.GetAllRequestsByHostDTOAsync(new AgreementsByHostDTO(authService.GetEmail(), ""));
+            myAgreements = dto.AgreementList;
         }
         catch (Exception e)
         {
@@ -104,22 +115,27 @@
             resultMsg = e.Message;
         }
     }
-    // private async void Confirm(long agreementId)
-    // {
-    //     RespondAgreementDTO dto = await AgreementInterface.RespondToAgreementAsync(new RespondAgreementDTO());
-    //     if (dto.ErrorMessage.Equals(""))
-    //     {
-    //         resultMsg = "";
-    //         color = "red";
-    //     }
-    // }
-    private void Confirm(long agreementId)
+    private async void Confirm(long agreementId)
     {
-        throw new NotImplementedException();
+    RespondAgreementDTO dto = await AgreementInterface.RespondToAgreementAsync(new RespondAgreementDTO(agreementId,true,""));
+        if (dto.ErrorMessage.Equals(""))
+        {
+            resultMsg = "";
+            color = "red";
+        }
     }
-    private void Decline(long agreementId)
+    private async void Decline(long agreementId)
     {
-        throw new NotImplementedException();
+        RespondAgreementDTO dto = await AgreementInterface.RespondToAgreementAsync(new RespondAgreementDTO(agreementId,false,""));
+        if (dto.ErrorMessage.Equals(""))
+        {
+            resultMsg = "";
+        }
+        else
+        {
+            resultMsg = dto.ErrorMessage;
+            color = "red";
+        }
     }
 
 }

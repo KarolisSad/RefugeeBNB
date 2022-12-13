@@ -37,6 +37,8 @@ public class AgreementController {
     @PostMapping(value ="/agreements/respond",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<AgreementDTO> respondToAgreement(@RequestBody RespondAgreementDTO dto){
         try{
+            System.out.println("Hello");
+            System.out.println(dto.toString());
             AgreementDTO respond = agreementInterface.respondToAgreement(dto);
             return new ResponseEntity<>(respond,HttpStatus.CREATED);
         }
