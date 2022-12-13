@@ -8,17 +8,16 @@
 @inject NavigationManager navMgr;
 
 <AuthorizeView>
-    <Authorized>
-        
-    </Authorized>
-    <NotAuthorized>
-      <RadzenCard>
-          <RadzenText>You need to be logged in to view this page.</RadzenText>
-          <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
-      </RadzenCard>  
-    </NotAuthorized>
-</AuthorizeView>
 
+
+    <NotAuthorized>
+        <RadzenCard>
+            <RadzenText>You need to be logged in to view this page.</RadzenText>
+            <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+        </RadzenCard>  
+    </NotAuthorized>
+    
+    <Authorized>
 <h3>Add Housing</h3>
 
         <div class="card">
@@ -72,7 +71,8 @@
                     <RadzenAlert Visible="@showAlert" AlertStyle="AlertStyle.Danger">@resultMsg</RadzenAlert>
                 </div>
         </div>
-
+        </Authorized>
+</AuthorizeView>
     @code {
 
     public class Person

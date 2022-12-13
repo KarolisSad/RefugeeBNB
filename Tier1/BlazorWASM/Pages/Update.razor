@@ -10,69 +10,76 @@
 @inject AuthInterface authService;
 @inject DialogService dialogService;
 @inject NavigationManager navMgr;
+<AuthorizeView>
+    <Authorized>
+        <h3>Update</h3>
 
-<h3>Update</h3>
+        <div class="card">
+            <div class="form-group field">
 
-<div class="card">
-    <div class="form-group field">
+                <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Data="model" Submit=@UpdateAsync Context="templateContext">
+                    <p>
+                        <RadzenLabel Component="Password" Text="Password"/>
+                        <RadzenPassword Name="Password" @bind-Value=@password/>
+                        <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
 
-        <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Data="model" Submit=@UpdateAsync>
-            <p>
-                <RadzenLabel Component="Password" Text="Password"/>
-                <RadzenPassword Name="Password" @bind-Value=@password />
-                <RadzenRequiredValidator Component="Password" Text="Password is required!"/>
+                    </p>
 
-            </p>
+                    <p>
+                        <RadzenLabel Component="Nationality" Text="Nationality"/>
+                        <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" Value="@nationality"/>
+                    </p>
 
-            <p>
-                <RadzenLabel Component="Nationality" Text="Nationality"/>
-                <RadzenDropDown TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Nationalities) Change="@ChangeNationality" Value="@nationality" />
-            </p>
+                    <p>
+                        <RadzenLabel Component="FirstName" Text="First name"/>
+                        <RadzenTextBox Name="FirstName" @bind-Value=@firstName/>
+                        <RadzenRequiredValidator Component="FirstName" Text="First name is required!"/>
 
-            <p>
-                <RadzenLabel Component="FirstName" Text="First name"/>
-                <RadzenTextBox Name="FirstName" @bind-Value=@firstName />
-                <RadzenRequiredValidator Component="FirstName" Text="First name is required!"/>
+                    </p>
 
-            </p>
+                    <p>
+                        <RadzenLabel Component="MiddleName" Text="Middle name"/>
+                        <RadzenTextBox Name="MiddleName" @bind-Value=@middleName/>
 
-            <p>
-                <RadzenLabel Component="MiddleName" Text="Middle name"/>
-                <RadzenTextBox Name="MiddleName" @bind-Value=@middleName />
-                
-            </p>
+                    </p>
 
-            <p>
-                <RadzenLabel Component="LastName" Text="Last name"/>
-                <RadzenTextBox Name="LastName" @bind-Value=@lastName />
-                                <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
+                    <p>
+                        <RadzenLabel Component="LastName" Text="Last name"/>
+                        <RadzenTextBox Name="LastName" @bind-Value=@lastName/>
+                        <RadzenRequiredValidator Component="LastName" Text="Last name is required!"/>
 
-            </p>
+                    </p>
 
-            <p>
-                <RadzenLabel Component="Gender" Text="Gender"/>
-                <RadzenDropDown TValue="string" @bind-Value="gender"  Data=@(GenderCollection) Change="@GenderChange"/>
-            </p>
-            @if (isRefugee)
-            {
-                <p>
-                    <RadzenLabel Component="familySize" Text="Family Size"/>
-                    <RadzenNumeric TValue="int" Min="1" Max="50" @bind-Value=@familysize  />
-                </p>
-                <p>
-                    <RadzenLabel Component="description" Text="Additional Information"/>
-                    <RadzenTextArea @bind-Value=@description TValue="string" Change=@DescriptionChange />
-                </p>
-            }
-            <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@UpdateAsync"/>
+                    <p>
+                        <RadzenLabel Component="Gender" Text="Gender"/>
+                        <RadzenDropDown TValue="string" @bind-Value="gender" Data=@(GenderCollection) Change="@GenderChange"/>
+                    </p>
+                    @if (isRefugee)
+                    {
+                        <p>
+                            <RadzenLabel Component="familySize" Text="Family Size"/>
+                            <RadzenNumeric TValue="int" Min="1" Max="50" @bind-Value=@familysize/>
+                        </p>
+                        <p>
+                            <RadzenLabel Component="description" Text="Additional Information"/>
+                            <RadzenTextArea @bind-Value=@description TValue="string" Change=@DescriptionChange/>
+                        </p>
+                    }
+                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@UpdateAsync"/>
 
-        </RadzenTemplateForm>
+                </RadzenTemplateForm>
 
-        <label style="color: @color">@resultMsg</label>
-    </div>
-</div>
-
-
+                <label style="color: @color">@resultMsg</label>
+            </div>
+        </div>
+    </Authorized>
+        <NotAuthorized>
+          <RadzenCard>
+              <RadzenText>You need to be logged in to view this page.</RadzenText>
+              <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+          </RadzenCard>  
+        </NotAuthorized>
+</AuthorizeView>
 @code {
 
     public class Person
