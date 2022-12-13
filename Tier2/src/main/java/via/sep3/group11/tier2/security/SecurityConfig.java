@@ -50,10 +50,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "api/hosts/**").hasAuthority("HOST")
                 .antMatchers(HttpMethod.POST, "/api/housing").hasAuthority("HOST") // Only hosts can post housing
                 .antMatchers(HttpMethod.POST, "/api/housing/delete").hasAuthority("HOST") // Only hosts can delete housing
-                .antMatchers(HttpMethod.POST, "/api/agreements").hasAuthority("REFUGEE") // Only refugees can request agreements
-                .antMatchers(HttpMethod.POST, "/api/agreements/respond").hasAuthority("HOST") // Only Hosts can update agreements
-                .antMatchers(HttpMethod.POST, "/api/agreements/host").hasAuthority("HOST") // Only Hosts can see all their own requests
-                .antMatchers("/api/housing/{hostEmail}").hasAuthority("HOST")
+//                .antMatchers(HttpMethod.POST, "/api/agreements").hasAuthority("REFUGEE") // Only refugees can request agreements
+//                .antMatchers(HttpMethod.POST, "/api/agreements/respond").hasAuthority("HOST") // Only Hosts can update agreements
+//                .antMatchers(HttpMethod.POST, "/api/agreements/host").hasAuthority("HOST") // Only Hosts can see all their own requests
+//                .antMatchers("/api/housing/{hostEmail}").hasAuthority("HOST")
                 .anyRequest().authenticated() // Any other request must be authenticated
                 .and()
                 .httpBasic(); // Use http
