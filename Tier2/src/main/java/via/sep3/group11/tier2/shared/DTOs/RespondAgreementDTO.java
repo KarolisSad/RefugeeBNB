@@ -22,4 +22,13 @@ public class RespondAgreementDTO {
     public String getErrorMessage() {
         return errorMessage;
     }
+
+    @Override
+    public String toString() {
+        return "RespondAgreementDTO{" +
+                "agreementID=" + agreementID +
+                ", accepted=" + accepted +
+                ", errorMessage='" + errorMessage + '\'' +
+                '}';
+    }
 }

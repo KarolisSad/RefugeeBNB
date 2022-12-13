@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text.Json;
 using HttpClients.ClientInterfaces;
 using Shared.Domain;
@@ -8,17 +9,19 @@ namespace HttpClients.ClientImplementations;
 
 public class AgreementImpl:AgreementInterface
 {
-    private HttpClient Client;
+    private readonly HttpClient client;
+
 
     public AgreementImpl(HttpClient client)
     {
-        Client = client;
+        this.client = client;
     }
+
 
     public async Task<RequestAgreementDTO> RequestAgreementAsync(RequestAgreementDTO dto)
     {
-        Console.WriteLine(dto.HostEmail);
-        HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements", dto);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/agreements", dto);
                
                string content = await responseMessage.Content.ReadAsStringAsync();
                if (!responseMessage.IsSuccessStatusCode)
@@ -36,7 +39,8 @@ public class AgreementImpl:AgreementInterface
 
     public async Task<RespondAgreementDTO> RespondToAgreementAsync(RespondAgreementDTO dto)
     {
-        HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements/respond", dto);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/agreements/respond", dto);
                
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
@@ -52,9 +56,10 @@ public class AgreementImpl:AgreementInterface
         return agreement;
     }
 
-    public async Task<AgreementsByHostDTO> GetAllRequestsByHostDTOAsync(AgreementsByHostDTO dto)
+    public async Task<AgreementListDTO> GetAllRequestsByHostDTOAsync(AgreementsByHostDTO dto)
     {
-        HttpResponseMessage responseMessage = await Client.PostAsJsonAsync("/api/agreements/host", dto);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
+        HttpResponseMessage responseMessage = await client.PostAsJsonAsync("/api/agreements/host", dto);
                
         string content = await responseMessage.Content.ReadAsStringAsync();
         if (!responseMessage.IsSuccessStatusCode)
@@ -62,7 +67,7 @@ public class AgreementImpl:AgreementInterface
             throw new Exception(content);
         }
        
-        AgreementsByHostDTO agreements = JsonSerializer.Deserialize<AgreementsByHostDTO>(content, new JsonSerializerOptions
+        AgreementListDTO agreements = JsonSerializer.Deserialize<AgreementListDTO>(content, new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true
         })!;

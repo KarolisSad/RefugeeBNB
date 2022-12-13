@@ -7,73 +7,73 @@
 @inject DialogService dialogService;
 @inject NavigationManager navMgr;
 
-
 <AuthorizeView>
+
+
+    <NotAuthorized>
+        <RadzenCard>
+            <RadzenText>You need to be logged in to view this page.</RadzenText>
+            <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+        </RadzenCard>  
+    </NotAuthorized>
+    
     <Authorized>
+<h3>Add Housing</h3>
+
         <div class="card">
             <div class="form-group field">
-
                 <RadzenTemplateForm Style="color: #1a1e21; font-weight: bold;" TItem="Person" Submit=@Create Context="templateContext">
-                    <p>
-                        <RadzenLabel Component="country" Text="Country"/>
-                        <RadzenDropDown @bind-Value="@country" TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Countries) Change="@ChangeCountry"/>
-                    </p>
+                        <p>
+                            <RadzenLabel Component="country" Text="Country"/>
+                            <RadzenDropDown @bind-Value="@country" TValue="string" AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Data=@(Countries) Change="@ChangeCountry"/>
+                        </p>
 
-                    <p>
-                        <RadzenLabel Component="city" Text="City"/>
-                        <RadzenTextBox Name="city" @bind-Value=@city />
-                        <RadzenRequiredValidator Component="city" Text="city is required!"/>
-                    </p>
+                        <p>
+                            <RadzenLabel Component="city" Text="City"/>
+                            <RadzenTextBox Name="city" @bind-Value=@city/>
+                            <RadzenRequiredValidator Component="city" Text="city is required!"/>
+                        </p>
 
-                    <p>
-                        <RadzenLabel Component="streetName" Text="Street name"/>
-                        <RadzenTextBox Name="streetName" @bind-Value=@streetName />
-                        <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
-                    </p>
+                        <p>
+                            <RadzenLabel Component="streetName" Text="Street name"/>
+                            <RadzenTextBox Name="streetName" @bind-Value=@streetName/>
+                            <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
+                        </p>
 
-                    <p>
-                        <RadzenLabel Component="houseNumber" Text="House number"/>
-                        <RadzenTextBox Name="houseNumber" @bind-Value=@houseNumber />
-                        <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
-                    </p>
+                        <p>
+                            <RadzenLabel Component="houseNumber" Text="House number"/>
+                            <RadzenTextBox Name="houseNumber" @bind-Value=@houseNumber/>
+                            <RadzenRequiredValidator Component="streetName" Text="streetName name is required!"/>
+                        </p>
 
-                    <p>
-                        <RadzenLabel Component="roomNumber" Text="Room number"/>
-                        <RadzenTextBox Name="roomNumber" @bind-Value=@roomNumber />
-                    </p>
+                        <p>
+                            <RadzenLabel Component="roomNumber" Text="Room number"/>
+                            <RadzenTextBox Name="roomNumber" @bind-Value=@roomNumber/>
+                        </p>
 
-                    <p>
-                        <RadzenLabel Component="postCode" Text="Post code"/>
-                        <RadzenTextBox Name="postCode" @bind-Value=@postCode />
-                        <RadzenRequiredValidator Component="postCode" Text="postCode name is required!"/>
-                    </p>
+                        <p>
+                            <RadzenLabel Component="postCode" Text="Post code"/>
+                            <RadzenTextBox Name="postCode" @bind-Value=@postCode/>
+                            <RadzenRequiredValidator Component="postCode" Text="postCode name is required!"/>
+                        </p>
 
-                    <p>
-                        <RadzenLabel Component="capacity" Text="Capacity"/>
-                        <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@capacity />
-                        <RadzenRequiredValidator Component="capacity" Text="capacity name is required!"/>
-                    </p>
+                        <p>
+                            <RadzenLabel Component="capacity" Text="Capacity"/>
+                            <RadzenNumeric TValue="int" Min="1" Max="10" @bind-Value=@capacity/>
+                            <RadzenRequiredValidator Component="capacity" Text="capacity name is required!"/>
+                        </p>
 
 
-                    <RadzenButton Style="color: white; font-weight: bold; background-color: #6a1a21" ButtonType="ButtonType.Submit" Text="Create" Click="@Create"/>
+                        <RadzenButton Style="color: white; font-weight: bold; background-color: #455dc7" ButtonType="ButtonType.Submit" Text="Create" Click="@Create"/>
 
-                </RadzenTemplateForm>
+                    </RadzenTemplateForm>
 
-                <RadzenAlert Visible="@showAlert" AlertStyle="AlertStyle.Danger">@resultMsg</RadzenAlert>
-            </div>
+                    <RadzenAlert Visible="@showAlert" AlertStyle="AlertStyle.Danger">@resultMsg</RadzenAlert>
+                </div>
         </div>
-    </Authorized>
-    <NotAuthorized>
-         <RadzenCard>
-                    <RadzenText>You need to be logged in as a Host to view this page.</RadzenText>
-                    <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
-                </RadzenCard>
-    </NotAuthorized>
+        </Authorized>
 </AuthorizeView>
-
-
-
-@code {
+    @code {
 
     public class Person
     {
@@ -113,8 +113,8 @@
             Clear();
             var dialogResult = await dialogService.Confirm("Housing added. Choose next action below.", "Success", new ConfirmOptions
             {
+                CancelButtonText = "Add more housing",
                 OkButtonText = "Go to overview of added housing",
-                CancelButtonText = "Add more housing"
             });
             if (dialogResult.HasValue && dialogResult.Value)
             {
