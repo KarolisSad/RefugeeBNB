@@ -1,39 +1,38 @@
 ﻿@page "/"
 @using HttpClients.ClientInterfaces
 @inject AuthInterface authService; 
-@inject NavigationManager NavigationManager;
+@inject NavigationManager navMgr;
 <PageTitle>Index</PageTitle>
-    
-<RadzenCard>
 <AuthorizeView>
-    <Authorized>
-        <RadzenText> Currently logged in as: </RadzenText>
-        <RadzenText>@authService.GetEmail()</RadzenText>
-    </Authorized>
     <NotAuthorized>
-        
-        <div class="row p-2">
-            <RadzenText TextStyle="TextStyle.Body1">RefugeeBnB, accomodation assistance for war refugees</RadzenText>
+    <h1>RefugeeBnb</h1>
+    <p>A place for refugees to find temporary home,</p>
+    <p>Due to the current ongoing war crisis in the world, thousands of people are left without home, and we are willing to help. This website is dedicated for
+        helping refugees that are seeking for a safe shelter.</p>
+
+    <div class="help">
+        <div class="help-text">
+            <div class="help-title">Fleeing war?</div>
+            <div class="description">We will find you a temporary home, sign up and you will be taken care of..</div>
         </div>
-
-    </NotAuthorized>
-</AuthorizeView>
-</RadzenCard>
-<p>A place for refugees to find temporary home,</p>
-<p>Due to the current ongoing war crisis in the world, thousands of people are left without home, and we are willing to help. This website is dedicated for
-    helping refugees that are seeking for a safe shelter.</p>
-<div class="help">
-    <div class="help-text">
-        <div class="help-title">Fleeing war?</div>
-        <div class="description">We will find you a temporary home, sign up and you will be taken care of..</div>
+        <div class="provide-help">
+                <RadzenButton Style="color:white; font-weight: bold; background-color: #455dc7; margin-bottom: 10px" ButtonType="ButtonType.Submit" Text="Register" Click="@Register"/>
+        </div>
     </div>
-</div>
-
-
-
+    </NotAuthorized>
+    <Authorized>
+        <h1>RefugeeBnb</h1>
+            <p>A place for refugees to find temporary home,</p>
+            <p>Due to the current ongoing war crisis in the world, thousands of people are left without home, and we are willing to help. This website is dedicated for
+                helping refugees that are seeking for a safe shelter.</p>
+    </Authorized>
+</AuthorizeView>
 
 
 
 @code{
-
+    private void Register()
+    {
+        navMgr.NavigateTo("/Register");
+    }
 }

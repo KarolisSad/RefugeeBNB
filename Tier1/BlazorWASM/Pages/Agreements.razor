@@ -1,10 +1,27 @@
 @page "/Agreements"
 @using global::Shared.Domain
-@using System.Collections.ObjectModel
-@using Microsoft.AspNetCore.Components
+@using global::Shared.DTOs
+@using HttpClients.ClientInterfaces
+@inject AgreementInterface AgreementInterface
+@inject AuthInterface authService;
+
+<PageTitle>Agreements</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        
+    </Authorized>
+    <NotAuthorized>
+        <RadzenCard>
+            <RadzenText>You need to be logged in to view this page.</RadzenText>
+            <RadzenImage Path="images/unauthorized.jpg"></RadzenImage>
+        </RadzenCard>  
+    </NotAuthorized>
+</AuthorizeView>
 
 <h3>Agreements</h3>
-@foreach (Agreement agreement in allAgreements)
+
+@foreach (Agreement agreement in myAgreements)
 {
     <div class="card" style="width: 840px">
         <div class="col-lg-12 product-title">
@@ -53,19 +70,56 @@
                     <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(agreement.AgreementId)</RadzenText>
                 </div>
             </div>
+            <button class="applyBtn" @onclick="args => Confirm(agreement.AgreementId)">Apply for</button>
+            <button class="applyBtn" @onclick="args => Decline(agreement.AgreementId)">Apply for</button>
         </div>
     </div>
 }
 
 @code {
-    private Collection<Agreement> allAgreements;
+    private List<Agreement> myAgreements = new List<Agreement>();
+    private string resultMsg = "";
+    private string color = "";
+    private bool showAlert = false;
+    private AlertStyle alertStyle;
 
-    protected override async void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        allAgreements = new Collection<Agreement>()
+        await base.OnInitializedAsync();
+        await UpdateList();
+    }
+
+    private async Task UpdateList()
+    {
+        showAlert = false;
+        try
         {
-            new Agreement()
-        };
+            AgreementsByHostDTO dto = await AgreementInterface.GetAllRequestsByHostDTOAsync(new AgreementsByHostDTO(authService.GetEmail(), ""));
+            myAgreements.Add();
+        }
+        catch (Exception e)
+        {
+            alertStyle = AlertStyle.Warning;
+            showAlert = true;
+            resultMsg = e.Message;
+        }
+    }
+    // private async void Confirm(long agreementId)
+    // {
+    //     RespondAgreementDTO dto = await AgreementInterface.RespondToAgreementAsync(new RespondAgreementDTO());
+    //     if (dto.ErrorMessage.Equals(""))
+    //     {
+    //         resultMsg = "";
+    //         color = "red";
+    //     }
+    // }
+    private void Confirm(long agreementId)
+    {
+        throw new NotImplementedException();
+    }
+    private void Decline(long agreementId)
+    {
+        throw new NotImplementedException();
     }
 
 }
