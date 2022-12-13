@@ -127,4 +127,15 @@ public class AgreementLogic implements AgreementInterface {
         AgreementListDTO agreementListDTO = new AgreementListDTO(a, "");
         return agreementListDTO;
     }
+
+    @Override
+    public AgreementDTO getAgreementByRefugeeEmail(String refugeeEmail) {
+        Optional<Agreement> agreement = agreementDAO.getAgreementByRefugeeEmail(refugeeEmail);
+
+        if (agreement.isPresent()) {
+            return new AgreementDTO(agreement.get(), "");
+        }
+
+        return new AgreementDTO(null, "No confirmed agreement found");
+    }
 }

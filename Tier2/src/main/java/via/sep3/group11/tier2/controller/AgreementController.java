@@ -53,4 +53,15 @@ public class AgreementController {
 
     }
 
+    @GetMapping("/agreements/refugee/{refugeeEmail}")
+    public ResponseEntity<AgreementDTO> getAgreementByRefugeeEmail(@PathVariable("refugeeEmail") String refugeeEmail) {
+        try {
+            AgreementDTO agreement = agreementInterface.getAgreementByRefugeeEmail(refugeeEmail);
+            return new ResponseEntity<>(agreement, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

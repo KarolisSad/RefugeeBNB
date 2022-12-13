@@ -74,4 +74,28 @@ public class AgreementImpl:AgreementInterface
                
         return agreements;
     }
+
+    public async Task<AgreementDTO> GetAgreementByRefugeeEmail(string refugeeEmail)
+    {
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", JwtAuthImpl.Jwt);
+        HttpResponseMessage responseMessage = await client.GetAsync($"/api/agreements/refugee/{refugeeEmail}");
+
+        string content = await responseMessage.Content.ReadAsStringAsync();
+        if (!responseMessage.IsSuccessStatusCode)
+        {
+            throw new Exception(content);
+        }
+
+        AgreementDTO dto = JsonSerializer.Deserialize<AgreementDTO>(content, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+
+        if (!string.IsNullOrWhiteSpace(dto.ErrorMessage))
+        {
+            throw new Exception(dto.ErrorMessage);
+        }
+
+        return dto;
+    }
 }

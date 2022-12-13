@@ -85,6 +85,6 @@ public class AgreementDAOImplementation implements AgreementDaoInterface {
 
     @Override
     public Optional<Agreement> getAgreementByRefugeeEmail(String refugeeEmail) {
-        return agreementRepository.findAgreementByRefugee_Email(refugeeEmail);
+        return agreementRepository.findAgreementByAcceptedIsTrueAndRefugee_Email(refugeeEmail);
     }
 }
