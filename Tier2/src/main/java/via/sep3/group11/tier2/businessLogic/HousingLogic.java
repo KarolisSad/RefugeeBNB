@@ -22,18 +22,16 @@ import java.util.Optional;
 @Service
 public class HousingLogic implements HousingInterface {
 
-    private HostCommunicationInterface hostDAO;
     private HousingCommunicationInterface housingDAO;
     private AgreementCommunicationInterface agreementDAO;
 
     /**
      * All-argument constructor used to inject the three DAO's needed for communicating with the data-tier.
-     * @param hostDAO: Data Access Object used for accessing Host-information in the data-tier.
      * @param housingDAO: Data Access Object used for accessing Housing-information in the data-tier.
      * @param agreementDAO Data Access Object used for accessing Agreement-information in the data-tier.
      */
-    public HousingLogic(HostCommunicationInterface hostDAO, HousingCommunicationInterface housingDAO,AgreementCommunicationInterface agreementDAO) {
-        this.hostDAO = hostDAO;
+    public HousingLogic( HousingCommunicationInterface housingDAO,AgreementCommunicationInterface agreementDAO) {
+
         this.housingDAO = housingDAO;
         this.agreementDAO = agreementDAO;
     }

@@ -15,20 +15,7 @@ import via.sep3.group11.tier2.shared.exceptions.ValidationException;
  * @author Group 11
  */
 public interface HostInterface {
-    /**
-     * Method used to register a new host in the system.
-     * The implementation of this should perform relevant business logic on the call, and return a Host-object from the Data tier.
-     * @param dto: a Domain Transfer Object containing all relevant attributes needed to create a new Host.
-     * @return The created host object.
-     */
-    HostDTO registerHost(HostRegisterDTO dto);
-    /**
-     * Method used to login an already existing host.
-     * The implementation of this should validate the information in the DTO, and return an object representation of the Host logging in.
-     * @param dto: A domain transfer object containing the email and password of the host trying to log in.
-     * @return An object representation of the host logged in.
-     */
-    HostDTO loginHost(LoginDTO dto);
+
     HostDTO getHostByHousingId (long housingId);
     HostDTO deleteAccount(String email);
     HostDTO updateInformation(HostUpdateDTO dto);

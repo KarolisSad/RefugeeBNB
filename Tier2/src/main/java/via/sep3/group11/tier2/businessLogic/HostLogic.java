@@ -46,50 +46,7 @@ public class HostLogic implements HostInterface {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /**
-     * Implementation of method used to create a new host in the data-tier.
-     * This is implemented by creating an empty Host-object, and adding all information stored in the DTO to this, by using the set methods specified.
-     * @see Host for documentation of set methods.
-     * @param dto: a Domain Transfer Object containing all relevant attributes needed to create a new Host.
-     * @return An object representation of the newly created Host-entry in the data-tier.
-     */
-    @Override
-    public HostDTO registerHost(HostRegisterDTO dto) {
-            Host toRegister = new Host(dto.getFirstName(), dto.getEmail(), dto.getPassword(), dto.getGender(), dto.getNationality(), dto.getMiddleName(), dto.getLastName(), dto.getDateOfBirth());
 
-        // host check
-            Optional<Host> existing = hostDAO.getHostByEmail(toRegister.getEmail());
-
-        // if no host found - create
-        return existing.map
-                (host -> new HostDTO(toRegister, "Host with email " + host.getEmail() + " already exists."))
-                .orElseGet(() -> new HostDTO(hostDAO.createHost(toRegister), ""));
-    }
-
-    /**
-     * Implementation of method used to log in an already existing host.
-     * This is implemented by creating an empty Host-object, and adding the email and password information from the DTO to it.
-     * A call is then made to the data-tier to find a host with the specified email.
-     * If such a Host is found, it is verified that the password given in the DTO matches the password stored.
-     * @param dto: A domain transfer object containing the email and password of the host trying to log in.
-     * @return An object representation of the logged in host gotten from the Data-tier.
-     */
-    @Override
-    public HostDTO loginHost(LoginDTO dto) {
-        // host check
-        Optional<Host> host = hostDAO.getHostByEmail(dto.getEmail());
-        if (host.isEmpty())
-        {
-            return new HostDTO(null, "Host with email " + dto.getEmail() + " doesn't exist.");
-        }
-
-        // username & password check
-        if (dto.getPassword().equals(host.get().getPassword()))
-        {
-            return new HostDTO(host.get(),"");
-        }
-            return new HostDTO(null,"Password is incorrect");
-    }
 
     /**
      * Implementation of method used to find a host by housing id as the method implies.

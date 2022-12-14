@@ -35,11 +35,13 @@ public class RefugeeController {
         this.refugeeInterface = refugeeInterface;
     }
 
+    /*
     /**
      * Creates a refugee !!
      * @param refugee
      * @return
-     */
+
+
     @PostMapping(value ="/refugee",produces ={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<RefugeeDTO> createRefugee(@RequestBody RefugeeRegisterDTO refugee){
 
@@ -59,7 +61,7 @@ public class RefugeeController {
      * Gets refugee by email!!
      * @param
      * @return
-     */
+
     @CrossOrigin
     @PostMapping("/refugee/login")
     public ResponseEntity<RefugeeDTO> loginRefugee(@RequestBody LoginDTO loginDTO) {
@@ -73,6 +75,7 @@ public class RefugeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    */
 
 
 
@@ -89,24 +92,6 @@ public class RefugeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    /*
-    @CrossOrigin
-    @PatchMapping("/refugee")
-    public ResponseEntity<RefugeeDTO> updateInformation(@RequestBody RefugeeUpdateDTO refugeeUpdateDTO) {
-        try {
-
-            RefugeeDTO refugee = refugeeInterface.updateInformation(refugeeUpdateDTO);
-            return new ResponseEntity<>(refugee, HttpStatus.OK);
-        }
-
-        catch (Exception e)
-        {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-     */
 
 
     @PostMapping("/refugee/update")
