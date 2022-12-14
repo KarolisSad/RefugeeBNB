@@ -15,5 +15,5 @@ This is the Git repository containing our SEP3 project, Autumn 2022
 - [Karolis Sadeckas](https://github.com/KarolisSad)
 - [Christian Hougaard Pedersen](https://github.com/ChristianHougaardPedersen)
 
-![EVERYTHING IS FINE]([https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.theverge.com%2F2016%2F5%2F5%2F11592622%2Fthis-is-fine-meme-comic&psig=AOvVaw3RQ9x8KbzSbjpHI2aD1SPc&ust=1671138982440000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCLDoxPyD-vsCFQAAAAAdAAAAABAE](https://www.dictionary.com/e/wp-content/uploads/2018/03/thisisfine-1.jpg))
+![EVERYTHING IS FINE](https://www.dictionary.com/e/wp-content/uploads/2018/03/this-is-fine.png)
 
