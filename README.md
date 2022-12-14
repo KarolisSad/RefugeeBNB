@@ -1,15 +1,19 @@
 # Semester Project - Third Semester - VIA University College
 This is the Git repository containing our SEP3 project, Autumn 2022
 
-## Group 11 - BeaverSquad
+# Repository Structure
+- Appendices - Contains appendices required for the final handin
+- Tier 1 - Contains C# Blazor WASM solution
+- Tier 2 - Contains Java Spring project using REST and JWT authentication
+- Tier 3 - Contains Java Spring Data project using gRPC and PostgreSQL
+
+
+### Group 11 - BeaverSquad
 - [Nina Wrona](https://github.com/ninawrona)
 - [Ignas Druskinis](https://github.com/lordIgnacij)
 - [Justina Ieva Bukinaitė](https://github.com/JusteBuu)
 - [Karolis Sadeckas](https://github.com/KarolisSad)
 - [Christian Hougaard Pedersen](https://github.com/ChristianHougaardPedersen)
 
-## Group 11
-### Hello :-)
-![image](https://user-images.githubusercontent.com/90906202/204232940-ce5af8af-f00d-42a1-8945-2bb38f7c0d20.png)
-
+![EVERYTHING IS FINE](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.theverge.com%2F2016%2F5%2F5%2F11592622%2Fthis-is-fine-meme-comic&psig=AOvVaw3RQ9x8KbzSbjpHI2aD1SPc&ust=1671138982440000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCLDoxPyD-vsCFQAAAAAdAAAAABAE)
 
