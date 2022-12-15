@@ -1,0 +1,13 @@
+via.sep3.group11.tier2
+via.sep3.group11.tier2.businessLogic
+via.sep3.group11.tier2.CommunicationInterfaces
+via.sep3.group11.tier2.controller
+via.sep3.group11.tier2.GrpcClients
+via.sep3.group11.tier2.GrpcClients.connections
+via.sep3.group11.tier2.GrpcClients.converters
+via.sep3.group11.tier2.logicInterfaces
+via.sep3.group11.tier2.protobuf
+via.sep3.group11.tier2.security
+via.sep3.group11.tier2.shared.domain
+via.sep3.group11.tier2.shared.DTOs
+via.sep3.group11.tier2.shared.exceptions
