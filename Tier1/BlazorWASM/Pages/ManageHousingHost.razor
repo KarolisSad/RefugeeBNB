@@ -37,11 +37,11 @@
                                 <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.StreetName)</RadzenText>
                             </div>
                             <div class="col">
-                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Number</RadzenText>
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">House Nr.</RadzenText>
                                 <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address.HouseNumber)</RadzenText>
                             </div>
                             <div class="col">
-                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Number</RadzenText>
+                                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" class="mb-0">Room Nr.</RadzenText>
                                 <RadzenText TextStyle="TextStyle.Body2" class="mb-sm-2 mb-lg-0">@(housing.Address?.RoomNumber)</RadzenText>
                             </div>
                             <div class="col">
@@ -72,23 +72,6 @@
             <RadzenAlert AlertStyle=@alertStyle Visible="@showAlert">@resultMsg</RadzenAlert>
         </div>
         
-        @* <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true"  *@
-        @*         FilterMode="FilterMode.Simple" PageSize="5" AllowPaging="true" AllowSorting="true" Data="@myHousing" TItem="Housing" ColumnWidth="300px"  *@
-        @*         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" *@
-        @*         LogicalFilterOperator="LogicalFilterOperator.Or"> *@
-        @*         <Columns> *@
-        @*             <RadzenDataGridColumn TItem="Housing" Property="HouseId" Filterable="false" Title="ID" Frozen="true" Width="80px" TextAlign="TextAlign.Center" /> *@
-        @*             <RadzenDataGridColumn TItem="Housing" Title="Photo" Sortable="false" Filterable="false" Width="200px" > *@
-        @*                 <Template Context="data"> *@
-        @*                 </Template> *@
-        @*             </RadzenDataGridColumn> *@
-        @*             <RadzenDataGridColumn TItem="Address" Property="FirstName" Title="First Name" /> *@
-        @*             <RadzenDataGridColumn TItem="Address" Property="LastName" Title="Last Name" Width="150px"/> *@
-        @*             <RadzenDataGridColumn TItem="Address" Property="BirthDate" Title="Birth Date" FormatString="{0:d}" /> *@
-        @*             <RadzenDataGridColumn TItem="Address" Property="Country" Title="Country" /> *@
-        @*             <RadzenDataGridColumn TItem="Address" Property="Notes" Title="Notes" /> *@
-        @*         </Columns> *@
-        @*     </RadzenDataGrid> *@
     </Authorized>
     <NotAuthorized>
         <RadzenCard>

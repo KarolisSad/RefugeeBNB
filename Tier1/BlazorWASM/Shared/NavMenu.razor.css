@@ -12,7 +12,10 @@
     font-weight: 700;
     font-family: poppins,Arial,sans-serif;
 }
-
+.material-icons{
+    display: inline-flex;
+    vertical-align: middle;
+}
 
 .oi {
     width: 2rem;
