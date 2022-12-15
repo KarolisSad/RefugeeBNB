@@ -63,5 +63,4 @@ public class AgreementController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }
