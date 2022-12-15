@@ -3,9 +3,8 @@ This is the Git repository containing our SEP3 project, Autumn 2022
 
 # Repository Structure
 - Appendices - Contains appendices required for the final handin
-- Tier 1 - Contains C# Blazor WASM solution
-- Tier 2 - Contains Java Spring project using REST and JWT authentication
-- Tier 3 - Contains Java Spring Data project using gRPC and PostgreSQL
+- Program - Contains the source code
+- Link to video.txt - contains a link to a video of the system
 
 
 ### Group 11 - BeaverSquad
